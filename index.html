@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FamilyConnect - Bring Your Family Together</title>
+    <meta name="description" content="The all-in-one platform to map your family tree, connect with relatives, and celebrate your family legacy.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <i class="fas fa-users-line"></i>
+                    <span>FamilyConnect</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary">Sign In</button>
+                    <button class="btn btn-primary">Start Free Trial</button>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="badge">
+                        <i class="fas fa-sparkles"></i>
+                        <span>Connect. Discover. Celebrate.</span>
+                    </div>
+                    <h1 class="hero-title">Your Family's Story<br><span class="gradient-text">All in One Place</span></h1>
+                    <p class="hero-description">
+                        The ultimate platform to build your family tree, connect with relatives near and far, 
+                        and preserve your family's precious memories for generations to come.
+                    </p>
+                    <div class="hero-cta">
+                        <button class="btn btn-primary btn-large">
+                            <span>Start Your Family Tree</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button class="btn btn-outline btn-large">
+                            <i class="fas fa-play"></i>
+                            <span>Watch Demo</span>
+                        </button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <strong>10,000+</strong>
+                            <span>Families Connected</span>
+                        </div>
+                        <div class="stat">
+                            <strong>500K+</strong>
+                            <span>Family Members</span>
+                        </div>
+                        <div class="stat">
+                            <strong>1M+</strong>
+                            <span>Memories Shared</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="tree-illustration">
+                        <div class="tree-node node-1">
+                            <div class="avatar">👴</div>
+                            <span>Grandpa</span>
+                        </div>
+                        <div class="tree-node node-2">
+                            <div class="avatar">👵</div>
+                            <span>Grandma</span>
+                        </div>
+                        <div class="tree-node node-3">
+                            <div class="avatar">👨</div>
+                            <span>Dad</span>
+                        </div>
+                        <div class="tree-node node-4">
+                            <div class="avatar">👩</div>
+                            <span>Mom</span>
+                        </div>
+                        <div class="tree-node node-5">
+                            <div class="avatar">👦</div>
+                            <span>You</span>
+                        </div>
+                        <div class="tree-node node-6">
+                            <div class="avatar">👧</div>
+                            <span>Sister</span>
+                        </div>
+                        <svg class="tree-connections">
+                            <line x1="50%" y1="15%" x2="35%" y2="35%" stroke="#667eea" stroke-width="2"/>
+                            <line x1="50%" y1="15%" x2="65%" y2="35%" stroke="#667eea" stroke-width="2"/>
+                            <line x1="35%" y1="35%" x2="30%" y2="60%" stroke="#667eea" stroke-width="2"/>
+                            <line x1="65%" y1="35%" x2="70%" y2="60%" stroke="#667eea" stroke-width="2"/>
+                            <line x1="30%" y1="60%" x2="35%" y2="85%" stroke="#667eea" stroke-width="2"/>
+                            <line x1="70%" y1="60%" x2="65%" y2="85%" stroke="#667eea" stroke-width="2"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25"></path>
+                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5"></path>
+                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Everything Your Family Needs</h2>
+                <p class="section-subtitle">Powerful features designed to bring your family closer together</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>Interactive Family Tree</h3>
+                    <p>Create stunning, interactive family trees that grow with your family. Zoom, pan, and explore generations with ease.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Unlimited family members</li>
+                        <li><i class="fas fa-check"></i> Visual relationship mapping</li>
+                        <li><i class="fas fa-check"></i> Smart connection highlights</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card featured">
+                    <div class="featured-badge">Most Popular</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3>Connection Pathfinder</h3>
+                    <p>Discover how you're related to any family member. Our smart algorithm visualizes the exact path connecting you.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Search any relative</li>
+                        <li><i class="fas fa-check"></i> Highlighted connection paths</li>
+                        <li><i class="fas fa-check"></i> Relationship degree calculator</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3>Smart Profile Matching</h3>
+                    <p>Avoid duplicates! When family members join, we automatically detect and suggest profile matches.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Duplicate detection</li>
+                        <li><i class="fas fa-check"></i> Profile merge requests</li>
+                        <li><i class="fas fa-check"></i> Data validation</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <h3>Family Social Hub</h3>
+                    <p>Share photos, videos, stories, and memories. A private social network just for your family.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Photo & video sharing</li>
+                        <li><i class="fas fa-check"></i> Family timeline</li>
+                        <li><i class="fas fa-check"></i> Comment & reactions</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Family Business Directory</h3>
+                    <p>Showcase family-owned businesses and support each other's entrepreneurial ventures.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Business profiles</li>
+                        <li><i class="fas fa-check"></i> Contact information</li>
+                        <li><i class="fas fa-check"></i> Family referrals</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-print"></i>
+                    </div>
+                    <h3>Printable Family Trees</h3>
+                    <p>Create beautiful printed trees with custom templates. Choose what to include and how to display it.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Multiple templates</li>
+                        <li><i class="fas fa-check"></i> Customizable layouts</li>
+                        <li><i class="fas fa-check"></i> High-quality PDFs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get Started in Minutes</h2>
+                <p class="section-subtitle">Simple steps to connect your entire family</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Create Your Account</h3>
+                        <p>Sign up and add your basic information. It takes less than 2 minutes to get started.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Build Your Tree</h3>
+                        <p>Add family members, parents, siblings, and children. We'll help you avoid duplicates.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Invite Your Family</h3>
+                        <p>Send invitations to family members. They can claim their profile or create a new one.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Connect & Share</h3>
+                        <p>Start sharing memories, discovering connections, and celebrating your family legacy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo">
+        <div class="container">
+            <div class="demo-content">
+                <div class="demo-text">
+                    <h2>See Your Family Connections Come to Life</h2>
+                    <p>Watch how FamilyConnect helps you discover relationships you never knew existed. Search for any relative and see the exact path that connects you.</p>
+                    <div class="demo-features">
+                        <div class="demo-feature">
+                            <i class="fas fa-search"></i>
+                            <span>Search for any family member</span>
+                        </div>
+                        <div class="demo-feature">
+                            <i class="fas fa-route"></i>
+                            <span>Visualize connection paths</span>
+                        </div>
+                        <div class="demo-feature">
+                            <i class="fas fa-expand"></i>
+                            <span>Zoom and explore your tree</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-large">
+                        <span>Try It Yourself</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="demo-visual">
+                    <div class="demo-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <div class="mockup-title">Search: "Sarah Johnson"</div>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="connection-path">
+                                <div class="path-node">You</div>
+                                <i class="fas fa-arrow-down"></i>
+                                <div class="path-node">Father</div>
+                                <i class="fas fa-arrow-down"></i>
+                                <div class="path-node">Grandmother</div>
+                                <i class="fas fa-arrow-down"></i>
+                                <div class="path-node">Uncle Tom</div>
+                                <i class="fas fa-arrow-down"></i>
+                                <div class="path-node highlighted">Sarah Johnson (3rd Cousin)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Choose Your Plan</h2>
+                <p class="section-subtitle">Start free, upgrade as your family grows</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Free</h3>
+                    <div class="price">
+                        <span class="amount">$0</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Up to 50 family members</li>
+                        <li><i class="fas fa-check"></i> Basic family tree</li>
+                        <li><i class="fas fa-check"></i> Profile creation</li>
+                        <li><i class="fas fa-check"></i> Family feed</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Connection pathfinder</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Printable trees</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Business directory</li>
+                    </ul>
+                    <button class="btn btn-outline btn-large">Get Started</button>
+                </div>
+
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3>Family</h3>
+                    <div class="price">
+                        <span class="amount">$9.99</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Up to 500 family members</li>
+                        <li><i class="fas fa-check"></i> Interactive family tree</li>
+                        <li><i class="fas fa-check"></i> Connection pathfinder</li>
+                        <li><i class="fas fa-check"></i> Advanced profiles</li>
+                        <li><i class="fas fa-check"></i> Photo & video uploads</li>
+                        <li><i class="fas fa-check"></i> Private messaging</li>
+                        <li><i class="fas fa-check"></i> Business directory</li>
+                    </ul>
+                    <button class="btn btn-primary btn-large">Start Free Trial</button>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>Unlimited</h3>
+                    <div class="price">
+                        <span class="amount">$19.99</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Unlimited family members</li>
+                        <li><i class="fas fa-check"></i> Everything in Family plan</li>
+                        <li><i class="fas fa-check"></i> Premium templates</li>
+                        <li><i class="fas fa-check"></i> Unlimited printable trees</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                        <li><i class="fas fa-check"></i> Custom branding</li>
+                        <li><i class="fas fa-check"></i> Export data</li>
+                    </ul>
+                    <button class="btn btn-outline btn-large">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Loved by Families Everywhere</h2>
+                <p class="section-subtitle">See what families are saying about FamilyConnect</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Finally reconnected with cousins I hadn't seen in 20 years! The connection pathfinder is incredible - I discovered relatives I never knew existed."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MJ</div>
+                        <div>
+                            <strong>Maria Johnson</strong>
+                            <span>Los Angeles, CA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"As the family historian, this tool has been a game-changer. I can finally organize everything in one place and share it with everyone easily."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RC</div>
+                        <div>
+                            <strong>Robert Chen</strong>
+                            <span>New York, NY</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"The family business directory has been amazing for supporting each other. We've already done thousands in family referrals!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SP</div>
+                        <div>
+                            <strong>Sarah Patel</strong>
+                            <span>Houston, TX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Everything you need to know about FamilyConnect</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How does profile matching work?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>When a new family member signs up and enters their name and parents, our smart system checks for existing profiles. If we find a match, we'll ask them to confirm if it's them. This prevents duplicate profiles and keeps your family tree organized.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I control who sees my information?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! You have full control over your privacy settings. Choose what information is visible to family members, and control who can contact you. Your data is always secure and private.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How many family members can I add?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>It depends on your plan. The Free plan allows up to 50 members, Family plan up to 500, and Unlimited plan has no restrictions. You can upgrade anytime as your family tree grows.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I print my family tree?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! With paid plans, you can create beautiful printable family trees. Choose from multiple templates, customize what to include, select your starting point (patriarch, matriarch, or any family member), and download high-quality PDFs.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is my family's data secure?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Security is our top priority. We use bank-level encryption, regular security audits, and follow industry best practices. Your family data is private and will never be shared with third parties.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What if I need help getting started?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer comprehensive guides, video tutorials, and email support for all users. Unlimited plan subscribers get priority support with faster response times.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Bring Your Family Together?</h2>
+                <p>Start your free trial today. No credit card required.</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary btn-large">
+                        <span>Start Free Trial</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="btn btn-outline-light btn-large">
+                        <i class="fas fa-calendar"></i>
+                        <span>Schedule Demo</span>
+                    </button>
+                </div>
+                <div class="cta-trust">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>14-day free trial • No credit card required • Cancel anytime</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-users-line"></i>
+                        <span>FamilyConnect</span>
+                    </div>
+                    <p>Bringing families together, one connection at a time.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Roadmap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FamilyConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
