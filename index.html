@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FamilyConnect - Bring Your Family Together</title>
-    <meta name="description" content="The all-in-one platform to map your family tree, connect with relatives, and celebrate your family legacy.">
+    <title>FamilyConnect - The Family App That Brings Everyone Together</title>
+    <meta name="description" content="Build your family tree, connect with relatives, preserve memories, and support family businesses - all in one private space.">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Sticky CTA Button (Mobile) -->
+    <div class="sticky-cta-mobile">
+        <button class="btn btn-primary btn-large">
+            <span>Build Your Family Tree Free</span>
+            <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
@@ -26,7 +34,7 @@
                 </ul>
                 <div class="nav-buttons">
                     <button class="btn btn-secondary">Sign In</button>
-                    <button class="btn btn-primary">Start Free Trial</button>
+                    <button class="btn btn-primary">Build Your Family Tree Free</button>
                 </div>
                 <button class="mobile-menu-toggle">
                     <i class="fas fa-bars"></i>
@@ -44,20 +52,23 @@
                         <i class="fas fa-sparkles"></i>
                         <span>Connect. Discover. Celebrate.</span>
                     </div>
-                    <h1 class="hero-title">Your Family's Story<br><span class="gradient-text">All in One Place</span></h1>
+                    <h1 class="hero-title">The Family App That Brings Everyone Together<br><span class="gradient-text">Tree, Photos, Memories, Businesses, All in One Place</span></h1>
                     <p class="hero-description">
-                        The ultimate platform to build your family tree, connect with relatives near and far, 
-                        and preserve your family's precious memories for generations to come.
+                        Build your family tree, connect with relatives near and far, preserve precious memories, 
+                        and support family businesses - all in one private, secure space designed for families.
                     </p>
                     <div class="hero-cta">
                         <button class="btn btn-primary btn-large">
-                            <span>Start Your Family Tree</span>
+                            <span>Build Your Family Tree Free</span>
                             <i class="fas fa-arrow-right"></i>
                         </button>
-                        <button class="btn btn-outline btn-large">
+                        <button class="btn btn-outline btn-large" id="watch-demo-btn">
                             <i class="fas fa-play"></i>
                             <span>Watch Demo</span>
                         </button>
+                    </div>
+                    <div class="hero-trust">
+                        <p><i class="fas fa-check-circle"></i> No Credit Card Needed • 14-Day Free Trial • Cancel Anytime</p>
                     </div>
                     <div class="hero-stats">
                         <div class="stat">
@@ -75,39 +86,42 @@
                     </div>
                 </div>
                 <div class="hero-visual">
-                    <div class="tree-illustration">
-                        <div class="tree-node node-1">
-                            <div class="avatar">👴</div>
-                            <span>Grandpa</span>
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Multi-generational family celebrating together" class="family-photo">
+                        <div class="tree-illustration">
+                            <div class="tree-node node-1">
+                                <div class="avatar">👴</div>
+                                <span>Grandpa</span>
+                            </div>
+                            <div class="tree-node node-2">
+                                <div class="avatar">👵</div>
+                                <span>Grandma</span>
+                            </div>
+                            <div class="tree-node node-3">
+                                <div class="avatar">👨</div>
+                                <span>Dad</span>
+                            </div>
+                            <div class="tree-node node-4">
+                                <div class="avatar">👩</div>
+                                <span>Mom</span>
+                            </div>
+                            <div class="tree-node node-5">
+                                <div class="avatar">👦</div>
+                                <span>You</span>
+                            </div>
+                            <div class="tree-node node-6">
+                                <div class="avatar">👧</div>
+                                <span>Sister</span>
+                            </div>
+                            <svg class="tree-connections">
+                                <line x1="50%" y1="15%" x2="35%" y2="35%" stroke="#667eea" stroke-width="2"/>
+                                <line x1="50%" y1="15%" x2="65%" y2="35%" stroke="#667eea" stroke-width="2"/>
+                                <line x1="35%" y1="35%" x2="30%" y2="60%" stroke="#667eea" stroke-width="2"/>
+                                <line x1="65%" y1="35%" x2="70%" y2="60%" stroke="#667eea" stroke-width="2"/>
+                                <line x1="30%" y1="60%" x2="35%" y2="85%" stroke="#667eea" stroke-width="2"/>
+                                <line x1="70%" y1="60%" x2="65%" y2="85%" stroke="#667eea" stroke-width="2"/>
+                            </svg>
                         </div>
-                        <div class="tree-node node-2">
-                            <div class="avatar">👵</div>
-                            <span>Grandma</span>
-                        </div>
-                        <div class="tree-node node-3">
-                            <div class="avatar">👨</div>
-                            <span>Dad</span>
-                        </div>
-                        <div class="tree-node node-4">
-                            <div class="avatar">👩</div>
-                            <span>Mom</span>
-                        </div>
-                        <div class="tree-node node-5">
-                            <div class="avatar">👦</div>
-                            <span>You</span>
-                        </div>
-                        <div class="tree-node node-6">
-                            <div class="avatar">👧</div>
-                            <span>Sister</span>
-                        </div>
-                        <svg class="tree-connections">
-                            <line x1="50%" y1="15%" x2="35%" y2="35%" stroke="#667eea" stroke-width="2"/>
-                            <line x1="50%" y1="15%" x2="65%" y2="35%" stroke="#667eea" stroke-width="2"/>
-                            <line x1="35%" y1="35%" x2="30%" y2="60%" stroke="#667eea" stroke-width="2"/>
-                            <line x1="65%" y1="35%" x2="70%" y2="60%" stroke="#667eea" stroke-width="2"/>
-                            <line x1="30%" y1="60%" x2="35%" y2="85%" stroke="#667eea" stroke-width="2"/>
-                            <line x1="70%" y1="60%" x2="65%" y2="85%" stroke="#667eea" stroke-width="2"/>
-                        </svg>
                     </div>
                 </div>
             </div>
@@ -118,6 +132,103 @@
                 <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5"></path>
                 <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"></path>
             </svg>
+        </div>
+    </section>
+
+    <!-- Who Is This For Section -->
+    <section class="who-is-this-for">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Perfect For Your Family</h2>
+                <p class="section-subtitle">See yourself in one of these family situations?</p>
+            </div>
+            <div class="profiles-grid">
+                <div class="profile-card">
+                    <div class="profile-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Planning a Family Reunion</h3>
+                    <p>Organize your next gathering with complete family contact info and connection mapping.</p>
+                </div>
+                <div class="profile-card">
+                    <div class="profile-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Multi-Generational Families</h3>
+                    <p>Keep grandparents, parents, and grandchildren connected across distances and generations.</p>
+                </div>
+                <div class="profile-card">
+                    <div class="profile-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Large Extended Families</h3>
+                    <p>Finally organize all those cousins, aunts, uncles, and distant relatives in one place.</p>
+                </div>
+                <div class="profile-card">
+                    <div class="profile-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Preserving Family History</h3>
+                    <p>Document and share family stories, photos, and memories before they're lost forever.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Families Love FamilyConnect -->
+    <section class="why-families-love">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Families Love FamilyConnect</h2>
+                <p class="section-subtitle">Say goodbye to family organization chaos</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h4>No more scattered photos</h4>
+                        <p>All family memories in one organized, searchable place</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h4>No more messy group chats</h4>
+                        <p>Organized family communication with proper context</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h4>No more losing family stories</h4>
+                        <p>Preserve precious memories and stories for future generations</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h4>No more forgotten birthdays</h4>
+                        <p>Never miss important family dates and celebrations</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h4>No more "how are we related?" confusion</h4>
+                        <p>Instantly see exactly how any two family members connect</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -251,7 +362,7 @@
         </div>
     </section>
 
-    <!-- Demo Section -->
+    <!-- Demo Section with Modal -->
     <section class="demo">
         <div class="container">
             <div class="demo-content">
@@ -272,7 +383,7 @@
                             <span>Zoom and explore your tree</span>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-large">
+                    <button class="btn btn-primary btn-large" id="try-demo-btn">
                         <span>Try It Yourself</span>
                         <i class="fas fa-arrow-right"></i>
                     </button>
@@ -304,12 +415,59 @@
         </div>
     </section>
 
+    <!-- Trust & Security Section -->
+    <section class="trust-security">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Your Family's Privacy is Our Priority</h2>
+                <p class="section-subtitle">Enterprise-grade security for your most precious memories</p>
+            </div>
+            <div class="security-features">
+                <div class="security-item">
+                    <div class="security-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>Bank-Level Encryption</h4>
+                    <p>256-bit SSL encryption protects all your family data</p>
+                </div>
+                <div class="security-item">
+                    <div class="security-icon">
+                        <i class="fas fa-user-lock"></i>
+                    </div>
+                    <h4>Private, Invite-Only Access</h4>
+                    <p>Only family members you invite can see your information</p>
+                </div>
+                <div class="security-item">
+                    <div class="security-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h4>No Data Sharing</h4>
+                    <p>We never sell or share your family data with third parties</p>
+                </div>
+                <div class="security-item">
+                    <div class="security-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h4>Encrypted Storage</h4>
+                    <p>All photos and data stored with military-grade encryption</p>
+                </div>
+                <div class="security-item">
+                    <div class="security-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h4>Verified by Stripe</h4>
+                    <p>Secure payments processed by industry-leading Stripe</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Pricing Section -->
     <section id="pricing" class="pricing">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Choose Your Plan</h2>
-                <p class="section-subtitle">Start free, upgrade as your family grows</p>
+                <p class="section-subtitle">Start free, upgrade when your family grows</p>
             </div>
             <div class="pricing-grid">
                 <div class="pricing-card">
@@ -319,13 +477,14 @@
                         <span class="period">/month</span>
                     </div>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Up to 50 family members</li>
-                        <li><i class="fas fa-check"></i> Basic family tree</li>
+                        <li><i class="fas fa-check"></i> Up to 10 family members</li>
+                        <li><i class="fas fa-check"></i> Basic family tree only</li>
                         <li><i class="fas fa-check"></i> Profile creation</li>
-                        <li><i class="fas fa-check"></i> Family feed</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Family feed</li>
                         <li class="disabled"><i class="fas fa-times"></i> Connection pathfinder</li>
                         <li class="disabled"><i class="fas fa-times"></i> Printable trees</li>
                         <li class="disabled"><i class="fas fa-times"></i> Business directory</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Templates</li>
                     </ul>
                     <button class="btn btn-outline btn-large">Get Started</button>
                 </div>
@@ -345,8 +504,9 @@
                         <li><i class="fas fa-check"></i> Photo & video uploads</li>
                         <li><i class="fas fa-check"></i> Private messaging</li>
                         <li><i class="fas fa-check"></i> Business directory</li>
+                        <li><i class="fas fa-check"></i> Basic templates</li>
                     </ul>
-                    <button class="btn btn-primary btn-large">Start Free Trial</button>
+                    <button class="btn btn-primary btn-large">Start Free — No Credit Card Needed</button>
                 </div>
 
                 <div class="pricing-card">
@@ -363,6 +523,7 @@
                         <li><i class="fas fa-check"></i> Priority support</li>
                         <li><i class="fas fa-check"></i> Custom branding</li>
                         <li><i class="fas fa-check"></i> Export data</li>
+                        <li><i class="fas fa-check"></i> Advanced analytics</li>
                     </ul>
                     <button class="btn btn-outline btn-large">Get Started</button>
                 </div>
@@ -451,7 +612,7 @@
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>It depends on your plan. The Free plan allows up to 50 members, Family plan up to 500, and Unlimited plan has no restrictions. You can upgrade anytime as your family tree grows.</p>
+                        <p>It depends on your plan. The Free plan allows up to 10 members (perfect for personal use), Family plan up to 500, and Unlimited plan has no restrictions. You can upgrade anytime as your family tree grows.</p>
                     </div>
                 </div>
 
@@ -493,10 +654,10 @@
         <div class="container">
             <div class="cta-content">
                 <h2>Ready to Bring Your Family Together?</h2>
-                <p>Start your free trial today. No credit card required.</p>
+                <p>FamilyConnect is used by families in 50+ countries. Start building your tree today.</p>
                 <div class="cta-buttons">
                     <button class="btn btn-primary btn-large">
-                        <span>Start Free Trial</span>
+                        <span>Build Your Family Tree Free</span>
                         <i class="fas fa-arrow-right"></i>
                     </button>
                     <button class="btn btn-outline-light btn-large">
@@ -511,6 +672,40 @@
             </div>
         </div>
     </section>
+
+    <!-- Demo Modal -->
+    <div id="demo-modal" class="demo-modal">
+        <div class="demo-modal-content">
+            <span class="demo-modal-close">&times;</span>
+            <div class="demo-video-container">
+                <div class="demo-video-placeholder">
+                    <div class="demo-video-content">
+                        <i class="fas fa-play-circle"></i>
+                        <h3>FamilyConnect Demo</h3>
+                        <p>Watch how easy it is to build your family tree and discover connections</p>
+                        <div class="demo-features-list">
+                            <div class="demo-feature-item">
+                                <i class="fas fa-check"></i>
+                                <span>Add family members in seconds</span>
+                            </div>
+                            <div class="demo-feature-item">
+                                <i class="fas fa-check"></i>
+                                <span>Discover how relatives connect</span>
+                            </div>
+                            <div class="demo-feature-item">
+                                <i class="fas fa-check"></i>
+                                <span>Share photos and memories</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-large">
+                            <span>Start Your Free Trial</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
