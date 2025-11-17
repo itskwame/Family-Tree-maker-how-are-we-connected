@@ -139,6 +139,21 @@
             }
             await loadData();
             initializeTree();
+            checkAutoHighlight();
+        }
+
+        function checkAutoHighlight() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const highlight = urlParams.get('highlight');
+
+            if (highlight) {
+                const [personAId, personBId] = highlight.split(',');
+                if (personAId && personBId) {
+                    document.getElementById('personA').value = personAId;
+                    document.getElementById('personB').value = personBId;
+                    setTimeout(() => highlightPath(), 500);
+                }
+            }
         }
 
         async function loadData() {

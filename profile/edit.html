@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - FamilyConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f7fafc; }
+        .container { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: white; border-right: 1px solid #e2e8f0; padding: 24px; }
+        .logo { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 32px; }
+        .nav-item { padding: 12px 16px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #4a5568; text-decoration: none; font-size: 14px; }
+        .nav-item:hover { background: #f7fafc; }
+        .nav-item.active { background: #667eea; color: white; }
+        .main { flex: 1; padding: 32px; max-width: 800px; }
+        h1 { font-family: 'Playfair Display', serif; margin-bottom: 8px; }
+        .card { background: white; padding: 32px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #2d3748; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; font-family: 'Inter', sans-serif; }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .btn { padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px; }
+        .btn:hover { background: #5568d3; }
+        .btn-secondary { background: #e2e8f0; color: #2d3748; }
+        .btn-secondary:hover { background: #cbd5e0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo"><i class="fas fa-users"></i> FamilyConnect</div>
+            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="../tree/builder.html" class="nav-item"><i class="fas fa-project-diagram"></i> Family Tree Builder</a>
+            <a href="../tree/viewer.html" class="nav-item"><i class="fas fa-sitemap"></i> Tree Viewer</a>
+            <a href="../tree/pathfinder.html" class="nav-item"><i class="fas fa-route"></i> Connection Finder</a>
+            <a href="../tree/templates.html" class="nav-item"><i class="fas fa-print"></i> Print Templates</a>
+            <hr style="margin: 16px 0; border: none; border-top: 1px solid #e2e8f0;">
+            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-images"></i> Family Feed</a>
+            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-store"></i> Businesses</a>
+            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-comment"></i> Messages</a>
+            <a href="view.html" class="nav-item active"><i class="fas fa-user"></i> Profile</a>
+            <a href="#" onclick="signOut()" class="nav-item"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+        </div>
+
+        <div class="main">
+            <h1>Edit Profile</h1>
+            <p style="color: #718096; margin-bottom: 32px;">Update your personal information</p>
+
+            <div class="card">
+                <form id="profileForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" id="lastName">
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Birth Date</label>
+                            <input type="date" id="birthDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" id="phone">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" id="location" placeholder="City, State">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Biography</label>
+                        <textarea id="bio" placeholder="Tell your family about yourself..."></textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 12px;">
+                        <button type="submit" class="btn">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                        <a href="view.html" class="btn btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center;">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const supabase = createClient(
+            'https://fvfviudlxyumnskakftp.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA'
+        );
+
+        let currentUser = null;
+
+        async function checkAuth() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = '../auth/login.html';
+                return;
+            }
+            currentUser = session.user;
+            loadProfile();
+        }
+
+        async function loadProfile() {
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', currentUser.id)
+                .maybeSingle();
+
+            if (profile) {
+                document.getElementById('firstName').value = profile.first_name || '';
+                document.getElementById('lastName').value = profile.last_name || '';
+                document.getElementById('birthDate').value = profile.birth_date || '';
+                document.getElementById('phone').value = profile.phone || '';
+                document.getElementById('location').value = profile.location || '';
+                document.getElementById('bio').value = profile.bio || '';
+            }
+        }
+
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            btn.disabled = true;
+
+            const profileData = {
+                first_name: document.getElementById('firstName').value,
+                last_name: document.getElementById('lastName').value,
+                birth_date: document.getElementById('birthDate').value || null,
+                phone: document.getElementById('phone').value || null,
+                location: document.getElementById('location').value || null,
+                bio: document.getElementById('bio').value || null,
+                updated_at: new Date().toISOString()
+            };
+
+            const { error } = await supabase
+                .from('profiles')
+                .upsert({
+                    id: currentUser.id,
+                    ...profileData
+                });
+
+            if (error) {
+                alert('Error saving profile: ' + error.message);
+                btn.innerHTML = '<i class="fas fa-save"></i> Save Changes';
+                btn.disabled = false;
+            } else {
+                window.location.href = 'view.html';
+            }
+        });
+
+        window.signOut = async function() {
+            await supabase.auth.signOut();
+            window.location.href = '../auth/login.html';
+        };
+
+        checkAuth();
+    </script>
+</body>
+</html>
