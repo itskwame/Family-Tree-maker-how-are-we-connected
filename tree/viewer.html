@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Tree Viewer - FamilyConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f7fafc; overflow: hidden; }
+        .container { display: flex; height: 100vh; }
+        .sidebar { width: 300px; background: white; border-right: 1px solid #e2e8f0; padding: 24px; overflow-y: auto; }
+        .logo { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 32px; }
+        .nav-item { padding: 12px 16px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #4a5568; text-decoration: none; font-size: 14px; }
+        .nav-item:hover { background: #f7fafc; }
+        .nav-item.active { background: #667eea; color: white; }
+        .main { flex: 1; display: flex; flex-direction: column; }
+        .toolbar { background: white; padding: 16px 24px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .toolbar h1 { font-size: 20px; margin-right: auto; }
+        .search-box { display: flex; gap: 12px; align-items: center; }
+        .search-box select { padding: 8px 12px; border: 2px solid #e2e8f0; border-radius: 8px; min-width: 180px; }
+        .btn { padding: 8px 16px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; }
+        .btn:hover { background: #5568d3; }
+        .btn-secondary { background: #e2e8f0; color: #2d3748; }
+        .btn-secondary:hover { background: #cbd5e0; }
+        .tree-container { flex: 1; position: relative; overflow: hidden; background: #ffffff; }
+        #tree-svg { width: 100%; height: 100%; }
+
+        .node circle { fill: #667eea; stroke: #4c51bf; stroke-width: 3px; cursor: pointer; }
+        .node.highlighted circle { fill: #fbbf24; stroke: #f59e0b; stroke-width: 5px; animation: pulse 1s infinite; }
+        .node text { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; }
+        .link { fill: none; stroke: #cbd5e0; stroke-width: 2px; }
+        .link.highlighted { stroke: #fbbf24; stroke-width: 4px; animation: pathGlow 1.5s infinite; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes pathGlow {
+            0%, 100% { stroke: #fbbf24; }
+            50% { stroke: #f59e0b; }
+        }
+
+        .tooltip { position: absolute; background: white; padding: 12px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); pointer-events: none; opacity: 0; transition: opacity 0.2s; z-index: 1000; }
+        .tooltip.show { opacity: 1; }
+        .tooltip h4 { margin-bottom: 4px; color: #2d3748; }
+        .tooltip p { color: #718096; font-size: 12px; margin: 2px 0; }
+
+        .controls { position: absolute; bottom: 24px; right: 24px; background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; gap: 8px; }
+        .controls button { padding: 8px 12px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; }
+        .controls button:hover { background: #5568d3; }
+
+        .legend { position: absolute; top: 24px; right: 24px; background: white; padding: 16px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 12px; }
+        .legend-color { width: 20px; height: 20px; border-radius: 50%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo"><i class="fas fa-users"></i> FamilyConnect</div>
+            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="builder.html" class="nav-item"><i class="fas fa-project-diagram"></i> Family Tree Builder</a>
+            <a href="viewer.html" class="nav-item active"><i class="fas fa-sitemap"></i> Tree Viewer</a>
+            <a href="pathfinder.html" class="nav-item"><i class="fas fa-route"></i> Connection Finder</a>
+            <a href="templates.html" class="nav-item"><i class="fas fa-print"></i> Print Templates</a>
+            <hr style="margin: 16px 0; border: none; border-top: 1px solid #e2e8f0;">
+            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-images"></i> Family Feed</a>
+            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-store"></i> Businesses</a>
+            <a href="../dashboard/index.html" class="nav-item"><i class="fas-comment"></i> Messages</a>
+            <a href="../profile/index.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+            <a href="#" onclick="signOut()" class="nav-item"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+        </div>
+
+        <div class="main">
+            <div class="toolbar">
+                <h1>Interactive Family Tree</h1>
+                <div class="search-box">
+                    <select id="personA">
+                        <option value="">Select Person A...</option>
+                    </select>
+                    <i class="fas fa-arrows-alt-h" style="color: #718096;"></i>
+                    <select id="personB">
+                        <option value="">Select Person B...</option>
+                    </select>
+                    <button class="btn" onclick="highlightPath()" id="findPathBtn" disabled>
+                        <i class="fas fa-search"></i> Show Connection
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearHighlight()">
+                        <i class="fas fa-times"></i> Clear
+                    </button>
+                </div>
+            </div>
+
+            <div class="tree-container">
+                <svg id="tree-svg"></svg>
+                <div class="tooltip" id="tooltip"></div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #667eea;"></div>
+                        <span>Family Member</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #fbbf24;"></div>
+                        <span>Highlighted Path</span>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button onclick="zoomIn()"><i class="fas fa-plus"></i></button>
+                    <button onclick="zoomOut()"><i class="fas fa-minus"></i></button>
+                    <button onclick="resetView()"><i class="fas fa-expand"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const supabase = createClient(
+            'https://fvfviudlxyumnskakftp.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA'
+        );
+
+        let familyMembers = [];
+        let relationships = [];
+        let svg, g, zoom, treeLayout, root;
+
+        async function checkAuth() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = '../auth/login.html';
+                return;
+            }
+            await loadData();
+            initializeTree();
+        }
+
+        async function loadData() {
+            const { data: members } = await supabase.from('family_members').select('*');
+            const { data: rels } = await supabase.from('relationships').select('*');
+
+            familyMembers = members || [];
+            relationships = rels || [];
+
+            const personA = document.getElementById('personA');
+            const personB = document.getElementById('personB');
+
+            familyMembers.forEach(member => {
+                const name = `${member.first_name} ${member.last_name || ''}`;
+                personA.innerHTML += `<option value="${member.id}">${name}</option>`;
+                personB.innerHTML += `<option value="${member.id}">${name}</option>`;
+            });
+
+            personA.addEventListener('change', checkSelections);
+            personB.addEventListener('change', checkSelections);
+        }
+
+        function checkSelections() {
+            const personA = document.getElementById('personA').value;
+            const personB = document.getElementById('personB').value;
+            document.getElementById('findPathBtn').disabled = !personA || !personB || personA === personB;
+        }
+
+        function initializeTree() {
+            const width = document.querySelector('.tree-container').clientWidth;
+            const height = document.querySelector('.tree-container').clientHeight;
+
+            svg = d3.select('#tree-svg');
+            svg.selectAll('*').remove();
+
+            zoom = d3.zoom()
+                .scaleExtent([0.1, 3])
+                .on('zoom', (event) => g.attr('transform', event.transform));
+
+            svg.call(zoom);
+
+            g = svg.append('g')
+                .attr('transform', `translate(${width / 2},${height / 2})`);
+
+            if (familyMembers.length === 0) {
+                g.append('text')
+                    .attr('text-anchor', 'middle')
+                    .style('font-size', '18px')
+                    .style('fill', '#718096')
+                    .text('No family members added yet. Add members in the Family Tree Builder!');
+                return;
+            }
+
+            const treeData = buildHierarchy();
+            drawTree(treeData);
+        }
+
+        function buildHierarchy() {
+            const childrenMap = new Map();
+            relationships.forEach(rel => {
+                if (!childrenMap.has(rel.parent_id)) {
+                    childrenMap.set(rel.parent_id, []);
+                }
+                childrenMap.get(rel.parent_id).push(rel.child_id);
+            });
+
+            const roots = familyMembers.filter(member =>
+                !relationships.some(rel => rel.child_id === member.id)
+            );
+
+            function buildNode(memberId) {
+                const member = familyMembers.find(m => m.id === memberId);
+                if (!member) return null;
+
+                const node = {
+                    id: member.id,
+                    name: `${member.first_name} ${member.last_name || ''}`,
+                    data: member,
+                    children: []
+                };
+
+                const children = childrenMap.get(memberId) || [];
+                node.children = children.map(buildNode).filter(n => n !== null);
+
+                return node;
+            }
+
+            if (roots.length > 0) {
+                return buildNode(roots[0].id);
+            }
+
+            return {
+                id: 'root',
+                name: 'Family Tree',
+                children: familyMembers.slice(0, 1).map(m => buildNode(m.id))
+            };
+        }
+
+        function drawTree(treeData) {
+            const width = document.querySelector('.tree-container').clientWidth;
+            const height = document.querySelector('.tree-container').clientHeight;
+
+            root = d3.hierarchy(treeData);
+            treeLayout = d3.tree().size([width - 200, height - 200]);
+            treeLayout(root);
+
+            const links = g.selectAll('.link')
+                .data(root.links())
+                .join('path')
+                .attr('class', 'link')
+                .attr('d', d3.linkVertical()
+                    .x(d => d.x)
+                    .y(d => d.y));
+
+            const nodes = g.selectAll('.node')
+                .data(root.descendants())
+                .join('g')
+                .attr('class', 'node')
+                .attr('transform', d => `translate(${d.x},${d.y})`)
+                .on('mouseover', showTooltip)
+                .on('mouseout', hideTooltip)
+                .on('click', (event, d) => {
+                    if (d.data.id !== 'root') {
+                        window.location.href = `../profile/view.html?id=${d.data.id}`;
+                    }
+                });
+
+            nodes.append('circle')
+                .attr('r', 20);
+
+            nodes.append('text')
+                .attr('dy', 35)
+                .attr('text-anchor', 'middle')
+                .text(d => d.data.name);
+
+            window.treeNodes = nodes;
+            window.treeLinks = links;
+            window.rootNode = root;
+        }
+
+        function showTooltip(event, d) {
+            if (d.data.id === 'root') return;
+
+            const tooltip = document.getElementById('tooltip');
+            const member = d.data.data;
+
+            tooltip.innerHTML = `
+                <h4>${d.data.name}</h4>
+                ${member.birth_date ? `<p><i class="fas fa-birthday-cake"></i> Born: ${new Date(member.birth_date).toLocaleDateString()}</p>` : ''}
+                ${member.location ? `<p><i class="fas fa-map-marker-alt"></i> ${member.location}</p>` : ''}
+                ${member.bio ? `<p style="margin-top: 8px;">${member.bio.substring(0, 80)}...</p>` : ''}
+            `;
+
+            tooltip.style.left = event.pageX + 10 + 'px';
+            tooltip.style.top = event.pageY + 10 + 'px';
+            tooltip.classList.add('show');
+        }
+
+        function hideTooltip() {
+            document.getElementById('tooltip').classList.remove('show');
+        }
+
+        window.highlightPath = function() {
+            const personAId = document.getElementById('personA').value;
+            const personBId = document.getElementById('personB').value;
+
+            clearHighlight();
+
+            const path = findPath(personAId, personBId);
+            if (!path || path.length === 0) {
+                alert('No connection found between these people.');
+                return;
+            }
+
+            const pathSet = new Set(path);
+
+            window.treeNodes.each(function(d) {
+                if (pathSet.has(d.data.id)) {
+                    d3.select(this).classed('highlighted', true);
+                }
+            });
+
+            window.treeLinks.each(function(d) {
+                if (pathSet.has(d.source.data.id) && pathSet.has(d.target.data.id)) {
+                    d3.select(this).classed('highlighted', true);
+                }
+            });
+        };
+
+        window.clearHighlight = function() {
+            if (window.treeNodes) {
+                window.treeNodes.classed('highlighted', false);
+            }
+            if (window.treeLinks) {
+                window.treeLinks.classed('highlighted', false);
+            }
+        };
+
+        function findPath(startId, endId) {
+            if (startId === endId) return [startId];
+
+            const graph = new Map();
+            familyMembers.forEach(m => graph.set(m.id, new Set()));
+
+            relationships.forEach(rel => {
+                graph.get(rel.parent_id)?.add(rel.child_id);
+                graph.get(rel.child_id)?.add(rel.parent_id);
+            });
+
+            const queue = [[startId]];
+            const visited = new Set([startId]);
+
+            while (queue.length > 0) {
+                const path = queue.shift();
+                const current = path[path.length - 1];
+
+                if (current === endId) return path;
+
+                const neighbors = graph.get(current) || new Set();
+                for (const neighbor of neighbors) {
+                    if (!visited.has(neighbor)) {
+                        visited.add(neighbor);
+                        queue.push([...path, neighbor]);
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        window.zoomIn = () => svg.transition().call(zoom.scaleBy, 1.3);
+        window.zoomOut = () => svg.transition().call(zoom.scaleBy, 0.7);
+        window.resetView = () => {
+            const width = document.querySelector('.tree-container').clientWidth;
+            const height = document.querySelector('.tree-container').clientHeight;
+            svg.transition().call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2));
+        };
+
+        window.signOut = async function() {
+            await supabase.auth.signOut();
+            window.location.href = '../auth/login.html';
+        };
+
+        checkAuth();
+    </script>
+</body>
+</html>
