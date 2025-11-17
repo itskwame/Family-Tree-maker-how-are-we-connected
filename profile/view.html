@@ -10,64 +10,56 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: #f7fafc; }
         .container { display: flex; min-height: 100vh; }
-        .sidebar { width: 260px; background: white; border-right: 1px solid #e2e8f0; padding: 24px; }
-        .logo { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 32px; }
+        .sidebar { width: 260px; background: white; border-right: 1px solid #e2e8f0; padding: 24px; position: fixed; height: 100vh; overflow-y: auto; }
+        .logo { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 32px; cursor: pointer; }
         .nav-item { padding: 12px 16px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #4a5568; text-decoration: none; font-size: 14px; }
         .nav-item:hover { background: #f7fafc; }
         .nav-item.active { background: #667eea; color: white; }
-        .main { flex: 1; padding: 32px; max-width: 1200px; }
+        .main { flex: 1; padding: 32px; margin-left: 260px; max-width: 1200px; }
 
         .profile-header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 48px; border-radius: 16px; margin-bottom: 32px; position: relative; }
         .profile-header-content { display: flex; align-items: center; gap: 32px; }
         .profile-avatar { width: 120px; height: 120px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 48px; color: #667eea; border: 4px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .profile-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
         .profile-info h1 { font-family: 'Playfair Display', serif; font-size: 36px; margin-bottom: 8px; }
-        .profile-info p { opacity: 0.9; margin-bottom: 4px; }
+        .profile-info p { opacity: 0.9; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
         .profile-actions { position: absolute; top: 24px; right: 24px; display: flex; gap: 12px; }
 
         .btn { padding: 12px 24px; background: white; color: #667eea; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
         .btn:hover { background: #f7fafc; }
-        .btn-primary { background: #667eea; color: white; }
-        .btn-primary:hover { background: #5568d3; }
         .btn-outline { background: transparent; border: 2px solid white; color: white; }
         .btn-outline:hover { background: rgba(255,255,255,0.1); }
 
         .card { background: white; padding: 32px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; }
-        .card h2 { margin-bottom: 16px; color: #2d3748; }
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
-        .info-item { display: flex; align-items: start; gap: 12px; }
-        .info-icon { width: 40px; height: 40px; background: #f7fafc; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #667eea; flex-shrink: 0; }
-        .info-content h4 { color: #2d3748; margin-bottom: 4px; }
-        .info-content p { color: #718096; font-size: 14px; }
-
-        .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
-        .media-item { aspect-ratio: 1; background: #f7fafc; border-radius: 12px; overflow: hidden; position: relative; cursor: pointer; }
-        .media-item img { width: 100%; height: 100%; object-fit: cover; }
-        .media-item video { width: 100%; height: 100%; object-fit: cover; }
-        .no-media { text-align: center; color: #718096; padding: 48px; }
+        .card h2 { margin-bottom: 20px; color: #2d3748; display: flex; align-items: center; gap: 12px; }
+        .card h2 i { color: #667eea; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .info-item { display: flex; align-items: start; gap: 16px; padding: 16px; background: #f7fafc; border-radius: 8px; }
+        .info-icon { width: 48px; height: 48px; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #667eea; flex-shrink: 0; font-size: 20px; }
+        .info-content h4 { color: #2d3748; margin-bottom: 6px; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-content p { color: #4a5568; font-size: 16px; line-height: 1.5; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="sidebar">
-            <div class="logo"><i class="fas fa-users"></i> FamilyConnect</div>
+            <div class="logo" onclick="window.location.href='../dashboard/index.html'"><i class="fas fa-users"></i> FamilyConnect</div>
             <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
             <a href="../tree/builder.html" class="nav-item"><i class="fas fa-project-diagram"></i> Family Tree Builder</a>
             <a href="../tree/viewer.html" class="nav-item"><i class="fas fa-sitemap"></i> Tree Viewer</a>
             <a href="../tree/pathfinder.html" class="nav-item"><i class="fas fa-route"></i> Connection Finder</a>
             <a href="../tree/templates.html" class="nav-item"><i class="fas fa-print"></i> Print Templates</a>
             <hr style="margin: 16px 0; border: none; border-top: 1px solid #e2e8f0;">
-            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-images"></i> Family Feed</a>
-            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-store"></i> Businesses</a>
-            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-comment"></i> Messages</a>
+            <a href="../feed/index.html" class="nav-item"><i class="fas fa-images"></i> Family Feed</a>
+            <a href="../business/index.html" class="nav-item"><i class="fas fa-store"></i> Businesses</a>
             <a href="view.html" class="nav-item active"><i class="fas fa-user"></i> Profile</a>
             <a href="#" onclick="signOut()" class="nav-item"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
         </div>
 
         <div class="main">
             <div class="profile-header">
-                <div class="profile-actions" id="profileActions">
-                    <!-- Dynamic buttons will be inserted here -->
+                <div class="profile-actions">
+                    <a href="edit.html" class="btn btn-outline"><i class="fas fa-edit"></i> Edit Profile</a>
                 </div>
 
                 <div class="profile-header-content">
@@ -76,40 +68,36 @@
                     </div>
                     <div class="profile-info">
                         <h1 id="profileName">Loading...</h1>
-                        <p id="profileLocation"><i class="fas fa-map-marker-alt"></i> Location</p>
-                        <p id="profileBirth"><i class="fas fa-birthday-cake"></i> Birth date</p>
-                        <p id="profileContact"><i class="fas fa-envelope"></i> Email</p>
+                        <p id="profileLocation"></p>
+                        <p id="profileJob"></p>
+                        <p id="profileEmail"></p>
                     </div>
                 </div>
             </div>
 
             <div class="card">
-                <h2>About</h2>
-                <p id="profileBio" style="color: #718096; line-height: 1.8;">No biography added yet.</p>
+                <h2><i class="fas fa-user-circle"></i> About</h2>
+                <p id="profileBio" style="color: #718096; line-height: 1.8; font-size: 16px;">No biography added yet.</p>
             </div>
 
             <div class="card">
-                <h2>Contact Information</h2>
-                <div class="info-grid" id="contactInfo">
-                    <!-- Will be populated dynamically -->
-                </div>
+                <h2><i class="fas fa-info-circle"></i> Personal Information</h2>
+                <div class="info-grid" id="personalInfo"></div>
             </div>
 
-            <div class="card">
-                <h2>Photos & Videos</h2>
-                <div class="media-grid" id="mediaGrid">
-                    <div class="no-media">
-                        <i class="fas fa-images" style="font-size: 48px; margin-bottom: 16px; opacity: 0.3;"></i>
-                        <p>No photos or videos added yet</p>
-                    </div>
-                </div>
+            <div class="card" id="familyCard">
+                <h2><i class="fas fa-users"></i> Family</h2>
+                <div class="info-grid" id="familyInfo"></div>
             </div>
 
-            <div class="card">
-                <h2>Family Connections</h2>
-                <div id="familyConnections">
-                    <p style="color: #718096;">Loading family connections...</p>
-                </div>
+            <div class="card" id="interestsCard">
+                <h2><i class="fas fa-heart"></i> Interests & Hobbies</h2>
+                <div class="info-grid" id="interestsInfo"></div>
+            </div>
+
+            <div class="card" id="businessCard">
+                <h2><i class="fas fa-briefcase"></i> Business</h2>
+                <div class="info-grid" id="businessInfo"></div>
             </div>
         </div>
     </div>
@@ -123,151 +111,132 @@
         );
 
         let currentUser = null;
-        let profileMember = null;
-        let isOwnProfile = false;
 
-        async function checkAuth() {
+        window.signOut = async function() {
+            await supabase.auth.signOut();
+            window.location.href = '../index.html';
+        };
+
+        async function loadProfile() {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
                 window.location.href = '../auth/login.html';
                 return;
             }
+
             currentUser = session.user;
-            loadProfile();
-        }
 
-        async function loadProfile() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const profileId = urlParams.get('id') || currentUser.id;
-
-            isOwnProfile = (profileId === currentUser.id);
-
-            // Load from profiles table first
-            let { data: profile } = await supabase
+            const { data: profile } = await supabase
                 .from('profiles')
                 .select('*')
-                .eq('id', profileId)
+                .eq('id', currentUser.id)
                 .maybeSingle();
 
-            // If not in profiles, check family_members table
-            if (!profile) {
-                const { data: member } = await supabase
-                    .from('family_members')
-                    .select('*')
-                    .eq('id', profileId)
-                    .maybeSingle();
+            if (!profile) return;
 
-                if (member) {
-                    profileMember = member;
-                    displayFamilyMember(member);
-                } else {
-                    document.getElementById('profileName').textContent = 'Profile not found';
-                }
-            } else {
-                displayProfile(profile);
-            }
-
-            renderDynamicButton();
-        }
-
-        function displayProfile(profile) {
             document.getElementById('profileName').textContent =
-                `${profile.first_name || 'User'} ${profile.last_name || ''}`;
+                `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || 'No Name';
+
+            if (profile.avatar_url) {
+                document.getElementById('profileAvatar').innerHTML =
+                    `<img src="${profile.avatar_url}" alt="Profile">`;
+            }
 
             if (profile.location) {
                 document.getElementById('profileLocation').innerHTML =
                     `<i class="fas fa-map-marker-alt"></i> ${profile.location}`;
             }
 
-            if (profile.birth_date) {
-                document.getElementById('profileBirth').innerHTML =
-                    `<i class="fas fa-birthday-cake"></i> ${new Date(profile.birth_date).toLocaleDateString()}`;
+            if (profile.job) {
+                document.getElementById('profileJob').innerHTML =
+                    `<i class="fas fa-briefcase"></i> ${profile.job}`;
             }
 
-            document.getElementById('profileContact').innerHTML =
-                `<i class="fas fa-envelope"></i> ${currentUser.email || 'No email'}`;
+            if (profile.email) {
+                document.getElementById('profileEmail').innerHTML =
+                    `<i class="fas fa-envelope"></i> ${profile.email}`;
+            }
 
             if (profile.bio) {
                 document.getElementById('profileBio').textContent = profile.bio;
             }
 
-            const contactInfo = document.getElementById('contactInfo');
-            contactInfo.innerHTML = `
+            const personalInfo = [];
+            if (profile.gender) {
+                personalInfo.push(createInfoItem('fas fa-venus-mars', 'Gender', profile.gender.charAt(0).toUpperCase() + profile.gender.slice(1)));
+            }
+            if (profile.birth_date) {
+                const birthDate = new Date(profile.birth_date);
+                const age = new Date().getFullYear() - birthDate.getFullYear();
+                personalInfo.push(createInfoItem('fas fa-birthday-cake', 'Birth Date',
+                    `${birthDate.toLocaleDateString()} (${age} years old)`));
+            }
+            if (profile.phone) {
+                personalInfo.push(createInfoItem('fas fa-phone', 'Phone', profile.phone));
+            }
+            if (profile.email) {
+                personalInfo.push(createInfoItem('fas fa-envelope', 'Email', profile.email));
+            }
+
+            if (personalInfo.length > 0) {
+                document.getElementById('personalInfo').innerHTML = personalInfo.join('');
+            } else {
+                document.getElementById('personalInfo').innerHTML =
+                    '<p style="color: #718096; text-align: center; padding: 24px;">No personal information added yet.</p>';
+            }
+
+            const familyInfo = [];
+            if (profile.mother_name) {
+                familyInfo.push(createInfoItem('fas fa-female', 'Mother', profile.mother_name));
+            }
+            if (profile.father_name) {
+                familyInfo.push(createInfoItem('fas fa-male', 'Father', profile.father_name));
+            }
+            if (profile.siblings) {
+                familyInfo.push(createInfoItem('fas fa-users', 'Siblings', profile.siblings));
+            }
+
+            if (familyInfo.length > 0) {
+                document.getElementById('familyInfo').innerHTML = familyInfo.join('');
+            } else {
+                document.getElementById('familyCard').style.display = 'none';
+            }
+
+            const interestsInfo = [];
+            if (profile.hobbies) {
+                interestsInfo.push(createInfoItem('fas fa-futbol', 'Hobbies', profile.hobbies));
+            }
+            if (profile.interests) {
+                interestsInfo.push(createInfoItem('fas fa-heart', 'Interests', profile.interests));
+            }
+
+            if (interestsInfo.length > 0) {
+                document.getElementById('interestsInfo').innerHTML = interestsInfo.join('');
+            } else {
+                document.getElementById('interestsCard').style.display = 'none';
+            }
+
+            if (profile.business) {
+                document.getElementById('businessInfo').innerHTML =
+                    createInfoItem('fas fa-store', 'Business', profile.business);
+            } else {
+                document.getElementById('businessCard').style.display = 'none';
+            }
+        }
+
+        function createInfoItem(icon, label, value) {
+            return `
                 <div class="info-item">
-                    <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="info-icon"><i class="${icon}"></i></div>
                     <div class="info-content">
-                        <h4>Email</h4>
-                        <p>${currentUser.email || 'Not provided'}</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <div class="info-icon"><i class="fas fa-phone"></i></div>
-                    <div class="info-content">
-                        <h4>Phone</h4>
-                        <p>${profile.phone || 'Not provided'}</p>
+                        <h4>${label}</h4>
+                        <p>${value || 'Not specified'}</p>
                     </div>
                 </div>
             `;
         }
 
-        function displayFamilyMember(member) {
-            profileMember = member;
-
-            document.getElementById('profileName').textContent =
-                `${member.first_name} ${member.last_name || ''}`;
-
-            if (member.location) {
-                document.getElementById('profileLocation').innerHTML =
-                    `<i class="fas fa-map-marker-alt"></i> ${member.location}`;
-            } else {
-                document.getElementById('profileLocation').style.display = 'none';
-            }
-
-            if (member.birth_date) {
-                document.getElementById('profileBirth').innerHTML =
-                    `<i class="fas fa-birthday-cake"></i> Born ${new Date(member.birth_date).toLocaleDateString()}`;
-            } else {
-                document.getElementById('profileBirth').style.display = 'none';
-            }
-
-            document.getElementById('profileContact').style.display = 'none';
-
-            if (member.bio) {
-                document.getElementById('profileBio').textContent = member.bio;
-            }
-
-            document.getElementById('contactInfo').parentElement.style.display = 'none';
-        }
-
-        function renderDynamicButton() {
-            const actions = document.getElementById('profileActions');
-
-            if (isOwnProfile) {
-                actions.innerHTML = `
-                    <a href="edit.html" class="btn btn-outline">
-                        <i class="fas fa-edit"></i> Edit Profile
-                    </a>
-                    <a href="../tree/viewer.html" class="btn">
-                        <i class="fas fa-sitemap"></i> My Family Tree
-                    </a>
-                `;
-            } else {
-                const profileId = profileMember ? profileMember.id : new URLSearchParams(window.location.search).get('id');
-
-                actions.innerHTML = `
-                    <a href="../tree/viewer.html?highlight=${currentUser.id},${profileId}" class="btn btn-primary">
-                        <i class="fas fa-route"></i> How Are We Related?
-                    </a>
-                `;
-            }
-        }
-
-        window.signOut = async function() {
-            await supabase.auth.signOut();
-            window.location.href = '../auth/login.html';
-        };
-
-        checkAuth();
+        loadProfile();
     </script>
 </body>
 </html>
