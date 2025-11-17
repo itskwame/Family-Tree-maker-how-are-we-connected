@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Profile - FamilyConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+
+        .container { background: white; border-radius: 24px; max-width: 600px; width: 100%; padding: 48px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+
+        .logo { text-align: center; margin-bottom: 32px; }
+        .logo i { font-size: 48px; color: #667eea; }
+        .logo h1 { font-family: 'Playfair Display', serif; font-size: 32px; margin-top: 12px; color: #2d3748; }
+        .logo p { color: #718096; margin-top: 8px; }
+
+        .progress-bar { display: flex; gap: 8px; margin-bottom: 32px; }
+        .progress-step { flex: 1; height: 4px; background: #e2e8f0; border-radius: 2px; }
+        .progress-step.active { background: #667eea; }
+
+        .form-section { margin-bottom: 32px; }
+        .form-section h2 { color: #2d3748; margin-bottom: 8px; font-size: 20px; }
+        .form-section .subtitle { color: #718096; font-size: 14px; margin-bottom: 24px; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #2d3748; }
+        .form-group label .required { color: #e53e3e; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; font-family: 'Inter', sans-serif; transition: border-color 0.2s; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #667eea; }
+
+        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+        .info-box { background: #f7fafc; border-left: 4px solid #667eea; padding: 16px; border-radius: 8px; margin-bottom: 24px; }
+        .info-box p { color: #4a5568; font-size: 14px; line-height: 1.6; }
+
+        .btn { width: 100%; padding: 14px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn:hover { background: #5568d3; }
+        .btn:disabled { background: #cbd5e0; cursor: not-allowed; }
+
+        .duplicate-matches { margin-top: 24px; padding: 24px; background: #fffbeb; border: 2px solid #fbbf24; border-radius: 12px; }
+        .duplicate-matches h3 { color: #92400e; margin-bottom: 16px; }
+        .match-card { background: white; padding: 16px; border-radius: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .match-info h4 { color: #2d3748; margin-bottom: 4px; }
+        .match-info p { color: #718096; font-size: 14px; }
+        .match-actions { display: flex; gap: 8px; }
+        .btn-small { padding: 8px 16px; font-size: 14px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; }
+        .btn-claim { background: #10b981; color: white; }
+        .btn-claim:hover { background: #059669; }
+        .btn-skip { background: #e2e8f0; color: #4a5568; }
+        .btn-skip:hover { background: #cbd5e0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <i class="fas fa-users"></i>
+            <h1>Welcome to FamilyConnect</h1>
+            <p>Let's set up your profile to get started</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-step active"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+        </div>
+
+        <div id="duplicateSection" style="display: none;" class="duplicate-matches">
+            <h3><i class="fas fa-exclamation-circle"></i> We found potential matches!</h3>
+            <p style="margin-bottom: 16px; color: #78350f;">Is one of these profiles you? Click "Claim Profile" to link it to your account.</p>
+            <div id="duplicateList"></div>
+            <button class="btn" onclick="skipDuplicates()">
+                <i class="fas fa-arrow-right"></i> None of these are me, continue
+            </button>
+        </div>
+
+        <form id="onboardingForm">
+            <div class="form-section">
+                <h2>Basic Information</h2>
+                <p class="subtitle">Tell us about yourself (required to continue)</p>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>First Name <span class="required">*</span></label>
+                        <input type="text" id="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name <span class="required">*</span></label>
+                        <input type="text" id="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Gender <span class="required">*</span></label>
+                    <select id="gender" required>
+                        <option value="">Select gender...</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Your Parents</h2>
+                <p class="subtitle">This helps us connect you with your family tree (required)</p>
+
+                <div class="info-box">
+                    <p><i class="fas fa-lightbulb"></i> <strong>Why we need this:</strong> Parent names help us identify existing family profiles and connect you with relatives automatically.</p>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Mother's Full Name <span class="required">*</span></label>
+                        <input type="text" id="motherName" placeholder="First and last name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Father's Full Name <span class="required">*</span></label>
+                        <input type="text" id="fatherName" placeholder="First and last name" required>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn">
+                <i class="fas fa-check"></i> Complete Profile
+            </button>
+        </form>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const supabase = createClient(
+            'https://fvfviudlxyumnskakftp.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA'
+        );
+
+        let currentUser = null;
+        let foundDuplicates = [];
+
+        async function checkAuth() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = '../auth/login.html';
+                return;
+            }
+            currentUser = session.user;
+
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('onboarding_completed')
+                .eq('id', currentUser.id)
+                .maybeSingle();
+
+            if (profile?.onboarding_completed) {
+                window.location.href = '../dashboard/index.html';
+            }
+        }
+
+        document.getElementById('onboardingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const gender = document.getElementById('gender').value;
+            const motherName = document.getElementById('motherName').value;
+            const fatherName = document.getElementById('fatherName').value;
+
+            await checkForDuplicates(firstName, lastName, motherName, fatherName);
+        });
+
+        async function checkForDuplicates(firstName, lastName, motherName, fatherName) {
+            const { data: matches } = await supabase
+                .from('family_members')
+                .select('*')
+                .ilike('first_name', firstName)
+                .ilike('last_name', lastName);
+
+            if (matches && matches.length > 0) {
+                foundDuplicates = matches.filter(m =>
+                    (m.mother_name && m.mother_name.toLowerCase().includes(motherName.toLowerCase().split(' ')[0])) ||
+                    (m.father_name && m.father_name.toLowerCase().includes(fatherName.toLowerCase().split(' ')[0]))
+                );
+
+                if (foundDuplicates.length > 0) {
+                    showDuplicates();
+                    return;
+                }
+            }
+
+            await completeOnboarding();
+        }
+
+        function showDuplicates() {
+            document.getElementById('onboardingForm').style.display = 'none';
+            const duplicateSection = document.getElementById('duplicateSection');
+            const duplicateList = document.getElementById('duplicateList');
+
+            duplicateSection.style.display = 'block';
+
+            duplicateList.innerHTML = foundDuplicates.map(match => `
+                <div class="match-card">
+                    <div class="match-info">
+                        <h4>${match.first_name} ${match.last_name || ''}</h4>
+                        <p>${match.birth_date ? 'Born: ' + new Date(match.birth_date).toLocaleDateString() : ''}</p>
+                        <p>Parents: ${match.mother_name || 'Unknown'}, ${match.father_name || 'Unknown'}</p>
+                    </div>
+                    <div class="match-actions">
+                        <button class="btn-small btn-claim" onclick="claimProfile('${match.id}')">
+                            <i class="fas fa-check"></i> Claim Profile
+                        </button>
+                        <button class="btn-small btn-skip" onclick="ignoreDuplicate()">
+                            Not me
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.claimProfile = async function(memberId) {
+            const btn = event.target;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Claiming...';
+            btn.disabled = true;
+
+            await supabase
+                .from('family_members')
+                .update({ user_id: currentUser.id })
+                .eq('id', memberId);
+
+            await completeOnboarding(memberId);
+        };
+
+        window.ignoreDuplicate = function() {
+            event.target.closest('.match-card').remove();
+        };
+
+        window.skipDuplicates = async function() {
+            await completeOnboarding();
+        };
+
+        async function completeOnboarding(claimedProfileId = null) {
+            const btn = document.getElementById('submitBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Setting up...';
+            btn.disabled = true;
+
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const gender = document.getElementById('gender').value;
+            const motherName = document.getElementById('motherName').value;
+            const fatherName = document.getElementById('fatherName').value;
+
+            await supabase
+                .from('profiles')
+                .upsert({
+                    id: currentUser.id,
+                    first_name: firstName,
+                    last_name: lastName,
+                    gender: gender,
+                    mother_name: motherName,
+                    father_name: fatherName,
+                    onboarding_completed: true,
+                    is_family_admin: true,
+                    updated_at: new Date().toISOString()
+                });
+
+            if (!claimedProfileId) {
+                await supabase
+                    .from('family_members')
+                    .insert({
+                        user_id: currentUser.id,
+                        first_name: firstName,
+                        last_name: lastName,
+                        gender: gender,
+                        mother_name: motherName,
+                        father_name: fatherName
+                    });
+            }
+
+            window.location.href = '../dashboard/index.html';
+        }
+
+        checkAuth();
+    </script>
+</body>
+</html>
