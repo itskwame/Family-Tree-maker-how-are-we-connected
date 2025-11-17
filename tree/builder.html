@@ -146,7 +146,7 @@
                     ${member.location ? `<p><i class="fas fa-map-marker-alt"></i> ${member.location}</p>` : ''}
                     ${member.bio ? `<p style="margin-top: 8px;">${member.bio.substring(0, 100)}${member.bio.length > 100 ? '...' : ''}</p>` : ''}
                     <div class="member-actions">
-                        <button class="btn btn-sm" onclick="editMember('${member.id}')"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn btn-sm" onclick="linkRelationships('${member.id}', '${member.first_name} ${member.last_name || ''}')"><i class="fas fa-link"></i> Link</button>
                         <button class="btn btn-sm btn-secondary" onclick="deleteMember('${member.id}')"><i class="fas fa-trash"></i> Delete</button>
                     </div>
                 </div>
@@ -184,6 +184,47 @@
             btn.innerHTML = '<i class="fas fa-plus"></i> Add Member';
             btn.disabled = false;
         });
+
+        window.linkRelationships = async function(memberId, memberName) {
+            const members = familyMembers.filter(m => m.id !== memberId);
+
+            if (members.length === 0) {
+                alert('Add more family members first to create relationships.');
+                return;
+            }
+
+            const parent = prompt(`Who is ${memberName}'s parent? Enter their first name (or leave blank):`);
+            if (parent) {
+                const parentMember = members.find(m => m.first_name.toLowerCase() === parent.toLowerCase());
+                if (parentMember) {
+                    const { error } = await supabase
+                        .from('relationships')
+                        .insert([{ parent_id: parentMember.id, child_id: memberId }]);
+
+                    if (error && !error.message.includes('duplicate')) {
+                        alert('Added parent relationship!');
+                    }
+                } else {
+                    alert('Parent not found. Make sure they are added to the family tree first.');
+                }
+            }
+
+            const spouse = prompt(`Who is ${memberName}'s spouse? Enter their first name (or leave blank):`);
+            if (spouse) {
+                const spouseMember = members.find(m => m.first_name.toLowerCase() === spouse.toLowerCase());
+                if (spouseMember) {
+                    const { error } = await supabase
+                        .from('marriages')
+                        .insert([{ spouse1_id: memberId, spouse2_id: spouseMember.id }]);
+
+                    if (error && !error.message.includes('duplicate')) {
+                        alert('Added spouse relationship!');
+                    }
+                }
+            }
+
+            alert('Relationships updated! Use the Connection Finder to see how people are connected.');
+        };
 
         window.deleteMember = async function(id) {
             if (!confirm('Are you sure you want to delete this family member?')) return;

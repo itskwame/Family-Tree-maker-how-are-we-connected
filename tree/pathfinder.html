@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connection Finder - FamilyConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f7fafc; }
+        .container { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: white; border-right: 1px solid #e2e8f0; padding: 24px; }
+        .logo { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 32px; }
+        .nav-item { padding: 12px 16px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #4a5568; text-decoration: none; }
+        .nav-item:hover { background: #f7fafc; }
+        .nav-item.active { background: #667eea; color: white; }
+        .main { flex: 1; padding: 32px; max-width: 1200px; }
+        .card { background: white; padding: 32px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; }
+        h1 { font-family: 'Playfair Display', serif; margin-bottom: 8px; }
+        .selector-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: center; margin: 32px 0; }
+        .person-selector { background: #f7fafc; padding: 24px; border-radius: 12px; border: 2px solid #e2e8f0; text-align: center; }
+        .person-selector h3 { margin-bottom: 16px; color: #2d3748; }
+        .person-selector select { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; }
+        .arrow-icon { font-size: 32px; color: #667eea; }
+        .btn { padding: 12px 32px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px; }
+        .btn:hover { background: #5568d3; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .result-card { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 32px; border-radius: 12px; margin-top: 24px; }
+        .result-card h2 { margin-bottom: 16px; }
+        .connection-path { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 16px; margin-top: 24px; }
+        .path-person { background: rgba(255,255,255,0.95); color: #2d3748; padding: 16px; border-radius: 12px; text-align: center; min-width: 120px; }
+        .path-person-name { font-weight: 600; margin-bottom: 4px; }
+        .path-person-relation { font-size: 12px; opacity: 0.7; }
+        .path-arrow { color: white; font-size: 24px; }
+        .no-connection { background: #fed7d7; color: #c53030; padding: 24px; border-radius: 12px; text-align: center; margin-top: 24px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo"><i class="fas fa-users"></i> FamilyConnect</div>
+            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="builder.html" class="nav-item"><i class="fas fa-project-diagram"></i> Family Tree</a>
+            <a href="pathfinder.html" class="nav-item active"><i class="fas fa-route"></i> Connection Finder</a>
+            <a href="templates.html" class="nav-item"><i class="fas fa-print"></i> Print Templates</a>
+            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-images"></i> Family Feed</a>
+            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-store"></i> Businesses</a>
+            <a href="../profile/index.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+            <a href="#" onclick="signOut()" class="nav-item"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+        </div>
+
+        <div class="main">
+            <h1>Connection Finder</h1>
+            <p style="color: #718096; margin-bottom: 32px;">Discover how any two family members are related</p>
+
+            <div class="card">
+                <p style="color: #718096; margin-bottom: 24px; text-align: center;">
+                    <i class="fas fa-info-circle"></i>
+                    To use this feature, you need to add relationships between family members in the Family Tree Builder.
+                    Click the "Link Relationships" button next to each member to connect parents, children, and spouses.
+                </p>
+
+                <div class="selector-grid">
+                    <div class="person-selector">
+                        <h3>Person A</h3>
+                        <select id="personA">
+                            <option value="">Select a person...</option>
+                        </select>
+                    </div>
+
+                    <div class="arrow-icon">
+                        <i class="fas fa-arrows-alt-h"></i>
+                    </div>
+
+                    <div class="person-selector">
+                        <h3>Person B</h3>
+                        <select id="personB">
+                            <option value="">Select a person...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <button class="btn" id="findBtn" onclick="findConnection()" disabled>
+                        <i class="fas fa-search"></i> Find Connection
+                    </button>
+                </div>
+
+                <div id="resultArea"></div>
+            </div>
+
+            <div class="card">
+                <h2 style="margin-bottom: 16px;">How It Works</h2>
+                <div style="color: #718096; line-height: 1.8;">
+                    <p style="margin-bottom: 12px;">
+                        <strong>Step 1:</strong> Add family members in the Family Tree Builder
+                    </p>
+                    <p style="margin-bottom: 12px;">
+                        <strong>Step 2:</strong> Link relationships (who is whose parent, spouse, child)
+                    </p>
+                    <p style="margin-bottom: 12px;">
+                        <strong>Step 3:</strong> Use this tool to discover how any two people are connected
+                    </p>
+                    <p style="margin-top: 24px;">
+                        The connection finder uses a pathfinding algorithm to trace relationships through your family tree,
+                        showing you the shortest path between any two people.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const supabase = createClient(
+            'https://fvfviudlxyumnskakftp.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA'
+        );
+
+        let familyMembers = [];
+        let relationships = [];
+
+        async function checkAuth() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = '../auth/login.html';
+                return;
+            }
+            loadData();
+        }
+
+        async function loadData() {
+            const { data: members } = await supabase
+                .from('family_members')
+                .select('*')
+                .order('first_name');
+
+            const { data: rels } = await supabase
+                .from('relationships')
+                .select('*');
+
+            familyMembers = members || [];
+            relationships = rels || [];
+
+            const personA = document.getElementById('personA');
+            const personB = document.getElementById('personB');
+
+            familyMembers.forEach(member => {
+                const option = `<option value="${member.id}">${member.first_name} ${member.last_name || ''}</option>`;
+                personA.innerHTML += option;
+                personB.innerHTML += option;
+            });
+
+            personA.addEventListener('change', checkSelections);
+            personB.addEventListener('change', checkSelections);
+        }
+
+        function checkSelections() {
+            const personA = document.getElementById('personA').value;
+            const personB = document.getElementById('personB').value;
+            document.getElementById('findBtn').disabled = !personA || !personB || personA === personB;
+        }
+
+        window.findConnection = function() {
+            const personAId = document.getElementById('personA').value;
+            const personBId = document.getElementById('personB').value;
+
+            const personA = familyMembers.find(m => m.id === personAId);
+            const personB = familyMembers.find(m => m.id === personBId);
+
+            if (relationships.length === 0) {
+                document.getElementById('resultArea').innerHTML = `
+                    <div class="no-connection">
+                        <i class="fas fa-unlink" style="font-size: 32px; margin-bottom: 12px;"></i>
+                        <h3>No relationships found</h3>
+                        <p style="margin-top: 8px;">Add relationships in the Family Tree Builder to discover connections.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const path = findPath(personAId, personBId);
+
+            if (!path || path.length === 0) {
+                document.getElementById('resultArea').innerHTML = `
+                    <div class="no-connection">
+                        <i class="fas fa-unlink" style="font-size: 32px; margin-bottom: 12px;"></i>
+                        <h3>No connection found</h3>
+                        <p style="margin-top: 8px;">${personA.first_name} and ${personB.first_name} are not connected in the family tree yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const degree = path.length - 1;
+            let relationship = 'relatives';
+            if (degree === 1) relationship = 'directly connected (parent/child/spouse)';
+            else if (degree === 2) relationship = 'siblings or grandparent/grandchild';
+            else if (degree === 3) relationship = 'aunt/uncle or niece/nephew';
+            else if (degree === 4) relationship = '1st cousins';
+
+            const pathHTML = path.map((memberId, index) => {
+                const member = familyMembers.find(m => m.id === memberId);
+                const arrow = index < path.length - 1 ? '<div class="path-arrow"><i class="fas fa-arrow-right"></i></div>' : '';
+                return `
+                    <div class="path-person">
+                        <div class="path-person-name">${member.first_name} ${member.last_name || ''}</div>
+                        ${member.birth_date ? `<div class="path-person-relation">b. ${new Date(member.birth_date).getFullYear()}</div>` : ''}
+                    </div>
+                    ${arrow}
+                `;
+            }).join('');
+
+            document.getElementById('resultArea').innerHTML = `
+                <div class="result-card">
+                    <h2><i class="fas fa-check-circle"></i> Connection Found!</h2>
+                    <p style="font-size: 18px;">${personA.first_name} and ${personB.first_name} are ${relationship}</p>
+                    <p style="margin-top: 8px; opacity: 0.9;">Connection degree: ${degree} ${degree === 1 ? 'step' : 'steps'}</p>
+                    <div class="connection-path">
+                        ${pathHTML}
+                    </div>
+                </div>
+            `;
+        };
+
+        function findPath(startId, endId) {
+            if (startId === endId) return [startId];
+
+            const graph = new Map();
+            familyMembers.forEach(m => graph.set(m.id, new Set()));
+
+            relationships.forEach(rel => {
+                graph.get(rel.parent_id)?.add(rel.child_id);
+                graph.get(rel.child_id)?.add(rel.parent_id);
+            });
+
+            const queue = [[startId]];
+            const visited = new Set([startId]);
+
+            while (queue.length > 0) {
+                const path = queue.shift();
+                const current = path[path.length - 1];
+
+                if (current === endId) return path;
+
+                const neighbors = graph.get(current) || new Set();
+                for (const neighbor of neighbors) {
+                    if (!visited.has(neighbor)) {
+                        visited.add(neighbor);
+                        queue.push([...path, neighbor]);
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        window.signOut = async function() {
+            await supabase.auth.signOut();
+            window.location.href = '../auth/login.html';
+        };
+
+        checkAuth();
+    </script>
+</body>
+</html>
