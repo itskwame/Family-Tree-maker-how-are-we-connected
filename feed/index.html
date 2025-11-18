@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Feed - FamilyConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f7fafc; }
+        .container { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: white; border-right: 1px solid #e2e8f0; padding: 24px; position: fixed; height: 100vh; overflow-y: auto; }
+        .logo { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 32px; cursor: pointer; }
+        .nav-item { padding: 12px 16px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #4a5568; text-decoration: none; font-size: 14px; }
+        .nav-item:hover { background: #f7fafc; }
+        .nav-item.active { background: #667eea; color: white; }
+        .main { flex: 1; padding: 32px; margin-left: 260px; max-width: 800px; margin-right: auto; }
+
+        .create-post { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; }
+        .create-post textarea { width: 100%; padding: 16px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 16px; min-height: 100px; resize: vertical; }
+        .create-post textarea:focus { outline: none; border-color: #667eea; }
+        .create-post-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
+        .btn { padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+        .btn:hover { background: #5568d3; }
+        .btn:disabled { background: #cbd5e0; cursor: not-allowed; }
+
+        .post { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; }
+        .post-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+        .post-avatar { width: 48px; height: 48px; border-radius: 50%; background: #667eea; color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 18px; }
+        .post-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .post-author-info h3 { font-size: 16px; color: #2d3748; margin-bottom: 4px; }
+        .post-author-info p { font-size: 14px; color: #718096; }
+        .post-content { color: #2d3748; line-height: 1.6; margin-bottom: 16px; font-size: 15px; }
+        .post-actions { display: flex; gap: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; }
+        .post-action { display: flex; align-items: center; gap: 8px; color: #718096; cursor: pointer; font-size: 14px; font-weight: 500; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; }
+        .post-action:hover { background: #f7fafc; color: #667eea; }
+        .post-action.liked { color: #e53e3e; }
+
+        .comments-section { margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0; }
+        .comment { display: flex; gap: 12px; margin-bottom: 16px; }
+        .comment-avatar { width: 36px; height: 36px; border-radius: 50%; background: #667eea; color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; flex-shrink: 0; }
+        .comment-content { background: #f7fafc; padding: 12px; border-radius: 8px; flex: 1; }
+        .comment-author { font-weight: 600; color: #2d3748; font-size: 14px; margin-bottom: 4px; }
+        .comment-text { color: #4a5568; font-size: 14px; line-height: 1.5; }
+        .comment-input { display: flex; gap: 12px; margin-top: 16px; }
+        .comment-input input { flex: 1; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px; }
+        .comment-input input:focus { outline: none; border-color: #667eea; }
+        .comment-input button { padding: 12px 20px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .comment-input button:hover { background: #5568d3; }
+
+        .empty-state { text-align: center; padding: 64px 24px; color: #718096; }
+        .empty-state i { font-size: 64px; color: #cbd5e0; margin-bottom: 16px; }
+        .empty-state h3 { font-size: 20px; margin-bottom: 8px; color: #2d3748; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo" onclick="window.location.href='../dashboard/index.html'"><i class="fas fa-users"></i> FamilyConnect</div>
+            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="../tree/builder.html" class="nav-item"><i class="fas fa-project-diagram"></i> Family Tree Builder</a>
+            <a href="../tree/viewer.html" class="nav-item"><i class="fas fa-sitemap"></i> Tree Viewer</a>
+            <a href="../tree/pathfinder.html" class="nav-item"><i class="fas fa-route"></i> Connection Finder</a>
+            <a href="../tree/templates.html" class="nav-item"><i class="fas fa-print"></i> Print Templates</a>
+            <hr style="margin: 16px 0; border: none; border-top: 1px solid #e2e8f0;">
+            <a href="index.html" class="nav-item active"><i class="fas fa-images"></i> Family Feed</a>
+            <a href="../business/index.html" class="nav-item"><i class="fas fa-store"></i> Businesses</a>
+            <a href="../profile/view.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+            <a href="#" onclick="signOut()" class="nav-item"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+        </div>
+
+        <div class="main">
+            <h1 style="font-size: 32px; color: #2d3748; margin-bottom: 24px;">Family Feed</h1>
+
+            <div class="create-post">
+                <textarea id="postContent" placeholder="Share something with your family..."></textarea>
+                <div class="create-post-actions">
+                    <span style="color: #718096; font-size: 14px;"><i class="fas fa-users"></i> Visible to all family members</span>
+                    <button class="btn" onclick="createPost()"><i class="fas fa-paper-plane"></i> Post</button>
+                </div>
+            </div>
+
+            <div id="postsContainer"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const supabase = createClient(
+            'https://fvfviudlxyumnskakftp.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA'
+        );
+
+        let currentUser = null;
+        let currentProfile = null;
+
+        window.signOut = async function() {
+            await supabase.auth.signOut();
+            window.location.href = '../index.html';
+        };
+
+        window.createPost = async function() {
+            const content = document.getElementById('postContent').value.trim();
+            if (!content) return;
+
+            const { error } = await supabase
+                .from('posts')
+                .insert({
+                    author_id: currentUser.id,
+                    content: content
+                });
+
+            if (!error) {
+                document.getElementById('postContent').value = '';
+                await loadPosts();
+            }
+        };
+
+        window.toggleLike = async function(postId) {
+            const { data: existing } = await supabase
+                .from('post_likes')
+                .select('id')
+                .eq('post_id', postId)
+                .eq('profile_id', currentUser.id)
+                .maybeSingle();
+
+            if (existing) {
+                await supabase.from('post_likes').delete().eq('id', existing.id);
+            } else {
+                await supabase.from('post_likes').insert({ post_id: postId, profile_id: currentUser.id });
+            }
+
+            await loadPosts();
+        };
+
+        window.addComment = async function(postId) {
+            const input = document.getElementById(`comment-input-${postId}`);
+            const content = input.value.trim();
+            if (!content) return;
+
+            await supabase.from('post_comments').insert({
+                post_id: postId,
+                profile_id: currentUser.id,
+                content: content
+            });
+
+            input.value = '';
+            await loadPosts();
+        };
+
+        async function loadPosts() {
+            const { data: posts } = await supabase
+                .from('posts')
+                .select(`
+                    *,
+                    author:author_id (first_name, last_name, avatar_url),
+                    likes:post_likes (profile_id),
+                    comments:post_comments (
+                        *,
+                        author:profile_id (first_name, last_name, avatar_url)
+                    )
+                `)
+                .order('created_at', { ascending: false });
+
+            const container = document.getElementById('postsContainer');
+
+            if (!posts || posts.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-comments"></i>
+                        <h3>No posts yet</h3>
+                        <p>Be the first to share something with your family!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = posts.map(post => {
+                const authorName = post.author ? `${post.author.first_name} ${post.author.last_name}` : 'Unknown';
+                const authorInitials = authorName.split(' ').map(n => n[0]).join('');
+                const likeCount = post.likes?.length || 0;
+                const isLiked = post.likes?.some(l => l.profile_id === currentUser.id);
+                const timeAgo = getTimeAgo(post.created_at);
+
+                return `
+                    <div class="post">
+                        <div class="post-header">
+                            <div class="post-avatar">${authorInitials}</div>
+                            <div class="post-author-info">
+                                <h3>${authorName}</h3>
+                                <p>${timeAgo}</p>
+                            </div>
+                        </div>
+                        <div class="post-content">${post.content}</div>
+                        <div class="post-actions">
+                            <div class="post-action ${isLiked ? 'liked' : ''}" onclick="toggleLike('${post.id}')">
+                                <i class="fas fa-heart"></i>
+                                <span>${likeCount} ${likeCount === 1 ? 'Like' : 'Likes'}</span>
+                            </div>
+                            <div class="post-action">
+                                <i class="fas fa-comment"></i>
+                                <span>${post.comments?.length || 0} ${post.comments?.length === 1 ? 'Comment' : 'Comments'}</span>
+                            </div>
+                        </div>
+                        <div class="comments-section">
+                            ${(post.comments || []).map(comment => {
+                                const commentAuthor = comment.author ? `${comment.author.first_name} ${comment.author.last_name}` : 'Unknown';
+                                const commentInitials = commentAuthor.split(' ').map(n => n[0]).join('');
+                                return `
+                                    <div class="comment">
+                                        <div class="comment-avatar">${commentInitials}</div>
+                                        <div class="comment-content">
+                                            <div class="comment-author">${commentAuthor}</div>
+                                            <div class="comment-text">${comment.content}</div>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                            <div class="comment-input">
+                                <input type="text" id="comment-input-${post.id}" placeholder="Write a comment...">
+                                <button onclick="addComment('${post.id}')">Post</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getTimeAgo(timestamp) {
+            const seconds = Math.floor((new Date() - new Date(timestamp)) / 1000);
+            if (seconds < 60) return 'Just now';
+            if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+            if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+            return `${Math.floor(seconds / 86400)}d ago`;
+        }
+
+        async function init() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = '../auth/login.html';
+                return;
+            }
+
+            currentUser = session.user;
+
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', currentUser.id)
+                .maybeSingle();
+
+            currentProfile = profile;
+            await loadPosts();
+        }
+
+        init();
+    </script>
+</body>
+</html>

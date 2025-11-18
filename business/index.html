@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Directory - FamilyConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f7fafc; }
+        .container { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: white; border-right: 1px solid #e2e8f0; padding: 24px; position: fixed; height: 100vh; overflow-y: auto; }
+        .logo { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 32px; cursor: pointer; }
+        .nav-item { padding: 12px 16px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #4a5568; text-decoration: none; font-size: 14px; }
+        .nav-item:hover { background: #f7fafc; }
+        .nav-item.active { background: #667eea; color: white; }
+        .main { flex: 1; padding: 32px; margin-left: 260px; max-width: 1200px; }
+
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+        .header h1 { font-size: 32px; color: #2d3748; }
+        .btn { padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+        .btn:hover { background: #5568d3; }
+
+        .business-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 24px; }
+        .business-card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; }
+        .business-card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .business-header { display: flex; gap: 16px; margin-bottom: 16px; }
+        .business-logo { width: 64px; height: 64px; border-radius: 8px; background: #667eea; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; flex-shrink: 0; }
+        .business-logo img { width: 100%; height: 100%; border-radius: 8px; object-fit: cover; }
+        .business-info h3 { font-size: 18px; color: #2d3748; margin-bottom: 4px; }
+        .business-category { display: inline-block; padding: 4px 12px; background: #f7fafc; color: #667eea; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .business-description { color: #718096; font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+        .business-contacts { display: flex; flex-direction: column; gap: 8px; padding-top: 16px; border-top: 1px solid #e2e8f0; }
+        .contact-item { display: flex; align-items: center; gap: 8px; color: #4a5568; font-size: 14px; }
+        .contact-item i { color: #667eea; width: 20px; }
+        .contact-item a { color: #667eea; text-decoration: none; }
+        .contact-item a:hover { text-decoration: underline; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: white; border-radius: 16px; padding: 32px; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .modal-header h2 { font-size: 24px; color: #2d3748; }
+        .close-modal { background: none; border: none; font-size: 24px; color: #718096; cursor: pointer; }
+        .close-modal:hover { color: #2d3748; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #2d3748; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; font-family: 'Inter', sans-serif; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #667eea; }
+        .form-group textarea { min-height: 100px; resize: vertical; }
+
+        .empty-state { text-align: center; padding: 64px 24px; color: #718096; }
+        .empty-state i { font-size: 64px; color: #cbd5e0; margin-bottom: 16px; }
+        .empty-state h3 { font-size: 20px; margin-bottom: 8px; color: #2d3748; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo" onclick="window.location.href='../dashboard/index.html'"><i class="fas fa-users"></i> FamilyConnect</div>
+            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="../tree/builder.html" class="nav-item"><i class="fas fa-project-diagram"></i> Family Tree Builder</a>
+            <a href="../tree/viewer.html" class="nav-item"><i class="fas fa-sitemap"></i> Tree Viewer</a>
+            <a href="../tree/pathfinder.html" class="nav-item"><i class="fas fa-route"></i> Connection Finder</a>
+            <a href="../tree/templates.html" class="nav-item"><i class="fas fa-print"></i> Print Templates</a>
+            <hr style="margin: 16px 0; border: none; border-top: 1px solid #e2e8f0;">
+            <a href="../feed/index.html" class="nav-item"><i class="fas fa-images"></i> Family Feed</a>
+            <a href="index.html" class="nav-item active"><i class="fas fa-store"></i> Businesses</a>
+            <a href="../profile/view.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+            <a href="#" onclick="signOut()" class="nav-item"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+        </div>
+
+        <div class="main">
+            <div class="header">
+                <h1>Family Business Directory</h1>
+                <button class="btn" onclick="openAddModal()"><i class="fas fa-plus"></i> Add Business</button>
+            </div>
+
+            <div id="businessGrid" class="business-grid"></div>
+        </div>
+    </div>
+
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Your Business</h2>
+                <button class="close-modal" onclick="closeAddModal()">&times;</button>
+            </div>
+            <form id="addBusinessForm">
+                <div class="form-group">
+                    <label>Business Name *</label>
+                    <input type="text" id="businessName" required>
+                </div>
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select id="category" required>
+                        <option value="">Select category...</option>
+                        <option value="Restaurant">Restaurant</option>
+                        <option value="Retail">Retail</option>
+                        <option value="Services">Services</option>
+                        <option value="Construction">Construction</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Education">Education</option>
+                        <option value="Real Estate">Real Estate</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="description" placeholder="Tell us about your business..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" id="phone" placeholder="(555) 123-4567">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="contact@business.com">
+                </div>
+                <div class="form-group">
+                    <label>Website</label>
+                    <input type="url" id="website" placeholder="https://yourbusiness.com">
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" id="location" placeholder="123 Main St, City, State">
+                </div>
+                <button type="submit" class="btn" style="width: 100%;"><i class="fas fa-check"></i> Add Business</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const supabase = createClient(
+            'https://fvfviudlxyumnskakftp.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA'
+        );
+
+        let currentUser = null;
+
+        window.signOut = async function() {
+            await supabase.auth.signOut();
+            window.location.href = '../index.html';
+        };
+
+        window.openAddModal = function() {
+            document.getElementById('addModal').classList.add('active');
+        };
+
+        window.closeAddModal = function() {
+            document.getElementById('addModal').classList.remove('active');
+            document.getElementById('addBusinessForm').reset();
+        };
+
+        document.getElementById('addBusinessForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const { error } = await supabase.from('businesses').insert({
+                owner_id: currentUser.id,
+                name: document.getElementById('businessName').value,
+                category: document.getElementById('category').value,
+                description: document.getElementById('description').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                website: document.getElementById('website').value,
+                location: document.getElementById('location').value
+            });
+
+            if (!error) {
+                closeAddModal();
+                await loadBusinesses();
+            }
+        });
+
+        async function loadBusinesses() {
+            const { data: businesses } = await supabase
+                .from('businesses')
+                .select(`
+                    *,
+                    owner:owner_id (first_name, last_name)
+                `)
+                .order('created_at', { ascending: false });
+
+            const grid = document.getElementById('businessGrid');
+
+            if (!businesses || businesses.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <i class="fas fa-store"></i>
+                        <h3>No businesses yet</h3>
+                        <p>Be the first to add your family business!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = businesses.map(business => {
+                const ownerName = business.owner ? `${business.owner.first_name} ${business.owner.last_name}` : 'Unknown';
+                const initials = business.name.split(' ').map(w => w[0]).join('').substring(0, 2);
+
+                return `
+                    <div class="business-card">
+                        <div class="business-header">
+                            <div class="business-logo">${initials}</div>
+                            <div class="business-info">
+                                <h3>${business.name}</h3>
+                                <span class="business-category">${business.category}</span>
+                            </div>
+                        </div>
+                        ${business.description ? `<div class="business-description">${business.description}</div>` : ''}
+                        <div class="business-contacts">
+                            <div class="contact-item"><i class="fas fa-user"></i> Owner: ${ownerName}</div>
+                            ${business.phone ? `<div class="contact-item"><i class="fas fa-phone"></i> <a href="tel:${business.phone}">${business.phone}</a></div>` : ''}
+                            ${business.email ? `<div class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:${business.email}">${business.email}</a></div>` : ''}
+                            ${business.website ? `<div class="contact-item"><i class="fas fa-globe"></i> <a href="${business.website}" target="_blank">${business.website}</a></div>` : ''}
+                            ${business.location ? `<div class="contact-item"><i class="fas fa-map-marker-alt"></i> ${business.location}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function init() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = '../auth/login.html';
+                return;
+            }
+
+            currentUser = session.user;
+            await loadBusinesses();
+        }
+
+        init();
+    </script>
+</body>
+</html>
