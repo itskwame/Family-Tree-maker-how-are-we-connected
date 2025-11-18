@@ -10,64 +10,73 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: #f7fafc; }
         .container { display: flex; min-height: 100vh; }
-        .sidebar { width: 260px; background: white; border-right: 1px solid #e2e8f0; padding: 24px; }
-        .logo { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 32px; }
-        .nav-item { padding: 12px 16px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #4a5568; text-decoration: none; }
+        .sidebar { width: 260px; background: white; border-right: 1px solid #e2e8f0; padding: 24px; position: fixed; height: 100vh; overflow-y: auto; }
+        .logo { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 32px; cursor: pointer; }
+        .nav-item { padding: 12px 16px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #4a5568; text-decoration: none; font-size: 14px; }
         .nav-item:hover { background: #f7fafc; }
         .nav-item.active { background: #667eea; color: white; }
-        .main { flex: 1; padding: 32px; max-width: 1200px; }
+        .main { flex: 1; padding: 32px; margin-left: 260px; max-width: 1200px; }
         .card { background: white; padding: 32px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; }
-        h1 { font-family: 'Playfair Display', serif; margin-bottom: 8px; }
+        h1 { font-family: 'Playfair Display', serif; margin-bottom: 8px; font-size: 32px; }
         .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #2d3748; }
+        .form-group label .required { color: #e53e3e; }
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; font-family: 'Inter', sans-serif; }
-        .form-group textarea { min-height: 100px; resize: vertical; }
-        .btn { padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px; }
+        .form-group textarea { min-height: 80px; resize: vertical; }
+        .btn { padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px; display: inline-flex; align-items: center; gap: 8px; }
         .btn:hover { background: #5568d3; }
+        .btn:disabled { background: #cbd5e0; cursor: not-allowed; }
         .btn-secondary { background: #e2e8f0; color: #2d3748; }
         .btn-secondary:hover { background: #cbd5e0; }
-        .member-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 24px; }
+        .btn-sm { padding: 8px 12px; font-size: 13px; }
+
+        .member-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 24px; }
         .member-card { background: #f7fafc; padding: 20px; border-radius: 12px; border: 2px solid #e2e8f0; }
-        .member-card h3 { margin-bottom: 8px; color: #2d3748; }
-        .member-card p { color: #718096; font-size: 14px; margin-bottom: 4px; }
-        .member-actions { margin-top: 12px; display: flex; gap: 8px; }
-        .btn-sm { padding: 6px 12px; font-size: 14px; }
+        .member-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px; }
+        .member-card h3 { color: #2d3748; font-size: 18px; }
+        .deceased-badge { background: #718096; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+        .member-card p { color: #718096; font-size: 14px; margin-bottom: 6px; }
+        .member-actions { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .relationship-section { background: #fffbeb; border: 2px solid #fbbf24; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        .relationship-section h3 { color: #92400e; margin-bottom: 12px; font-size: 16px; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="sidebar">
-            <div class="logo"><i class="fas fa-users"></i> FamilyConnect</div>
+            <div class="logo" onclick="window.location.href='../dashboard/index.html'"><i class="fas fa-users"></i> FamilyConnect</div>
             <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
-            <a href="builder.html" class="nav-item active"><i class="fas fa-project-diagram"></i> Family Tree</a>
+            <a href="builder.html" class="nav-item active"><i class="fas fa-project-diagram"></i> Family Tree Builder</a>
+            <a href="viewer.html" class="nav-item"><i class="fas fa-sitemap"></i> Tree Viewer</a>
+            <a href="pathfinder.html" class="nav-item"><i class="fas fa-route"></i> Connection Finder</a>
             <a href="templates.html" class="nav-item"><i class="fas fa-print"></i> Print Templates</a>
+            <hr style="margin: 16px 0; border: none; border-top: 1px solid #e2e8f0;">
             <a href="../feed/index.html" class="nav-item"><i class="fas fa-images"></i> Family Feed</a>
-            <a href="../businesses/index.html" class="nav-item"><i class="fas fa-store"></i> Businesses</a>
-            <a href="../profile/index.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+            <a href="../business/index.html" class="nav-item"><i class="fas fa-store"></i> Businesses</a>
+            <a href="../profile/view.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
             <a href="#" onclick="signOut()" class="nav-item"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
         </div>
 
         <div class="main">
             <h1>Build Your Family Tree</h1>
-            <p style="color: #718096; margin-bottom: 32px;">Add family members and build your family connections</p>
+            <p style="color: #718096; margin-bottom: 32px;">Add family members and specify relationships</p>
 
             <div class="card">
-                <h2 style="margin-bottom: 24px;">Add Family Member</h2>
+                <h2 style="margin-bottom: 24px; color: #2d3748;">Add Family Member</h2>
                 <form id="addMemberForm">
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>First Name *</label>
+                            <label>First Name <span class="required">*</span></label>
                             <input type="text" id="firstName" required>
                         </div>
                         <div class="form-group">
-                            <label>Last Name *</label>
-                            <input type="text" id="lastName" required>
+                            <label>Last Name</label>
+                            <input type="text" id="lastName">
                         </div>
-                        <div class="form-group">
-                            <label>Birth Date</label>
-                            <input type="date" id="birthDate">
-                        </div>
+                    </div>
+                    <div class="form-grid">
                         <div class="form-group">
                             <label>Gender</label>
                             <select id="gender">
@@ -77,176 +86,136 @@
                                 <option value="other">Other</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label>Birth Date</label>
+                            <input type="date" id="birthDate">
+                        </div>
                     </div>
+
+                    <div class="form-group">
+                        <label><input type="checkbox" id="isDeceased" style="width: auto; margin-right: 8px;"> Deceased (Ancestor)</label>
+                    </div>
+                    <div class="form-group" id="deathDateGroup" style="display: none;">
+                        <label>Death Date</label>
+                        <input type="date" id="deathDate">
+                    </div>
+
+                    <div class="relationship-section">
+                        <h3><i class="fas fa-link"></i> Connect to Family Tree</h3>
+                        <div class="form-group" style="margin-top: 16px;">
+                            <label>Connect to:</label>
+                            <select id="relatedMember">
+                                <option value="">Select family member...</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="relationshipTypeGroup" style="display: none;">
+                            <label>This person is the:</label>
+                            <select id="relationshipType">
+                                <option value="">Select relationship...</option>
+                                <option value="parent">Parent</option>
+                                <option value="child">Child</option>
+                                <option value="spouse">Spouse</option>
+                                <option value="sibling">Sibling</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label>Location</label>
-                        <input type="text" id="location" placeholder="City, State">
+                        <input type="text" id="location">
                     </div>
                     <div class="form-group">
                         <label>Biography</label>
-                        <textarea id="bio" placeholder="Tell us about this person..."></textarea>
+                        <textarea id="bio"></textarea>
                     </div>
-                    <div style="display: flex; gap: 12px;">
-                        <button type="submit" class="btn"><i class="fas fa-plus"></i> Add Member</button>
-                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('addMemberForm').reset()">Clear</button>
-                    </div>
+                    <button type="submit" class="btn"><i class="fas fa-plus"></i> Add Member</button>
                 </form>
             </div>
 
             <div class="card">
-                <h2 style="margin-bottom: 16px;">Family Members</h2>
-                <div class="member-list" id="memberList">
-                    <p style="color: #718096;">No family members yet. Add your first member above!</p>
-                </div>
+                <h2 style="margin-bottom: 16px;">Family Members (<span id="memberCount">0</span>)</h2>
+                <div class="member-list" id="memberList"></div>
             </div>
         </div>
     </div>
 
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-
-        const supabase = createClient(
-            'https://fvfviudlxyumnskakftp.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA'
-        );
-
+        const supabase = createClient('https://fvfviudlxyumnskakftp.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA');
         let currentUser = null;
 
-        async function checkAuth() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) {
-                window.location.href = '../auth/login.html';
-                return;
+        window.signOut = async () => { await supabase.auth.signOut(); window.location.href = '../index.html'; };
+        
+        document.getElementById('isDeceased').addEventListener('change', e => {
+            document.getElementById('deathDateGroup').style.display = e.target.checked ? 'block' : 'none';
+        });
+        
+        document.getElementById('relatedMember').addEventListener('change', e => {
+            document.getElementById('relationshipTypeGroup').style.display = e.target.value ? 'block' : 'none';
+        });
+
+        document.getElementById('addMemberForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const { data: member } = await supabase.from('family_members').insert({
+                first_name: document.getElementById('firstName').value,
+                last_name: document.getElementById('lastName').value,
+                gender: document.getElementById('gender').value,
+                birth_date: document.getElementById('birthDate').value || null,
+                death_date: document.getElementById('isDeceased').checked ? document.getElementById('deathDate').value : null,
+                is_deceased: document.getElementById('isDeceased').checked,
+                location: document.getElementById('location').value,
+                bio: document.getElementById('bio').value,
+                created_by: currentUser.id
+            }).select().single();
+
+            const relatedId = document.getElementById('relatedMember').value;
+            const relType = document.getElementById('relationshipType').value;
+            if (relatedId && relType && member) {
+                if (relType === 'parent') await supabase.from('relationships').insert({ parent_id: member.id, child_id: relatedId, relationship_type: 'parent' });
+                else if (relType === 'child') await supabase.from('relationships').insert({ parent_id: relatedId, child_id: member.id, relationship_type: 'parent' });
+                else if (relType === 'spouse' || relType === 'sibling') await supabase.from('relationships').insert([
+                    { parent_id: member.id, child_id: relatedId, relationship_type: relType },
+                    { parent_id: relatedId, child_id: member.id, relationship_type: relType }
+                ]);
             }
-            currentUser = session.user;
+            document.getElementById('addMemberForm').reset();
             loadMembers();
-        }
+        });
+
+        window.deleteMember = async (id) => { if(confirm('Delete?')) { await supabase.from('family_members').delete().eq('id', id); loadMembers(); }};
 
         async function loadMembers() {
-            const { data: members, error } = await supabase
-                .from('family_members')
-                .select('*')
-                .order('created_at', { ascending: false });
-
-            if (error) {
-                console.error('Error loading members:', error);
-                return;
-            }
-
-            const memberList = document.getElementById('memberList');
-            if (!members || members.length === 0) {
-                memberList.innerHTML = '<p style="color: #718096;">No family members yet. Add your first member above!</p>';
-                return;
-            }
-
-            memberList.innerHTML = members.map(member => `
+            const { data: members } = await supabase.from('family_members').select('*').order('created_at', { ascending: false });
+            document.getElementById('memberCount').textContent = members?.length || 0;
+            const select = document.getElementById('relatedMember');
+            select.innerHTML = '<option value="">Select...</option>';
+            if (members) members.forEach(m => select.innerHTML += `<option value="${m.id}">${m.first_name} ${m.last_name || ''}</option>`);
+            
+            const list = document.getElementById('memberList');
+            if (!members || !members.length) { list.innerHTML = '<p style="color: #718096; grid-column: 1/-1; text-align: center; padding: 32px;">No members yet</p>'; return; }
+            list.innerHTML = members.map(m => `
                 <div class="member-card">
-                    <h3>${member.first_name} ${member.last_name || ''}</h3>
-                    ${member.birth_date ? `<p><i class="fas fa-birthday-cake"></i> Born: ${new Date(member.birth_date).toLocaleDateString()}</p>` : ''}
-                    ${member.location ? `<p><i class="fas fa-map-marker-alt"></i> ${member.location}</p>` : ''}
-                    ${member.bio ? `<p style="margin-top: 8px;">${member.bio.substring(0, 100)}${member.bio.length > 100 ? '...' : ''}</p>` : ''}
+                    <div class="member-header">
+                        <h3>${m.first_name} ${m.last_name || ''}</h3>
+                        ${m.is_deceased ? '<span class="deceased-badge">Ancestor</span>' : ''}
+                    </div>
+                    ${m.birth_date ? `<p><i class="fas fa-birthday-cake"></i> Born: ${new Date(m.birth_date).toLocaleDateString()}</p>` : ''}
+                    ${m.death_date ? `<p><i class="fas fa-cross"></i> Died: ${new Date(m.death_date).toLocaleDateString()}</p>` : ''}
+                    ${m.location ? `<p><i class="fas fa-map-marker-alt"></i> ${m.location}</p>` : ''}
                     <div class="member-actions">
-                        <button class="btn btn-sm" onclick="linkRelationships('${member.id}', '${member.first_name} ${member.last_name || ''}')"><i class="fas fa-link"></i> Link</button>
-                        <button class="btn btn-sm btn-secondary" onclick="deleteMember('${member.id}')"><i class="fas fa-trash"></i> Delete</button>
+                        <button class="btn btn-sm btn-secondary" onclick="deleteMember('${m.id}')"><i class="fas fa-trash"></i> Delete</button>
                     </div>
                 </div>
             `).join('');
         }
 
-        document.getElementById('addMemberForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = e.target.querySelector('button[type="submit"]');
-            btn.textContent = 'Adding...';
-            btn.disabled = true;
-
-            const memberData = {
-                first_name: document.getElementById('firstName').value,
-                last_name: document.getElementById('lastName').value,
-                birth_date: document.getElementById('birthDate').value || null,
-                gender: document.getElementById('gender').value || null,
-                location: document.getElementById('location').value || null,
-                bio: document.getElementById('bio').value || null,
-                created_by: currentUser.id
-            };
-
-            const { data, error } = await supabase
-                .from('family_members')
-                .insert([memberData])
-                .select();
-
-            if (error) {
-                alert('Error adding member: ' + error.message);
-            } else {
-                document.getElementById('addMemberForm').reset();
-                loadMembers();
-            }
-
-            btn.innerHTML = '<i class="fas fa-plus"></i> Add Member';
-            btn.disabled = false;
-        });
-
-        window.linkRelationships = async function(memberId, memberName) {
-            const members = familyMembers.filter(m => m.id !== memberId);
-
-            if (members.length === 0) {
-                alert('Add more family members first to create relationships.');
-                return;
-            }
-
-            const parent = prompt(`Who is ${memberName}'s parent? Enter their first name (or leave blank):`);
-            if (parent) {
-                const parentMember = members.find(m => m.first_name.toLowerCase() === parent.toLowerCase());
-                if (parentMember) {
-                    const { error } = await supabase
-                        .from('relationships')
-                        .insert([{ parent_id: parentMember.id, child_id: memberId }]);
-
-                    if (error && !error.message.includes('duplicate')) {
-                        alert('Added parent relationship!');
-                    }
-                } else {
-                    alert('Parent not found. Make sure they are added to the family tree first.');
-                }
-            }
-
-            const spouse = prompt(`Who is ${memberName}'s spouse? Enter their first name (or leave blank):`);
-            if (spouse) {
-                const spouseMember = members.find(m => m.first_name.toLowerCase() === spouse.toLowerCase());
-                if (spouseMember) {
-                    const { error } = await supabase
-                        .from('marriages')
-                        .insert([{ spouse1_id: memberId, spouse2_id: spouseMember.id }]);
-
-                    if (error && !error.message.includes('duplicate')) {
-                        alert('Added spouse relationship!');
-                    }
-                }
-            }
-
-            alert('Relationships updated! Use the Connection Finder to see how people are connected.');
-        };
-
-        window.deleteMember = async function(id) {
-            if (!confirm('Are you sure you want to delete this family member?')) return;
-
-            const { error } = await supabase
-                .from('family_members')
-                .delete()
-                .eq('id', id);
-
-            if (error) {
-                alert('Error deleting member: ' + error.message);
-            } else {
-                loadMembers();
-            }
-        };
-
-        window.signOut = async function() {
-            await supabase.auth.signOut();
-            window.location.href = '../auth/login.html';
-        };
-
-        checkAuth();
+        async function init() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) { window.location.href = '../auth/login.html'; return; }
+            currentUser = session.user;
+            loadMembers();
+        }
+        init();
     </script>
 </body>
 </html>

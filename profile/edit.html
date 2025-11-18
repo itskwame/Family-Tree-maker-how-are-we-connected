@@ -20,7 +20,7 @@
         .card { background: white; padding: 32px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #2d3748; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; font-family: 'Inter', sans-serif; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; font-family: 'Inter', sans-serif; }
         .form-group textarea { min-height: 120px; resize: vertical; }
         .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .btn { padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px; }
@@ -79,6 +79,53 @@
                         <input type="text" id="location" placeholder="City, State">
                     </div>
 
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select id="gender">
+                                <option value="">Select...</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Job/Occupation</label>
+                            <input type="text" id="job" placeholder="Your occupation">
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Mother's Name</label>
+                            <input type="text" id="motherName" placeholder="Full name">
+                        </div>
+                        <div class="form-group">
+                            <label>Father's Name</label>
+                            <input type="text" id="fatherName" placeholder="Full name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Siblings</label>
+                        <input type="text" id="siblings" placeholder="Names of your siblings">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Business</label>
+                        <input type="text" id="business" placeholder="Your business name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Hobbies</label>
+                        <input type="text" id="hobbies" placeholder="What you enjoy doing">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Interests</label>
+                        <input type="text" id="interests" placeholder="Your interests">
+                    </div>
+
                     <div class="form-group">
                         <label>Biography</label>
                         <textarea id="bio" placeholder="Tell your family about yourself..."></textarea>
@@ -130,6 +177,14 @@
                 document.getElementById('birthDate').value = profile.birth_date || '';
                 document.getElementById('phone').value = profile.phone || '';
                 document.getElementById('location').value = profile.location || '';
+                document.getElementById('gender').value = profile.gender || '';
+                document.getElementById('job').value = profile.job || '';
+                document.getElementById('motherName').value = profile.mother_name || '';
+                document.getElementById('fatherName').value = profile.father_name || '';
+                document.getElementById('siblings').value = profile.siblings || '';
+                document.getElementById('business').value = profile.business || '';
+                document.getElementById('hobbies').value = profile.hobbies || '';
+                document.getElementById('interests').value = profile.interests || '';
                 document.getElementById('bio').value = profile.bio || '';
             }
         }
@@ -146,6 +201,14 @@
                 birth_date: document.getElementById('birthDate').value || null,
                 phone: document.getElementById('phone').value || null,
                 location: document.getElementById('location').value || null,
+                gender: document.getElementById('gender').value || null,
+                job: document.getElementById('job').value || null,
+                mother_name: document.getElementById('motherName').value || null,
+                father_name: document.getElementById('fatherName').value || null,
+                siblings: document.getElementById('siblings').value || null,
+                business: document.getElementById('business').value || null,
+                hobbies: document.getElementById('hobbies').value || null,
+                interests: document.getElementById('interests').value || null,
                 bio: document.getElementById('bio').value || null,
                 updated_at: new Date().toISOString()
             };
