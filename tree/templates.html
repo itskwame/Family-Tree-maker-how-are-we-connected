@@ -62,6 +62,30 @@
         /* Classic Chart */
         .template-classic { background: white; border: 3px solid #2d3748; }
         .template-classic .tree-node { background: #f7fafc; border: 2px solid #2d3748; }
+
+        /* Heritage Portrait */
+.template-heritage { 
+    background: linear-gradient(135deg, #f4e9d8 0%, #e8d5b7 100%); 
+    position: relative;
+    border: 20px solid transparent;
+    border-image: linear-gradient(45deg, #8b7355, #a0845c, #8b7355) 1;
+    box-shadow: inset 0 0 0 5px #8b7355, 0 0 20px rgba(139, 115, 85, 0.3);
+}
+.template-heritage .tree-node { 
+    background: rgba(255, 248, 240, 0.95); 
+    border: 3px solid #8b7355; 
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(139, 115, 85, 0.25);
+}
+        <div class="template-card" data-template="heritage" onclick="selectTemplate('heritage')">
+    <div class="template-preview template-heritage">
+        <i class="fas fa-crown" style="color: #8b7355;"></i>
+    </div>
+    <div class="template-info">
+        <h3>Heritage Portrait</h3>
+        <p>Elegant vintage design with ornate borders and portrait layout</p>
+    </div>
+</div>
     </style>
 </head>
 <body>
@@ -69,10 +93,10 @@
         <div class="sidebar">
             <div class="logo"><i class="fas fa-users"></i> FamilyConnect</div>
             <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
-            <a href="builder.html" class="nav-item"><i class="fas fa-project-diagram"></i> Family Tree</a>
+           <a href="builder-new.html" class="nav-item"><i class="fas fa-project-diagram"></i> Family Tree</a>
             <a href="templates.html" class="nav-item active"><i class="fas fa-print"></i> Print Templates</a>
             <a href="../feed/index.html" class="nav-item"><i class="fas fa-images"></i> Family Feed</a>
-            <a href="../businesses/index.html" class="nav-item"><i class="fas fa-store"></i> Businesses</a>
+            <a href="../business/index.html" class="nav-item"><i class="fas fa-store"></i> Businesses</a>
             <a href="../profile/index.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
             <a href="#" onclick="signOut()" class="nav-item"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
         </div>
