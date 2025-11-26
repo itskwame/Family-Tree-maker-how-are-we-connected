@@ -64,28 +64,73 @@
         .template-classic .tree-node { background: #f7fafc; border: 2px solid #2d3748; }
 
         /* Heritage Portrait */
-.template-heritage { 
-    background: linear-gradient(135deg, #f4e9d8 0%, #e8d5b7 100%); 
-    position: relative;
-    border: 20px solid transparent;
-    border-image: linear-gradient(45deg, #8b7355, #a0845c, #8b7355) 1;
-    box-shadow: inset 0 0 0 5px #8b7355, 0 0 20px rgba(139, 115, 85, 0.3);
-}
-.template-heritage .tree-node { 
-    background: rgba(255, 248, 240, 0.95); 
-    border: 3px solid #8b7355; 
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(139, 115, 85, 0.25);
-}
-        <div class="template-card" data-template="heritage" onclick="selectTemplate('heritage')">
-    <div class="template-preview template-heritage">
-        <i class="fas fa-crown" style="color: #8b7355;"></i>
-    </div>
-    <div class="template-info">
-        <h3>Heritage Portrait</h3>
-        <p>Elegant vintage design with ornate borders and portrait layout</p>
-    </div>
-</div>
+        .template-heritage { 
+            background: linear-gradient(135deg, #f4e9d8 0%, #e8d5b7 100%); 
+            position: relative;
+            border: 20px solid transparent;
+            border-image: linear-gradient(45deg, #8b7355, #a0845c, #8b7355) 1;
+            box-shadow: inset 0 0 0 5px #8b7355, 0 0 20px rgba(139, 115, 85, 0.3);
+        }
+        .template-heritage .tree-node { 
+            background: rgba(255, 248, 240, 0.95); 
+            border: 3px solid #8b7355; 
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(139, 115, 85, 0.25);
+        }
+
+        /* Family Tree Garden */
+        .template-garden {
+            background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 30%, #90EE90 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .template-garden::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: repeating-linear-gradient(
+                90deg,
+                #8B4513 0px,
+                #8B4513 8px,
+                transparent 8px,
+                transparent 12px
+            );
+            border-top: 4px solid #654321;
+        }
+        .template-garden::after {
+            content: '';
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 200px;
+            background: linear-gradient(to bottom, #8B4513 0%, #A0522D 100%);
+            border-radius: 20px;
+            z-index: 1;
+        }
+        .template-garden .tree-crown {
+            position: absolute;
+            bottom: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+            background: radial-gradient(ellipse at center, #228B22 0%, #32CD32 50%, #90EE90 100%);
+            border-radius: 50%;
+            z-index: 2;
+        }
+        .template-garden .tree-node {
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px solid #228B22;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(34, 139, 34, 0.3);
+            position: relative;
+            z-index: 3;
+        }
     </style>
 </head>
 <body>
@@ -93,7 +138,7 @@
         <div class="sidebar">
             <div class="logo"><i class="fas fa-users"></i> FamilyConnect</div>
             <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
-           <a href="builder-new.html" class="nav-item"><i class="fas fa-project-diagram"></i> Family Tree</a>
+            <a href="builder-new.html" class="nav-item"><i class="fas fa-project-diagram"></i> Family Tree</a>
             <a href="templates.html" class="nav-item active"><i class="fas fa-print"></i> Print Templates</a>
             <a href="../feed/index.html" class="nav-item"><i class="fas fa-images"></i> Family Feed</a>
             <a href="../business/index.html" class="nav-item"><i class="fas fa-store"></i> Businesses</a>
@@ -155,6 +200,7 @@
                         <p>Traditional genealogy chart with clean layout</p>
                     </div>
                 </div>
+
                 <div class="template-card" data-template="heritage" onclick="selectTemplate('heritage')">
                     <div class="template-preview template-heritage">
                         <i class="fas fa-crown" style="color: #8b7355;"></i>
@@ -164,12 +210,28 @@
                         <p>Elegant vintage design with ornate borders and portrait layout</p>
                     </div>
                 </div>
+
+                <div class="template-card" data-template="garden" onclick="selectTemplate('garden')">
+                    <div class="template-preview template-garden">
+                        <div class="tree-crown"></div>
+                        <i class="fas fa-seedling" style="color: #228B22; position: relative; z-index: 4;"></i>
+                    </div>
+                    <div class="template-info">
+                        <h3>Family Tree Garden</h3>
+                        <p>Beautiful garden scene with tree trunk, crown, and decorative fence</p>
+                    </div>
+                </div>
             </div>
 
             <div class="customization-panel" id="customizationPanel" style="display: none;">
                 <h2 style="margin-bottom: 24px;">Customize Your Tree</h2>
 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div class="form-group">
+                        <label>Family Name</label>
+                        <input type="text" id="familyName" placeholder="Enter family name" value="My" onchange="updatePreview()">
+                    </div>
+
                     <div class="form-group">
                         <label>Primary Color</label>
                         <input type="color" id="primaryColor" class="color-input" value="#667eea" onchange="updatePreview()">
@@ -276,6 +338,7 @@
         window.updatePreview = function() {
             if (!currentTemplate) return;
 
+            const familyName = document.getElementById('familyName').value || 'My';
             const primaryColor = document.getElementById('primaryColor').value;
             const accentColor = document.getElementById('accentColor').value;
             const fontFamily = document.getElementById('fontFamily').value;
@@ -284,29 +347,45 @@
             const showLocations = document.getElementById('showLocations').checked;
             const maxGenerations = parseInt(document.getElementById('maxGenerations').value);
 
+            // Update family name in title
+            document.getElementById('treeTitleName').textContent = familyName;
+
             const preview = document.getElementById('treePreview');
             preview.style.setProperty('--tree-font', fontFamily);
             preview.className = `tree-preview template-${currentTemplate}`;
 
-            if (familyMembers.length === 0) {
-                preview.innerHTML = '<p style="color: #718096; padding: 60px;">No family members added yet. Add members in the Family Tree Builder to see your tree here!</p>';
-                return;
-            }
-
-            let html = '';
-            familyMembers.slice(0, Math.min(familyMembers.length, maxGenerations * 3)).forEach(member => {
-                html += `
-                    <div class="tree-node">
-                        ${showPhotos && member.avatar_url ? `<img src="${member.avatar_url}" alt="${member.first_name}">` : '<div style="width: 80px; height: 80px; background: #e2e8f0; border-radius: 50%; margin: 0 auto 8px;"></div>'}
-                        <div class="tree-node-name">${member.first_name} ${member.last_name || ''}</div>
-                        ${showDates && member.birth_date ? `<div class="tree-node-info">b. ${new Date(member.birth_date).getFullYear()}</div>` : ''}
-                        ${showLocations && member.location ? `<div class="tree-node-info">${member.location}</div>` : ''}
+            // Special handling for garden template
+            if (currentTemplate === 'garden') {
+                preview.innerHTML = `
+                    <div class="tree-crown"></div>
+                    <div style="position: relative; z-index: 3; padding-top: 100px;">
+                        ${generateFamilyNodes()}
                     </div>
                 `;
-            });
+            } else {
+                preview.innerHTML = generateFamilyNodes();
+            }
 
-            preview.innerHTML = html;
+            function generateFamilyNodes() {
+                if (familyMembers.length === 0) {
+                    return '<p style="color: #718096; padding: 60px;">No family members added yet. Add members in the Family Tree Builder to see your tree here!</p>';
+                }
 
+                let html = '';
+                familyMembers.slice(0, Math.min(familyMembers.length, maxGenerations * 3)).forEach(member => {
+                    html += `
+                        <div class="tree-node">
+                            ${showPhotos && member.avatar_url ? `<img src="${member.avatar_url}" alt="${member.first_name}">` : '<div style="width: 80px; height: 80px; background: #e2e8f0; border-radius: 50%; margin: 0 auto 8px;"></div>'}
+                            <div class="tree-node-name">${member.first_name} ${member.last_name || ''}</div>
+                            ${showDates && member.birth_date ? `<div class="tree-node-info">b. ${new Date(member.birth_date).getFullYear()}</div>` : ''}
+                            ${showLocations && member.location ? `<div class="tree-node-info">${member.location}</div>` : ''}
+                        </div>
+                    `;
+                });
+                return html;
+            }
+
+            // Apply custom colors
             const style = document.createElement('style');
             style.innerHTML = `
                 .template-${currentTemplate} .tree-node {
@@ -334,17 +413,21 @@
             const imgHeight = canvas.height * imgWidth / canvas.width;
 
             pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-            pdf.save('family-tree.pdf');
+            
+            const familyName = document.getElementById('familyName').value || 'My';
+            pdf.save(`${familyName}-family-tree.pdf`);
         };
 
         window.saveTemplate = async function() {
             if (!currentTemplate || !currentUser) return;
 
+            const familyName = document.getElementById('familyName').value || 'My';
             const templateData = {
                 user_id: currentUser.id,
-                name: `${currentTemplate} Template`,
+                name: `${familyName} ${currentTemplate} Template`,
                 template_type: currentTemplate,
                 customization: {
+                    familyName: familyName,
                     primaryColor: document.getElementById('primaryColor').value,
                     accentColor: document.getElementById('accentColor').value,
                     fontFamily: document.getElementById('fontFamily').value,
