@@ -52,6 +52,28 @@
         .empty-state { text-align: center; padding: 64px 24px; color: #718096; }
         .empty-state i { font-size: 64px; color: #cbd5e0; margin-bottom: 16px; }
         .empty-state h3 { font-size: 20px; margin-bottom: 8px; color: #2d3748; }
+
+        .media-upload-section { margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0; }
+        .media-upload-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 2px solid #e2e8f0; border-radius: 8px; background: white; color: #4a5568; cursor: pointer; font-size: 14px; font-weight: 500; transition: all 0.2s; }
+        .media-upload-btn:hover { border-color: #667eea; color: #667eea; background: #f7fafc; }
+        .media-upload-btn input[type="file"] { display: none; }
+        .media-preview-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; margin-top: 16px; }
+        .media-preview { position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 1; }
+        .media-preview img, .media-preview video { width: 100%; height: 100%; object-fit: cover; }
+        .media-preview-remove { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .media-preview-remove:hover { background: #e53e3e; }
+        .post-media { margin-top: 16px; }
+        .post-media-grid { display: grid; gap: 8px; }
+        .post-media-grid.single { grid-template-columns: 1fr; }
+        .post-media-grid.double { grid-template-columns: repeat(2, 1fr); }
+        .post-media-grid.multiple { grid-template-columns: repeat(3, 1fr); }
+        .post-media-item { border-radius: 12px; overflow: hidden; cursor: pointer; }
+        .post-media-item img, .post-media-item video { width: 100%; height: 100%; object-fit: cover; max-height: 400px; }
+        .post-link-preview { margin-top: 16px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+        .post-link-preview img { width: 100%; height: 200px; object-fit: cover; }
+        .post-link-preview-content { padding: 16px; }
+        .post-link-preview-title { font-weight: 600; color: #2d3748; margin-bottom: 4px; }
+        .post-link-preview-url { font-size: 12px; color: #718096; }
     </style>
 </head>
 <body>
@@ -75,6 +97,19 @@
 
             <div class="create-post">
                 <textarea id="postContent" placeholder="Share something with your family..."></textarea>
+                <div id="mediaPreviewContainer" class="media-preview-container"></div>
+                <div class="media-upload-section">
+                    <label class="media-upload-btn">
+                        <i class="fas fa-image"></i>
+                        <span>Photo/Video</span>
+                        <input type="file" id="mediaInput" accept="image/*,video/*" multiple onchange="handleMediaSelect(event)">
+                    </label>
+                    <label class="media-upload-btn" style="margin-left: 12px;">
+                        <i class="fas fa-link"></i>
+                        <span id="linkBtnText">Add Link</span>
+                        <input type="text" id="linkInput" style="display: none; width: 300px; margin-left: 8px; padding: 8px; border: 2px solid #e2e8f0; border-radius: 6px;" placeholder="Paste URL...">
+                    </label>
+                </div>
                 <div class="create-post-actions">
                     <span style="color: #718096; font-size: 14px;"><i class="fas fa-users"></i> Visible to all family members</span>
                     <button class="btn" onclick="createPost()"><i class="fas fa-paper-plane"></i> Post</button>
@@ -95,25 +130,108 @@
 
         let currentUser = null;
         let currentProfile = null;
+        let selectedFiles = [];
+        let uploadedMediaUrls = [];
 
         window.signOut = async function() {
             await supabase.auth.signOut();
             window.location.href = '../index.html';
         };
 
+        window.handleMediaSelect = function(event) {
+            selectedFiles = Array.from(event.target.files);
+            displayMediaPreviews();
+        };
+
+        function displayMediaPreviews() {
+            const container = document.getElementById('mediaPreviewContainer');
+            container.innerHTML = '';
+
+            selectedFiles.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const preview = document.createElement('div');
+                    preview.className = 'media-preview';
+
+                    const mediaElement = file.type.startsWith('video/')
+                        ? `<video src="${e.target.result}" muted></video>`
+                        : `<img src="${e.target.result}" alt="Preview">`;
+
+                    preview.innerHTML = `
+                        ${mediaElement}
+                        <button class="media-preview-remove" onclick="removeMedia(${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    container.appendChild(preview);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        window.removeMedia = function(index) {
+            selectedFiles.splice(index, 1);
+            displayMediaPreviews();
+        };
+
+        async function uploadMediaFiles() {
+            const urls = [];
+
+            for (const file of selectedFiles) {
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${currentUser.id}/${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+
+                const { data, error } = await supabase.storage
+                    .from('post-media')
+                    .upload(fileName, file);
+
+                if (!error) {
+                    const { data: { publicUrl } } = supabase.storage
+                        .from('post-media')
+                        .getPublicUrl(fileName);
+
+                    urls.push({
+                        url: publicUrl,
+                        type: file.type.startsWith('video/') ? 'video' : 'image'
+                    });
+                }
+            }
+
+            return urls;
+        }
+
         window.createPost = async function() {
             const content = document.getElementById('postContent').value.trim();
-            if (!content) return;
+            const linkInput = document.getElementById('linkInput').value.trim();
+
+            if (!content && selectedFiles.length === 0 && !linkInput) return;
+
+            let mediaUrls = [];
+            if (selectedFiles.length > 0) {
+                mediaUrls = await uploadMediaFiles();
+            }
+
+            const postData = {
+                author_id: currentUser.id,
+                content: content || ''
+            };
+
+            if (mediaUrls.length > 0 || linkInput) {
+                postData.media_urls = mediaUrls.length > 0 ? mediaUrls : (linkInput ? [{ url: linkInput, type: 'link' }] : null);
+            }
 
             const { error } = await supabase
                 .from('posts')
-                .insert({
-                    author_id: currentUser.id,
-                    content: content
-                });
+                .insert(postData);
 
             if (!error) {
                 document.getElementById('postContent').value = '';
+                document.getElementById('linkInput').value = '';
+                document.getElementById('linkInput').style.display = 'none';
+                document.getElementById('linkBtnText').style.display = 'inline';
+                document.getElementById('mediaInput').value = '';
+                selectedFiles = [];
+                document.getElementById('mediaPreviewContainer').innerHTML = '';
                 await loadPosts();
             }
         };
@@ -193,7 +311,8 @@
                                 <p>${timeAgo}</p>
                             </div>
                         </div>
-                        <div class="post-content">${post.content}</div>
+                        <div class="post-content">${escapeHtml(post.content)}</div>
+                        ${renderPostMedia(post.media_urls)}
                         <div class="post-actions">
                             <div class="post-action ${isLiked ? 'liked' : ''}" onclick="toggleLike('${post.id}')">
                                 <i class="fas fa-heart"></i>
@@ -228,6 +347,54 @@
             }).join('');
         }
 
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function renderPostMedia(mediaUrls) {
+            if (!mediaUrls || mediaUrls.length === 0) return '';
+
+            const media = Array.isArray(mediaUrls) ? mediaUrls : [];
+            const links = media.filter(m => m.type === 'link');
+            const images = media.filter(m => m.type === 'image');
+            const videos = media.filter(m => m.type === 'video');
+            const allMedia = [...images, ...videos];
+
+            let html = '';
+
+            if (allMedia.length > 0) {
+                const gridClass = allMedia.length === 1 ? 'single' : allMedia.length === 2 ? 'double' : 'multiple';
+                html += `<div class="post-media"><div class="post-media-grid ${gridClass}">`;
+
+                allMedia.forEach(item => {
+                    if (item.type === 'image') {
+                        html += `<div class="post-media-item"><img src="${item.url}" alt="Post image"></div>`;
+                    } else if (item.type === 'video') {
+                        html += `<div class="post-media-item"><video src="${item.url}" controls></video></div>`;
+                    }
+                });
+
+                html += `</div></div>`;
+            }
+
+            if (links.length > 0) {
+                links.forEach(link => {
+                    html += `
+                        <div class="post-link-preview">
+                            <div class="post-link-preview-content">
+                                <div class="post-link-preview-title"><i class="fas fa-link"></i> ${link.url}</div>
+                                <div class="post-link-preview-url">${new URL(link.url).hostname}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            return html;
+        }
+
         function getTimeAgo(timestamp) {
             const seconds = Math.floor((new Date() - new Date(timestamp)) / 1000);
             if (seconds < 60) return 'Just now';
@@ -235,6 +402,18 @@
             if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
             return `${Math.floor(seconds / 86400)}d ago`;
         }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.media-upload-btn') && e.target.closest('.media-upload-btn').textContent.includes('Add Link')) {
+                const linkInput = document.getElementById('linkInput');
+                const linkBtn = document.getElementById('linkBtnText');
+                if (linkInput.style.display === 'none') {
+                    linkInput.style.display = 'inline-block';
+                    linkBtn.style.display = 'none';
+                    linkInput.focus();
+                }
+            }
+        });
 
         async function init() {
             const { data: { session } } = await supabase.auth.getSession();
