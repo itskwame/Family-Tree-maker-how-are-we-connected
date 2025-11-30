@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Moderation - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white border-r border-gray-200 flex flex-col">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-gray-900">FamilyConnect</div>
+                        <div class="text-xs text-gray-500">Admin Panel</div>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="flex-1 overflow-y-auto p-4">
+                <a href="/admin/index.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg mb-1">
+                    <i class="fas fa-th-large w-5"></i>Dashboard</a>
+                <a href="/admin/users.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg mb-1">
+                    <i class="fas fa-users w-5"></i>Users</a>
+                <a href="/admin/families.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg mb-1">
+                    <i class="fas fa-sitemap w-5"></i>Families</a>
+                <a href="/admin/trees.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg mb-1">
+                    <i class="fas fa-project-diagram w-5"></i>Trees</a>
+                <a href="/admin/billing.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg mb-1">
+                    <i class="fas fa-credit-card w-5"></i>Billing</a>
+                <a href="/admin/moderation.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg mb-1">
+                    <i class="fas fa-flag w-5"></i>Moderation</a>
+                <a href="/admin/events.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg mb-1">
+                    <i class="fas fa-calendar w-5"></i>Events</a>
+                <a href="/admin/businesses.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg mb-1">
+                    <i class="fas fa-store w-5"></i>Businesses</a>
+                <a href="/admin/flags.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg mb-1">
+                    <i class="fas fa-toggle-on w-5"></i>Feature Flags</a>
+                <a href="/admin/logs.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg mb-1">
+                    <i class="fas fa-list w-5"></i>System Logs</a>
+                <a href="/admin/settings.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg mb-1">
+                    <i class="fas fa-cog w-5"></i>Settings</a>
+            </nav>
+
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                        <i class="fas fa-user text-sm"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="text-sm font-medium text-gray-900 truncate" id="adminName">Admin</div>
+                        <div class="text-xs text-gray-500">Administrator</div>
+                    </div>
+                </div>
+                <button onclick="handleLogout()" class="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition">
+                    <i class="fas fa-sign-out-alt"></i>Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <!-- Top Bar -->
+            <div class="bg-white border-b border-gray-200 px-8 py-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Content Moderation</h1>
+                        <p class="text-sm text-gray-500 mt-1">Review and moderate flagged content</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="px-3 py-2 bg-red-50 rounded-lg border border-red-200">
+                            <span class="text-sm font-medium text-red-700"><span id="pendingCount">0</span> pending flags</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="bg-white border-b border-gray-200 px-8">
+                <div class="flex gap-8">
+                    <button onclick="switchTab('posts')" id="tab-posts" class="py-4 border-b-2 border-blue-600 text-blue-600 font-medium text-sm">
+                        Posts <span id="posts-count" class="ml-1 px-2 py-0.5 bg-blue-100 text-blue-600 rounded-full text-xs">0</span>
+                    </button>
+                    <button onclick="switchTab('comments')" id="tab-comments" class="py-4 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">
+                        Comments <span id="comments-count" class="ml-1 px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full text-xs">0</span>
+                    </button>
+                    <button onclick="switchTab('flags')" id="tab-flags" class="py-4 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">
+                        Flags <span id="flags-count" class="ml-1 px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full text-xs">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="p-8">
+                <!-- Posts Tab -->
+                <div id="content-posts">
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                        <div class="divide-y divide-gray-200" id="postsList">
+                            <div class="px-6 py-12 text-center text-gray-500">
+                                <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                                <div>Loading posts...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comments Tab -->
+                <div id="content-comments" class="hidden">
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                        <div class="divide-y divide-gray-200" id="commentsList">
+                            <div class="px-6 py-12 text-center text-gray-500">Loading comments...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flags Tab -->
+                <div id="content-flags" class="hidden">
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                        <div class="divide-y divide-gray-200" id="flagsList">
+                            <div class="px-6 py-12 text-center text-gray-500">Loading flags...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Modal -->
+    <div id="actionModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900" id="modalTitle">Confirm Action</h3>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-700" id="modalMessage">Are you sure?</p>
+            </div>
+            <div class="px-6 py-4 border-t border-gray-200 flex justify-end gap-3">
+                <button onclick="closeActionModal()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+                    Cancel
+                </button>
+                <button onclick="confirmAction()" id="confirmBtn" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">
+                    Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { checkAdminAuth, logout, formatDateTime, showToast, logAction } from './admin.js';
+        import { supabase } from './admin.js';
+
+        let currentTab = 'posts';
+        let currentAction = null;
+
+        window.handleLogout = logout;
+
+        async function loadModerationData() {
+            const auth = await checkAdminAuth();
+            if (!auth) return;
+
+            document.getElementById('adminName').textContent = `${auth.profile.first_name || ''} ${auth.profile.last_name || ''}`.trim() || 'Admin';
+
+            await Promise.all([
+                loadPosts(),
+                loadComments(),
+                loadFlags()
+            ]);
+
+            updatePendingCount();
+        }
+
+        async function loadPosts() {
+            const { data: posts, error } = await supabase
+                .from('posts')
+                .select(`
+                    *,
+                    author:profiles!posts_author_id_fkey(first_name, last_name, email)
+                `)
+                .eq('flagged', true)
+                .order('created_at', { ascending: false })
+                .limit(50);
+
+            if (error) {
+                console.error('Error loading posts:', error);
+                return;
+            }
+
+            document.getElementById('posts-count').textContent = posts?.length || 0;
+
+            const container = document.getElementById('postsList');
+            if (!posts || posts.length === 0) {
+                container.innerHTML = '<div class="px-6 py-12 text-center text-gray-500">No flagged posts</div>';
+                return;
+            }
+
+            container.innerHTML = posts.map(post => `
+                <div class="p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-medium">
+                                ${(post.author?.first_name?.[0] || 'U').toUpperCase()}
+                            </div>
+                            <div>
+                                <div class="font-medium text-gray-900">${post.author?.first_name || ''} ${post.author?.last_name || ''}</div>
+                                <div class="text-sm text-gray-500">${post.author?.email || 'Unknown'}</div>
+                                <div class="text-xs text-gray-400 mt-1">${formatDateTime(post.created_at)}</div>
+                            </div>
+                        </div>
+                        <span class="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">Flagged</span>
+                    </div>
+                    <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <p class="text-gray-900">${post.content || 'No content'}</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="removeContent('post', '${post.id}')" class="px-3 py-1.5 text-sm font-medium text-white bg-red-600 rounded hover:bg-red-700">
+                            <i class="fas fa-trash mr-1"></i>Remove
+                        </button>
+                        <button onclick="restoreContent('post', '${post.id}')" class="px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-gray-50">
+                            <i class="fas fa-undo mr-1"></i>Restore
+                        </button>
+                        <button onclick="warnUser('${post.author_id}')" class="px-3 py-1.5 text-sm font-medium text-orange-700 bg-orange-50 border border-orange-200 rounded hover:bg-orange-100">
+                            <i class="fas fa-exclamation-triangle mr-1"></i>Warn User
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function loadComments() {
+            const { data: comments, error } = await supabase
+                .from('comments')
+                .select(`
+                    *,
+                    author:profiles!comments_author_id_fkey(first_name, last_name, email),
+                    post:posts(id)
+                `)
+                .order('created_at', { ascending: false })
+                .limit(50);
+
+            if (error) {
+                console.error('Error loading comments:', error);
+                return;
+            }
+
+            document.getElementById('comments-count').textContent = comments?.length || 0;
+
+            const container = document.getElementById('commentsList');
+            if (!comments || comments.length === 0) {
+                container.innerHTML = '<div class="px-6 py-12 text-center text-gray-500">No flagged comments</div>';
+                return;
+            }
+
+            container.innerHTML = comments.map(comment => `
+                <div class="p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 font-medium">
+                                ${(comment.author?.first_name?.[0] || 'U').toUpperCase()}
+                            </div>
+                            <div>
+                                <div class="font-medium text-gray-900">${comment.author?.first_name || ''} ${comment.author?.last_name || ''}</div>
+                                <div class="text-sm text-gray-500">${comment.author?.email || 'Unknown'}</div>
+                                <div class="text-xs text-gray-400 mt-1">${formatDateTime(comment.created_at)}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <p class="text-gray-900">${comment.content || 'No content'}</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="removeContent('comment', '${comment.id}')" class="px-3 py-1.5 text-sm font-medium text-white bg-red-600 rounded hover:bg-red-700">
+                            <i class="fas fa-trash mr-1"></i>Remove
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function loadFlags() {
+            const { data: flags, error } = await supabase
+                .from('content_flags')
+                .select(`
+                    *,
+                    reporter:profiles!content_flags_reported_by_fkey(first_name, last_name, email)
+                `)
+                .eq('status', 'pending')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error loading flags:', error);
+                return;
+            }
+
+            document.getElementById('flags-count').textContent = flags?.length || 0;
+
+            const container = document.getElementById('flagsList');
+            if (!flags || flags.length === 0) {
+                container.innerHTML = '<div class="px-6 py-12 text-center text-gray-500">No pending flags</div>';
+                return;
+            }
+
+            container.innerHTML = flags.map(flag => `
+                <div class="p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="px-2 py-1 text-xs font-medium rounded bg-yellow-100 text-yellow-800">${flag.content_type}</span>
+                                <span class="px-2 py-1 text-xs font-medium rounded bg-red-100 text-red-800">${flag.reason}</span>
+                            </div>
+                            <div class="text-sm text-gray-600">Reported by: ${flag.reporter?.email || 'Anonymous'}</div>
+                            <div class="text-xs text-gray-400 mt-1">${formatDateTime(flag.created_at)}</div>
+                        </div>
+                    </div>
+                    ${flag.details ? `
+                    <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <p class="text-sm text-gray-700">${flag.details}</p>
+                    </div>
+                    ` : ''}
+                    <div class="flex gap-2">
+                        <button onclick="resolveFlag('${flag.id}', 'resolved')" class="px-3 py-1.5 text-sm font-medium text-white bg-green-600 rounded hover:bg-green-700">
+                            <i class="fas fa-check mr-1"></i>Resolve
+                        </button>
+                        <button onclick="resolveFlag('${flag.id}', 'dismissed')" class="px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-gray-50">
+                            <i class="fas fa-times mr-1"></i>Dismiss
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updatePendingCount() {
+            const postsCount = parseInt(document.getElementById('posts-count').textContent) || 0;
+            const flagsCount = parseInt(document.getElementById('flags-count').textContent) || 0;
+            document.getElementById('pendingCount').textContent = postsCount + flagsCount;
+        }
+
+        window.switchTab = (tab) => {
+            currentTab = tab;
+
+            ['posts', 'comments', 'flags'].forEach(t => {
+                document.getElementById(`content-${t}`).classList.add('hidden');
+                document.getElementById(`tab-${t}`).classList.remove('border-blue-600', 'text-blue-600');
+                document.getElementById(`tab-${t}`).classList.add('border-transparent', 'text-gray-500');
+            });
+
+            document.getElementById(`content-${tab}`).classList.remove('hidden');
+            document.getElementById(`tab-${tab}`).classList.add('border-blue-600', 'text-blue-600');
+            document.getElementById(`tab-${tab}`).classList.remove('border-transparent', 'text-gray-500');
+        };
+
+        window.removeContent = (type, id) => {
+            currentAction = { action: 'remove', type, id };
+            document.getElementById('modalTitle').textContent = 'Remove Content';
+            document.getElementById('modalMessage').textContent = 'This will permanently remove this content. This action cannot be undone.';
+            document.getElementById('confirmBtn').className = 'px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700';
+            document.getElementById('actionModal').classList.remove('hidden');
+        };
+
+        window.restoreContent = async (type, id) => {
+            const { error } = await supabase
+                .from('posts')
+                .update({ flagged: false, removed: false })
+                .eq('id', id);
+
+            if (error) {
+                showToast('Failed to restore content', 'error');
+                return;
+            }
+
+            await logAction('content_restored', type, id, {});
+            showToast('Content restored successfully', 'success');
+            loadPosts();
+            updatePendingCount();
+        };
+
+        window.warnUser = (userId) => {
+            showToast('Warning notification sent to user', 'success');
+            logAction('user_warned', 'user', userId, { reason: 'content_violation' });
+        };
+
+        window.resolveFlag = async (flagId, status) => {
+            const { error } = await supabase
+                .from('content_flags')
+                .update({ status, reviewed_at: new Date().toISOString() })
+                .eq('id', flagId);
+
+            if (error) {
+                showToast('Failed to update flag', 'error');
+                return;
+            }
+
+            await logAction('flag_resolved', 'flag', flagId, { status });
+            showToast(`Flag ${status}`, 'success');
+            loadFlags();
+            updatePendingCount();
+        };
+
+        window.closeActionModal = () => {
+            document.getElementById('actionModal').classList.add('hidden');
+            currentAction = null;
+        };
+
+        window.confirmAction = async () => {
+            if (!currentAction) return;
+
+            const { action, type, id } = currentAction;
+
+            if (action === 'remove') {
+                const table = type === 'post' ? 'posts' : 'comments';
+                const { error } = await supabase
+                    .from(table)
+                    .update({ removed: true })
+                    .eq('id', id);
+
+                if (error) {
+                    showToast('Failed to remove content', 'error');
+                    return;
+                }
+
+                await logAction('content_removed', type, id, {});
+                showToast('Content removed successfully', 'success');
+
+                if (type === 'post') loadPosts();
+                else loadComments();
+            }
+
+            closeActionModal();
+        };
+
+        loadModerationData();
+    </script>
+</body>
+</html>
