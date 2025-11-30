@@ -1,0 +1,181 @@
+<style>
+.notification-bell {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+    transition: all 0.2s;
+}
+
+.notification-bell:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transform: scale(1.05);
+}
+
+.notification-bell i {
+    font-size: 20px;
+    color: #667eea;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    min-width: 20px;
+    height: 20px;
+    background: #f56565;
+    color: white;
+    border-radius: 10px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 0 6px;
+}
+
+.notification-panel {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    width: 380px;
+    max-height: 600px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    z-index: 998;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.notification-panel.active {
+    display: flex;
+}
+
+.notification-header {
+    padding: 20px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification-header h3 {
+    font-size: 18px;
+    color: #2d3748;
+    margin: 0;
+}
+
+.mark-all-read {
+    background: none;
+    border: none;
+    color: #667eea;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.mark-all-read:hover {
+    text-decoration: underline;
+}
+
+.notification-list {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 500px;
+}
+
+.notification-item {
+    padding: 16px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+}
+
+.notification-item:hover {
+    background: #f7fafc;
+}
+
+.notification-item.unread {
+    background: #f0f4ff;
+}
+
+.notification-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e6efff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.notification-icon i {
+    color: #667eea;
+    font-size: 16px;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.notification-message {
+    color: #718096;
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 4px;
+}
+
+.notification-time {
+    color: #a0aec0;
+    font-size: 12px;
+}
+
+.notification-dot {
+    width: 8px;
+    height: 8px;
+    background: #667eea;
+    border-radius: 50%;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+</style>
+
+<div class="notification-bell" id="notificationBell" onclick="toggleNotificationPanel()">
+    <i class="fas fa-bell"></i>
+    <div class="notification-badge" id="notificationBadge">0</div>
+</div>
+
+<div class="notification-panel" id="notificationPanel">
+    <div class="notification-header">
+        <h3>Notifications</h3>
+        <button class="mark-all-read" onclick="markAllNotificationsRead()">Mark all read</button>
+    </div>
+    <div class="notification-list" id="notificationList">
+        <div style="text-align: center; padding: 32px; color: #718096;">Loading...</div>
+    </div>
+</div>

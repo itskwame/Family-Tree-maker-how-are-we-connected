@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Insights - FamilyConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f7fafc; }
+        .container { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: white; border-right: 1px solid #e2e8f0; padding: 24px; position: fixed; height: 100vh; overflow-y: auto; }
+        .logo { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 32px; cursor: pointer; }
+        .nav-item { padding: 12px 16px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #4a5568; text-decoration: none; font-size: 14px; }
+        .nav-item:hover { background: #f7fafc; }
+        .nav-item.active { background: #667eea; color: white; }
+        .main { flex: 1; padding: 32px; margin-left: 260px; max-width: 1400px; }
+
+        .header { margin-bottom: 32px; }
+        .header h1 { font-family: 'Playfair Display', serif; font-size: 32px; color: #2d3748; margin-bottom: 8px; }
+        .header p { color: #718096; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 32px; }
+        .stat-card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .stat-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 20px; }
+        .stat-number { font-size: 32px; font-weight: 700; color: #2d3748; margin-bottom: 4px; }
+        .stat-label { color: #718096; font-size: 14px; }
+
+        .insight-card { background: white; padding: 32px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; }
+        .insight-card h2 { color: #2d3748; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+        .insight-card h2 i { color: #667eea; }
+
+        .insight-list { display: flex; flex-direction: column; gap: 12px; }
+        .insight-item { padding: 16px; background: #f7fafc; border-radius: 8px; border-left: 4px solid #667eea; }
+        .insight-item strong { color: #2d3748; font-weight: 600; }
+        .insight-item span { color: #718096; }
+
+        .generation-tree { padding: 20px; background: #f7fafc; border-radius: 12px; overflow-x: auto; }
+        .generation { margin-bottom: 20px; }
+        .generation-label { font-weight: 600; color: #667eea; margin-bottom: 12px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .generation-members { display: flex; gap: 12px; flex-wrap: wrap; }
+        .member-badge { padding: 8px 16px; background: white; border: 2px solid #e2e8f0; border-radius: 20px; font-size: 14px; color: #2d3748; display: inline-flex; align-items: center; gap: 8px; }
+        .member-badge i { color: #667eea; font-size: 12px; }
+
+        .timeline { position: relative; padding-left: 40px; }
+        .timeline-item { margin-bottom: 32px; position: relative; }
+        .timeline-item::before { content: ''; position: absolute; left: -28px; top: 8px; width: 12px; height: 12px; background: #667eea; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 0 2px #667eea; }
+        .timeline-item::after { content: ''; position: absolute; left: -23px; top: 20px; width: 2px; height: calc(100% + 12px); background: #e2e8f0; }
+        .timeline-item:last-child::after { display: none; }
+        .timeline-date { font-weight: 600; color: #667eea; margin-bottom: 8px; }
+        .timeline-content { background: white; padding: 16px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+
+        .wow-banner { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 32px; border-radius: 12px; text-align: center; margin-bottom: 24px; }
+        .wow-banner h2 { font-size: 28px; margin-bottom: 12px; }
+        .wow-banner p { font-size: 16px; opacity: 0.95; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo" onclick="window.location.href='../dashboard/index.html'"><i class="fas fa-users"></i> FamilyConnect</div>
+            <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="../tree/builder.html" class="nav-item"><i class="fas fa-project-diagram"></i> Family Tree Builder</a>
+            <a href="../tree/viewer.html" class="nav-item"><i class="fas fa-sitemap"></i> Tree Viewer</a>
+            <a href="../tree/pathfinder.html" class="nav-item"><i class="fas fa-route"></i> Connection Finder</a>
+            <a href="../tree/templates.html" class="nav-item"><i class="fas fa-print"></i> Print Templates</a>
+            <hr style="margin: 16px 0; border: none; border-top: 1px solid #e2e8f0;">
+            <a href="../feed/index.html" class="nav-item"><i class="fas fa-images"></i> Family Feed</a>
+            <a href="../events/index.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Events</a>
+            <a href="../business/index.html" class="nav-item"><i class="fas fa-store"></i> Businesses</a>
+            <a href="index.html" class="nav-item active"><i class="fas fa-chart-line"></i> Family Insights</a>
+            <a href="../profile/view.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+            <a href="#" onclick="signOut()" class="nav-item"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+        </div>
+
+        <div class="main">
+            <div class="header">
+                <h1><i class="fas fa-chart-line"></i> Family Insights</h1>
+                <p>Discover interesting facts about your family</p>
+            </div>
+
+            <div class="wow-banner">
+                <h2>Your Family Story at a Glance</h2>
+                <p>Explore the unique connections, achievements, and legacy of your family tree</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #e6efff; color: #667eea;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number" id="totalMembers">0</div>
+                    <div class="stat-label">Total Family Members</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #fef3c7; color: #f59e0b;">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div class="stat-number" id="totalGenerations">0</div>
+                    <div class="stat-label">Generations Recorded</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #d1fae5; color: #10b981;">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <div class="stat-number" id="totalLocations">0</div>
+                    <div class="stat-label">Different Locations</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #fecaca; color: #ef4444;">
+                        <i class="fas fa-birthday-cake"></i>
+                    </div>
+                    <div class="stat-number" id="upcomingBirthdays">0</div>
+                    <div class="stat-label">Upcoming Birthdays</div>
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <h2><i class="fas fa-lightbulb"></i> Interesting Discoveries</h2>
+                <div class="insight-list" id="insightsList">
+                    <div class="insight-item">
+                        <strong>Loading insights...</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <h2><i class="fas fa-layer-group"></i> Family by Generations</h2>
+                <div class="generation-tree" id="generationTree">
+                    <p style="color: #718096;">Loading generation data...</p>
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <h2><i class="fas fa-clock"></i> Family Timeline</h2>
+                <div class="timeline" id="familyTimeline">
+                    <p style="color: #718096;">Loading timeline...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+        const supabase = createClient('https://fvfviudlxyumnskakftp.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA');
+        let currentUser = null;
+
+        window.signOut = async () => { await supabase.auth.signOut(); window.location.href = '../index.html'; };
+
+        async function loadInsights() {
+            const { data: members } = await supabase
+                .from('family_members')
+                .select('*');
+
+            if (!members || members.length === 0) return;
+
+            document.getElementById('totalMembers').textContent = members.length;
+
+            const locations = [...new Set(members.filter(m => m.location).map(m => m.location))];
+            document.getElementById('totalLocations').textContent = locations.length;
+
+            const today = new Date();
+            const thirtyDaysFromNow = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
+            const upcomingBirthdays = members.filter(m => {
+                if (!m.birth_date) return false;
+                const birthDate = new Date(m.birth_date);
+                const thisYearBirthday = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+                return thisYearBirthday >= today && thisYearBirthday <= thirtyDaysFromNow;
+            });
+            document.getElementById('upcomingBirthdays').textContent = upcomingBirthdays.length;
+
+            const genderCounts = members.reduce((acc, m) => {
+                acc[m.gender || 'unknown'] = (acc[m.gender || 'unknown'] || 0) + 1;
+                return acc;
+            }, {});
+
+            const deceased = members.filter(m => m.is_deceased).length;
+            const living = members.length - deceased;
+
+            const oldest = members.filter(m => m.birth_date).sort((a, b) => new Date(a.birth_date) - new Date(b.birth_date))[0];
+            const youngest = members.filter(m => m.birth_date && !m.is_deceased).sort((a, b) => new Date(b.birth_date) - new Date(a.birth_date))[0];
+
+            const insights = [];
+            insights.push(`Your family tree has <strong>${members.length} members</strong> across multiple generations`);
+            insights.push(`<strong>${living} living</strong> family members and <strong>${deceased} ancestors</strong> have been documented`);
+            if (genderCounts.male && genderCounts.female) {
+                insights.push(`Family includes <strong>${genderCounts.male} males</strong> and <strong>${genderCounts.female} females</strong>`);
+            }
+            if (locations.length > 0) {
+                insights.push(`Your family spans <strong>${locations.length} locations</strong>: ${locations.slice(0, 3).join(', ')}${locations.length > 3 ? '...' : ''}`);
+            }
+            if (oldest) {
+                const age = oldest.birth_date ? Math.floor((new Date() - new Date(oldest.birth_date)) / (365.25 * 24 * 60 * 60 * 1000)) : 0;
+                insights.push(`The oldest recorded family member is <strong>${oldest.first_name} ${oldest.last_name || ''}</strong>${age > 0 ? ` (age ${age})` : ''}`);
+            }
+            if (youngest && youngest !== oldest) {
+                const age = youngest.birth_date ? Math.floor((new Date() - new Date(youngest.birth_date)) / (365.25 * 24 * 60 * 60 * 1000)) : 0;
+                insights.push(`The youngest living member is <strong>${youngest.first_name} ${youngest.last_name || ''}</strong>${age >= 0 ? ` (age ${age})` : ''}`);
+            }
+
+            const { data: businesses } = await supabase.from('businesses').select('*');
+            if (businesses && businesses.length > 0) {
+                insights.push(`Your family owns <strong>${businesses.length} business${businesses.length > 1 ? 'es' : ''}</strong>`);
+            }
+
+            document.getElementById('insightsList').innerHTML = insights.map(insight =>
+                `<div class="insight-item"><span>${insight}</span></div>`
+            ).join('');
+
+            const { data: relationships } = await supabase
+                .from('relationships')
+                .select('*');
+
+            const generations = calculateGenerations(members, relationships);
+            document.getElementById('totalGenerations').textContent = Math.max(...Object.keys(generations).map(k => parseInt(k))) + 1 || 1;
+
+            let generationHTML = '';
+            Object.keys(generations).sort((a, b) => parseInt(a) - parseInt(b)).forEach(gen => {
+                const genMembers = generations[gen];
+                generationHTML += `
+                    <div class="generation">
+                        <div class="generation-label">Generation ${parseInt(gen) + 1}</div>
+                        <div class="generation-members">
+                            ${genMembers.map(m => `
+                                <div class="member-badge">
+                                    <i class="fas ${m.gender === 'male' ? 'fa-mars' : m.gender === 'female' ? 'fa-venus' : 'fa-user'}"></i>
+                                    ${m.first_name} ${m.last_name || ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('generationTree').innerHTML = generationHTML || '<p style="color: #718096;">No generation data available</p>';
+
+            const timeline = members
+                .filter(m => m.birth_date)
+                .sort((a, b) => new Date(a.birth_date) - new Date(b.birth_date))
+                .slice(0, 10);
+
+            const timelineHTML = timeline.map(m => {
+                const birthYear = new Date(m.birth_date).getFullYear();
+                const deathYear = m.death_date ? new Date(m.death_date).getFullYear() : null;
+                return `
+                    <div class="timeline-item">
+                        <div class="timeline-date">${birthYear}${deathYear ? ` - ${deathYear}` : ''}</div>
+                        <div class="timeline-content">
+                            <strong>${m.first_name} ${m.last_name || ''}</strong> was born${m.location ? ` in ${m.location}` : ''}
+                            ${m.bio ? `<p style="margin-top: 8px; color: #718096; font-size: 14px;">${m.bio}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('familyTimeline').innerHTML = timelineHTML || '<p style="color: #718096;">No timeline data available</p>';
+        }
+
+        function calculateGenerations(members, relationships) {
+            const generations = {};
+            const processed = new Set();
+
+            function findRoots() {
+                const childIds = new Set(relationships.filter(r => r.relationship_type === 'parent').map(r => r.child_id));
+                return members.filter(m => !childIds.has(m.id));
+            }
+
+            function assignGeneration(memberId, gen) {
+                if (processed.has(memberId)) return;
+                processed.add(memberId);
+
+                const member = members.find(m => m.id === memberId);
+                if (!member) return;
+
+                if (!generations[gen]) generations[gen] = [];
+                generations[gen].push(member);
+
+                const children = relationships
+                    .filter(r => r.parent_id === memberId && r.relationship_type === 'parent')
+                    .map(r => r.child_id);
+
+                children.forEach(childId => assignGeneration(childId, gen + 1));
+            }
+
+            const roots = findRoots();
+            roots.forEach(root => assignGeneration(root.id, 0));
+
+            members.filter(m => !processed.has(m.id)).forEach(m => {
+                if (!generations[0]) generations[0] = [];
+                generations[0].push(m);
+            });
+
+            return generations;
+        }
+
+        async function init() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) { window.location.href = '../auth/login.html'; return; }
+            currentUser = session.user;
+            loadInsights();
+        }
+        init();
+    </script>
+</body>
+</html>

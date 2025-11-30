@@ -41,6 +41,20 @@
 
         .relationship-section { background: #fffbeb; border: 2px solid #fbbf24; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
         .relationship-section h3 { color: #92400e; margin-bottom: 12px; font-size: 16px; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: white; border-radius: 16px; padding: 32px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .modal-header h2 { font-size: 24px; color: #2d3748; }
+        .close-modal { background: none; border: none; font-size: 28px; color: #718096; cursor: pointer; padding: 0; width: 32px; height: 32px; }
+        .close-modal:hover { color: #2d3748; }
+        .invite-link-box { background: #f7fafc; padding: 16px; border-radius: 8px; border: 2px solid #e2e8f0; margin: 16px 0; word-break: break-all; font-family: 'Courier New', monospace; font-size: 14px; color: #2d3748; }
+        .quick-add-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px; }
+        .quick-btn { padding: 16px; background: #f7fafc; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; text-align: center; font-weight: 600; color: #2d3748; transition: all 0.2s; }
+        .quick-btn:hover { background: #667eea; color: white; border-color: #667eea; }
+        .quick-btn i { display: block; font-size: 24px; margin-bottom: 8px; }
+        .success-message { background: #c6f6d5; color: #22543d; padding: 12px; border-radius: 8px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
     </style>
 </head>
 <body>
@@ -60,8 +74,15 @@
         </div>
 
         <div class="main">
-            <h1>Build Your Family Tree</h1>
-            <p style="color: #718096; margin-bottom: 32px;">Add family members and specify relationships</p>
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 32px;">
+                <div>
+                    <h1>Build Your Family Tree</h1>
+                    <p style="color: #718096;">Add family members and specify relationships</p>
+                </div>
+                <button class="btn" onclick="openShareModal()" style="background: #48bb78;">
+                    <i class="fas fa-share-alt"></i> Share Your Tree
+                </button>
+            </div>
 
             <div class="card">
                 <h2 style="margin-bottom: 24px; color: #2d3748;">Add Family Member</h2>
@@ -139,6 +160,98 @@
         </div>
     </div>
 
+    <div id="shareModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-share-alt"></i> Share Your Family Tree</h2>
+                <button class="close-modal" onclick="closeShareModal()">&times;</button>
+            </div>
+            <p style="color: #718096; margin-bottom: 16px;">Invite family members to join and build your tree together!</p>
+            <div id="shareSuccess" style="display: none;" class="success-message">
+                <i class="fas fa-check-circle"></i>
+                <span>Invite link generated!</span>
+            </div>
+            <div class="invite-link-box" id="inviteLinkBox">Generating link...</div>
+            <div style="display: flex; gap: 12px;">
+                <button class="btn" onclick="copyInviteLink()" style="flex: 1;"><i class="fas fa-copy"></i> Copy Link</button>
+                <button class="btn" onclick="shareViaEmail()" style="flex: 1; background: #48bb78;"><i class="fas fa-envelope"></i> Share via Email</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="inviteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-paper-plane"></i> Invite to Claim Profile</h2>
+                <button class="close-modal" onclick="closeInviteModal()">&times;</button>
+            </div>
+            <p style="color: #718096; margin-bottom: 16px;">Send an invitation to <strong id="invitePersonName"></strong> to claim their profile.</p>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="inviteEmail" placeholder="person@example.com">
+            </div>
+            <div class="form-group">
+                <label>Personal Message (Optional)</label>
+                <textarea id="inviteMessage" placeholder="Hey! I'm building our family tree. Join me!"></textarea>
+            </div>
+            <div id="inviteSuccess" style="display: none;" class="success-message">
+                <i class="fas fa-check-circle"></i>
+                <span id="inviteSuccessMsg">Invite sent!</span>
+            </div>
+            <div class="invite-link-box" id="personalInviteLink" style="display: none;">Link here</div>
+            <button class="btn" onclick="sendPersonalInvite()" style="width: 100%;"><i class="fas fa-paper-plane"></i> Send Invitation</button>
+        </div>
+    </div>
+
+    <div id="quickAddModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-plus-circle"></i> Quick Add Family Member</h2>
+                <button class="close-modal" onclick="closeQuickAddModal()">&times;</button>
+            </div>
+            <p style="color: #718096; margin-bottom: 16px;">Add a family member related to <strong id="relatedPersonName"></strong></p>
+            <div class="quick-add-actions">
+                <div class="quick-btn" onclick="quickAddRelation('parent')">
+                    <i class="fas fa-user-friends"></i>
+                    <div>Add Parent</div>
+                </div>
+                <div class="quick-btn" onclick="quickAddRelation('child')">
+                    <i class="fas fa-baby"></i>
+                    <div>Add Child</div>
+                </div>
+                <div class="quick-btn" onclick="quickAddRelation('sibling')">
+                    <i class="fas fa-users"></i>
+                    <div>Add Sibling</div>
+                </div>
+                <div class="quick-btn" onclick="quickAddRelation('spouse')">
+                    <i class="fas fa-heart"></i>
+                    <div>Add Spouse</div>
+                </div>
+            </div>
+            <div id="quickAddForm" style="display: none; margin-top: 24px;">
+                <h3 style="margin-bottom: 16px; color: #2d3748;">Person Details</h3>
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" id="quickFirstName">
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" id="quickLastName">
+                </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select id="quickGender">
+                        <option value="">Select...</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="submitQuickAdd()" style="width: 100%;"><i class="fas fa-check"></i> Add Person</button>
+            </div>
+        </div>
+    </div>
+
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
         const supabase = createClient('https://fvfviudlxyumnskakftp.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA');
@@ -203,11 +316,163 @@
                     ${m.death_date ? `<p><i class="fas fa-cross"></i> Died: ${new Date(m.death_date).toLocaleDateString()}</p>` : ''}
                     ${m.location ? `<p><i class="fas fa-map-marker-alt"></i> ${m.location}</p>` : ''}
                     <div class="member-actions">
+                        <button class="btn btn-sm" onclick="openQuickAddModal('${m.id}', '${m.first_name} ${m.last_name || ''}')"><i class="fas fa-plus"></i> Quick Add</button>
+                        <button class="btn btn-sm btn-secondary" onclick="openInviteModal('${m.id}', '${m.first_name}')"><i class="fas fa-paper-plane"></i> Invite</button>
                         <button class="btn btn-sm btn-secondary" onclick="deleteMember('${m.id}')"><i class="fas fa-trash"></i> Delete</button>
                     </div>
                 </div>
             `).join('');
         }
+
+        let currentInviteLink = '';
+        let currentQuickAddRelation = '';
+        let currentQuickAddMemberId = '';
+        let currentInviteMemberId = '';
+
+        window.openShareModal = async () => {
+            document.getElementById('shareModal').classList.add('active');
+            document.getElementById('shareSuccess').style.display = 'none';
+            document.getElementById('inviteLinkBox').textContent = 'Generating link...';
+
+            const { data, error } = await supabase.from('invitations').insert({
+                sender_id: currentUser.id
+            }).select().single();
+
+            if (data) {
+                currentInviteLink = `${window.location.origin}/auth/signup.html?invite=${data.invite_code}`;
+                document.getElementById('inviteLinkBox').textContent = currentInviteLink;
+                document.getElementById('shareSuccess').style.display = 'flex';
+            }
+        };
+
+        window.closeShareModal = () => {
+            document.getElementById('shareModal').classList.remove('active');
+        };
+
+        window.copyInviteLink = async () => {
+            await navigator.clipboard.writeText(currentInviteLink);
+            alert('Link copied to clipboard!');
+        };
+
+        window.shareViaEmail = () => {
+            const subject = encodeURIComponent('Join Our Family Tree on FamilyConnect!');
+            const body = encodeURIComponent(`Hi!\n\nI'm building our family tree on FamilyConnect and would love for you to join!\n\nClick here to create your account and claim your profile:\n${currentInviteLink}\n\nLooking forward to connecting!`);
+            window.open(`mailto:?subject=${subject}&body=${body}`);
+        };
+
+        window.openInviteModal = (memberId, firstName) => {
+            currentInviteMemberId = memberId;
+            document.getElementById('invitePersonName').textContent = firstName;
+            document.getElementById('inviteModal').classList.add('active');
+            document.getElementById('inviteSuccess').style.display = 'none';
+            document.getElementById('personalInviteLink').style.display = 'none';
+        };
+
+        window.closeInviteModal = () => {
+            document.getElementById('inviteModal').classList.remove('active');
+            document.getElementById('inviteEmail').value = '';
+            document.getElementById('inviteMessage').value = '';
+        };
+
+        window.sendPersonalInvite = async () => {
+            const email = document.getElementById('inviteEmail').value;
+            const message = document.getElementById('inviteMessage').value;
+
+            if (!email) {
+                alert('Please enter an email address');
+                return;
+            }
+
+            const { data, error } = await supabase.from('invitations').insert({
+                sender_id: currentUser.id,
+                recipient_email: email,
+                family_member_id: currentInviteMemberId,
+                message: message
+            }).select().single();
+
+            if (data) {
+                const link = `${window.location.origin}/auth/signup.html?invite=${data.invite_code}`;
+                document.getElementById('personalInviteLink').textContent = link;
+                document.getElementById('personalInviteLink').style.display = 'block';
+                document.getElementById('inviteSuccessMsg').textContent = 'Invitation created! Share this link:';
+                document.getElementById('inviteSuccess').style.display = 'flex';
+
+                await supabase.from('notifications').insert({
+                    user_id: currentUser.id,
+                    type: 'invitation_sent',
+                    title: 'Invitation Sent',
+                    message: `Invitation sent to ${email}`
+                });
+            }
+        };
+
+        window.openQuickAddModal = (memberId, personName) => {
+            currentQuickAddMemberId = memberId;
+            document.getElementById('relatedPersonName').textContent = personName;
+            document.getElementById('quickAddModal').classList.add('active');
+            document.getElementById('quickAddForm').style.display = 'none';
+        };
+
+        window.closeQuickAddModal = () => {
+            document.getElementById('quickAddModal').classList.remove('active');
+            document.getElementById('quickFirstName').value = '';
+            document.getElementById('quickLastName').value = '';
+            document.getElementById('quickGender').value = '';
+        };
+
+        window.quickAddRelation = (relation) => {
+            currentQuickAddRelation = relation;
+            document.getElementById('quickAddForm').style.display = 'block';
+        };
+
+        window.submitQuickAdd = async () => {
+            const firstName = document.getElementById('quickFirstName').value;
+            const lastName = document.getElementById('quickLastName').value;
+            const gender = document.getElementById('quickGender').value;
+
+            if (!firstName) {
+                alert('Please enter a first name');
+                return;
+            }
+
+            const { data: member, error } = await supabase.from('family_members').insert({
+                first_name: firstName,
+                last_name: lastName,
+                gender: gender,
+                created_by: currentUser.id
+            }).select().single();
+
+            if (member) {
+                if (currentQuickAddRelation === 'parent') {
+                    await supabase.from('relationships').insert({
+                        parent_id: member.id,
+                        child_id: currentQuickAddMemberId,
+                        relationship_type: 'parent'
+                    });
+                } else if (currentQuickAddRelation === 'child') {
+                    await supabase.from('relationships').insert({
+                        parent_id: currentQuickAddMemberId,
+                        child_id: member.id,
+                        relationship_type: 'parent'
+                    });
+                } else if (currentQuickAddRelation === 'spouse' || currentQuickAddRelation === 'sibling') {
+                    await supabase.from('relationships').insert([
+                        { parent_id: member.id, child_id: currentQuickAddMemberId, relationship_type: currentQuickAddRelation },
+                        { parent_id: currentQuickAddMemberId, child_id: member.id, relationship_type: currentQuickAddRelation }
+                    ]);
+                }
+
+                await supabase.from('notifications').insert({
+                    user_id: currentUser.id,
+                    type: 'new_member',
+                    title: 'New Family Member Added',
+                    message: `${firstName} ${lastName} was added to the family tree`
+                });
+
+                closeQuickAddModal();
+                loadMembers();
+            }
+        };
 
         async function init() {
             const { data: { session } } = await supabase.auth.getSession();

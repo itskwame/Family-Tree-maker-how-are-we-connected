@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to FamilyConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+
+        .wizard-container { background: white; border-radius: 20px; padding: 48px; max-width: 600px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .wizard-header { text-align: center; margin-bottom: 40px; }
+        .wizard-header h1 { font-family: 'Playfair Display', serif; font-size: 32px; color: #2d3748; margin-bottom: 12px; }
+        .wizard-header p { color: #718096; font-size: 16px; }
+
+        .progress-bar { height: 8px; background: #e2e8f0; border-radius: 4px; margin-bottom: 40px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); transition: width 0.3s; border-radius: 4px; }
+
+        .step { display: none; }
+        .step.active { display: block; animation: fadeIn 0.3s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group { margin-bottom: 24px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #2d3748; }
+        .form-group input, .form-group select { width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 16px; font-family: 'Inter', sans-serif; transition: border-color 0.2s; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #667eea; }
+
+        .quick-add-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px; }
+        .quick-add-btn { padding: 20px; background: #f7fafc; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.2s; }
+        .quick-add-btn:hover { background: #667eea; color: white; border-color: #667eea; transform: translateY(-2px); }
+        .quick-add-btn i { font-size: 28px; display: block; margin-bottom: 8px; }
+        .quick-add-btn span { font-weight: 600; font-size: 14px; }
+
+        .btn { padding: 14px 32px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 16px; width: 100%; transition: transform 0.2s, box-shadow 0.2s; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4); }
+        .btn-secondary { background: #e2e8f0; color: #2d3748; }
+        .btn-secondary:hover { background: #cbd5e0; box-shadow: none; }
+
+        .btn-group { display: flex; gap: 12px; margin-top: 32px; }
+        .btn-group button { flex: 1; }
+
+        .added-members { margin-top: 20px; }
+        .member-chip { display: inline-flex; align-items: center; gap: 8px; background: #e6efff; color: #667eea; padding: 8px 12px; border-radius: 20px; margin: 4px; font-size: 14px; font-weight: 600; }
+        .member-chip i { cursor: pointer; }
+
+        .celebration { text-align: center; padding: 40px 0; }
+        .celebration i { font-size: 80px; color: #48bb78; margin-bottom: 24px; }
+        .celebration h2 { font-size: 28px; color: #2d3748; margin-bottom: 16px; }
+        .celebration p { color: #718096; font-size: 16px; line-height: 1.6; }
+
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 32px 0; }
+        .stat-box { background: #f7fafc; padding: 20px; border-radius: 12px; text-align: center; }
+        .stat-number { font-size: 32px; font-weight: 700; color: #667eea; }
+        .stat-label { color: #718096; margin-top: 4px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="wizard-container">
+        <div class="wizard-header">
+            <h1>Welcome to FamilyConnect!</h1>
+            <p>Let's build your family tree in just a few steps</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 20%"></div>
+        </div>
+
+        <div class="step active" id="step1">
+            <h2 style="margin-bottom: 24px; color: #2d3748;">Tell us about yourself</h2>
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" id="userFirstName" placeholder="John">
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" id="userLastName" placeholder="Smith">
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <select id="userGender">
+                    <option value="">Select...</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <button class="btn" onclick="nextStep(2)">Continue <i class="fas fa-arrow-right"></i></button>
+        </div>
+
+        <div class="step" id="step2">
+            <h2 style="margin-bottom: 16px; color: #2d3748;">Add your parents</h2>
+            <p style="color: #718096; margin-bottom: 24px;">This helps us start building your family tree</p>
+
+            <div class="form-group">
+                <label>Mother's Name</label>
+                <input type="text" id="motherName" placeholder="Jane Smith">
+            </div>
+            <div class="form-group">
+                <label>Father's Name</label>
+                <input type="text" id="fatherName" placeholder="Robert Smith">
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="prevStep(1)"><i class="fas fa-arrow-left"></i> Back</button>
+                <button class="btn" onclick="nextStep(3)">Continue <i class="fas fa-arrow-right"></i></button>
+            </div>
+            <button class="btn btn-secondary" onclick="skipStep(3)" style="margin-top: 12px; width: 100%;">Skip for now</button>
+        </div>
+
+        <div class="step" id="step3">
+            <h2 style="margin-bottom: 16px; color: #2d3748;">Add siblings or other family</h2>
+            <p style="color: #718096; margin-bottom: 24px;">Quick add family members to your tree</p>
+
+            <div class="quick-add-grid">
+                <div class="quick-add-btn" onclick="openQuickAdd('sibling')">
+                    <i class="fas fa-users"></i>
+                    <span>Add Sibling</span>
+                </div>
+                <div class="quick-add-btn" onclick="openQuickAdd('child')">
+                    <i class="fas fa-baby"></i>
+                    <span>Add Child</span>
+                </div>
+                <div class="quick-add-btn" onclick="openQuickAdd('spouse')">
+                    <i class="fas fa-heart"></i>
+                    <span>Add Spouse</span>
+                </div>
+                <div class="quick-add-btn" onclick="openQuickAdd('other')">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Add Other</span>
+                </div>
+            </div>
+
+            <div id="addMemberForm" style="display: none; margin-top: 24px; padding: 20px; background: #f7fafc; border-radius: 12px;">
+                <h3 style="margin-bottom: 16px; color: #2d3748;">Add <span id="relationshipLabel">Family Member</span></h3>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="memberName" placeholder="Full name">
+                </div>
+                <button class="btn" onclick="addMember()"><i class="fas fa-plus"></i> Add</button>
+            </div>
+
+            <div class="added-members" id="addedMembers"></div>
+
+            <div class="btn-group" style="margin-top: 24px;">
+                <button class="btn btn-secondary" onclick="prevStep(2)"><i class="fas fa-arrow-left"></i> Back</button>
+                <button class="btn" onclick="nextStep(4)">Continue <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <div class="step" id="step4">
+            <h2 style="margin-bottom: 16px; color: #2d3748;">Invite your family!</h2>
+            <p style="color: #718096; margin-bottom: 24px;">Share your tree link so family members can join and add themselves</p>
+
+            <div style="background: #f7fafc; padding: 16px; border-radius: 10px; border: 2px solid #e2e8f0; margin-bottom: 20px; word-break: break-all; font-size: 14px; color: #2d3748; font-family: 'Courier New', monospace;" id="inviteLink">
+                Generating link...
+            </div>
+
+            <button class="btn" onclick="copyInviteLink()" style="margin-bottom: 12px;"><i class="fas fa-copy"></i> Copy Invite Link</button>
+            <button class="btn btn-secondary" onclick="shareViaEmail()"><i class="fas fa-envelope"></i> Share via Email</button>
+
+            <div class="btn-group" style="margin-top: 32px;">
+                <button class="btn btn-secondary" onclick="prevStep(3)"><i class="fas fa-arrow-left"></i> Back</button>
+                <button class="btn" onclick="finishOnboarding()">Finish Setup <i class="fas fa-check"></i></button>
+            </div>
+        </div>
+
+        <div class="step" id="step5">
+            <div class="celebration">
+                <i class="fas fa-check-circle"></i>
+                <h2>Your Family Tree is Ready!</h2>
+                <p>You've successfully set up your family tree. Now you can explore all features and continue building your family history.</p>
+
+                <div class="stats">
+                    <div class="stat-box">
+                        <div class="stat-number" id="finalMemberCount">0</div>
+                        <div class="stat-label">Family Members</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="finalGenerations">0</div>
+                        <div class="stat-label">Generations</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Complete</div>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="goToDashboard()" style="margin-top: 24px;">Go to Dashboard <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+        const supabase = createClient('https://fvfviudlxyumnskakftp.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA');
+
+        let currentUser = null;
+        let currentStep = 1;
+        let addedMembers = [];
+        let currentRelationType = '';
+        let userMemberId = null;
+        let inviteCode = '';
+
+        window.nextStep = async (step) => {
+            if (step === 2) {
+                const firstName = document.getElementById('userFirstName').value;
+                const lastName = document.getElementById('userLastName').value;
+                const gender = document.getElementById('userGender').value;
+
+                if (!firstName) {
+                    alert('Please enter your first name');
+                    return;
+                }
+
+                await supabase.from('profiles').update({
+                    first_name: firstName,
+                    last_name: lastName,
+                    gender: gender
+                }).eq('id', currentUser.id);
+
+                const { data: member } = await supabase.from('family_members').insert({
+                    user_id: currentUser.id,
+                    first_name: firstName,
+                    last_name: lastName,
+                    gender: gender,
+                    created_by: currentUser.id
+                }).select().single();
+
+                userMemberId = member.id;
+            }
+
+            if (step === 3) {
+                const motherName = document.getElementById('motherName').value;
+                const fatherName = document.getElementById('fatherName').value;
+
+                if (motherName) {
+                    const { data } = await supabase.from('family_members').insert({
+                        first_name: motherName.split(' ')[0],
+                        last_name: motherName.split(' ').slice(1).join(' '),
+                        gender: 'female',
+                        created_by: currentUser.id
+                    }).select().single();
+
+                    if (data) {
+                        await supabase.from('relationships').insert({
+                            parent_id: data.id,
+                            child_id: userMemberId,
+                            relationship_type: 'parent'
+                        });
+                    }
+                }
+
+                if (fatherName) {
+                    const { data } = await supabase.from('family_members').insert({
+                        first_name: fatherName.split(' ')[0],
+                        last_name: fatherName.split(' ').slice(1).join(' '),
+                        gender: 'male',
+                        created_by: currentUser.id
+                    }).select().single();
+
+                    if (data) {
+                        await supabase.from('relationships').insert({
+                            parent_id: data.id,
+                            child_id: userMemberId,
+                            relationship_type: 'parent'
+                        });
+                    }
+                }
+            }
+
+            if (step === 4) {
+                const { data } = await supabase.from('invitations').insert({
+                    sender_id: currentUser.id
+                }).select().single();
+
+                if (data) {
+                    inviteCode = data.invite_code;
+                    const link = `${window.location.origin}/auth/signup.html?invite=${data.invite_code}`;
+                    document.getElementById('inviteLink').textContent = link;
+                }
+            }
+
+            showStep(step);
+        };
+
+        window.prevStep = (step) => {
+            showStep(step);
+        };
+
+        window.skipStep = (step) => {
+            showStep(step);
+        };
+
+        function showStep(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + step).classList.add('active');
+            currentStep = step;
+
+            const progress = (step / 5) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        window.openQuickAdd = (type) => {
+            currentRelationType = type;
+            document.getElementById('addMemberForm').style.display = 'block';
+            document.getElementById('relationshipLabel').textContent = type.charAt(0).toUpperCase() + type.slice(1);
+            document.getElementById('memberName').value = '';
+        };
+
+        window.addMember = async () => {
+            const name = document.getElementById('memberName').value;
+            if (!name) return;
+
+            const { data } = await supabase.from('family_members').insert({
+                first_name: name.split(' ')[0],
+                last_name: name.split(' ').slice(1).join(' '),
+                created_by: currentUser.id
+            }).select().single();
+
+            if (data) {
+                if (currentRelationType === 'sibling') {
+                    await supabase.from('relationships').insert([
+                        { parent_id: data.id, child_id: userMemberId, relationship_type: 'sibling' },
+                        { parent_id: userMemberId, child_id: data.id, relationship_type: 'sibling' }
+                    ]);
+                } else if (currentRelationType === 'child') {
+                    await supabase.from('relationships').insert({
+                        parent_id: userMemberId,
+                        child_id: data.id,
+                        relationship_type: 'parent'
+                    });
+                } else if (currentRelationType === 'spouse') {
+                    await supabase.from('relationships').insert([
+                        { parent_id: data.id, child_id: userMemberId, relationship_type: 'spouse' },
+                        { parent_id: userMemberId, child_id: data.id, relationship_type: 'spouse' }
+                    ]);
+                }
+
+                addedMembers.push({ name, type: currentRelationType });
+                updateAddedMembers();
+                document.getElementById('addMemberForm').style.display = 'none';
+            }
+        };
+
+        function updateAddedMembers() {
+            const container = document.getElementById('addedMembers');
+            if (addedMembers.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = '<p style="color: #718096; font-size: 14px; margin-bottom: 12px;">Added:</p>' +
+                addedMembers.map((m, i) => `
+                    <span class="member-chip">
+                        ${m.name}
+                        <i class="fas fa-times" onclick="removeMember(${i})"></i>
+                    </span>
+                `).join('');
+        }
+
+        window.removeMember = (index) => {
+            addedMembers.splice(index, 1);
+            updateAddedMembers();
+        };
+
+        window.copyInviteLink = async () => {
+            const link = document.getElementById('inviteLink').textContent;
+            await navigator.clipboard.writeText(link);
+            alert('Link copied to clipboard!');
+        };
+
+        window.shareViaEmail = () => {
+            const link = document.getElementById('inviteLink').textContent;
+            const subject = encodeURIComponent('Join Our Family Tree!');
+            const body = encodeURIComponent(`Hi!\n\nI've started building our family tree on FamilyConnect. Join me!\n\n${link}`);
+            window.open(`mailto:?subject=${subject}&body=${body}`);
+        };
+
+        window.finishOnboarding = async () => {
+            await supabase.from('profiles').update({
+                onboarding_completed: true
+            }).eq('id', currentUser.id);
+
+            const { count: memberCount } = await supabase
+                .from('family_members')
+                .select('*', { count: 'exact', head: true });
+
+            document.getElementById('finalMemberCount').textContent = memberCount || 0;
+            document.getElementById('finalGenerations').textContent = memberCount > 3 ? '2+' : '1';
+
+            showStep(5);
+        };
+
+        window.goToDashboard = () => {
+            window.location.href = '../dashboard/index.html';
+        };
+
+        async function init() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = '../auth/login.html';
+                return;
+            }
+            currentUser = session.user;
+
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('onboarding_completed')
+                .eq('id', currentUser.id)
+                .single();
+
+            if (profile?.onboarding_completed) {
+                window.location.href = '../dashboard/index.html';
+            }
+        }
+        init();
+    </script>
+</body>
+</html>
