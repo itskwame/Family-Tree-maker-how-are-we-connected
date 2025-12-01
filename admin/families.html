@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Management - Admin - FamilyConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar" id="sidebar"></div>
+
+        <div class="main">
+            <h1>Family Management</h1>
+            <p class="subtitle">View and manage all family groups</p>
+
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search by family name...">
+                <select id="planFilter">
+                    <option value="">All Plans</option>
+                    <option value="free">Free</option>
+                    <option value="small">Small</option>
+                    <option value="large">Large</option>
+                    <option value="unlimited">Unlimited</option>
+                </select>
+                <select id="statusFilter">
+                    <option value="">All Status</option>
+                    <option value="trial">Trial</option>
+                    <option value="active">Active</option>
+                    <option value="past_due">Past Due</option>
+                    <option value="canceled">Canceled</option>
+                    <option value="expired">Expired</option>
+                </select>
+            </div>
+
+            <div class="card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Family Name</th>
+                                <th>Admin</th>
+                                <th>Members</th>
+                                <th>Plan</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="familiesTable">
+                            <tr>
+                                <td colspan="7" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="viewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Family Details</h2>
+                <button class="close-modal" onclick="closeViewModal()">&times;</button>
+            </div>
+            <div id="familyDetails">
+                <div class="loading"><i class="fas fa-spinner fa-spin"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { checkAdminAuth, signOut, renderSidebar, adminStyles, formatDate, timeAgo, logAction, supabase } from './admin.js';
+
+        const style = document.createElement('style');
+        style.textContent = adminStyles;
+        document.head.appendChild(style);
+
+        window.adminSignOut = signOut;
+
+        let allFamilies = [];
+
+        async function loadFamilies() {
+            const { data: families, error } = await supabase
+                .from('family_groups')
+                .select(`
+                    *,
+                    admin:profiles!family_groups_admin_user_id_fkey(first_name, last_name, email)
+                `)
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error loading families:', error);
+                return;
+            }
+
+            allFamilies = families || [];
+            filterFamilies();
+        }
+
+        function filterFamilies() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const planFilter = document.getElementById('planFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+
+            let filtered = allFamilies;
+
+            if (searchTerm) {
+                filtered = filtered.filter(family =>
+                    family.name?.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            if (planFilter) {
+                filtered = filtered.filter(family => family.plan_tier === planFilter);
+            }
+
+            if (statusFilter) {
+                filtered = filtered.filter(family => family.subscription_status === statusFilter);
+            }
+
+            renderFamilies(filtered);
+        }
+
+        function renderFamilies(families) {
+            const tbody = document.getElementById('familiesTable');
+
+            if (!families || families.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #94a3b8; padding: 32px;">No families found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = families.map(family => {
+                const planClass = family.plan_tier === 'free' ? 'badge-secondary' :
+                                 family.plan_tier === 'small' ? 'badge-info' :
+                                 family.plan_tier === 'large' ? 'badge-success' : 'badge-warning';
+
+                const statusClass = family.subscription_status === 'active' ? 'badge-success' :
+                                   family.subscription_status === 'trial' ? 'badge-info' :
+                                   family.subscription_status === 'past_due' ? 'badge-warning' : 'badge-danger';
+
+                return `
+                    <tr>
+                        <td>
+                            <div style="font-weight: 600;">${family.name}</div>
+                        </td>
+                        <td>
+                            <div style="font-weight: 500;">${family.admin?.first_name || ''} ${family.admin?.last_name || ''}</div>
+                            <div style="font-size: 12px; color: #64748b;">${family.admin?.email || 'N/A'}</div>
+                        </td>
+                        <td>${family.member_count || 0}</td>
+                        <td><span class="badge ${planClass}">${family.plan_tier}</span></td>
+                        <td><span class="badge ${statusClass}">${family.subscription_status}</span></td>
+                        <td>${formatDate(family.created_at)}</td>
+                        <td>
+                            <button class="btn btn-sm btn-secondary" onclick="viewFamily('${family.id}')">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        window.viewFamily = async (familyId) => {
+            document.getElementById('viewModal').classList.add('active');
+            document.getElementById('familyDetails').innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i></div>';
+
+            const { data: family } = await supabase
+                .from('family_groups')
+                .select(`
+                    *,
+                    admin:profiles!family_groups_admin_user_id_fkey(first_name, last_name, email)
+                `)
+                .eq('id', familyId)
+                .single();
+
+            const { data: members } = await supabase
+                .from('family_group_members')
+                .select(`
+                    *,
+                    user:profiles!family_group_members_user_id_fkey(first_name, last_name, email)
+                `)
+                .eq('family_group_id', familyId);
+
+            const { data: treeMembers, count: treeMemberCount } = await supabase
+                .from('family_members')
+                .select('*', { count: 'exact', head: true })
+                .in('user_id', members.map(m => m.user_id));
+
+            document.getElementById('familyDetails').innerHTML = `
+                <div style="margin-bottom: 24px;">
+                    <h3 style="margin-bottom: 8px; font-size: 18px;">${family.name}</h3>
+                    <div style="color: #64748b; font-size: 14px;">Created ${formatDate(family.created_at)}</div>
+                </div>
+
+                <div style="background: #f8fafc; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                        <div>
+                            <div style="font-size: 12px; color: #64748b; margin-bottom: 4px;">Plan Tier</div>
+                            <div style="font-weight: 600;">${family.plan_tier}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 12px; color: #64748b; margin-bottom: 4px;">Status</div>
+                            <div style="font-weight: 600;">${family.subscription_status}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 12px; color: #64748b; margin-bottom: 4px;">Members</div>
+                            <div style="font-weight: 600;">${family.member_count || 0}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 12px; color: #64748b; margin-bottom: 4px;">Tree Members</div>
+                            <div style="font-weight: 600;">${treeMemberCount || 0}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="margin-bottom: 12px; font-size: 16px;">Admin</h4>
+                <div style="background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 24px;">
+                    <div style="font-weight: 600;">${family.admin?.first_name || ''} ${family.admin?.last_name || ''}</div>
+                    <div style="font-size: 13px; color: #64748b;">${family.admin?.email || 'N/A'}</div>
+                </div>
+
+                <h4 style="margin-bottom: 12px; font-size: 16px;">Members (${members?.length || 0})</h4>
+                <div style="max-height: 300px; overflow-y: auto;">
+                    ${members?.map(member => `
+                        <div style="background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 8px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-weight: 600;">${member.user?.first_name || ''} ${member.user?.last_name || ''}</div>
+                                    <div style="font-size: 13px; color: #64748b;">${member.user?.email || ''}</div>
+                                </div>
+                                <span class="badge badge-info">${member.role}</span>
+                            </div>
+                        </div>
+                    `).join('') || '<div style="color: #94a3b8; text-align: center; padding: 16px;">No members</div>'}
+                </div>
+            `;
+        };
+
+        window.closeViewModal = () => {
+            document.getElementById('viewModal').classList.remove('active');
+        };
+
+        document.getElementById('searchInput').addEventListener('input', filterFamilies);
+        document.getElementById('planFilter').addEventListener('change', filterFamilies);
+        document.getElementById('statusFilter').addEventListener('change', filterFamilies);
+
+        async function init() {
+            await checkAdminAuth();
+            document.getElementById('sidebar').innerHTML = renderSidebar('families');
+            await loadFamilies();
+        }
+
+        init();
+    </script>
+</body>
+</html>

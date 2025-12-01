@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - FamilyConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar" id="sidebar"></div>
+
+        <div class="main">
+            <h1>Dashboard</h1>
+            <p class="subtitle">System overview and key metrics</p>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalUsers">0</div>
+                    <div class="stat-label">Total Users</div>
+                    <div class="stat-change positive" id="usersChange">+0 this week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="activeUsers">0</div>
+                    <div class="stat-label">Active Users</div>
+                    <div class="stat-change" id="activeChange">Last 30 days</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalFamilies">0</div>
+                    <div class="stat-label">Family Groups</div>
+                    <div class="stat-change positive" id="familiesChange">+0 this week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalMembers">0</div>
+                    <div class="stat-label">Family Members</div>
+                    <div class="stat-change" id="membersChange">In trees</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-chart-line"></i> Recent Activity</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Action</th>
+                                <th>Resource</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activityTable">
+                            <tr>
+                                <td colspan="4" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-flag"></i> Flagged Content</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Content Type</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Reported</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="flaggedTable">
+                            <tr>
+                                <td colspan="5" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-users"></i> Recent Users</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Joined</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTable">
+                            <tr>
+                                <td colspan="6" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { checkAdminAuth, signOut, renderSidebar, adminStyles, formatDate, timeAgo, supabase } from './admin.js';
+
+        const style = document.createElement('style');
+        style.textContent = adminStyles;
+        document.head.appendChild(style);
+
+        window.adminSignOut = signOut;
+
+        async function loadStats() {
+            const oneWeekAgo = new Date();
+            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+            const thirtyDaysAgo = new Date();
+            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+            const { count: totalUsers } = await supabase
+                .from('profiles')
+                .select('*', { count: 'exact', head: true });
+
+            const { count: newUsersThisWeek } = await supabase
+                .from('profiles')
+                .select('*', { count: 'exact', head: true })
+                .gte('created_at', oneWeekAgo.toISOString());
+
+            const { count: activeUsers } = await supabase
+                .from('profiles')
+                .select('*', { count: 'exact', head: true })
+                .gte('last_active_at', thirtyDaysAgo.toISOString());
+
+            const { count: totalFamilies } = await supabase
+                .from('family_groups')
+                .select('*', { count: 'exact', head: true });
+
+            const { count: newFamiliesThisWeek } = await supabase
+                .from('family_groups')
+                .select('*', { count: 'exact', head: true })
+                .gte('created_at', oneWeekAgo.toISOString());
+
+            const { count: totalMembers } = await supabase
+                .from('family_members')
+                .select('*', { count: 'exact', head: true });
+
+            document.getElementById('totalUsers').textContent = totalUsers || 0;
+            document.getElementById('usersChange').textContent = `+${newUsersThisWeek || 0} this week`;
+
+            document.getElementById('activeUsers').textContent = activeUsers || 0;
+
+            document.getElementById('totalFamilies').textContent = totalFamilies || 0;
+            document.getElementById('familiesChange').textContent = `+${newFamiliesThisWeek || 0} this week`;
+
+            document.getElementById('totalMembers').textContent = totalMembers || 0;
+        }
+
+        async function loadActivity() {
+            const { data: logs } = await supabase
+                .from('audit_logs')
+                .select(`
+                    *,
+                    actor:profiles!audit_logs_actor_id_fkey(first_name, last_name, email)
+                `)
+                .order('created_at', { ascending: false })
+                .limit(10);
+
+            const tbody = document.getElementById('activityTable');
+
+            if (!logs || logs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #94a3b8; padding: 32px;">No activity yet</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = logs.map(log => `
+                <tr>
+                    <td>
+                        <div style="font-weight: 600;">${log.actor?.first_name || ''} ${log.actor?.last_name || ''}</div>
+                        <div style="font-size: 12px; color: #64748b;">${log.actor?.email || 'System'}</div>
+                    </td>
+                    <td><span class="badge badge-info">${log.action}</span></td>
+                    <td>${log.resource_type}</td>
+                    <td>${timeAgo(log.created_at)}</td>
+                </tr>
+            `).join('');
+        }
+
+        async function loadFlaggedContent() {
+            const { data: flags } = await supabase
+                .from('content_flags')
+                .select('*')
+                .eq('status', 'pending')
+                .order('created_at', { ascending: false })
+                .limit(10);
+
+            const tbody = document.getElementById('flaggedTable');
+
+            if (!flags || flags.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #94a3b8; padding: 32px;">No flagged content</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = flags.map(flag => `
+                <tr>
+                    <td><span class="badge badge-secondary">${flag.content_type}</span></td>
+                    <td>${flag.reason}</td>
+                    <td><span class="badge badge-warning">${flag.status}</span></td>
+                    <td>${timeAgo(flag.created_at)}</td>
+                    <td>
+                        <button class="btn btn-sm btn-secondary" onclick="location.href='moderation.html'">
+                            <i class="fas fa-eye"></i> Review
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function loadRecentUsers() {
+            const { data: users } = await supabase
+                .from('profiles')
+                .select('*')
+                .order('created_at', { ascending: false })
+                .limit(10);
+
+            const tbody = document.getElementById('usersTable');
+
+            if (!users || users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #94a3b8; padding: 32px;">No users yet</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = users.map(user => {
+                const roleClass = user.role === 'admin' ? 'badge-danger' : user.role === 'staff' ? 'badge-warning' : 'badge-info';
+                const statusClass = user.status === 'active' ? 'badge-success' : user.status === 'banned' ? 'badge-danger' : 'badge-secondary';
+
+                return `
+                    <tr>
+                        <td>
+                            <div style="font-weight: 600;">${user.first_name || ''} ${user.last_name || ''}</div>
+                        </td>
+                        <td style="font-size: 13px;">${user.email}</td>
+                        <td><span class="badge ${roleClass}">${user.role}</span></td>
+                        <td><span class="badge ${statusClass}">${user.status}</span></td>
+                        <td>${timeAgo(user.created_at)}</td>
+                        <td>
+                            <button class="btn btn-sm btn-secondary" onclick="location.href='users.html'">
+                                <i class="fas fa-edit"></i> Manage
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        async function init() {
+            await checkAdminAuth();
+            document.getElementById('sidebar').innerHTML = renderSidebar('dashboard');
+            await Promise.all([
+                loadStats(),
+                loadActivity(),
+                loadFlaggedContent(),
+                loadRecentUsers()
+            ]);
+        }
+
+        init();
+    </script>
+</body>
+</html>

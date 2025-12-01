@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Flags - Admin - FamilyConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar" id="sidebar"></div>
+
+        <div class="main">
+            <h1>Feature Flags</h1>
+            <p class="subtitle">Control feature availability and system settings</p>
+
+            <div id="successAlert" class="alert alert-success" style="display: none;">
+                <i class="fas fa-check-circle"></i> Settings updated successfully
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-toggle-on"></i> Feature Toggles</h2>
+                <p style="color: #64748b; margin-bottom: 24px;">Enable or disable features across the platform</p>
+
+                <div id="featuresList">
+                    <div class="loading"><i class="fas fa-spinner fa-spin"></i></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-sliders-h"></i> System Settings</h2>
+                <p style="color: #64748b; margin-bottom: 24px;">Configure system-wide parameters</p>
+
+                <div id="settingsList">
+                    <div class="loading"><i class="fas fa-spinner fa-spin"></i></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-plus"></i> Add New Setting</h2>
+                <form id="addSettingForm">
+                    <div style="display: grid; grid-template-columns: 1fr 2fr 1fr auto; gap: 12px; align-items: end;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Key</label>
+                            <input type="text" id="newKey" placeholder="setting_name" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Value (JSON)</label>
+                            <input type="text" id="newValue" placeholder='{"enabled": true}' required>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Description</label>
+                            <input type="text" id="newDescription" placeholder="Optional">
+                        </div>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-plus"></i> Add
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { checkAdminAuth, signOut, renderSidebar, adminStyles, formatDate, logAction, currentAdmin, supabase } from './admin.js';
+
+        const style = document.createElement('style');
+        style.textContent = adminStyles + `
+            .setting-row { background: #f8fafc; padding: 20px; border-radius: 8px; margin-bottom: 12px; }
+            .setting-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+            .setting-key { font-weight: 600; font-size: 16px; color: #1e293b; font-family: 'Courier New', monospace; }
+            .setting-description { color: #64748b; font-size: 13px; margin-bottom: 12px; }
+            .setting-value { background: white; padding: 12px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 13px; border: 1px solid #e2e8f0; }
+            .toggle-switch { position: relative; display: inline-block; width: 50px; height: 24px; }
+            .toggle-switch input { opacity: 0; width: 0; height: 0; }
+            .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e0; transition: 0.4s; border-radius: 24px; }
+            .toggle-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: 0.4s; border-radius: 50%; }
+            input:checked + .toggle-slider { background-color: #10b981; }
+            input:checked + .toggle-slider:before { transform: translateX(26px); }
+        `;
+        document.head.appendChild(style);
+
+        window.adminSignOut = signOut;
+
+        const COMMON_FEATURES = [
+            { key: 'family_invites_enabled', value: { enabled: true }, description: 'Allow users to invite family members' },
+            { key: 'business_directory_enabled', value: { enabled: true }, description: 'Enable family business directory' },
+            { key: 'family_feed_enabled', value: { enabled: true }, description: 'Enable family social feed' },
+            { key: 'events_enabled', value: { enabled: true }, description: 'Enable family events feature' },
+            { key: 'map_view_enabled', value: { enabled: true }, description: 'Enable geographic family map' },
+            { key: 'registration_enabled', value: { enabled: true }, description: 'Allow new user registration' },
+            { key: 'max_free_members', value: { limit: 50 }, description: 'Maximum members on free plan' },
+            { key: 'max_small_members', value: { limit: 200 }, description: 'Maximum members on small plan' },
+            { key: 'max_large_members', value: { limit: 1000 }, description: 'Maximum members on large plan' }
+        ];
+
+        async function initializeDefaultSettings() {
+            const { data: existing } = await supabase
+                .from('admin_settings')
+                .select('key');
+
+            const existingKeys = new Set(existing?.map(s => s.key) || []);
+
+            const toCreate = COMMON_FEATURES.filter(f => !existingKeys.has(f.key));
+
+            if (toCreate.length > 0) {
+                await supabase
+                    .from('admin_settings')
+                    .insert(toCreate.map(f => ({
+                        key: f.key,
+                        value: f.value,
+                        description: f.description,
+                        updated_by: currentAdmin?.id
+                    })));
+            }
+        }
+
+        async function loadSettings() {
+            const { data: settings, error } = await supabase
+                .from('admin_settings')
+                .select('*')
+                .order('key', { ascending: true });
+
+            if (error) {
+                console.error('Error loading settings:', error);
+                return;
+            }
+
+            const features = settings.filter(s => s.key.includes('_enabled'));
+            const otherSettings = settings.filter(s => !s.key.includes('_enabled'));
+
+            renderFeatures(features);
+            renderSettings(otherSettings);
+        }
+
+        function renderFeatures(features) {
+            const container = document.getElementById('featuresList');
+
+            if (!features || features.length === 0) {
+                container.innerHTML = '<div style="color: #94a3b8; text-align: center; padding: 32px;">No features configured</div>';
+                return;
+            }
+
+            container.innerHTML = features.map(feature => `
+                <div class="setting-row">
+                    <div class="setting-header">
+                        <div>
+                            <div class="setting-key">${feature.key}</div>
+                            <div class="setting-description">${feature.description || 'No description'}</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" ${feature.value?.enabled ? 'checked' : ''} onchange="toggleFeature('${feature.id}', '${feature.key}', this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div style="font-size: 12px; color: #64748b;">
+                        Last updated: ${formatDate(feature.updated_at)}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderSettings(settings) {
+            const container = document.getElementById('settingsList');
+
+            if (!settings || settings.length === 0) {
+                container.innerHTML = '<div style="color: #94a3b8; text-align: center; padding: 32px;">No settings configured</div>';
+                return;
+            }
+
+            container.innerHTML = settings.map(setting => `
+                <div class="setting-row">
+                    <div class="setting-header">
+                        <div style="flex: 1;">
+                            <div class="setting-key">${setting.key}</div>
+                            <div class="setting-description">${setting.description || 'No description'}</div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-sm btn-secondary" onclick="editSetting('${setting.id}')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteSetting('${setting.id}')">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                    <div class="setting-value">${JSON.stringify(setting.value, null, 2)}</div>
+                    <div style="font-size: 12px; color: #64748b; margin-top: 8px;">
+                        Last updated: ${formatDate(setting.updated_at)}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.toggleFeature = async (id, key, enabled) => {
+            const { error } = await supabase
+                .from('admin_settings')
+                .update({
+                    value: { enabled },
+                    updated_by: currentAdmin?.id,
+                    updated_at: new Date().toISOString()
+                })
+                .eq('id', id);
+
+            if (error) {
+                alert('Error updating feature: ' + error.message);
+                loadSettings();
+                return;
+            }
+
+            await logAction('toggle_feature', 'admin_settings', id, { key, enabled });
+            showSuccess();
+        };
+
+        window.editSetting = async (id) => {
+            const { data: setting } = await supabase
+                .from('admin_settings')
+                .select('*')
+                .eq('id', id)
+                .single();
+
+            const newValue = prompt('Edit setting value (JSON):', JSON.stringify(setting.value));
+            if (!newValue) return;
+
+            try {
+                const parsed = JSON.parse(newValue);
+
+                const { error } = await supabase
+                    .from('admin_settings')
+                    .update({
+                        value: parsed,
+                        updated_by: currentAdmin?.id,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', id);
+
+                if (error) throw error;
+
+                await logAction('update_setting', 'admin_settings', id, { key: setting.key });
+                showSuccess();
+                loadSettings();
+            } catch (error) {
+                alert('Invalid JSON: ' + error.message);
+            }
+        };
+
+        window.deleteSetting = async (id) => {
+            if (!confirm('Delete this setting?')) return;
+
+            const { error } = await supabase
+                .from('admin_settings')
+                .delete()
+                .eq('id', id);
+
+            if (error) {
+                alert('Error deleting setting: ' + error.message);
+                return;
+            }
+
+            await logAction('delete_setting', 'admin_settings', id);
+            showSuccess();
+            loadSettings();
+        };
+
+        document.getElementById('addSettingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const key = document.getElementById('newKey').value;
+            const valueStr = document.getElementById('newValue').value;
+            const description = document.getElementById('newDescription').value;
+
+            try {
+                const value = JSON.parse(valueStr);
+
+                const { error } = await supabase
+                    .from('admin_settings')
+                    .insert({
+                        key,
+                        value,
+                        description,
+                        updated_by: currentAdmin?.id
+                    });
+
+                if (error) throw error;
+
+                await logAction('create_setting', 'admin_settings', null, { key });
+                showSuccess();
+                document.getElementById('addSettingForm').reset();
+                loadSettings();
+            } catch (error) {
+                alert('Invalid JSON: ' + error.message);
+            }
+        });
+
+        function showSuccess() {
+            const alert = document.getElementById('successAlert');
+            alert.style.display = 'flex';
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
+
+        async function init() {
+            await checkAdminAuth();
+            document.getElementById('sidebar').innerHTML = renderSidebar('flags');
+            await initializeDefaultSettings();
+            await loadSettings();
+        }
+
+        init();
+    </script>
+</body>
+</html>

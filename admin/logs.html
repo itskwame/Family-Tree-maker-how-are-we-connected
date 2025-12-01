@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Logs - Admin - FamilyConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar" id="sidebar"></div>
+
+        <div class="main">
+            <h1>Audit Logs</h1>
+            <p class="subtitle">Track all administrative actions and system events</p>
+
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search by action or resource...">
+                <select id="actionFilter">
+                    <option value="">All Actions</option>
+                    <option value="admin_login">Admin Login</option>
+                    <option value="admin_logout">Admin Logout</option>
+                    <option value="update_user">Update User</option>
+                    <option value="ban_user">Ban User</option>
+                    <option value="unban_user">Unban User</option>
+                    <option value="toggle_feature">Toggle Feature</option>
+                    <option value="update_setting">Update Setting</option>
+                    <option value="delete_setting">Delete Setting</option>
+                    <option value="review_flag">Review Flag</option>
+                    <option value="resolve_flag">Resolve Flag</option>
+                </select>
+                <select id="timeFilter">
+                    <option value="all">All Time</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
+                </select>
+                <button class="btn btn-secondary" onclick="exportLogs()">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Admin</th>
+                                <th>Action</th>
+                                <th>Resource</th>
+                                <th>Details</th>
+                                <th>IP Address</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logsTable">
+                            <tr>
+                                <td colspan="6" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="pagination" style="display: flex; justify-content: center; gap: 8px; margin-top: 24px;">
+                    <button class="btn btn-secondary" id="prevBtn" onclick="prevPage()" disabled>
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <span style="padding: 10px 20px; color: #64748b;">Page <span id="currentPage">1</span></span>
+                    <button class="btn btn-secondary" id="nextBtn" onclick="nextPage()">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Log Details</h2>
+                <button class="close-modal" onclick="closeDetailsModal()">&times;</button>
+            </div>
+            <div id="logDetails">
+                <div class="loading"><i class="fas fa-spinner fa-spin"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { checkAdminAuth, signOut, renderSidebar, adminStyles, formatDate, timeAgo, supabase } from './admin.js';
+
+        const style = document.createElement('style');
+        style.textContent = adminStyles;
+        document.head.appendChild(style);
+
+        window.adminSignOut = signOut;
+
+        let allLogs = [];
+        let filteredLogs = [];
+        let currentPage = 1;
+        const logsPerPage = 50;
+
+        async function loadLogs() {
+            const { data: logs, error } = await supabase
+                .from('audit_logs')
+                .select(`
+                    *,
+                    actor:profiles!audit_logs_actor_id_fkey(first_name, last_name, email)
+                `)
+                .order('created_at', { ascending: false })
+                .limit(1000);
+
+            if (error) {
+                console.error('Error loading logs:', error);
+                return;
+            }
+
+            allLogs = logs || [];
+            filterLogs();
+        }
+
+        function filterLogs() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const actionFilter = document.getElementById('actionFilter').value;
+            const timeFilter = document.getElementById('timeFilter').value;
+
+            let filtered = allLogs;
+
+            if (searchTerm) {
+                filtered = filtered.filter(log =>
+                    log.action?.toLowerCase().includes(searchTerm) ||
+                    log.resource_type?.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            if (actionFilter) {
+                filtered = filtered.filter(log => log.action === actionFilter);
+            }
+
+            if (timeFilter !== 'all') {
+                const now = new Date();
+                let cutoff = new Date();
+
+                if (timeFilter === 'today') {
+                    cutoff.setHours(0, 0, 0, 0);
+                } else if (timeFilter === 'week') {
+                    cutoff.setDate(now.getDate() - 7);
+                } else if (timeFilter === 'month') {
+                    cutoff.setMonth(now.getMonth() - 1);
+                }
+
+                filtered = filtered.filter(log => new Date(log.created_at) >= cutoff);
+            }
+
+            filteredLogs = filtered;
+            currentPage = 1;
+            renderLogs();
+        }
+
+        function renderLogs() {
+            const start = (currentPage - 1) * logsPerPage;
+            const end = start + logsPerPage;
+            const pageLogs = filteredLogs.slice(start, end);
+
+            const tbody = document.getElementById('logsTable');
+
+            if (!pageLogs || pageLogs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #94a3b8; padding: 32px;">No logs found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = pageLogs.map(log => {
+                const actionClass = log.action.includes('ban') ? 'badge-danger' :
+                                   log.action.includes('login') ? 'badge-success' :
+                                   log.action.includes('update') ? 'badge-info' : 'badge-secondary';
+
+                return `
+                    <tr onclick="viewLogDetails('${log.id}')" style="cursor: pointer;">
+                        <td>
+                            <div style="font-weight: 500;">${formatDate(log.created_at)}</div>
+                            <div style="font-size: 12px; color: #64748b;">${timeAgo(log.created_at)}</div>
+                        </td>
+                        <td>
+                            <div style="font-weight: 500;">${log.actor?.first_name || 'System'} ${log.actor?.last_name || ''}</div>
+                            <div style="font-size: 12px; color: #64748b;">${log.actor?.email || 'system'}</div>
+                        </td>
+                        <td><span class="badge ${actionClass}">${log.action}</span></td>
+                        <td>${log.resource_type || 'N/A'}</td>
+                        <td style="font-size: 13px; color: #64748b;">
+                            ${log.details ? Object.keys(log.details).length + ' fields' : 'No details'}
+                        </td>
+                        <td style="font-size: 13px;">${log.ip_address || 'N/A'}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            updatePagination();
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredLogs.length / logsPerPage);
+            document.getElementById('currentPage').textContent = currentPage;
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage >= totalPages;
+        }
+
+        window.prevPage = () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderLogs();
+            }
+        };
+
+        window.nextPage = () => {
+            const totalPages = Math.ceil(filteredLogs.length / logsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderLogs();
+            }
+        };
+
+        window.viewLogDetails = async (logId) => {
+            document.getElementById('detailsModal').classList.add('active');
+
+            const log = allLogs.find(l => l.id === logId);
+
+            document.getElementById('logDetails').innerHTML = `
+                <div style="background: #f8fafc; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                    <div style="display: grid; grid-template-columns: 140px 1fr; gap: 12px;">
+                        <div style="color: #64748b; font-weight: 600;">Log ID:</div>
+                        <div style="font-family: monospace; font-size: 13px;">${log.id}</div>
+
+                        <div style="color: #64748b; font-weight: 600;">Time:</div>
+                        <div>${formatDate(log.created_at)}</div>
+
+                        <div style="color: #64748b; font-weight: 600;">Admin:</div>
+                        <div>
+                            <div>${log.actor?.first_name || 'System'} ${log.actor?.last_name || ''}</div>
+                            <div style="font-size: 13px; color: #64748b;">${log.actor?.email || 'system'}</div>
+                        </div>
+
+                        <div style="color: #64748b; font-weight: 600;">Action:</div>
+                        <div><span class="badge badge-info">${log.action}</span></div>
+
+                        <div style="color: #64748b; font-weight: 600;">Resource Type:</div>
+                        <div>${log.resource_type || 'N/A'}</div>
+
+                        <div style="color: #64748b; font-weight: 600;">Resource ID:</div>
+                        <div style="font-family: monospace; font-size: 13px;">${log.resource_id || 'N/A'}</div>
+
+                        <div style="color: #64748b; font-weight: 600;">IP Address:</div>
+                        <div>${log.ip_address || 'N/A'}</div>
+
+                        <div style="color: #64748b; font-weight: 600;">User Agent:</div>
+                        <div style="font-size: 13px; word-break: break-word;">${log.user_agent || 'N/A'}</div>
+                    </div>
+                </div>
+
+                ${log.details ? `
+                    <div>
+                        <h3 style="margin-bottom: 12px; font-size: 16px;">Details</h3>
+                        <pre style="background: #1e293b; color: #e2e8f0; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 13px;">${JSON.stringify(log.details, null, 2)}</pre>
+                    </div>
+                ` : ''}
+            `;
+        };
+
+        window.closeDetailsModal = () => {
+            document.getElementById('detailsModal').classList.remove('active');
+        };
+
+        window.exportLogs = () => {
+            const csv = [
+                ['Time', 'Admin', 'Email', 'Action', 'Resource Type', 'Resource ID', 'IP Address'],
+                ...filteredLogs.map(log => [
+                    formatDate(log.created_at),
+                    `${log.actor?.first_name || 'System'} ${log.actor?.last_name || ''}`,
+                    log.actor?.email || 'system',
+                    log.action,
+                    log.resource_type || '',
+                    log.resource_id || '',
+                    log.ip_address || ''
+                ])
+            ].map(row => row.join(',')).join('\n');
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `audit_logs_${new Date().toISOString()}.csv`;
+            a.click();
+        };
+
+        document.getElementById('searchInput').addEventListener('input', filterLogs);
+        document.getElementById('actionFilter').addEventListener('change', filterLogs);
+        document.getElementById('timeFilter').addEventListener('change', filterLogs);
+
+        async function init() {
+            await checkAdminAuth();
+            document.getElementById('sidebar').innerHTML = renderSidebar('logs');
+            await loadLogs();
+        }
+
+        init();
+    </script>
+</body>
+</html>
