@@ -265,6 +265,29 @@
                     updated_at: new Date().toISOString()
                 });
 
+            const familyName = `${firstName} ${lastName}'s Family`;
+            const { data: newFamily } = await supabase
+                .from('family_groups')
+                .insert({
+                    name: familyName,
+                    admin_user_id: currentUser.id,
+                    plan_tier: 'free',
+                    subscription_status: 'trial',
+                    member_count: 1
+                })
+                .select()
+                .single();
+
+            if (newFamily) {
+                await supabase
+                    .from('family_group_members')
+                    .insert({
+                        family_group_id: newFamily.id,
+                        user_id: currentUser.id,
+                        role: 'admin'
+                    });
+            }
+
             if (!claimedProfileId) {
                 await supabase
                     .from('family_members')
