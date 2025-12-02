@@ -272,25 +272,20 @@ body {
     margin-bottom: 48px;
 }
 
-.hero-stats {
+.hero-tagline {
     display: flex;
-    gap: 40px;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    font-size: 16px;
+    color: var(--text-secondary);
+    font-weight: 500;
 }
 
-.stat {
-    display: flex;
-    flex-direction: column;
-}
-
-.stat strong {
-    font-size: 24px;
+.hero-tagline .separator {
     color: var(--primary-color);
     font-weight: 700;
-}
-
-.stat span {
-    font-size: 14px;
-    color: var(--text-light);
 }
 
 .hero-visual {
@@ -1095,9 +1090,9 @@ body {
         flex-direction: column;
     }
     
-    .hero-stats {
-        flex-direction: column;
-        gap: 20px;
+    .hero-tagline {
+        font-size: 14px;
+        justify-content: center;
     }
     
     .section-title {
