@@ -299,6 +299,7 @@
 
         let currentTemplate = null;
         let familyMembers = [];
+        let relationships = [];
         let currentUser = null;
 
         async function checkAuth() {
@@ -308,17 +309,15 @@
                 return;
             }
             currentUser = session.user;
-            loadFamilyData();
+            await loadFamilyData();
         }
 
         async function loadFamilyData() {
-            const { data, error } = await supabase
-                .from('family_members')
-                .select('*');
+            const { data: members } = await supabase.from('family_members').select('*');
+            const { data: rels } = await supabase.from('relationships').select('*');
 
-            if (data) {
-                familyMembers = data;
-            }
+            familyMembers = members || [];
+            relationships = rels || [];
         }
 
         window.selectTemplate = function(template) {
@@ -371,17 +370,96 @@
                     return '<p style="color: #718096; padding: 60px;">No family members added yet. Add members in the Family Tree Builder to see your tree here!</p>';
                 }
 
-                let html = '';
-                familyMembers.slice(0, Math.min(familyMembers.length, maxGenerations * 3)).forEach(member => {
-                    html += `
-                        <div class="tree-node">
-                            ${showPhotos && member.avatar_url ? `<img src="${member.avatar_url}" alt="${member.first_name}">` : '<div style="width: 80px; height: 80px; background: #e2e8f0; border-radius: 50%; margin: 0 auto 8px;"></div>'}
-                            <div class="tree-node-name">${member.first_name} ${member.last_name || ''}</div>
-                            ${showDates && member.birth_date ? `<div class="tree-node-info">b. ${new Date(member.birth_date).getFullYear()}</div>` : ''}
-                            ${showLocations && member.location ? `<div class="tree-node-info">${member.location}</div>` : ''}
-                        </div>
-                    `;
+                // Build hierarchical structure
+                const tree = buildFamilyTree();
+                return renderTree(tree);
+            }
+
+            function buildFamilyTree() {
+                // Find roots (people with no parents)
+                const roots = familyMembers.filter(member =>
+                    !relationships.some(rel => rel.relationship_type === 'parent' && rel.child_id === member.id)
+                );
+
+                // Build tree structure
+                const childrenMap = new Map();
+                relationships.forEach(rel => {
+                    if (rel.relationship_type === 'parent') {
+                        if (!childrenMap.has(rel.parent_id)) {
+                            childrenMap.set(rel.parent_id, []);
+                        }
+                        childrenMap.get(rel.parent_id).push(rel.child_id);
+                    }
                 });
+
+                function buildNode(memberId, generation = 0) {
+                    const member = familyMembers.find(m => m.id === memberId);
+                    if (!member) return null;
+
+                    const children = childrenMap.get(memberId) || [];
+                    return {
+                        member,
+                        generation,
+                        children: children.map(childId => buildNode(childId, generation + 1)).filter(n => n !== null)
+                    };
+                }
+
+                if (roots.length > 0) {
+                    return roots.map(r => buildNode(r.id, 0));
+                }
+
+                // If no relationships, show all as generation 0
+                return familyMembers.slice(0, maxGenerations * 3).map(m => ({
+                    member: m,
+                    generation: 0,
+                    children: []
+                }));
+            }
+
+            function renderTree(nodes) {
+                if (!nodes || nodes.length === 0) return '';
+
+                // Organize by generations
+                const generations = new Map();
+                function organizeGenerations(node) {
+                    if (!generations.has(node.generation)) {
+                        generations.set(node.generation, []);
+                    }
+                    generations.get(node.generation).push(node.member);
+                    node.children.forEach(organizeGenerations);
+                }
+                nodes.forEach(organizeGenerations);
+
+                const showPhotos = document.getElementById('showPhotos').checked;
+                const showDates = document.getElementById('showDates').checked;
+                const showLocations = document.getElementById('showLocations').checked;
+
+                // Render each generation
+                let html = '<div style="display: flex; flex-direction: column; gap: 40px; align-items: center;">';
+                const sortedGenerations = Array.from(generations.keys()).sort((a, b) => a - b);
+
+                sortedGenerations.forEach(gen => {
+                    const members = generations.get(gen);
+                    html += '<div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">';
+                    members.forEach(member => {
+                        html += `
+                            <div class="tree-node">
+                                ${showPhotos && member.avatar_url ? `<img src="${member.avatar_url}" alt="${member.first_name}">` : '<div style="width: 80px; height: 80px; background: #e2e8f0; border-radius: 50%; margin: 0 auto 8px;"></div>'}
+                                <div class="tree-node-name">${member.first_name} ${member.last_name || ''}</div>
+                                ${showDates && member.birth_date ? `<div class="tree-node-info">b. ${new Date(member.birth_date).getFullYear()}</div>` : ''}
+                                ${showLocations && member.location ? `<div class="tree-node-info">${member.location}</div>` : ''}
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+
+                    // Add generation line/separator
+                    if (gen < sortedGenerations[sortedGenerations.length - 1]) {
+                        html += '<div style="width: 2px; height: 30px; background: rgba(0,0,0,0.2); margin: 0 auto;"></div>';
+                    }
+                });
+                html += '</div>';
+
                 return html;
             }
 

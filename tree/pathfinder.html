@@ -147,6 +147,17 @@
             const personA = document.getElementById('personA');
             const personB = document.getElementById('personB');
 
+            // Add "Me" option for current user
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                const { data: userProfile } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
+                if (userProfile) {
+                    const meOption = `<option value="${userProfile.id}">Me (${userProfile.full_name || 'My Profile'})</option>`;
+                    personA.innerHTML += meOption;
+                    personB.innerHTML += meOption;
+                }
+            }
+
             familyMembers.forEach(member => {
                 const option = `<option value="${member.id}">${member.first_name} ${member.last_name || ''}</option>`;
                 personA.innerHTML += option;

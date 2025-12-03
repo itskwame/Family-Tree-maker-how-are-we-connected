@@ -214,14 +214,17 @@
         function buildHierarchy() {
             const childrenMap = new Map();
             relationships.forEach(rel => {
-                if (!childrenMap.has(rel.parent_id)) {
-                    childrenMap.set(rel.parent_id, []);
+                if (rel.relationship_type === 'parent') {
+                    if (!childrenMap.has(rel.parent_id)) {
+                        childrenMap.set(rel.parent_id, []);
+                    }
+                    childrenMap.get(rel.parent_id).push(rel.child_id);
                 }
-                childrenMap.get(rel.parent_id).push(rel.child_id);
             });
 
+            // Find all roots (people with no parents)
             const roots = familyMembers.filter(member =>
-                !relationships.some(rel => rel.child_id === member.id)
+                !relationships.some(rel => rel.relationship_type === 'parent' && rel.child_id === member.id)
             );
 
             function buildNode(memberId) {
@@ -241,14 +244,24 @@
                 return node;
             }
 
-            if (roots.length > 0) {
+            // If we have multiple roots or need to show all members, create a virtual root
+            if (roots.length > 1) {
+                return {
+                    id: 'virtual-root',
+                    name: 'Family Tree',
+                    data: { id: 'virtual-root' },
+                    children: roots.map(r => buildNode(r.id)).filter(n => n !== null)
+                };
+            } else if (roots.length === 1) {
                 return buildNode(roots[0].id);
             }
 
+            // If no clear hierarchy, show all members under a virtual root
             return {
-                id: 'root',
+                id: 'virtual-root',
                 name: 'Family Tree',
-                children: familyMembers.slice(0, 1).map(m => buildNode(m.id))
+                data: { id: 'virtual-root' },
+                children: familyMembers.map(m => buildNode(m.id)).filter(n => n !== null)
             };
         }
 
@@ -276,7 +289,7 @@
                 .on('mouseover', showTooltip)
                 .on('mouseout', hideTooltip)
                 .on('click', (event, d) => {
-                    if (d.data.id !== 'root') {
+                    if (d.data.id !== 'root' && d.data.id !== 'virtual-root') {
                         window.location.href = `../profile/view.html?id=${d.data.id}`;
                     }
                 });
@@ -295,7 +308,7 @@
         }
 
         function showTooltip(event, d) {
-            if (d.data.id === 'root') return;
+            if (d.data.id === 'root' || d.data.id === 'virtual-root') return;
 
             const tooltip = document.getElementById('tooltip');
             const member = d.data.data;
