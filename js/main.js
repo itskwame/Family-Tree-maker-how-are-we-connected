@@ -128,30 +128,10 @@ document.querySelectorAll('.testimonial-card').forEach((card, index) => {
 });
 
 // ==========================================
-// CTA Button Click Handlers (Placeholders)
+// CTA Button Click Handlers
 // ==========================================
-const ctaButtons = document.querySelectorAll('.btn-primary, .btn-outline');
-
-ctaButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-        // Check if button text suggests it's a main CTA
-        const buttonText = button.textContent.toLowerCase();
-        
-        if (buttonText.includes('start') || buttonText.includes('trial') || buttonText.includes('get started')) {
-            // Placeholder for sign-up functionality
-            console.log('Sign up button clicked');
-            alert('Welcome! Sign-up functionality will be implemented soon. Thank you for your interest in FamilyConnect!');
-        } else if (buttonText.includes('demo') || buttonText.includes('watch')) {
-            // Placeholder for demo video
-            console.log('Demo button clicked');
-            alert('Demo video coming soon! In the meantime, explore our features below.');
-        } else if (buttonText.includes('schedule')) {
-            // Placeholder for scheduling
-            console.log('Schedule demo button clicked');
-            alert('Schedule a personalized demo with our team! Contact: demo@familyconnect.com');
-        }
-    });
-});
+// All signup/trial buttons are handled via onclick in HTML
+// Demo and schedule buttons can be added here if needed in future
 
 // ==========================================
 // Hero Stats Counter Animation
