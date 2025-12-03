@@ -230,6 +230,56 @@
         </div>
     </div>
 
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-edit"></i> Edit Family Member</h2>
+                <button class="close-modal" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" id="editFirstName">
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" id="editLastName">
+                </div>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select id="editGender">
+                        <option value="">Select...</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Birth Date</label>
+                    <input type="date" id="editBirthDate">
+                </div>
+            </div>
+            <div class="form-group">
+                <label><input type="checkbox" id="editIsDeceased" style="width: auto; margin-right: 8px;"> Deceased (Ancestor)</label>
+            </div>
+            <div class="form-group" id="editDeathDateGroup" style="display: none;">
+                <label>Death Date</label>
+                <input type="date" id="editDeathDate">
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" id="editLocation">
+            </div>
+            <div class="form-group">
+                <label>Biography</label>
+                <textarea id="editBio"></textarea>
+            </div>
+            <button class="btn" onclick="saveEditMember()" style="width: 100%;"><i class="fas fa-save"></i> Save Changes</button>
+        </div>
+    </div>
+
     <div id="copyFeedback" class="copy-feedback">
         <i class="fas fa-check-circle" style="font-size: 20px;"></i>
         <span id="copyFeedbackText">Link copied to clipboard!</span>
@@ -239,6 +289,7 @@
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
         const supabase = createClient('https://fvfviudlxyumnskakftp.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA');
         let currentUser = null;
+        let currentEditMemberId = null;
 
         window.signOut = async () => { await supabase.auth.signOut(); window.location.href = '../index.html'; };
         
@@ -252,7 +303,7 @@
 
         document.getElementById('addMemberForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const { data: member } = await supabase.from('family_members').insert({
+            const { data: member, error } = await supabase.from('family_members').insert({
                 first_name: document.getElementById('firstName').value,
                 last_name: document.getElementById('lastName').value,
                 gender: document.getElementById('gender').value,
@@ -264,31 +315,76 @@
                 created_by: currentUser.id
             }).select().single();
 
+            if (error) {
+                alert('Error adding member: ' + error.message);
+                console.error('Add member error:', error);
+                return;
+            }
+
             const relatedId = document.getElementById('relatedMember').value;
             const relType = document.getElementById('relationshipType').value;
             if (relatedId && relType && member) {
-                if (relType === 'parent') await supabase.from('relationships').insert({ parent_id: member.id, child_id: relatedId, relationship_type: 'parent' });
-                else if (relType === 'child') await supabase.from('relationships').insert({ parent_id: relatedId, child_id: member.id, relationship_type: 'parent' });
-                else if (relType === 'spouse' || relType === 'sibling') await supabase.from('relationships').insert([
-                    { parent_id: member.id, child_id: relatedId, relationship_type: relType },
-                    { parent_id: relatedId, child_id: member.id, relationship_type: relType }
-                ]);
+                let relError = null;
+                if (relType === 'parent') {
+                    const { error: e } = await supabase.from('relationships').insert({ parent_id: member.id, child_id: relatedId, relationship_type: 'parent' });
+                    relError = e;
+                } else if (relType === 'child') {
+                    const { error: e } = await supabase.from('relationships').insert({ parent_id: relatedId, child_id: member.id, relationship_type: 'parent' });
+                    relError = e;
+                } else if (relType === 'spouse' || relType === 'sibling') {
+                    const { error: e } = await supabase.from('relationships').insert([
+                        { parent_id: member.id, child_id: relatedId, relationship_type: relType },
+                        { parent_id: relatedId, child_id: member.id, relationship_type: relType }
+                    ]);
+                    relError = e;
+                }
+                if (relError) {
+                    alert('Member added but error creating relationship: ' + relError.message);
+                    console.error('Relationship error:', relError);
+                }
             }
             document.getElementById('addMemberForm').reset();
+            document.getElementById('relationshipTypeGroup').style.display = 'none';
+            showCopyFeedback('Family member added successfully!');
             loadMembers();
         });
 
-        window.deleteMember = async (id) => { if(confirm('Delete?')) { await supabase.from('family_members').delete().eq('id', id); loadMembers(); }};
+        window.deleteMember = async (id) => {
+            if(confirm('Are you sure you want to delete this family member? This action cannot be undone.')) {
+                // First delete relationships
+                await supabase.from('relationships').delete().or(`parent_id.eq.${id},child_id.eq.${id}`);
+
+                // Then delete the member
+                const { error } = await supabase.from('family_members').delete().eq('id', id);
+                if (error) {
+                    alert('Error deleting member: ' + error.message);
+                    console.error('Delete error:', error);
+                } else {
+                    showCopyFeedback('Family member deleted successfully');
+                    loadMembers();
+                }
+            }
+        };
 
         async function loadMembers() {
             const { data: members } = await supabase.from('family_members').select('*').order('created_at', { ascending: false });
             document.getElementById('memberCount').textContent = members?.length || 0;
             const select = document.getElementById('relatedMember');
             select.innerHTML = '<option value="">Select...</option>';
+
+            // Add current user's profile to dropdown
+            const { data: userProfile } = await supabase.from('profiles').select('*').eq('id', currentUser.id).single();
+            if (userProfile) {
+                select.innerHTML += `<option value="${userProfile.id}">Me (${userProfile.full_name || 'My Profile'})</option>`;
+            }
+
             if (members) members.forEach(m => select.innerHTML += `<option value="${m.id}">${m.first_name} ${m.last_name || ''}</option>`);
-            
+
             const list = document.getElementById('memberList');
-            if (!members || !members.length) { list.innerHTML = '<p style="color: #718096; grid-column: 1/-1; text-align: center; padding: 32px;">No members yet</p>'; return; }
+            if (!members || !members.length) {
+                list.innerHTML = '<p style="color: #718096; grid-column: 1/-1; text-align: center; padding: 32px;">No members yet. Add your first family member above!</p>';
+                return;
+            }
             list.innerHTML = members.map(m => `
                 <div class="member-card">
                     <div class="member-header">
@@ -299,9 +395,10 @@
                     ${m.death_date ? `<p><i class="fas fa-cross"></i> Died: ${new Date(m.death_date).toLocaleDateString()}</p>` : ''}
                     ${m.location ? `<p><i class="fas fa-map-marker-alt"></i> ${m.location}</p>` : ''}
                     <div class="member-actions">
-                        <button class="btn btn-sm" onclick="openQuickAddModal('${m.id}', '${m.first_name} ${m.last_name || ''}')"><i class="fas fa-plus"></i> Quick Add</button>
-                        <button class="btn btn-sm" onclick="copyMemberInviteLink('${m.id}', '${m.first_name}')" style="background: #48bb78;"><i class="fas fa-copy"></i> Copy Invite</button>
-                        <button class="btn btn-sm btn-secondary" onclick="deleteMember('${m.id}')"><i class="fas fa-trash"></i> Delete</button>
+                        <button class="btn btn-sm" onclick="openQuickAddModal('${m.id}', '${m.first_name} ${m.last_name || ''}')" title="Quickly add a related person"><i class="fas fa-plus"></i> Quick Add</button>
+                        <button class="btn btn-sm" onclick="openEditModal('${m.id}')" style="background: #ed8936;" title="Edit this member"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn btn-sm" onclick="copyMemberInviteLink('${m.id}', '${m.first_name}')" style="background: #48bb78;" title="Copy invite link"><i class="fas fa-copy"></i> Copy Invite</button>
+                        <button class="btn btn-sm btn-secondary" onclick="deleteMember('${m.id}')" title="Delete this member"><i class="fas fa-trash"></i> Delete</button>
                     </div>
                 </div>
             `).join('');
@@ -438,6 +535,56 @@
                 loadMembers();
             }
         };
+
+        window.openEditModal = async (memberId) => {
+            currentEditMemberId = memberId;
+            const { data: member } = await supabase.from('family_members').select('*').eq('id', memberId).single();
+
+            if (member) {
+                document.getElementById('editFirstName').value = member.first_name || '';
+                document.getElementById('editLastName').value = member.last_name || '';
+                document.getElementById('editGender').value = member.gender || '';
+                document.getElementById('editBirthDate').value = member.birth_date || '';
+                document.getElementById('editIsDeceased').checked = member.is_deceased || false;
+                document.getElementById('editDeathDate').value = member.death_date || '';
+                document.getElementById('editLocation').value = member.location || '';
+                document.getElementById('editBio').value = member.bio || '';
+                document.getElementById('editDeathDateGroup').style.display = member.is_deceased ? 'block' : 'none';
+                document.getElementById('editModal').classList.add('active');
+            }
+        };
+
+        window.closeEditModal = () => {
+            document.getElementById('editModal').classList.remove('active');
+            currentEditMemberId = null;
+        };
+
+        window.saveEditMember = async () => {
+            if (!currentEditMemberId) return;
+
+            const { error } = await supabase.from('family_members').update({
+                first_name: document.getElementById('editFirstName').value,
+                last_name: document.getElementById('editLastName').value,
+                gender: document.getElementById('editGender').value,
+                birth_date: document.getElementById('editBirthDate').value || null,
+                death_date: document.getElementById('editIsDeceased').checked ? document.getElementById('editDeathDate').value : null,
+                is_deceased: document.getElementById('editIsDeceased').checked,
+                location: document.getElementById('editLocation').value,
+                bio: document.getElementById('editBio').value
+            }).eq('id', currentEditMemberId);
+
+            if (error) {
+                alert('Error updating member: ' + error.message);
+            } else {
+                showCopyFeedback('Family member updated successfully!');
+                closeEditModal();
+                loadMembers();
+            }
+        };
+
+        document.getElementById('editIsDeceased')?.addEventListener('change', e => {
+            document.getElementById('editDeathDateGroup').style.display = e.target.checked ? 'block' : 'none';
+        });
 
         async function init() {
             const { data: { session } } = await supabase.auth.getSession();
