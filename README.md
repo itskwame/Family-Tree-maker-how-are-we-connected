@@ -1,6 +1,6 @@
-# FamilyConnect - Family Networking SaaS Landing Page
+# FamilyConnect - Next.js + Supabase rebuild
 
-A professional, conversion-optimized landing page for **FamilyConnect**, a comprehensive family networking platform that combines genealogy mapping, social networking, and family business features.
+This repo now hosts a full **Next.js** + **TailwindCSS** application that mirrors the original Bolt HTML templates while wiring the experience into **Supabase** for auth, profiles, and API routes.
 
 ## 🌟 Project Overview
 
@@ -11,7 +11,28 @@ FamilyConnect is a SaaS platform designed to help families:
 - Support family businesses
 - Print customized family trees
 
-This landing page effectively communicates the platform's value proposition and drives user sign-ups.
+This application preserves the original UX (family tree, feed, events, business directory) with reusable React components and server/API handlers ready for a live Supabase backend.
+
+## 🧭 Project structure
+
+- `app/` — Next.js App Router pages for every legacy template (home, tree, feed, events, business, dashboard, profile, auth) plus API routes.
+- `components/` — Reusable UI primitives (hero, stats, feature grids, cards, auth form, navigation, footer) to avoid copy-pasted HTML.
+- `data/` — Shared navigation data.
+- `lib/` — Supabase server client helper.
+
+## 🚀 Getting started
+
+1. Install dependencies: `npm install` (requires internet access to fetch Next.js, TailwindCSS, and Supabase packages).
+2. Copy `.env.example` to `.env.local` and fill in your Supabase credentials:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY` (for server-only API routes)
+3. Run the app: `npm run dev`.
+
+## 📦 Supabase tables to provision
+
+- `profiles (id uuid primary key, full_name text, headline text, city text)`
+- Additional tables for events, posts, businesses, and lineage edges can reuse the same Supabase client helpers.
 
 ## ✨ Currently Implemented Features
 
