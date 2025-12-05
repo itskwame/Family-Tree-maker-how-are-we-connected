@@ -1,6 +1,6 @@
-# FamilyConnect - Family Networking SaaS Landing Page
+# FamilyConnect - Next.js + Supabase Rebuild
 
-A professional, conversion-optimized landing page for **FamilyConnect**, a comprehensive family networking platform that combines genealogy mapping, social networking, and family business features.
+This repo now hosts a full **Next.js** + **TailwindCSS** application that mirrors the original Bolt HTML templates while wiring the experience into **Supabase** for auth, profiles, and API routes.
 
 ## 🌟 Project Overview
 
@@ -11,329 +11,181 @@ FamilyConnect is a SaaS platform designed to help families:
 - Support family businesses
 - Print customized family trees
 
-This landing page effectively communicates the platform's value proposition and drives user sign-ups.
+This application preserves the original UX (family tree, feed, events, business directory) with reusable React components and server/API handlers ready for a live Supabase backend.
 
-## ✨ Currently Implemented Features
+## 🧭 Project Structure
 
-### 🎨 **Design & User Experience**
-- ✅ Modern, professional design with gradient accents
-- ✅ Fully responsive layout (desktop, tablet, mobile)
-- ✅ Smooth scroll animations and transitions
-- ✅ Interactive hover effects and visual feedback
-- ✅ Clean typography with Inter and Playfair Display fonts
-- ✅ Consistent color scheme and branding
-
-### 📱 **Page Sections**
-
-#### 1. **Navigation Bar**
-- Fixed navigation with smooth scrolling
-- Logo and brand identity
-- Navigation links (Features, How It Works, Pricing, FAQ)
-- CTA buttons (Sign In, Start Free Trial)
-- Mobile-responsive hamburger menu
-
-#### 2. **Hero Section**
-- Compelling headline with gradient text effect
-- Clear value proposition
-- Animated family tree illustration
-- Statistical social proof (10K+ families, 500K+ members, 1M+ memories)
-- Primary CTAs (Start Your Family Tree, Watch Demo)
-- Elegant wave divider
-
-#### 3. **Features Section** (6 Key Features)
-- **Interactive Family Tree** - Unlimited members with visual mapping
-- **Connection Pathfinder** - Smart algorithm to discover relationships (Featured)
-- **Smart Profile Matching** - Duplicate detection system
-- **Family Social Hub** - Photo/video sharing and timeline
-- **Family Business Directory** - Showcase family businesses
-- **Printable Family Trees** - Customizable templates and layouts
-
-#### 4. **How It Works** (4-Step Process)
-1. Create Your Account
-2. Build Your Tree
-3. Invite Your Family
-4. Connect & Share
-
-#### 5. **Demo Section**
-- Visual mockup of connection pathfinder feature
-- Highlighted relationship path example
-- Feature highlights with icons
-- CTA to try the platform
-
-#### 6. **Pricing Section** (3 Tiers)
-- **Free Plan** - Up to 50 members, basic features
-- **Family Plan** ($9.99/month) - Up to 500 members, full features (Most Popular)
-- **Unlimited Plan** ($19.99/month) - Unlimited members, premium features
-
-#### 7. **Testimonials Section**
-- 3 customer testimonials with ratings
-- Social proof from diverse locations
-- Real use cases and benefits
-
-#### 8. **FAQ Section** (6 Questions)
-- Interactive accordion design
-- Covers common concerns (profile matching, privacy, limits, printing, security, support)
-
-#### 9. **Final CTA Section**
-- Strong call-to-action
-- Trust indicators (14-day free trial, no credit card, cancel anytime)
-- Multiple CTA options (Start Trial, Schedule Demo)
-
-#### 10. **Footer**
-- Company information and logo
-- Navigation links (Product, Company, Legal)
-- Social media links
-- Copyright information
-
-### 🎯 **Interactive Features**
-- ✅ Smooth scrolling navigation
-- ✅ FAQ accordion functionality
-- ✅ Scroll-to-top button
-- ✅ Animated counters in hero stats
-- ✅ Intersection Observer animations
-- ✅ Hover effects on cards and buttons
-- ✅ Mobile menu toggle
-- ✅ CTA button handlers (placeholder alerts)
-
-### 🎨 **Visual Elements**
-- ✅ Custom gradient backgrounds
-- ✅ SVG wave dividers
-- ✅ Animated family tree illustration with emoji avatars
-- ✅ Font Awesome icons throughout
-- ✅ Box shadows and depth effects
-- ✅ Floating animations on tree nodes
-
-## 📁 Project Structure
-
-```
-/
-├── index.html          # Main landing page
-├── css/
-│   └── style.css      # All styling and responsive design
-├── js/
-│   └── main.js        # Interactive functionality
-└── README.md          # This file
-```
+- `app/` — Next.js App Router pages for every legacy template (home, tree, feed, events, business, dashboard, profile, auth) plus API routes
+- `components/` — Reusable UI primitives (hero, stats, feature grids, cards, auth form, navigation, footer) to avoid copy-pasted HTML
+- `data/` — Shared navigation data
+- `lib/` — Supabase server client helper
 
 ## 🚀 Getting Started
 
-### Viewing the Landing Page
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-1. **Local Development**
-   - Open `index.html` in any modern web browser
-   - All assets are CDN-based, no build process needed
+2. **Copy `.env.example` to `.env.local`** and fill in your Supabase credentials:
+   ```bash
+   cp .env.example .env.local
+   ```
 
-2. **Live Server (Recommended)**
-   - Use a local server for best experience
-   - VS Code: Use Live Server extension
-   - Python: `python -m http.server 8000`
-   - Node.js: `npx http-server`
+   Then edit `.env.local` with your values:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY` (for server-only API routes)
 
-### Browser Compatibility
+3. **Run the app**:
+   ```bash
+   npm run dev
+   ```
 
-- ✅ Chrome (recommended)
-- ✅ Firefox
-- ✅ Safari
-- ✅ Edge
-- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
+   The app will be available at `http://localhost:3000`
+
+4. **Build for production**:
+   ```bash
+   npm run build
+   ```
+
+## 📦 Supabase Tables to Provision
+
+The application expects the following Supabase tables:
+
+- `profiles` - User profiles with fields like `id`, `full_name`, `headline`, `city`
+- Additional tables for `events`, `posts`, `businesses`, and lineage edges can reuse the same Supabase client helpers
+
+Refer to the existing migrations in `supabase/migrations/` for the current database schema.
+
+## ✨ What Changed from HTML to Next.js
+
+### Architecture
+- **Vite → Next.js 14**: Server-side rendering, API routes, and file-based routing
+- **Static HTML → React Components**: Reusable PageHero, FeatureGrid, StatCards, ContentCards components
+- **Inline styles → TailwindCSS**: Utility-first CSS with custom brand colors
+- **Manual auth → Supabase Auth**: Email/password, magic links, and OTP support
+
+### Pages Converted
+All original HTML pages are now Next.js routes:
+
+- `/` - Home page (was `index.html`)
+- `/tree` - Family tree builder (was `tree/builder.html`)
+- `/feed` - Family feed (was `feed/index.html`)
+- `/events` - Events management (was `events/index.html`)
+- `/business` - Business directory (was `business/index.html`)
+- `/dashboard` - Dashboard/insights (was `dashboard/index.html`)
+- `/profile` - Profile pages (was `profile/view.html`)
+- `/auth` - Authentication (was `auth/login.html`)
+
+### Components Created
+- **Layout Components**: Navigation, Footer, RootLayout with Providers
+- **UI Components**: PageHero, FeatureGrid, StatCards, ContentCards, AuthForm
+- **Supabase Integration**: SupabaseProvider (client), supabaseServer (server)
+- **API Routes**: `/api/profiles` for server-side data operations
 
 ## 🎨 Design System
 
 ### Color Palette
-
 ```css
-Primary: #667eea (Purple-Blue)
-Secondary: #764ba2 (Purple)
-Accent: #f093fb (Pink)
-Text Primary: #1a202c (Dark Gray)
-Text Secondary: #4a5568 (Medium Gray)
-Background: #f7fafc (Light Gray)
+Brand Blue Palette:
+- brand-50: #eef6ff
+- brand-100: #d9e9ff
+- brand-500: #387dff
+- brand-600: #1f5fe6
+- brand-700: #1449b4
 ```
 
 ### Typography
-
 - **Headings**: Playfair Display (serif)
 - **Body Text**: Inter (sans-serif)
-- **CDN**: Google Fonts
+- **Loaded via**: Next.js Google Fonts integration
 
-### Icons
+### Components
+All components use TailwindCSS utility classes with custom classes defined in `app/globals.css`:
+- `.btn-primary` - Primary CTA buttons
+- `.btn-secondary` - Secondary buttons
+- `.glass` - Frosted glass effect
+- `.text-gradient` - Brand gradient text
+- `.card-border` - Card border styling
 
-- **Font Awesome 6.4.0** (CDN)
-- Used throughout for visual elements
+## 🔐 Authentication
+
+Supabase Auth is configured for:
+- Email/password authentication
+- Magic link sign-in (passwordless)
+- OTP (one-time password) support
+
+The AuthForm component (`components/AuthForm.jsx`) handles magic link authentication by default.
+
+## 📊 API Routes
+
+### `/api/profiles`
+- **GET**: Fetch profiles (returns up to 12 profiles)
+- **POST**: Create a new profile
+
+All API routes use the service role client for server-side operations with full database access.
 
 ## 🛠️ Customization Guide
 
 ### Changing Colors
-
-Edit CSS variables in `css/style.css`:
-
-```css
-:root {
-    --primary-color: #667eea;
-    --secondary-color: #764ba2;
-    /* Update colors here */
+Edit the Tailwind config in `tailwind.config.js`:
+```javascript
+colors: {
+  brand: {
+    500: '#387dff',
+    // Update colors here
+  },
 }
 ```
 
-### Modifying Content
+### Adding New Pages
+1. Create a new file in `app/your-page/page.js`
+2. Use existing components or create new ones
+3. The page will automatically be available at `/your-page`
 
-1. **Hero Section**: Edit text in `index.html` (lines 35-85)
-2. **Features**: Update feature cards (lines 95-180)
-3. **Pricing**: Modify pricing tiers (lines 280-360)
-4. **Testimonials**: Change customer quotes (lines 380-420)
+### Adding New Components
+1. Create a new component in `components/YourComponent.jsx`
+2. Import and use in any page
+3. Follow the existing component patterns for consistency
 
-### Adding New Sections
+## 📈 Performance
 
-1. Add HTML structure in `index.html`
-2. Style in `css/style.css`
-3. Add animations in `js/main.js` if needed
+- **Static Generation**: Most pages are statically generated at build time
+- **Server Components**: React Server Components by default for better performance
+- **Client Components**: Only interactive components use `'use client'` directive
+- **Code Splitting**: Automatic code splitting with Next.js
 
-## 📊 Performance Optimization
+## 🔄 Database Schema
 
-- ✅ CDN-hosted libraries for fast loading
-- ✅ Optimized CSS with minimal redundancy
-- ✅ Efficient JavaScript with event delegation
-- ✅ Lazy-loaded animations with Intersection Observer
-- ✅ Mobile-first responsive design
+The application uses the existing Supabase migrations:
+- `20251117231240_add_relationship_types_and_gender_v2.sql`
+- `20251130002808_add_invitations_and_events_tables.sql`
+- `20251202014821_fix_security_and_performance_issues.sql`
+- `20251202015109_fix_remaining_policy_conflicts.sql`
 
-## 🔄 Features NOT Yet Implemented
+These migrations set up tables for users, profiles, family relationships, events, invitations, and more with proper RLS policies.
 
-### Backend Functionality (Requires Server)
-- ❌ User authentication and sign-up system
-- ❌ Database integration for family tree data
-- ❌ Payment processing for subscriptions
-- ❌ Email functionality for invitations
-- ❌ File upload and storage for photos/videos
-- ❌ Real-time messaging system
-- ❌ API endpoints for data management
+## 🎯 Next Steps
 
-### Frontend Enhancements (Future)
-- ❌ Actual demo video modal
-- ❌ Live chat support widget
-- ❌ Email subscription form
-- ❌ Blog integration
-- ❌ Multi-language support
-- ❌ A/B testing variations
-- ❌ Analytics integration (Google Analytics, etc.)
+1. **Set up Supabase**: Create a Supabase project and run migrations
+2. **Configure Environment Variables**: Add your Supabase credentials to `.env.local`
+3. **Add Interactive Features**: Implement the actual family tree canvas, feed posts, event RSVPs
+4. **Deploy**: Deploy to Vercel, Netlify, or your preferred hosting platform
 
-## 🎯 Recommended Next Steps
+## 📞 Support
 
-### Phase 1: Backend Development
-1. **Set up authentication system**
-   - User registration and login
-   - OAuth integration (Google, Facebook)
-   - Password reset functionality
-
-2. **Database design**
-   - Family tree data structure
-   - User profiles and relationships
-   - Photo/video storage solution
-
-3. **API development**
-   - RESTful API for CRUD operations
-   - Connection pathfinding algorithm
-   - Search functionality
-
-### Phase 2: Core Features
-1. **Interactive family tree builder**
-   - Drag-and-drop interface
-   - Visual relationship mapping
-   - Zoom and pan functionality
-
-2. **Profile matching system**
-   - Duplicate detection algorithm
-   - Merge request workflow
-
-3. **Social features**
-   - Post creation and feeds
-   - Comments and reactions
-   - Private messaging
-
-### Phase 3: Advanced Features
-1. **Printable tree generator**
-   - PDF export with templates
-   - Customization options
-
-2. **Business directory**
-   - Business profile pages
-   - Referral tracking
-
-3. **Mobile app development**
-   - iOS and Android apps
-   - Push notifications
-
-### Phase 4: Growth & Optimization
-1. **Payment integration**
-   - Stripe or PayPal setup
-   - Subscription management
-   - Billing portal
-
-2. **Analytics and monitoring**
-   - User behavior tracking
-   - Conversion optimization
-   - Performance monitoring
-
-3. **Marketing tools**
-   - Email campaigns
-   - Referral program
-   - Social media integration
-
-## 📈 Conversion Optimization Features
-
-### Trust Indicators
-- ✅ Customer testimonials with ratings
-- ✅ Usage statistics (10K+ families)
-- ✅ 14-day free trial offer
-- ✅ No credit card required message
-- ✅ Security badges (planned)
-
-### Clear CTAs
-- ✅ Multiple call-to-action buttons throughout
-- ✅ Contrasting button colors
-- ✅ Action-oriented copy ("Start Your Family Tree")
-- ✅ Secondary CTAs (Watch Demo, Schedule Demo)
-
-### Value Proposition
-- ✅ Clear headline communicating main benefit
-- ✅ Feature-rich descriptions
-- ✅ Visual demonstrations
-- ✅ Transparent pricing
-
-## 🐛 Known Issues & Limitations
-
-### Current Limitations
-- Forms are placeholders (no backend)
-- CTA buttons show alert messages (not functional)
-- Demo video not implemented
-- No actual user data storage
-
-### Browser Compatibility Notes
-- Intersection Observer requires modern browsers (IE11 not supported)
-- CSS Grid used extensively (IE10/11 limited support)
-- Backdrop filter may not work in older browsers
-
-## 📞 Contact & Support
-
-This is a landing page template for FamilyConnect. For actual product support or inquiries:
-
-- **Demo Requests**: demo@familyconnect.com (placeholder)
-- **Sales**: sales@familyconnect.com (placeholder)
-- **Support**: support@familyconnect.com (placeholder)
+For questions or issues with the Next.js application:
+- Check the Supabase console for database errors
+- Review Next.js documentation at https://nextjs.org/docs
+- Check Supabase documentation at https://supabase.com/docs
 
 ## 📄 License
 
-This landing page design is proprietary to FamilyConnect. All rights reserved.
-
-## 🙏 Acknowledgments
-
-- **Font Awesome** - Icon library
-- **Google Fonts** - Typography (Inter, Playfair Display)
-- **Design inspiration** - Modern SaaS landing page best practices
+This application is proprietary to FamilyConnect. All rights reserved.
 
 ---
 
-**Built with ❤️ for families everywhere**
+**Built with Next.js, TailwindCSS, and Supabase**
 
-*Last Updated: 2024*
-
-<!-- Test sync -->
+*Migrated: December 2025*
