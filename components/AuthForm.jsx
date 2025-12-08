@@ -1,12 +1,43 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useSupabase } from './SupabaseProvider';
 
 export default function AuthForm() {
   const supabase = useSupabase();
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState(null);
+
+  useEffect(() => {
+    if (!supabase) return;
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session?.user) {
+        const { data: profile, error } = await supabase
+          .from('profiles')
+          .select('onboarding_completed')
+          .eq('id', session.user.id)
+          .maybeSingle();
+
+        if (error) {
+          console.error('Error fetching profile:', error);
+          return;
+        }
+
+        if (profile?.onboarding_completed) {
+          router.push('/dashboard');
+        } else {
+          router.push('/onboarding');
+        }
+      }
+    });
+
+    return () => {
+      authListener?.subscription?.unsubscribe();
+    };
+  }, [supabase, router]);
 
   const handleMagicLink = async (event) => {
     event.preventDefault();

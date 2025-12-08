@@ -578,6 +578,9 @@ video {
 .mt-8 {
   margin-top: 2rem;
 }
+.block {
+  display: block;
+}
 .flex {
   display: flex;
 }
@@ -685,6 +688,9 @@ video {
 }
 .overflow-hidden {
   overflow: hidden;
+}
+.break-all {
+  word-break: break-all;
 }
 .rounded-2xl {
   border-radius: 1rem;
