@@ -210,3 +210,30 @@ export const adminStyles = `
     .loading { display: flex; align-items: center; justify-content: center; padding: 64px; }
     .loading i { font-size: 32px; color: #ef4444; }
 `;
+// --- Added to satisfy imports used by admin HTML pages ---
+
+export function logout() {
+  // basic safe logout (customize later)
+  try {
+    localStorage.removeItem("admin_session");
+    localStorage.removeItem("session");
+  } catch (e) {}
+  window.location.href = "/admin/login.html";
+}
+
+export function formatDateTime(value) {
+  try {
+    const d = new Date(value);
+    if (isNaN(d.getTime())) return String(value);
+    return d.toLocaleString();
+  } catch (e) {
+    return String(value);
+  }
+}
+
+export function showToast(message, type = "info") {
+  // super simple "toast" for now
+  console.log(`[${type}] ${message}`);
+  alert(message);
+}
+
