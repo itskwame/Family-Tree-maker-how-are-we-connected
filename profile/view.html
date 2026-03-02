@@ -104,6 +104,7 @@
 
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+        import { buildProfileLocationHeading } from '../js/location-utils.js';
 
         const supabase = createClient(
             'https://fvfviudlxyumnskakftp.supabase.co',
@@ -134,6 +135,8 @@
 
             if (!profile) return;
 
+            const locationText = buildProfileLocationHeading(profile);
+
             document.getElementById('profileName').textContent =
                 `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || 'No Name';
 
@@ -142,9 +145,11 @@
                     `<img src="${profile.avatar_url}" alt="Profile">`;
             }
 
-            if (profile.location) {
+            if (locationText) {
                 document.getElementById('profileLocation').innerHTML =
-                    `<i class="fas fa-map-marker-alt"></i> ${profile.location}`;
+                    `<i class="fas fa-map-marker-alt"></i> ${locationText}`;
+            } else {
+                document.getElementById('profileLocation').textContent = '';
             }
 
             if (profile.job) {
@@ -162,6 +167,9 @@
             }
 
             const personalInfo = [];
+            if (locationText) {
+                personalInfo.push(createInfoItem('fas fa-map-marker-alt', 'Location', locationText));
+            }
             if (profile.gender) {
                 personalInfo.push(createInfoItem('fas fa-venus-mars', 'Gender', profile.gender.charAt(0).toUpperCase() + profile.gender.slice(1)));
             }

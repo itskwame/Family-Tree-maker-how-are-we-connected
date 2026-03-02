@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Family Tree Viewer - FamilyConnect</title>
+    <title>Interactive Family Tree - FamilyConnect</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -17,10 +17,10 @@
         .nav-item:hover { background: #f7fafc; }
         .nav-item.active { background: #667eea; color: white; }
         .main { flex: 1; display: flex; flex-direction: column; }
-        .toolbar { background: white; padding: 16px 24px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-        .toolbar h1 { font-size: 20px; margin-right: auto; }
-        .search-box { display: flex; gap: 12px; align-items: center; }
-        .search-box select { padding: 8px 12px; border: 2px solid #e2e8f0; border-radius: 8px; min-width: 180px; }
+        .toolbar { background: white; padding: 16px 24px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+        .toolbar h1 { font-size: 20px; margin: 0; }
+        .toolbar-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .toolbar-controls input { padding: 8px 14px; border: 2px solid #e2e8f0; border-radius: 8px; min-width: 220px; flex: 1; }
         .btn { padding: 8px 16px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; }
         .btn:hover { background: #5568d3; }
         .btn-secondary { background: #e2e8f0; color: #2d3748; }
@@ -28,10 +28,11 @@
         .tree-container { flex: 1; position: relative; overflow: hidden; background: #ffffff; }
         #tree-svg { width: 100%; height: 100%; }
 
-        .node circle { fill: #667eea; stroke: #4c51bf; stroke-width: 3px; cursor: pointer; }
-        .node.highlighted circle { fill: #fbbf24; stroke: #f59e0b; stroke-width: 5px; animation: pulse 1s infinite; }
+        .node { opacity: 0.25; }
+        .node circle { fill: #667eea; stroke: #4c51bf; stroke-width: 3px; cursor: pointer; transition: opacity 0.2s; }
+        .node.highlighted circle { fill: #fbbf24; stroke: #f59e0b; stroke-width: 5px; animation: pulse 1s infinite; opacity: 1; }
         .node text { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; }
-        .link { fill: none; stroke: #cbd5e0; stroke-width: 2px; }
+        .link { fill: none; stroke: #cbd5e0; stroke-width: 2px; opacity: 0.25; }
         .link.highlighted { stroke: #fbbf24; stroke-width: 4px; animation: pathGlow 1.5s infinite; }
 
         @keyframes pulse {
@@ -64,7 +65,7 @@
             <div class="logo"><i class="fas fa-users"></i> FamilyConnect</div>
             <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
             <a href="builder.html" class="nav-item"><i class="fas fa-project-diagram"></i> Family Tree Builder</a>
-            <a href="viewer.html" class="nav-item active"><i class="fas fa-sitemap"></i> Tree Viewer</a>
+            <a href="viewer.html" class="nav-item active"><i class="fas fa-sitemap"></i> Interactive Tree</a>
             <a href="pathfinder.html" class="nav-item"><i class="fas fa-route"></i> Connection Finder</a>
             <a href="templates.html" class="nav-item"><i class="fas fa-print"></i> Print Templates</a>
             <hr style="margin: 16px 0; border: none; border-top: 1px solid #e2e8f0;">
@@ -78,19 +79,16 @@
         <div class="main">
             <div class="toolbar">
                 <h1>Interactive Family Tree</h1>
-                <div class="search-box">
-                    <select id="personA">
-                        <option value="">Select Person A...</option>
-                    </select>
-                    <i class="fas fa-arrows-alt-h" style="color: #718096;"></i>
-                    <select id="personB">
-                        <option value="">Select Person B...</option>
-                    </select>
-                    <button class="btn" onclick="highlightPath()" id="findPathBtn" disabled>
-                        <i class="fas fa-search"></i> Show Connection
+                <div class="toolbar-controls">
+                    <input type="search" id="connectionInput" placeholder="Search family member" autocomplete="off">
+                    <button class="btn" id="findConnectionBtn">
+                        <i class="fas fa-search"></i> Find Connection
                     </button>
-                    <button class="btn btn-secondary" onclick="clearHighlight()">
-                        <i class="fas fa-times"></i> Clear
+                    <button class="btn btn-secondary" id="fitTreeBtn">
+                        <i class="fas fa-expand"></i> Fit to Tree
+                    </button>
+                    <button class="btn btn-secondary" id="resetViewBtn">
+                        <i class="fas fa-rotate"></i> Reset View
                     </button>
                 </div>
             </div>
@@ -113,7 +111,6 @@
                 <div class="controls">
                     <button onclick="zoomIn()"><i class="fas fa-plus"></i></button>
                     <button onclick="zoomOut()"><i class="fas fa-minus"></i></button>
-                    <button onclick="resetView()"><i class="fas fa-expand"></i></button>
                 </div>
             </div>
         </div>
@@ -127,9 +124,31 @@
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA'
         );
 
+        let currentUser = null;
         let familyMembers = [];
         let relationships = [];
+        let adjacencyMap = new Map();
+        let currentMemberId = null;
         let svg, g, zoom, treeLayout, root;
+        let treeNodes, treeLinks;
+
+        const connectionInput = document.getElementById('connectionInput');
+        const findConnectionBtn = document.getElementById('findConnectionBtn');
+        const fitTreeBtn = document.getElementById('fitTreeBtn');
+        const resetViewBtn = document.getElementById('resetViewBtn');
+
+        findConnectionBtn.addEventListener('click', findConnection);
+        connectionInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                findConnection();
+            }
+        });
+        fitTreeBtn.addEventListener('click', () => fitTree());
+        resetViewBtn.addEventListener('click', () => {
+            clearHighlight();
+            fitTree();
+        });
 
         async function checkAuth() {
             const { data: { session } } = await supabase.auth.getSession();
@@ -137,49 +156,30 @@
                 window.location.href = '../auth/login.html';
                 return;
             }
+            currentUser = session.user;
             await loadData();
             initializeTree();
-            checkAutoHighlight();
-        }
-
-        function checkAutoHighlight() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const highlight = urlParams.get('highlight');
-
-            if (highlight) {
-                const [personAId, personBId] = highlight.split(',');
-                if (personAId && personBId) {
-                    document.getElementById('personA').value = personAId;
-                    document.getElementById('personB').value = personBId;
-                    setTimeout(() => highlightPath(), 500);
-                }
-            }
         }
 
         async function loadData() {
-            const { data: members } = await supabase.from('family_members').select('*');
-            const { data: rels } = await supabase.from('relationships').select('*');
+            const { data: members, error: membersError } = await supabase.from('family_members').select('*');
+            const { data: rels, error: relsError } = await supabase.from('relationships').select('*');
+
+            if (membersError || relsError) {
+                console.error('Unable to load tree data', membersError || relsError);
+                return;
+            }
 
             familyMembers = members || [];
             relationships = rels || [];
+            adjacencyMap = buildAdjacencyGraph();
 
-            const personA = document.getElementById('personA');
-            const personB = document.getElementById('personB');
-
-            familyMembers.forEach(member => {
-                const name = `${member.first_name} ${member.last_name || ''}`;
-                personA.innerHTML += `<option value="${member.id}">${name}</option>`;
-                personB.innerHTML += `<option value="${member.id}">${name}</option>`;
-            });
-
-            personA.addEventListener('change', checkSelections);
-            personB.addEventListener('change', checkSelections);
-        }
-
-        function checkSelections() {
-            const personA = document.getElementById('personA').value;
-            const personB = document.getElementById('personB').value;
-            document.getElementById('findPathBtn').disabled = !personA || !personB || personA === personB;
+            const { data: userMember } = await supabase
+                .from('family_members')
+                .select('id')
+                .eq('user_id', currentUser.id)
+                .maybeSingle();
+            currentMemberId = userMember?.id || null;
         }
 
         function initializeTree() {
@@ -222,7 +222,6 @@
                 }
             });
 
-            // Find all roots (people with no parents)
             const roots = familyMembers.filter(member =>
                 !relationships.some(rel => rel.relationship_type === 'parent' && rel.child_id === member.id)
             );
@@ -244,7 +243,6 @@
                 return node;
             }
 
-            // If we have multiple roots or need to show all members, create a virtual root
             if (roots.length > 1) {
                 return {
                     id: 'virtual-root',
@@ -256,7 +254,6 @@
                 return buildNode(roots[0].id);
             }
 
-            // If no clear hierarchy, show all members under a virtual root
             return {
                 id: 'virtual-root',
                 name: 'Family Tree',
@@ -302,9 +299,9 @@
                 .attr('text-anchor', 'middle')
                 .text(d => d.data.name);
 
-            window.treeNodes = nodes;
-            window.treeLinks = links;
-            window.rootNode = root;
+            treeNodes = nodes;
+            treeLinks = links;
+            fitTree();
         }
 
         function showTooltip(event, d) {
@@ -329,80 +326,153 @@
             document.getElementById('tooltip').classList.remove('show');
         }
 
-        window.highlightPath = function() {
-            const personAId = document.getElementById('personA').value;
-            const personBId = document.getElementById('personB').value;
-
-            clearHighlight();
-
-            const path = findPath(personAId, personBId);
-            if (!path || path.length === 0) {
-                alert('No connection found between these people.');
+        function findConnection() {
+            if (!currentMemberId) {
+                alert('We could not find your profile in the tree yet.');
                 return;
             }
 
+            const query = connectionInput.value.trim().toLowerCase();
+            if (!query) {
+                alert('Enter a family member name to search for.');
+                return;
+            }
+
+            const target = familyMembers.find(member => {
+                const fullName = `${member.first_name || ''} ${member.last_name || ''}`.trim().toLowerCase();
+                return fullName.includes(query);
+            });
+
+            if (!target) {
+                alert('No matching family member found.');
+                return;
+            }
+
+            const path = findPath(currentMemberId, target.id);
+            if (!path || path.length === 0) {
+                alert('No path found between you and that member.');
+                return;
+            }
+
+            highlightPath(path);
+        }
+
+        function highlightPath(path) {
+            clearHighlight();
+            if (!path || path.length === 0) return;
+
             const pathSet = new Set(path);
 
-            window.treeNodes.each(function(d) {
+            treeNodes?.each(function(d) {
                 if (pathSet.has(d.data.id)) {
                     d3.select(this).classed('highlighted', true);
                 }
             });
 
-            window.treeLinks.each(function(d) {
+            treeLinks?.each(function(d) {
                 if (pathSet.has(d.source.data.id) && pathSet.has(d.target.data.id)) {
                     d3.select(this).classed('highlighted', true);
                 }
             });
-        };
 
-        window.clearHighlight = function() {
-            if (window.treeNodes) {
-                window.treeNodes.classed('highlighted', false);
-            }
-            if (window.treeLinks) {
-                window.treeLinks.classed('highlighted', false);
-            }
-        };
+            fitPath(path);
+        }
+
+        function clearHighlight() {
+            treeNodes?.classed('highlighted', false);
+            treeLinks?.classed('highlighted', false);
+        }
+
+        function buildAdjacencyGraph() {
+            const graph = new Map();
+            familyMembers.forEach(member => graph.set(member.id, new Set()));
+
+            relationships.forEach(rel => {
+                if (!rel.parent_id || !rel.child_id) return;
+                if (graph.has(rel.parent_id) && graph.has(rel.child_id)) {
+                    graph.get(rel.parent_id).add(rel.child_id);
+                    graph.get(rel.child_id).add(rel.parent_id);
+                }
+                if (rel.relationship_type === 'spouse' && graph.has(rel.parent_id) && graph.has(rel.child_id)) {
+                    graph.get(rel.parent_id).add(rel.child_id);
+                    graph.get(rel.child_id).add(rel.parent_id);
+                }
+            });
+
+            return graph;
+        }
 
         function findPath(startId, endId) {
             if (startId === endId) return [startId];
 
-            const graph = new Map();
-            familyMembers.forEach(m => graph.set(m.id, new Set()));
-
-            relationships.forEach(rel => {
-                graph.get(rel.parent_id)?.add(rel.child_id);
-                graph.get(rel.child_id)?.add(rel.parent_id);
-            });
-
-            const queue = [[startId]];
             const visited = new Set([startId]);
+            const queue = [[startId]];
 
-            while (queue.length > 0) {
+            while (queue.length) {
                 const path = queue.shift();
                 const current = path[path.length - 1];
 
                 if (current === endId) return path;
 
-                const neighbors = graph.get(current) || new Set();
+                const neighbors = adjacencyMap.get(current) || new Set();
                 for (const neighbor of neighbors) {
-                    if (!visited.has(neighbor)) {
-                        visited.add(neighbor);
-                        queue.push([...path, neighbor]);
-                    }
+                    if (visited.has(neighbor)) continue;
+                    visited.add(neighbor);
+                    const nextPath = [...path, neighbor];
+                    if (neighbor === endId) return nextPath;
+                    queue.push(nextPath);
                 }
             }
 
             return null;
         }
 
+        function fitPath(path) {
+            if (!root || !path.length) return;
+
+            const pathSet = new Set(path);
+            const nodes = root.descendants().filter(d => pathSet.has(d.data.id));
+            if (!nodes.length) return;
+
+            const width = document.querySelector('.tree-container').clientWidth;
+            const height = document.querySelector('.tree-container').clientHeight;
+            const padding = 80;
+            const xMin = d3.min(nodes, d => d.x);
+            const xMax = d3.max(nodes, d => d.x);
+            const yMin = d3.min(nodes, d => d.y);
+            const yMax = d3.max(nodes, d => d.y);
+            const xRange = Math.max(xMax - xMin, 1);
+            const yRange = Math.max(yMax - yMin, 1);
+            const scale = Math.min(3, Math.min((width - padding) / xRange, (height - padding) / yRange));
+            const tx = width / 2 - ((xMin + xMax) / 2) * scale;
+            const ty = height / 2 - ((yMin + yMax) / 2) * scale;
+            svg.transition().duration(600).call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+        }
+
+        function fitTree() {
+            if (!root) return;
+
+            const width = document.querySelector('.tree-container').clientWidth;
+            const height = document.querySelector('.tree-container').clientHeight;
+            const padding = 100;
+            const nodes = root.descendants();
+            const xMin = d3.min(nodes, d => d.x);
+            const xMax = d3.max(nodes, d => d.x);
+            const yMin = d3.min(nodes, d => d.y);
+            const yMax = d3.max(nodes, d => d.y);
+            const xRange = Math.max(xMax - xMin, 1);
+            const yRange = Math.max(yMax - yMin, 1);
+            const scale = Math.min(3, Math.min((width - padding) / xRange, (height - padding) / yRange));
+            const tx = width / 2 - ((xMin + xMax) / 2) * scale;
+            const ty = height / 2 - ((yMin + yMax) / 2) * scale;
+            svg.transition().duration(600).call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+        }
+
         window.zoomIn = () => svg.transition().call(zoom.scaleBy, 1.3);
         window.zoomOut = () => svg.transition().call(zoom.scaleBy, 0.7);
         window.resetView = () => {
-            const width = document.querySelector('.tree-container').clientWidth;
-            const height = document.querySelector('.tree-container').clientHeight;
-            svg.transition().call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2));
+            clearHighlight();
+            fitTree();
         };
 
         window.signOut = async function() {

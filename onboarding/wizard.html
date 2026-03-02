@@ -31,6 +31,8 @@
         .form-group input, .form-group select { width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 16px; font-family: 'Inter', sans-serif; transition: border-color 0.2s; }
         .form-group input:focus, .form-group select:focus { outline: none; border-color: #667eea; }
 
+        .helper-note { font-size: 13px; color: #4a5568; margin-top: -12px; margin-bottom: 20px; }
+
         .quick-add-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px; }
         .quick-add-btn { padding: 20px; background: #f7fafc; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.2s; }
         .quick-add-btn:hover { background: #667eea; color: white; border-color: #667eea; transform: translateY(-2px); }
@@ -90,6 +92,27 @@
                     <option value="other">Other</option>
                 </select>
             </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>City *</label>
+                    <input type="text" id="profileCity" placeholder="Seattle">
+                </div>
+                <div class="form-group">
+                    <label>State / Province</label>
+                    <input type="text" id="profileState" placeholder="Washington">
+                </div>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Country *</label>
+                    <input type="text" id="profileCountry" placeholder="United States">
+                </div>
+                <div class="form-group">
+                    <label>ZIP / Postal Code</label>
+                    <input type="text" id="profileZip" placeholder="98101">
+                </div>
+            </div>
+            <p class="helper-note">We only store city/state/country/zip. We never store street addresses.</p>
             <button class="btn" onclick="nextStep(2)">Continue <i class="fas fa-arrow-right"></i></button>
         </div>
 
@@ -198,6 +221,7 @@
 
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+        import { normalizeLocationInput, buildLocationLabel } from '../js/location-utils.js';
         const supabase = createClient('https://fvfviudlxyumnskakftp.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA');
 
         let currentUser = null;
@@ -213,22 +237,41 @@
                 const lastName = document.getElementById('userLastName').value;
                 const gender = document.getElementById('userGender').value;
 
+                const locationInput = normalizeLocationInput(
+                    document.getElementById('profileCity').value,
+                    document.getElementById('profileState').value,
+                    document.getElementById('profileCountry').value,
+                    document.getElementById('profileZip').value
+                );
+
                 if (!firstName) {
                     alert('Please enter your first name');
+                    return;
+                }
+
+                if (!locationInput.city || !locationInput.country) {
+                    alert('City and country are required to continue.');
                     return;
                 }
 
                 await supabase.from('profiles').update({
                     first_name: firstName,
                     last_name: lastName,
-                    gender: gender
+                    gender: gender,
+                    city: locationInput.city,
+                    state: locationInput.state,
+                    country: locationInput.country,
+                    zip: locationInput.zip
                 }).eq('id', currentUser.id);
+
+                const locationLabel = buildLocationLabel(locationInput);
 
                 const { data: member } = await supabase.from('family_members').insert({
                     user_id: currentUser.id,
                     first_name: firstName,
                     last_name: lastName,
                     gender: gender,
+                    location: locationLabel || null,
                     created_by: currentUser.id
                 }).select().single();
 

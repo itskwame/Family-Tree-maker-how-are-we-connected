@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Where Family Members Live - FamilyConnect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #f7fafc; }
+        .container { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: white; border-right: 1px solid #e2e8f0; padding: 24px; position: fixed; height: 100vh; overflow-y: auto; }
+        .logo { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 32px; display: flex; align-items: center; gap: 10px; }
+        .logo i { font-size: 26px; }
+        .nav-menu { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+        .nav-menu a { padding: 12px 16px; border-radius: 8px; color: #4a5568; text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 10px; }
+        .nav-menu a.active { background: #eef2ff; color: #312e81; font-weight: 600; }
+        .nav-menu a:hover { background: #f1f5f9; }
+        .main { margin-left: 260px; padding: 32px 40px; flex: 1; display: flex; flex-direction: column; }
+        .page-header { margin-bottom: 24px; }
+        .page-header h1 { font-size: 32px; margin-bottom: 8px; }
+        .page-header p { color: #4a5568; margin-bottom: 16px; }
+        .filters { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+        .filters input, .filters select { padding: 12px 16px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 14px; min-width: 220px; }
+        .filters button { padding: 12px 20px; border-radius: 10px; border: none; font-size: 14px; cursor: pointer; background: #667eea; color: white; font-weight: 600; }
+        .filters button:hover { background: #5a67d8; }
+        .content-area { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; align-items: start; }
+        .content-area.hidden { display: none; }
+        .locations-panel, .members-panel { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08); }
+        .panel-header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 8px; }
+        .panel-header h2 { margin: 0; font-size: 20px; }
+        .panel-subtitle { color: #6b7280; margin: 0; font-size: 13px; }
+        .location-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+        .location-card { padding: 16px; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; cursor: pointer; transition: transform 0.2s, border-color 0.2s; display: flex; flex-direction: column; gap: 10px; }
+        .location-card:hover { transform: translateY(-2px); border-color: #cbd5f5; }
+        .location-card.active { border-color: #667eea; box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3); background: #eef2ff; }
+        .location-card h3 { margin: 0; font-size: 18px; color: #1f2937; }
+        .location-count { font-size: 13px; color: #4a5568; display: flex; align-items: center; gap: 6px; }
+        .location-count i { color: #667eea; }
+        .zip-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+        .zip-pill { font-size: 11px; background: white; border: 1px solid #cbd5e1; padding: 4px 8px; border-radius: 999px; color: #334155; }
+        .members-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 16px; }
+        .member-card { display: flex; gap: 12px; padding: 12px 14px; border-radius: 12px; border: 1px solid #e2e8f0; text-decoration: none; color: inherit; background: #f7fafc; transition: border-color 0.2s, box-shadow 0.2s; }
+        .member-card:hover { border-color: #a5b4fc; box-shadow: 0 6px 18px rgba(56, 189, 248, 0.2); }
+        .member-avatar { width: 48px; height: 48px; border-radius: 50%; background: #cbd5f5; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #1e293b; font-size: 16px; }
+        .member-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .member-info h4 { margin: 0; font-size: 16px; }
+        .member-info p { margin: 4px 0 0; color: #4a5568; font-size: 13px; }
+        .empty-state { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; margin-top: 16px; color: #475569; }
+        .empty-state.small { font-size: 14px; color: #475569; }
+        .hidden { display: none !important; }
+        .loading-state { display: flex; align-items: center; gap: 16px; padding: 24px 18px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08); margin-bottom: 16px; }
+        .loading-state .spinner { width: 40px; height: 40px; border: 4px solid #e2e8f0; border-top-color: #667eea; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @media (max-width: 1100px) { .content-area { grid-template-columns: 1fr; } .sidebar { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid #e2e8f0; } .main { margin-left: 0; padding: 24px; } }
+        @media (max-width: 600px) { .filters { flex-direction: column; } .location-card { min-height: 120px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo"><i class="fas fa-map-marker-alt"></i> FamilyConnect</div>
+            <nav class="nav-menu">
+                <a href="/dashboard/index.html"><i class="fas fa-th-large"></i> Dashboard</a>
+                <a href="/tree/viewer.html"><i class="fas fa-sitemap"></i> Family Tree</a>
+                <a href="/map/index.html"><i class="fas fa-route"></i> Family Map</a>
+                <a href="/map/where-we-live.html" class="active"><i class="fas fa-globe-americas"></i> Where We Live</a>
+                <a href="/profile/view.html"><i class="fas fa-user"></i> Profile</a>
+                <a href="/family/manage.html"><i class="fas fa-users-cog"></i> Manage Family</a>
+            </nav>
+            <div style="margin-top: auto;">
+                <a href="/auth/login.html" style="color:#e11d48; font-weight:600; font-size:14px; text-decoration:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+        <div class="main">
+            <div class="page-header">
+                <h1>Where Family Members Live</h1>
+                <p>Aggregate your family by city, state, and country so you can plan reunions with confidence.</p>
+                <div class="filters">
+                    <input id="locationSearch" type="search" placeholder="Search city, state, country, or member" autocomplete="off">
+                    <select id="countryFilter">
+                        <option value="">All Countries</option>
+                    </select>
+                    <button id="resetFilters" type="button">Reset Filters</button>
+                </div>
+            </div>
+            <div id="loadingState" class="loading-state">
+                <div class="spinner"></div>
+                <div>
+                    <strong>Loading locations…</strong>
+                    <p style="margin:4px 0 0; color:#475569; font-size:14px;">Fetching your family group and location data.</p>
+                </div>
+            </div>
+            <div id="emptyState" class="empty-state hidden">
+                <p id="emptyStateMessage" style="font-size:16px; font-weight:600; color:#1f2937;"></p>
+                <a href="/family/manage.html" class="btn" style="background:#e0e7ff; color:#312e81; padding:10px 16px; border-radius:10px; text-decoration:none;">Go to Family Settings</a>
+            </div>
+            <div id="contentArea" class="content-area hidden">
+                <section class="locations-panel">
+                    <div class="panel-header">
+                        <div>
+                            <h2 id="locationsCount">0 locations</h2>
+                            <p class="panel-subtitle">Grouped by city/state/country with optional ZIP breakdowns.</p>
+                        </div>
+                    </div>
+                    <div id="locationCards" class="location-grid"></div>
+                    <p id="noResults" class="empty-state small hidden">No matching locations yet. Try adjusting the filters.</p>
+                </section>
+                <section class="members-panel">
+                    <div class="panel-header">
+                        <div>
+                            <h2 id="selectedLocationTitle">Select a location to view members</h2>
+                            <p class="panel-subtitle">Only city/state/country/ZIP data is surfaced—no street addresses.</p>
+                        </div>
+                    </div>
+                    <div id="memberList" class="members-grid"></div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+        import { buildLocationLabel, buildProfileLocationHeading } from '../js/location-utils.js';
+
+        const supabase = createClient('https://fvfviudlxyumnskakftp.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA');
+
+        const locationCards = document.getElementById('locationCards');
+        const memberList = document.getElementById('memberList');
+        const countryFilter = document.getElementById('countryFilter');
+        const locationSearch = document.getElementById('locationSearch');
+        const resetFilters = document.getElementById('resetFilters');
+        const locationsCount = document.getElementById('locationsCount');
+        const selectedLocationTitle = document.getElementById('selectedLocationTitle');
+        const noResults = document.getElementById('noResults');
+        const loadingState = document.getElementById('loadingState');
+        const contentArea = document.getElementById('contentArea');
+        const emptyState = document.getElementById('emptyState');
+        const emptyStateMessage = document.getElementById('emptyStateMessage');
+
+        let locationEntries = [];
+        let selectedKey = null;
+
+        locationSearch.addEventListener('input', () => applyFilters());
+        countryFilter.addEventListener('change', () => applyFilters());
+        resetFilters.addEventListener('click', () => {
+            locationSearch.value = '';
+            countryFilter.value = '';
+            applyFilters();
+        });
+
+        async function checkAuth() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = '/auth/login.html';
+                return null;
+            }
+            return session.user;
+        }
+
+        async function init() {
+            const user = await checkAuth();
+            if (!user) return;
+            const { data: membership, error } = await supabase
+                .from('family_group_members')
+                .select('family_group_id')
+                .eq('user_id', user.id)
+                .maybeSingle();
+
+            if (error) {
+                showEmpty('Unable to read your family group right now.');
+                console.error('Family fetch error', error);
+                return;
+            }
+
+            if (!membership?.family_group_id) {
+                showEmpty('You need to join or create a family group to see where members live.');
+                return;
+            }
+
+            await loadLocationData(membership.family_group_id);
+        }
+
+        async function loadLocationData(familyId) {
+            const { data, error } = await supabase
+                .from('family_group_members')
+                .select(`
+                    user:profiles!family_group_members_user_id_fkey(
+                        id, first_name, last_name, avatar_url, city, state, country, zip
+                    )
+                `)
+                .eq('family_group_id', familyId);
+
+            if (error) {
+                showEmpty('Unable to load family member locations.');
+                console.error('Member query failed', error);
+                return;
+            }
+
+            const members = (data || [])
+                .map(entry => entry.user)
+                .filter(Boolean);
+
+            if (members.length === 0) {
+                showEmpty('No family members have joined yet.');
+                return;
+            }
+
+            const built = buildLocationEntries(members);
+            if (built.length === 0) {
+                showEmpty('Members have not shared city/state/country details yet.');
+                return;
+            }
+
+            locationEntries = built;
+            populateCountryFilter(locationEntries);
+            hideEmpty();
+            applyFilters();
+        }
+
+        function buildLocationEntries(members) {
+            const map = new Map();
+            members.forEach(member => {
+                if (!member) return;
+                const country = (member.country || '').trim() || 'Unknown';
+                const state = (member.state || '').trim();
+                const city = (member.city || '').trim() || 'Unknown location';
+                const key = `${country}|${state}|${city}`;
+                if (!map.has(key)) {
+                    map.set(key, { country, state, city, members: [], zipCount: {} });
+                }
+                const entry = map.get(key);
+                entry.members.push(member);
+                const zip = (member.zip || '').trim();
+                if (zip) {
+                    entry.zipCount[zip] = (entry.zipCount[zip] || 0) + 1;
+                }
+            });
+
+            return Array.from(map.values()).map(entry => {
+                const label = buildLocationLabel({
+                    city: entry.city !== 'Unknown location' ? entry.city : null,
+                    state: entry.state || null,
+                    country: entry.country !== 'Unknown' ? entry.country : null
+                }) || 'Unknown location';
+
+                return {
+                    ...entry,
+                    key: `${entry.country}|${entry.state}|${entry.city}`,
+                    memberCount: entry.members.length,
+                    displayLabel: label,
+                    zipBuckets: Object.entries(entry.zipCount)
+                        .map(([zip, count]) => ({ zip, count }))
+                        .sort((a, b) => b.count - a.count)
+                };
+            }).sort((a, b) => b.memberCount - a.memberCount);
+        }
+
+        function populateCountryFilter(entries) {
+            const countries = Array.from(new Set(entries.map(e => e.country))).sort();
+            countryFilter.innerHTML = '<option value="">All Countries</option>' +
+                countries.map(country => `<option value="${country}">${country}</option>`).join('');
+        }
+
+        function applyFilters() {
+            if (!locationEntries.length) return;
+            let filtered = [...locationEntries];
+            const countryValue = countryFilter.value;
+            const searchValue = locationSearch.value.trim().toLowerCase();
+
+            if (countryValue) {
+                filtered = filtered.filter(entry => entry.country === countryValue);
+            }
+
+            if (searchValue) {
+                filtered = filtered.filter(entry => {
+                    const locationString = entry.displayLabel.toLowerCase();
+                    const memberMatches = entry.members.some(member => {
+                        const fullName = `${member.first_name || ''} ${member.last_name || ''}`.trim().toLowerCase();
+                        return fullName.includes(searchValue);
+                    });
+                    return locationString.includes(searchValue) || memberMatches;
+                });
+            }
+
+            renderLocationCards(filtered);
+        }
+
+        function renderLocationCards(entries) {
+            locationCards.innerHTML = '';
+            locationsCount.textContent = `${entries.length} location${entries.length === 1 ? '' : 's'}`;
+            if (!entries.length) {
+                noResults.classList.remove('hidden');
+                selectedKey = null;
+                selectedLocationTitle.textContent = 'Select a location to view members';
+                renderMembersForLocation(null);
+                return;
+            }
+            noResults.classList.add('hidden');
+
+            const html = entries.map(entry => `
+                <div class="location-card${entry.key === selectedKey ? ' active' : ''}" data-key="${entry.key}">
+                    <h3>${entry.displayLabel}</h3>
+                    <div class="location-count"><i class="fas fa-map-marker-alt"></i> ${entry.memberCount} member${entry.memberCount === 1 ? '' : 's'}</div>
+                    <div class="zip-pills">
+                        ${entry.zipBuckets.map(z => `<span class="zip-pill">ZIP ${z.zip} — ${z.count} member${z.count === 1 ? '' : 's'}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            locationCards.innerHTML = html;
+            locationCards.querySelectorAll('.location-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const entry = entries.find(e => e.key === card.dataset.key);
+                    selectLocation(entry);
+                });
+            });
+
+            if (!selectedKey || !entries.some(entry => entry.key === selectedKey)) {
+                selectLocation(entries[0]);
+            } else {
+                selectLocation(entries.find(entry => entry.key === selectedKey));
+            }
+        }
+
+        function selectLocation(entry) {
+            if (!entry) {
+                selectedKey = null;
+                selectedLocationTitle.textContent = 'Select a location to view members';
+                renderMembersForLocation(null);
+                locationCards.querySelectorAll('.location-card').forEach(card => card.classList.remove('active'));
+                return;
+            }
+
+            selectedKey = entry.key;
+            selectedLocationTitle.textContent = `Members in ${entry.displayLabel}`;
+            locationCards.querySelectorAll('.location-card').forEach(card => {
+                card.classList.toggle('active', card.dataset.key === entry.key);
+            });
+            renderMembersForLocation(entry);
+        }
+
+        function renderMembersForLocation(entry) {
+            if (!entry || !entry.members.length) {
+                memberList.innerHTML = '<p style="color:#475569;">No members available for this location.</p>';
+                return;
+            }
+
+            memberList.innerHTML = entry.members.map(member => {
+                const name = `${member.first_name || ''} ${member.last_name || ''}`.trim() || 'Unnamed';
+                const initials = `${(member.first_name || '')[0] || ''}${(member.last_name || '')[0] || ''}`.toUpperCase();
+                const locationText = buildProfileLocationHeading(member) || entry.displayLabel;
+
+                const avatar = member.avatar_url
+                    ? `<img src="${member.avatar_url}" alt="${name}">`
+                    : `<span>${initials}</span>`;
+
+                return `
+                    <a class="member-card" href="/profile/view.html?id=${member.id}">
+                        <div class="member-avatar">${avatar}</div>
+                        <div class="member-info">
+                            <h4>${name}</h4>
+                            <p>${locationText}</p>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+        }
+
+        function showEmpty(message) {
+            loadingState.classList.add('hidden');
+            contentArea.classList.add('hidden');
+            emptyState.classList.remove('hidden');
+            emptyStateMessage.textContent = message;
+        }
+
+        function hideEmpty() {
+            emptyState.classList.add('hidden');
+            loadingState.classList.add('hidden');
+            contentArea.classList.remove('hidden');
+        }
+
+        init();
+    </script>
+</body>
+</html>

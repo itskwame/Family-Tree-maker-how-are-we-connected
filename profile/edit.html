@@ -22,6 +22,7 @@
         .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #2d3748; }
         .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; font-family: 'Inter', sans-serif; }
         .form-group textarea { min-height: 120px; resize: vertical; }
+        .helper-note { font-size: 13px; color: #4a5568; margin-top: -12px; margin-bottom: 16px; }
         .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .btn { padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px; }
         .btn:hover { background: #5568d3; }
@@ -74,10 +75,27 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label>Location</label>
-                        <input type="text" id="location" placeholder="City, State">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>City *</label>
+                            <input type="text" id="city" placeholder="Seattle">
+                        </div>
+                        <div class="form-group">
+                            <label>State / Province</label>
+                            <input type="text" id="state" placeholder="Washington">
+                        </div>
                     </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Country *</label>
+                            <input type="text" id="country" placeholder="United States">
+                        </div>
+                        <div class="form-group">
+                            <label>ZIP / Postal Code</label>
+                            <input type="text" id="zip" placeholder="98101">
+                        </div>
+                    </div>
+                    <p class="helper-note">We only store city/state/country/zip. We never store street addresses.</p>
 
                     <div class="form-grid">
                         <div class="form-group">
@@ -146,6 +164,7 @@
 
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+        import { normalizeLocationInput, buildLocationLabel } from '../js/location-utils.js';
 
         const supabase = createClient(
             'https://fvfviudlxyumnskakftp.supabase.co',
@@ -153,6 +172,17 @@
         );
 
         let currentUser = null;
+
+        async function syncFamilyMemberLocation(locationLabel) {
+            try {
+                await supabase
+                    .from('family_members')
+                    .update({ location: locationLabel || null })
+                    .eq('user_id', currentUser.id);
+            } catch (syncError) {
+                console.warn('Family member location sync failed', syncError);
+            }
+        }
 
         async function checkAuth() {
             const { data: { session } } = await supabase.auth.getSession();
@@ -176,7 +206,11 @@
                 document.getElementById('lastName').value = profile.last_name || '';
                 document.getElementById('birthDate').value = profile.birth_date || '';
                 document.getElementById('phone').value = profile.phone || '';
-                document.getElementById('location').value = profile.location || '';
+                const locationData = normalizeLocationInput(profile.city, profile.state, profile.country, profile.zip);
+                document.getElementById('city').value = locationData.city || '';
+                document.getElementById('state').value = locationData.state || '';
+                document.getElementById('country').value = locationData.country || '';
+                document.getElementById('zip').value = locationData.zip || '';
                 document.getElementById('gender').value = profile.gender || '';
                 document.getElementById('job').value = profile.job || '';
                 document.getElementById('motherName').value = profile.mother_name || '';
@@ -195,12 +229,23 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
             btn.disabled = true;
 
+            const locationInput = normalizeLocationInput(
+                document.getElementById('city').value,
+                document.getElementById('state').value,
+                document.getElementById('country').value,
+                document.getElementById('zip').value
+            );
+            const locationLabel = buildLocationLabel(locationInput);
+
             const profileData = {
                 first_name: document.getElementById('firstName').value,
                 last_name: document.getElementById('lastName').value,
                 birth_date: document.getElementById('birthDate').value || null,
                 phone: document.getElementById('phone').value || null,
-                location: document.getElementById('location').value || null,
+                city: locationInput.city,
+                state: locationInput.state,
+                country: locationInput.country,
+                zip: locationInput.zip,
                 gender: document.getElementById('gender').value || null,
                 job: document.getElementById('job').value || null,
                 mother_name: document.getElementById('motherName').value || null,
@@ -225,6 +270,7 @@
                 btn.innerHTML = '<i class="fas fa-save"></i> Save Changes';
                 btn.disabled = false;
             } else {
+                await syncFamilyMemberLocation(locationLabel);
                 window.location.href = 'view.html';
             }
         });

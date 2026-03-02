@@ -3,289 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Print Templates - FamilyConnect</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&family=Crimson+Text&family=Montserrat&display=swap" rel="stylesheet">
+    <title>Printable Tree Templates - FamilyConnect</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #f7fafc; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #f7fafc; }
         .container { display: flex; min-height: 100vh; }
         .sidebar { width: 260px; background: white; border-right: 1px solid #e2e8f0; padding: 24px; }
-        .logo { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 32px; }
-        .nav-item { padding: 12px 16px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #4a5568; text-decoration: none; }
+        .logo { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 32px; display: flex; align-items: center; gap: 12px; }
+        .nav-item { padding: 12px 16px; margin-bottom: 8px; border-radius: 8px; display: flex; align-items: center; gap: 12px; color: #4a5568; text-decoration: none; }
         .nav-item:hover { background: #f7fafc; }
         .nav-item.active { background: #667eea; color: white; }
-        .main { flex: 1; padding: 32px; }
+        .main { flex: 1; padding: 32px 40px 48px; }
         h1 { font-family: 'Playfair Display', serif; margin-bottom: 8px; }
-        .template-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 32px; }
-        .template-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s; }
-        .template-card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        .template-card.selected { border: 3px solid #667eea; }
-        .template-preview { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 48px; }
-        .template-info { padding: 20px; }
-        .template-info h3 { margin-bottom: 8px; }
-        .template-info p { color: #718096; font-size: 14px; }
-        .customization-panel { background: white; padding: 32px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
-        .form-group input, .form-group select { width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; }
-        .color-input { width: 80px; height: 45px; }
-        .btn { padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-right: 12px; }
-        .btn:hover { background: #5568d3; }
-        .preview-area { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); min-height: 600px; }
-
-        /* Template Styles */
-        .tree-preview { font-family: var(--tree-font); }
-        .tree-node { display: inline-block; margin: 10px; padding: 15px; border-radius: 8px; text-align: center; min-width: 120px; }
-        .tree-node img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 8px; }
-        .tree-node-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
-        .tree-node-info { font-size: 12px; opacity: 0.8; }
-
-        /* Blue Floral */
-        .template-floral { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .template-floral .tree-node { background: rgba(255,255,255,0.95); border: 2px solid #667eea; }
-
-        /* Pink Landscape */
-        .template-pink { background: linear-gradient(135deg, #ffeef8 0%, #ffd4e8 100%); }
-        .template-pink .tree-node { background: white; border: 2px solid #ff69b4; }
-
-        /* Vintage */
-        .template-vintage { background: #f4e9d8; border: 10px solid #8b7355; }
-        .template-vintage .tree-node { background: #fff8f0; border: 2px solid #8b7355; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-
-        /* Green Dual-Tree */
-        .template-green { background: linear-gradient(135deg, #d4f1d4 0%, #a8d5a8 100%); }
-        .template-green .tree-node { background: white; border: 2px solid #4caf50; }
-
-        /* Classic Chart */
-        .template-classic { background: white; border: 3px solid #2d3748; }
-        .template-classic .tree-node { background: #f7fafc; border: 2px solid #2d3748; }
-
-        /* Heritage Portrait */
-        .template-heritage { 
-            background: linear-gradient(135deg, #f4e9d8 0%, #e8d5b7 100%); 
-            position: relative;
-            border: 20px solid transparent;
-            border-image: linear-gradient(45deg, #8b7355, #a0845c, #8b7355) 1;
-            box-shadow: inset 0 0 0 5px #8b7355, 0 0 20px rgba(139, 115, 85, 0.3);
-        }
-        .template-heritage .tree-node { 
-            background: rgba(255, 248, 240, 0.95); 
-            border: 3px solid #8b7355; 
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(139, 115, 85, 0.25);
-        }
-
-        /* Family Tree Garden */
-        .template-garden {
-            background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 30%, #90EE90 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .template-garden::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background: repeating-linear-gradient(
-                90deg,
-                #8B4513 0px,
-                #8B4513 8px,
-                transparent 8px,
-                transparent 12px
-            );
-            border-top: 4px solid #654321;
-        }
-        .template-garden::after {
-            content: '';
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 200px;
-            background: linear-gradient(to bottom, #8B4513 0%, #A0522D 100%);
-            border-radius: 20px;
-            z-index: 1;
-        }
-        .template-garden .tree-crown {
-            position: absolute;
-            bottom: 60%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 200px;
-            background: radial-gradient(ellipse at center, #228B22 0%, #32CD32 50%, #90EE90 100%);
-            border-radius: 50%;
-            z-index: 2;
-        }
-        .template-garden .tree-node {
-            background: rgba(255, 255, 255, 0.95);
-            border: 3px solid #228B22;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(34, 139, 34, 0.3);
-            position: relative;
-            z-index: 3;
+        .intro { color: #475569; margin-bottom: 24px; }
+        .template-selection { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 32px; }
+        .template-card { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08); cursor: pointer; display: flex; flex-direction: column; gap: 12px; transition: transform 0.2s, border-color 0.2s; border: 2px solid transparent; }
+        .template-card.selected { border-color: #667eea; transform: translateY(-4px); }
+        .template-card i { font-size: 32px; color: #1e293b; }
+        .template-card h3 { margin: 0; font-size: 18px; }
+        .template-card p { color: #64748b; font-size: 14px; }
+        .customization-panel { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08); margin-bottom: 32px; }
+        .customization-panel h2 { margin-bottom: 16px; }
+        .control-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .control-grid label { display: flex; flex-direction: column; gap: 8px; font-weight: 600; color: #1f2937; }
+        .control-grid input[type="text"], .control-grid select { padding: 10px 12px; border-radius: 8px; border: 2px solid #e2e8f0; }
+        .control-grid input[type="range"] { width: 100%; }
+        .toggle-wrap { display: flex; align-items: center; gap: 8px; color: #1f2937; font-weight: 600; }
+        .export-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+        .preview-wrapper { background: white; border-radius: 16px; padding: 32px; box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08); }
+        .preview-title { font-size: 22px; margin-bottom: 12px; font-weight: 700; color: #1f2937; }
+        .preview-canvas { min-height: 420px; border-radius: 16px; padding: 24px; position: relative; overflow: hidden; }
+        .preview-canvas.template-classic { background: #fffaf0; border: 8px solid #0f172a; color: #111827; }
+        .preview-canvas.template-modern { background: linear-gradient(135deg, #0f172a, #1d4ed8); color: #f8fafc; }
+        .preview-canvas.template-illustration { background: linear-gradient(135deg, #111827, #512da8); color: #ffeedd; }
+        .preview-tree { display: flex; flex-direction: column; gap: 22px; }
+        .generation-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .node-card { background: rgba(255,255,255,0.85); border-radius: 12px; padding: 12px 14px; min-width: 130px; text-align: center; box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15); }
+        .node-card.no-photo .node-photo { display: none; }
+        .node-photo { width: 70px; height: 70px; border-radius: 50%; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 8px; color: #1f2937; }
+        .node-name { font-weight: 600; margin-bottom: 6px; }
+        .node-meta { font-size: 12px; color: #475569; }
+        .preview-note { color: #475569; margin-top: 16px; font-size: 14px; }
+        .btn { padding: 10px 20px; border-radius: 8px; border: none; background: #667eea; color: white; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+        .btn.disabled { opacity: 0.6; cursor: not-allowed; pointer-events: none; }
+        .preview-tree-columns { display: flex; flex-direction: column; gap: 18px; }
+        .empty-note { color: #64748b; text-align: center; margin-top: 40px; }
+        @media (max-width: 900px) {
+            .main { padding: 24px; }
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid #e2e8f0; }
+            .preview-wrapper { margin-top: 24px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="sidebar">
-            <div class="logo"><i class="fas fa-users"></i> FamilyConnect</div>
+            <div class="logo"><i class="fas fa-print"></i> FamilyConnect</div>
             <a href="../dashboard/index.html" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
             <a href="builder.html" class="nav-item"><i class="fas fa-project-diagram"></i> Family Tree</a>
-            <a href="templates.html" class="nav-item active"><i class="fas fa-print"></i> Print Templates</a>
+            <a href="templates.html" class="nav-item active"><i class="fas fa-print"></i> Printable Templates</a>
+            <a href="../tree/viewer.html" class="nav-item"><i class="fas fa-sitemap"></i> Interactive Tree</a>
             <a href="../feed/index.html" class="nav-item"><i class="fas fa-images"></i> Family Feed</a>
-            <a href="../business/index.html" class="nav-item"><i class="fas fa-store"></i> Businesses</a>
             <a href="../profile/view.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
             <a href="#" onclick="signOut()" class="nav-item"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
         </div>
-
         <div class="main">
-            <h1>Family Tree Templates</h1>
-            <p style="color: #718096; margin-bottom: 32px;">Choose a template and customize it for printing</p>
+            <h1>Printable Tree Templates</h1>
+            <p class="intro">Choose a poster-style template, tune the look, and preview an export-only family tree.</p>
 
-            <div class="template-grid">
-                <div class="template-card" data-template="floral" onclick="selectTemplate('floral')">
-                    <div class="template-preview template-floral">
-                        <i class="fas fa-leaf" style="color: white;"></i>
-                    </div>
-                    <div class="template-info">
-                        <h3>Blue Floral</h3>
-                        <p>Elegant design with blue gradient and floral accents</p>
-                    </div>
+            <section class="template-selection">
+                <div class="template-card template-choice selected" data-template="classic">
+                    <i class="fas fa-scroll"></i>
+                    <h3>Classic Poster</h3>
+                    <p>Bold borders, serif headings, and a timeless presentation.</p>
                 </div>
-
-                <div class="template-card" data-template="pink" onclick="selectTemplate('pink')">
-                    <div class="template-preview template-pink">
-                        <i class="fas fa-heart" style="color: #ff69b4;"></i>
-                    </div>
-                    <div class="template-info">
-                        <h3>Pink Landscape</h3>
-                        <p>Soft pink tones, perfect for landscape printing</p>
-                    </div>
+                <div class="template-card template-choice" data-template="modern">
+                    <i class="fas fa-sparkles"></i>
+                    <h3>Modern Minimal</h3>
+                    <p>Clean lines, muted gradients, and airy spacing.</p>
                 </div>
-
-                <div class="template-card" data-template="vintage" onclick="selectTemplate('vintage')">
-                    <div class="template-preview template-vintage">
-                        <i class="fas fa-scroll" style="color: #8b7355;"></i>
-                    </div>
-                    <div class="template-info">
-                        <h3>Vintage</h3>
-                        <p>Classic style with ornate borders and aged look</p>
-                    </div>
+                <div class="template-card template-choice" data-template="illustration">
+                    <i class="fas fa-tree"></i>
+                    <h3>Tree Illustration Style</h3>
+                    <p>Artistic tree trunk, textured background, and illustrated flair.</p>
                 </div>
+            </section>
 
-                <div class="template-card" data-template="green" onclick="selectTemplate('green')">
-                    <div class="template-preview template-green">
-                        <i class="fas fa-tree" style="color: #4caf50;"></i>
-                    </div>
-                    <div class="template-info">
-                        <h3>Green Dual-Tree</h3>
-                        <p>Shows both family lines with nature theme</p>
-                    </div>
+            <section class="customization-panel">
+                <h2>Preview Controls</h2>
+                <div class="control-grid">
+                    <label>
+                        Starting person
+                        <select id="startPerson"></select>
+                    </label>
+                    <label>
+                        Title text
+                        <input type="text" id="titleText" value="The Howard Family Tree">
+                    </label>
+                    <label>
+                        Generations depth
+                        <span id="generationValue">3</span>
+                        <input type="range" id="generationDepth" min="2" max="6" value="3">
+                    </label>
+                    <label class="toggle-wrap">
+                        <input type="checkbox" id="togglePhotos" checked>
+                        Include photos
+                    </label>
+                    <label class="toggle-wrap">
+                        <input type="checkbox" id="toggleYears" checked>
+                        Include birth / death years
+                    </label>
                 </div>
-
-                <div class="template-card" data-template="classic" onclick="selectTemplate('classic')">
-                    <div class="template-preview template-classic">
-                        <i class="fas fa-sitemap" style="color: #2d3748;"></i>
-                    </div>
-                    <div class="template-info">
-                        <h3>Classic Chart</h3>
-                        <p>Traditional genealogy chart with clean layout</p>
-                    </div>
+                <div class="export-actions">
+                    <button class="btn disabled" disabled><i class="fas fa-image"></i> Download PNG (Coming Next)</button>
+                    <button class="btn disabled" disabled><i class="fas fa-file-pdf"></i> Download PDF (Coming Next)</button>
                 </div>
+            </section>
 
-                <div class="template-card" data-template="heritage" onclick="selectTemplate('heritage')">
-                    <div class="template-preview template-heritage">
-                        <i class="fas fa-crown" style="color: #8b7355;"></i>
-                    </div>
-                    <div class="template-info">
-                        <h3>Heritage Portrait</h3>
-                        <p>Elegant vintage design with ornate borders and portrait layout</p>
-                    </div>
+            <section class="preview-wrapper">
+                <div id="previewTitle" class="preview-title">Classic Poster</div>
+                <div id="templatePreview" class="preview-canvas template-classic">
+                    <div id="previewTree" class="preview-tree"></div>
                 </div>
-
-                <div class="template-card" data-template="garden" onclick="selectTemplate('garden')">
-                    <div class="template-preview template-garden">
-                        <div class="tree-crown"></div>
-                        <i class="fas fa-seedling" style="color: #228B22; position: relative; z-index: 4;"></i>
-                    </div>
-                    <div class="template-info">
-                        <h3>Family Tree Garden</h3>
-                        <p>Beautiful garden scene with tree trunk, crown, and decorative fence</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="customization-panel" id="customizationPanel" style="display: none;">
-                <h2 style="margin-bottom: 24px;">Customize Your Tree</h2>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                    <div class="form-group">
-                        <label>Family Name</label>
-                        <input type="text" id="familyName" placeholder="Enter family name" value="My" onchange="updatePreview()">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Primary Color</label>
-                        <input type="color" id="primaryColor" class="color-input" value="#667eea" onchange="updatePreview()">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Accent Color</label>
-                        <input type="color" id="accentColor" class="color-input" value="#764ba2" onchange="updatePreview()">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Font Family</label>
-                        <select id="fontFamily" onchange="updatePreview()">
-                            <option value="'Inter', sans-serif">Inter (Modern)</option>
-                            <option value="'Playfair Display', serif">Playfair Display (Elegant)</option>
-                            <option value="'Crimson Text', serif">Crimson Text (Classic)</option>
-                            <option value="'Montserrat', sans-serif">Montserrat (Clean)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Max Generations</label>
-                        <input type="number" id="maxGenerations" value="4" min="1" max="10" onchange="updatePreview()">
-                    </div>
-
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" id="showPhotos" checked onchange="updatePreview()">
-                            Include Photos
-                        </label>
-                        <label>
-                            <input type="checkbox" id="showDates" checked onchange="updatePreview()">
-                            Include Dates
-                        </label>
-                        <label>
-                            <input type="checkbox" id="showLocations" checked onchange="updatePreview()">
-                            Include Locations
-                        </label>
-                    </div>
-                </div>
-
-                <div style="margin-top: 24px;">
-                    <button class="btn" onclick="exportPDF()"><i class="fas fa-file-pdf"></i> Export as PDF</button>
-                    <button class="btn" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
-                    <button class="btn" onclick="saveTemplate()"><i class="fas fa-save"></i> Save Template</button>
-                </div>
-            </div>
-
-            <div class="preview-area" id="previewArea" style="display: none;">
-                <h2 style="text-align: center; margin-bottom: 32px; font-family: 'Playfair Display', serif;">
-                    <span id="treeTitleName">My</span> Family Tree
-                </h2>
-                <div id="treePreview" class="tree-preview" style="text-align: center;"></div>
-            </div>
+                <p class="preview-note">This preview is static. Exports will be wired up next for PNG or PDF downloads.</p>
+            </section>
         </div>
     </div>
 
@@ -297,10 +143,30 @@
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZnZpdWRseHl1bW5za2FrZnRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMjExMDEsImV4cCI6MjA3ODg5NzEwMX0.fODOqTUm9g_20Jbxz5J5s_L-PwcH-mKfNp_3741fAnA'
         );
 
-        let currentTemplate = null;
         let familyMembers = [];
         let relationships = [];
-        let currentUser = null;
+        let currentTemplate = 'classic';
+
+        const templateChoices = document.querySelectorAll('.template-choice');
+        const startSelect = document.getElementById('startPerson');
+        const generationDepth = document.getElementById('generationDepth');
+        const generationValue = document.getElementById('generationValue');
+        const photoToggle = document.getElementById('togglePhotos');
+        const yearToggle = document.getElementById('toggleYears');
+        const titleInput = document.getElementById('titleText');
+        const previewTree = document.getElementById('previewTree');
+        const templatePreview = document.getElementById('templatePreview');
+        const previewTitle = document.getElementById('previewTitle');
+
+        templateChoices.forEach(card => card.addEventListener('click', () => selectTemplate(card.dataset.template)));
+        startSelect.addEventListener('change', () => updatePreview());
+        generationDepth.addEventListener('input', () => {
+            generationValue.textContent = generationDepth.value;
+            updatePreview();
+        });
+        photoToggle.addEventListener('change', updatePreview);
+        yearToggle.addEventListener('change', updatePreview);
+        titleInput.addEventListener('input', updatePreview);
 
         async function checkAuth() {
             const { data: { session } } = await supabase.auth.getSession();
@@ -308,224 +174,141 @@
                 window.location.href = '../auth/login.html';
                 return;
             }
-            currentUser = session.user;
             await loadFamilyData();
+            populateStartPerson();
+            selectTemplate('classic');
         }
 
         async function loadFamilyData() {
             const { data: members } = await supabase.from('family_members').select('*');
             const { data: rels } = await supabase.from('relationships').select('*');
-
             familyMembers = members || [];
             relationships = rels || [];
         }
 
-        window.selectTemplate = function(template) {
-            currentTemplate = template;
-
-            document.querySelectorAll('.template-card').forEach(card => {
-                card.classList.remove('selected');
+        function populateStartPerson() {
+            startSelect.innerHTML = '';
+            if (!familyMembers.length) {
+                const emptyOption = document.createElement('option');
+                emptyOption.textContent = 'No members yet';
+                emptyOption.value = '';
+                startSelect.appendChild(emptyOption);
+                startSelect.disabled = true;
+                return;
+            }
+            familyMembers.sort((a, b) => (a.first_name || '').localeCompare(b.first_name || ''));
+            familyMembers.forEach(member => {
+                const option = document.createElement('option');
+                option.value = member.id;
+                option.textContent = `${member.first_name || ''} ${member.last_name || ''}`.trim() || 'Unnamed';
+                startSelect.appendChild(option);
             });
-            document.querySelector(`[data-template="${template}"]`).classList.add('selected');
+            startSelect.disabled = false;
+            startSelect.value = familyMembers[0].id;
+        }
 
-            document.getElementById('customizationPanel').style.display = 'block';
-            document.getElementById('previewArea').style.display = 'block';
-
+        function selectTemplate(template) {
+            currentTemplate = template;
+            templateChoices.forEach(card => card.classList.toggle('selected', card.dataset.template === template));
+            templatePreview.className = `preview-canvas template-${template}`;
             updatePreview();
-        };
+        }
 
-        window.updatePreview = function() {
-            if (!currentTemplate) return;
+        function updatePreview() {
+            const startId = startSelect.value;
+            const depth = parseInt(generationDepth.value, 10);
+            const showPhotos = photoToggle.checked;
+            const showYears = yearToggle.checked;
+            const title = titleInput.value.trim() || 'Our Family Tree';
 
-            const familyName = document.getElementById('familyName').value || 'My';
-            const primaryColor = document.getElementById('primaryColor').value;
-            const accentColor = document.getElementById('accentColor').value;
-            const fontFamily = document.getElementById('fontFamily').value;
-            const showPhotos = document.getElementById('showPhotos').checked;
-            const showDates = document.getElementById('showDates').checked;
-            const showLocations = document.getElementById('showLocations').checked;
-            const maxGenerations = parseInt(document.getElementById('maxGenerations').value);
+            previewTitle.textContent = `${title} — ${templateLabel(currentTemplate)}`;
+            previewTree.innerHTML = renderPreview(startId, depth, showPhotos, showYears);
+        }
 
-            // Update family name in title
-            document.getElementById('treeTitleName').textContent = familyName;
+        function templateLabel(key) {
+            const labels = {
+                classic: 'Classic Poster',
+                modern: 'Modern Minimal',
+                illustration: 'Tree Illustration Style'
+            };
+            return labels[key] || 'Template';
+        }
 
-            const preview = document.getElementById('treePreview');
-            preview.style.setProperty('--tree-font', fontFamily);
-            preview.className = `tree-preview template-${currentTemplate}`;
-
-            // Special handling for garden template
-            if (currentTemplate === 'garden') {
-                preview.innerHTML = `
-                    <div class="tree-crown"></div>
-                    <div style="position: relative; z-index: 3; padding-top: 100px;">
-                        ${generateFamilyNodes()}
-                    </div>
-                `;
-            } else {
-                preview.innerHTML = generateFamilyNodes();
+        function renderPreview(startId, depth, showPhotos, showYears) {
+            if (!familyMembers.length || !startId) {
+                return '<p class="empty-note">Add a few family members in the Tree Builder to preview templates.</p>';
             }
 
-            function generateFamilyNodes() {
-                if (familyMembers.length === 0) {
-                    return '<p style="color: #718096; padding: 60px;">No family members added yet. Add members in the Family Tree Builder to see your tree here!</p>';
-                }
-
-                // Build hierarchical structure
-                const tree = buildFamilyTree();
-                return renderTree(tree);
+            const structure = buildPreviewTree(startId, depth);
+            if (!structure) {
+                return '<p class="empty-note">Cannot render tree for the selected person.</p>';
             }
 
-            function buildFamilyTree() {
-                // Find roots (people with no parents)
-                const roots = familyMembers.filter(member =>
-                    !relationships.some(rel => rel.relationship_type === 'parent' && rel.child_id === member.id)
-                );
-
-                // Build tree structure
-                const childrenMap = new Map();
-                relationships.forEach(rel => {
-                    if (rel.relationship_type === 'parent') {
-                        if (!childrenMap.has(rel.parent_id)) {
-                            childrenMap.set(rel.parent_id, []);
-                        }
-                        childrenMap.get(rel.parent_id).push(rel.child_id);
-                    }
-                });
-
-                function buildNode(memberId, generation = 0) {
-                    const member = familyMembers.find(m => m.id === memberId);
-                    if (!member) return null;
-
-                    const children = childrenMap.get(memberId) || [];
-                    return {
-                        member,
-                        generation,
-                        children: children.map(childId => buildNode(childId, generation + 1)).filter(n => n !== null)
-                    };
-                }
-
-                if (roots.length > 0) {
-                    return roots.map(r => buildNode(r.id, 0));
-                }
-
-                // If no relationships, show all as generation 0
-                return familyMembers.slice(0, maxGenerations * 3).map(m => ({
-                    member: m,
-                    generation: 0,
-                    children: []
-                }));
+            const generations = [];
+            collectGenerations(structure, 0, generations);
+            if (!generations.length) {
+                return '<p class="empty-note">This template will populate once more relatives are added.</p>';
             }
 
-            function renderTree(nodes) {
-                if (!nodes || nodes.length === 0) return '';
-
-                // Organize by generations
-                const generations = new Map();
-                function organizeGenerations(node) {
-                    if (!generations.has(node.generation)) {
-                        generations.set(node.generation, []);
-                    }
-                    generations.get(node.generation).push(node.member);
-                    node.children.forEach(organizeGenerations);
-                }
-                nodes.forEach(organizeGenerations);
-
-                const showPhotos = document.getElementById('showPhotos').checked;
-                const showDates = document.getElementById('showDates').checked;
-                const showLocations = document.getElementById('showLocations').checked;
-
-                // Render each generation
-                let html = '<div style="display: flex; flex-direction: column; gap: 40px; align-items: center;">';
-                const sortedGenerations = Array.from(generations.keys()).sort((a, b) => a - b);
-
-                sortedGenerations.forEach(gen => {
-                    const members = generations.get(gen);
-                    html += '<div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">';
-                    members.forEach(member => {
-                        html += `
-                            <div class="tree-node">
-                                ${showPhotos && member.avatar_url ? `<img src="${member.avatar_url}" alt="${member.first_name}">` : '<div style="width: 80px; height: 80px; background: #e2e8f0; border-radius: 50%; margin: 0 auto 8px;"></div>'}
-                                <div class="tree-node-name">${member.first_name} ${member.last_name || ''}</div>
-                                ${showDates && member.birth_date ? `<div class="tree-node-info">b. ${new Date(member.birth_date).getFullYear()}</div>` : ''}
-                                ${showLocations && member.location ? `<div class="tree-node-info">${member.location}</div>` : ''}
-                            </div>
-                        `;
-                    });
-                    html += '</div>';
-
-                    // Add generation line/separator
-                    if (gen < sortedGenerations[sortedGenerations.length - 1]) {
-                        html += '<div style="width: 2px; height: 30px; background: rgba(0,0,0,0.2); margin: 0 auto;"></div>';
-                    }
+            let html = '<div class="preview-tree-columns">';
+            generations.forEach(level => {
+                html += '<div class="generation-row">';
+                level.forEach(member => {
+                    html += `
+                        <div class="node-card ${showPhotos ? '' : 'no-photo'}">
+                            ${showPhotos ? `<div class="node-photo">${getInitials(member)}</div>` : ''}
+                            <div class="node-name">${member.first_name || ''} ${member.last_name || ''}</div>
+                            ${showYears ? `<div class="node-meta">${formatYear(member.birth_date)}${member.death_date ? ' – ' + formatYear(member.death_date) : ''}</div>` : ''}
+                        </div>
+                    `;
                 });
                 html += '</div>';
+            });
+            html += '</div>';
+            return html;
+        }
 
-                return html;
-            }
-
-            // Apply custom colors
-            const style = document.createElement('style');
-            style.innerHTML = `
-                .template-${currentTemplate} .tree-node {
-                    border-color: ${primaryColor} !important;
+        function buildPreviewTree(startId, depth) {
+            const childrenMap = new Map();
+            relationships.forEach(rel => {
+                if (rel.relationship_type === 'parent') {
+                    if (!childrenMap.has(rel.parent_id)) {
+                        childrenMap.set(rel.parent_id, []);
+                    }
+                    childrenMap.get(rel.parent_id).push(rel.child_id);
                 }
-                .template-${currentTemplate} {
-                    background: linear-gradient(135deg, ${primaryColor}, ${accentColor}) !important;
-                }
-            `;
-            document.head.appendChild(style);
-        };
-
-        window.exportPDF = async function() {
-            const { jsPDF } = window.jspdf;
-            const element = document.getElementById('previewArea');
-
-            const canvas = await html2canvas(element, {
-                scale: 2,
-                backgroundColor: '#ffffff'
             });
 
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const imgWidth = 210;
-            const imgHeight = canvas.height * imgWidth / canvas.width;
-
-            pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-            
-            const familyName = document.getElementById('familyName').value || 'My';
-            pdf.save(`${familyName}-family-tree.pdf`);
-        };
-
-        window.saveTemplate = async function() {
-            if (!currentTemplate || !currentUser) return;
-
-            const familyName = document.getElementById('familyName').value || 'My';
-            const templateData = {
-                user_id: currentUser.id,
-                name: `${familyName} ${currentTemplate} Template`,
-                template_type: currentTemplate,
-                customization: {
-                    familyName: familyName,
-                    primaryColor: document.getElementById('primaryColor').value,
-                    accentColor: document.getElementById('accentColor').value,
-                    fontFamily: document.getElementById('fontFamily').value,
-                    showPhotos: document.getElementById('showPhotos').checked,
-                    showDates: document.getElementById('showDates').checked,
-                    showLocations: document.getElementById('showLocations').checked,
-                    maxGenerations: document.getElementById('maxGenerations').value
-                }
-            };
-
-            const { error } = await supabase
-                .from('tree_templates')
-                .insert([templateData]);
-
-            if (error) {
-                alert('Error saving template: ' + error.message);
-            } else {
-                alert('Template saved successfully!');
+            function traverse(id, level) {
+                if (level >= depth) return null;
+                const member = familyMembers.find(m => m.id === id);
+                if (!member) return null;
+                const children = (childrenMap.get(id) || []).map(childId => traverse(childId, level + 1)).filter(Boolean);
+                return { member, children };
             }
-        };
+
+            return traverse(startId, 0);
+        }
+
+        function collectGenerations(node, level, generations) {
+            if (!node) return;
+            if (!generations[level]) generations[level] = [];
+            generations[level].push(node.member);
+            node.children.forEach(child => collectGenerations(child, level + 1, generations));
+        }
+
+        function getInitials(member) {
+            const first = (member.first_name || '').trim()[0] || '';
+            const last = (member.last_name || '').trim()[0] || '';
+            return `${first}${last}`.toUpperCase() || '★';
+        }
+
+        function formatYear(date) {
+            if (!date) return '';
+            const parsed = new Date(date);
+            if (isNaN(parsed.getTime())) return '';
+            return parsed.getFullYear();
+        }
 
         window.signOut = async function() {
             await supabase.auth.signOut();

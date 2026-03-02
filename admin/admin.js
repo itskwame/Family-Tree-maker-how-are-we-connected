@@ -97,6 +97,61 @@ export function timeAgo(dateString) {
     return 'Just now';
 }
 
+export function showToast(message, type = "info", ms = 3000) {
+    let el = document.getElementById("fc-toast");
+    if (!el) {
+        el = document.createElement("div");
+        el.id = "fc-toast";
+        el.style.position = "fixed";
+        el.style.bottom = "20px";
+        el.style.right = "20px";
+        el.style.zIndex = "9999";
+        el.style.padding = "10px 12px";
+        el.style.borderRadius = "10px";
+        el.style.boxShadow = "0 10px 30px rgba(0,0,0,.15)";
+        el.style.background = "#111827";
+        el.style.color = "white";
+        el.style.fontFamily = "system-ui, -apple-system, Segoe UI, Roboto, Arial";
+        el.style.fontSize = "14px";
+        el.style.opacity = "0";
+        el.style.transition = "opacity 150ms ease";
+        document.body.appendChild(el);
+    }
+
+    el.textContent = message;
+    el.style.opacity = "1";
+
+    window.clearTimeout(el._t);
+    el._t = window.setTimeout(() => {
+        el.style.opacity = "0";
+    }, ms);
+}
+
+export function formatDateTime(value) {
+    if (!value) return "";
+    const d = value instanceof Date ? value : new Date(value);
+    if (Number.isNaN(d.getTime())) return String(value);
+    return new Intl.DateTimeFormat(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+    }).format(d);
+}
+
+export async function logout() {
+    try {
+        if (supabase?.auth?.signOut) {
+            await supabase.auth.signOut();
+        }
+    } catch (e) {
+        // logout should still redirect
+    } finally {
+        window.location.href = "/admin/login.html";
+    }
+}
+
 export function renderSidebar(activePage) {
     return `
         <div class="logo" onclick="location.href='index.html'">
