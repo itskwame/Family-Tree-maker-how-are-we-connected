@@ -1,0 +1,15 @@
+Command: npm run test:family
+Final TAP summary, 2026-10-20:
+1..53
+# tests 53
+# suites 0
+# pass 53
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 19344.6492
+
+Includes 49 existing relationship/geometry tests and four premium fixture tests.
+Premium geometry details and calculated print sizes: layout-11.json, layout-15.json,
+layout-25.json and layout-40.json in this directory.

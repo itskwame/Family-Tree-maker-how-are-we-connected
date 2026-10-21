@@ -1,0 +1,15 @@
+{
+  "license": "Pexels License",
+  "licenseUrl": "https://www.pexels.com/license/",
+  "usage": "Licensed stock models portray fictional demo characters. Names, dates and relationships are invented; no endorsement or actual family connection is implied.",
+  "portraits": [
+    {"person":"arthur","photoId":6667746,"credit":"Kampus Production","source":"https://www.pexels.com/photo/portrait-of-an-elderly-man-smiling-6667746/"},
+    {"person":"iris","photoId":8865426,"credit":"RDNE Stock project","source":"https://www.pexels.com/photo/portrait-of-an-elderly-woman-s-face-8865426/"},
+    {"person":"david","photoId":17824398,"credit":"Sandro Tavares","source":"https://www.pexels.com/photo/portrait-of-an-adult-man-smiling-17824398/"},
+    {"person":"helen","photoId":29405854,"credit":"Alimi Sandrine","source":"https://www.pexels.com/photo/professional-portrait-of-smiling-middle-aged-woman-29405854/"},
+    {"person":"emma","photoId":20591769,"credit":"Александр Лич","source":"https://www.pexels.com/photo/close-up-portrait-of-a-woman-20591769/"},
+    {"person":"lucas","photoId":31869535,"credit":"Finn Gruber","source":"https://www.pexels.com/photo/portrait-of-a-thoughtful-young-man-against-neutral-background-31869535/"},
+    {"person":"ava","photoId":25849096,"credit":"Jon Champaigne","source":"https://www.pexels.com/photo/portrait-of-smiling-girl-25849096/"},
+    {"person":"theo","photoId":20189738,"credit":"Kimy Moto","source":"https://www.pexels.com/photo/portrait-of-smiling-boy-20189738/"}
+  ]
+}

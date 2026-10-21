@@ -1,0 +1,75 @@
+{
+  "node": "v18.20.8",
+  "platform": "win32",
+  "cpu": "Intel(R) Core(TM) Ultra 5 125U",
+  "people": 100,
+  "partnerships": 39,
+  "parentages": 123,
+  "width": 8385,
+  "height": 1332,
+  "geometry": {
+    "overlaps": [],
+    "detached": [],
+    "crossings": []
+  },
+  "explicitlyGappedCrossovers": 26,
+  "unrelatedCollinearOverlaps": [],
+  "unrelatedTouches": [],
+  "measurements": [
+    {
+      "wallMs": 1009.4009000062943,
+      "layoutMs": 1009.1001999974251,
+      "before": {
+        "rss": 92168192,
+        "heapTotal": 58073088,
+        "heapUsed": 36014688,
+        "external": 939971,
+        "arrayBuffers": 10618
+      },
+      "after": {
+        "rss": 108183552,
+        "heapTotal": 63725568,
+        "heapUsed": 36191896,
+        "external": 7495234,
+        "arrayBuffers": 10626
+      }
+    },
+    {
+      "wallMs": 479.1013000011444,
+      "layoutMs": 479.01380002498627,
+      "before": {
+        "rss": 108183552,
+        "heapTotal": 63725568,
+        "heapUsed": 36192272,
+        "external": 7495234,
+        "arrayBuffers": 10626
+      },
+      "after": {
+        "rss": 124420096,
+        "heapTotal": 81551360,
+        "heapUsed": 55140704,
+        "external": 7495234,
+        "arrayBuffers": 10626
+      }
+    },
+    {
+      "wallMs": 346.2641999721527,
+      "layoutMs": 346.1777999997139,
+      "before": {
+        "rss": 124444672,
+        "heapTotal": 81813504,
+        "heapUsed": 55456008,
+        "external": 7495234,
+        "arrayBuffers": 10626
+      },
+      "after": {
+        "rss": 144326656,
+        "heapTotal": 101474304,
+        "heapUsed": 69923656,
+        "external": 7495234,
+        "arrayBuffers": 10626
+      }
+    }
+  ],
+  "memoryNote": "Node process snapshots include ELK and retained prior runs; not peak or browser total memory."
+}

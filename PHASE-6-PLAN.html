@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FamilyConnect Phase 6 — approved onboarding implementation plan</title>
+<style>body{max-width:1000px;margin:40px auto;padding:0 24px;font:16px/1.65 system-ui,sans-serif;color:#243e35;background:#fafbf8}h1,h2{line-height:1.25}h2{margin-top:36px}table{border-collapse:collapse;width:100%}td,th{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid #ccd7ce}.notice{padding:20px;background:#f4eddc}code{font-size:.9em}a{color:#245f76}</style>
+<h1>Phase 6: approved onboarding implementation plan</h1>
+<p>Updated 20 October 2026. The simplified flow and prior security architecture are approved. Implementation is authorized only after database and isolation prerequisites are verified.</p>
+<p class="notice"><strong>Prerequisite gate: not satisfied.</strong> No migrations, application changes, invitations or production writes were performed during this check. This plan is the only new project file.</p>
+<h2>Verified environment findings</h2>
+<table><tr><th>Check</th><th>Observed result</th></tr>
+<tr><td>Configured project</td><td>The .env project host matches Family Connect, project reference <code>jmsntxwkaneluqgnzzim</code>. Secret values were not printed.</td></tr>
+<tr><td>Supabase management access</td><td>A read-only <code>supabase projects list --output json</code> succeeded using the existing CLI credentials. The matching project reports <strong>INACTIVE</strong> and is not linked to this checkout. Other projects were not modified.</td></tr>
+<tr><td>Complete database baseline</td><td>Not verified. The repository contains incremental migrations, but lacks the base definitions for core tables and a complete inventory of deployed policies, grants, functions, triggers and storage rules.</td></tr>
+<tr><td>Local tooling</td><td>Supabase CLI 2.75.0 and Docker are installed. Docker context is <code>desktop-linux</code>; <code>docker info</code> fails because the Docker Desktop Linux-engine pipe does not exist.</td></tr>
+<tr><td>Isolated environment</td><td>Not established. No <code>supabase/config.toml</code> or running local Supabase stack is present in this checkout.</td></tr></table>
+<p>To resume: make the complete schema available through an active, read-only-accessible project or a schema-only export, and make the local Docker engine available (or provide a designated isolated development Supabase environment). Project reactivation was not attempted. Do not paste database passwords or service-role credentials into chat.</p>
+<h2>Approved sequence</h2>
+<p><strong>Personal invitation → Identity confirmation → Family connection reveal → Optional family building → Voluntary invitations.</strong></p>
+<ol>
+<li><strong>Personal invitation:</strong> show the consent-approved inviter display name/photo, public-safe network label and welcoming message. Keep recipient details and private family records protected. Opening the opaque link does not consume it.</li>
+<li><strong>Identity confirmation:</strong> securely authenticate with Supabase, retain invitation continuation, and collect only the minimum name information required. Existing profile claims require verified account/email binding or review; the link alone is insufficient. Detailed family questions are not a prerequisite.</li>
+<li><strong>Immediate reveal:</strong> show the inviter, recipient and a readable branch using the existing graph, relationship finder and SVG renderer. Highlight a relationship path only when every required record is verified and authorized. Otherwise explain that the connection is incomplete and offer one optional question; skipping it still permits authorized exploration.</li>
+<li><strong>Optional builder:</strong> ask “Let's grow your family tree! Who would you like to add first?” Offer parents, brothers or sisters, children, another relative, and skip. Ask only relevant questions. Sibling count is optional; individual names can be added incrementally.</li>
+<li><strong>Voluntary invitations:</strong> after adding an adult, offer a personalized invitation via SMS, WhatsApp, email, native share or copy link. No automatic sends, contact uploads or invitation requirement.</li>
+</ol>
+<h2>Guided Family Builder</h2>
+<p>Keep the builder available from the dashboard after onboarding. Store drafts and progress automatically against the authenticated account and network, with visible saving/error status and idempotent writes. Resume the last saved step after leaving and returning. Do not cache private graph responses or invitation tokens in the PWA service worker.</p>
+<p>Search only authorized existing records before proposing a new person. Offer potential matches for confirmation; never merge on a name alone. Enforce claim uniqueness transactionally and return privacy-safe conflict responses. Unresolved duplicates become review items rather than silently creating another claimed identity.</p>
+<p>Support full, half, adoptive and step sibling descriptions without inventing shared parents. Parent/child additions record the proposed parentage type. Step or cousin assertions remain claims until supported by appropriate underlying records. The verified branch uses the existing engine; provisional people and connections appear in a clearly separate pending section of the live preview and do not enter confirmed relationship calculations.</p>
+<p>Unknown age is not treated as adult. Invitation offers require an adult classification and appropriate permissions; minors remain guardian-managed and restricted. New profiles default to restricted visibility. Photo publication and cross-network sharing require explicit consent.</p>
+<h2>Database and security architecture retained</h2>
+<table><tr><th>Area</th><th>Implementation scope</th></tr>
+<tr><td>Networks and membership</td><td>Extend existing family groups with protected roles, membership states and network-specific privacy. Separate administrative accounts remain independent.</td></tr>
+<tr><td>Identity and profile claims</td><td>Separate authenticated account ownership from family records. Use private canonical identity mappings, claim evidence, exclusive ownership constraints and approval history.</td></tr>
+<tr><td>Invitations and tokens</td><td>Replace permissive invitation reads. Store only hashes of cryptographically random 256-bit tokens, with expiry, revocation, recipient binding and atomic consumption. Preview responses expose only approved fields.</td></tr>
+<tr><td>Relationships</td><td>Separate pending claims from verified parentage/partnership records. Preserve provenance, correction and dispute workflows. Never convert a selected relationship label directly into a confirmed edge.</td></tr>
+<tr><td>Network connections</td><td>Require approval from both networks plus applicable profile/guardian consent. Grant access to explicit records; no whole-network or transitive permission inheritance.</td></tr>
+<tr><td>Builder progress</td><td>Add network-scoped builder drafts and draft items, revision/idempotency controls, completion state and review references. Drafts can reference existing authorized records or proposed people.</td></tr>
+<tr><td>Privacy and media</td><td>Enforce profile visibility, restricted minor data, consent-aware photographs and private storage access. A small consent-controlled memory/photo attachment action can be offered from the dashboard; no separate social-feed redesign.</td></tr>
+<tr><td>Audit and analytics</td><td>Protect audit history and network-scoped funnel events. Track invitation creation/opening, onboarding start, identity completion, supported reveal, optional builder use, voluntary sharing, successful acceptance and network connections. Never log raw tokens or contacts in analytics.</td></tr></table>
+<p>Use RLS plus restricted column grants and narrowly authorized transactional functions. Administrative roles must not be editable through ordinary profile updates. The checked-in invitation policy containing <code>OR true</code> and short plaintext invite codes remain identified risks; deployed state still needs verification.</p>
+<h2>Dashboard next steps</h2>
+<p>Generate prompts from real, authorized state: resume an unfinished builder draft, review a pending relationship, explore an approved newly connected branch, invite an eligible adult, attach a memory/photo with consent, or review a possible duplicate. Omit prompts with no supporting state. Sharing initiation is not recorded as confirmed message delivery; native-share cancellation does not count as an invitation sent.</p>
+<h2>Implementation order once prerequisites pass</h2>
+<ol>
+<li>Inventory the complete schema, deployed grants/RLS, functions/triggers, Auth configuration and storage policies using metadata only. Review drift against the repository and record the baseline.</li>
+<li>Establish a separately configured local Supabase instance, local test email inbox and fictional accounts. Verify its URL, database and credentials cannot target production before any migration or seed command.</li>
+<li>Write additive migrations and compatibility mappings. Apply them only to the isolated database; do not automatically verify legacy relationship records. Prove restrictive policies with authenticated database/API tests before building the claim UI.</li>
+<li>Implement invitation → identity → immediate reveal as the first complete vertical flow.</li>
+<li>Add the optional autosaved builder, provisional preview, duplicate review, voluntary sharing and separate-network approvals.</li>
+<li>Add state-based dashboard prompts, minimal privacy-conscious funnel analytics and a static-assets-only PWA cache.</li>
+<li>Run security, relationship and regression suites; capture mobile/desktop evidence and independently inspect the working demo. Stop before public deployment or Phase 7.</li>
+</ol>
+<h2>Acceptance and timing measurements</h2>
+<p>Run all 12 previously specified onboarding scenarios with fictional accounts against real isolated Supabase Auth and RLS. Retain the existing graph, geometry, interactive navigation, export and premium-template tests. Add coverage for skipped builder/questions, full/half/adoptive/step proposals, unauthorized duplicate search, minors, concurrent claims, token replay, consent revocation, role escalation, save failures and leave/return recovery.</p>
+<p>Capture timestamps for invitation arrival, identity completion and first usable reveal. Report total elapsed time, separately measured email waiting, and time excluding that wait. Target 60–90 seconds for a straightforward first-time user. Automated Playwright timing establishes system-flow timing; it does not establish human usability. Report a timed manual first-use walkthrough separately and do not claim the target until measured.</p>
+<p>Deliverables remain a working isolated demonstration, screenshots, automated test results, security findings, setup instructions and documented limitations. None of those implementation deliverables is claimed complete at this prerequisite stop.</p>
+<h2>Stop condition</h2>
+<p>The user explicitly required: “Before database migrations, verify the complete Supabase schema and establish an isolated development environment. If these prerequisites cannot be verified, stop and report what is missing.” Those prerequisites are currently unverified. No new architecture approval is needed to resume once they are satisfied; production changes and public deployment still require explicit approval.</p>
+</html>

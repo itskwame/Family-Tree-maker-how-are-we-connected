@@ -1,4 +1,11 @@
 node_modules/
-.next/
 dist/
 .env
+dist-family-prototype/
+tmp/family-playwright/
+output/phase6/private/
+tmp/phase6-hosted-audit/
+supabase/.temp/
+.env.phase6.local
+dist-phase6/
+scripts/__pycache__/

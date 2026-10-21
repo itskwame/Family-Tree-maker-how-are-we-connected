@@ -1,0 +1,158 @@
+> family-tree-maker-how-are-we-connected@1.0.0 test:family
+> node --test tests/family/engine.test.mjs
+
+TAP version 13
+# Subtest: fictional fixture contains exactly 25 unique people, 9 partnerships, and valid parentage
+ok 1 - fictional fixture contains exactly 25 unique people, 9 partnerships, and valid parentage
+  ---
+  duration_ms: 2.3932
+  ...
+# Subtest: david / emma: David is Emma's father
+ok 2 - david / emma: David is Emma's father
+  ---
+  duration_ms: 1.0443
+  ...
+# Subtest: emma / david: Emma is David's daughter
+ok 3 - emma / david: Emma is David's daughter
+  ---
+  duration_ms: 0.3399
+  ...
+# Subtest: arthur / emma: Arthur is Emma's grandfather
+ok 4 - arthur / emma: Arthur is Emma's grandfather
+  ---
+  duration_ms: 0.4823
+  ...
+# Subtest: ava / eleanor: Ava is Eleanor's great-granddaughter
+ok 5 - ava / eleanor: Ava is Eleanor's great-granddaughter
+  ---
+  duration_ms: 1.2171
+  ...
+# Subtest: helen / emma: Helen is Emma's aunt
+ok 6 - helen / emma: Helen is Emma's aunt
+  ---
+  duration_ms: 9.7692
+  ...
+# Subtest: emma / helen: Emma is Helen's niece
+ok 7 - emma / helen: Emma is Helen's niece
+  ---
+  duration_ms: 0.3829
+  ...
+# Subtest: emma / jack: Full siblings
+ok 8 - emma / jack: Full siblings
+  ---
+  duration_ms: 0.443
+  ...
+# Subtest: emma / leo: Half-siblings
+ok 9 - emma / leo: Half-siblings
+  ---
+  duration_ms: 0.458
+  ...
+# Subtest: emma / sophie: First cousins
+ok 10 - emma / sophie: First cousins
+  ---
+  duration_ms: 0.9064
+  ...
+# Subtest: ava / sophie: First cousins, once removed
+ok 11 - ava / sophie: First cousins, once removed
+  ---
+  duration_ms: 0.9796
+  ...
+# Subtest: ava / ethan: Second cousins
+ok 12 - ava / ethan: Second cousins
+  ---
+  duration_ms: 0.4955
+  ...
+# Subtest: clara / david: Former spouses
+ok 13 - clara / david: Former spouses
+  ---
+  duration_ms: 1.5881
+  ...
+# Subtest: emma / lucas: Spouses
+ok 14 - emma / lucas: Spouses
+  ---
+  duration_ms: 1.0911
+  ...
+# Subtest: sophie / noah: Partners
+ok 15 - sophie / noah: Partners
+  ---
+  duration_ms: 0.3362
+  ...
+# Subtest: arthur / samuel: Connection through partnership
+ok 16 - arthur / samuel: Connection through partnership
+  ---
+  duration_ms: 0.4319
+  ...
+# Subtest: cousin partnership retains biological and partnership evidence separately
+ok 17 - cousin partnership retains biological and partnership evidence separately
+  ---
+  duration_ms: 0.6626
+  ...
+# Subtest: every returned evidence path consists of the named, consecutive real edges
+ok 18 - every returned evidence path consists of the named, consecutive real edges
+  ---
+  duration_ms: 135.8445
+  ...
+# Subtest: missing second parents do not establish half-sibling status
+ok 19 - missing second parents do not establish half-sibling status
+  ---
+  duration_ms: 1.8328
+  ...
+# Subtest: adoptive parentage is not classified as biological kinship
+ok 20 - adoptive parentage is not classified as biological kinship
+  ---
+  duration_ms: 0.4799
+  ...
+# Subtest: unconnected people return insufficient-data message
+ok 21 - unconnected people return insufficient-data message
+  ---
+  duration_ms: 0.597
+  ...
+# Subtest: third cousins and twice-removed cousins follow ancestry depths
+ok 22 - third cousins and twice-removed cousins follow ancestry depths
+  ---
+  duration_ms: 0.3104
+  ...
+# Subtest: graph rejects duplicate person
+ok 23 - graph rejects duplicate person
+  ---
+  duration_ms: 0.7823
+  ...
+# Subtest: graph rejects missing endpoint
+ok 24 - graph rejects missing endpoint
+  ---
+  duration_ms: 0.3092
+  ...
+# Subtest: graph rejects self parent
+ok 25 - graph rejects self parent
+  ---
+  duration_ms: 0.2626
+  ...
+# Subtest: graph rejects cycle
+ok 26 - graph rejects cycle
+  ---
+  duration_ms: 0.5046
+  ...
+# Subtest: graph rejects duplicate edge
+ok 27 - graph rejects duplicate edge
+  ---
+  duration_ms: 0.1747
+  ...
+# Subtest: automatic layout: 25 cards, four generations, no overlaps, no detached endpoints, no card-crossing lines
+ok 28 - automatic layout: 25 cards, four generations, no overlaps, no detached endpoints, no card-crossing lines
+  ---
+  duration_ms: 434.7096
+  ...
+# Subtest: ancestor and descendant views relayout automatically without changing original records
+ok 29 - ancestor and descendant views relayout automatically without changing original records
+  ---
+  duration_ms: 52.3316
+  ...
+1..29
+# tests 29
+# suites 0
+# pass 29
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 911.5146

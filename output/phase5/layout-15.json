@@ -1,0 +1,2386 @@
+{
+  "graph": {
+    "people": [
+      {
+        "id": "arthur",
+        "first": "Arthur",
+        "last": "Bennett",
+        "born": 1932,
+        "died": 2016,
+        "gender": "male",
+        "photo": "/family-portraits/arthur.jpg",
+        "biologicalParentsComplete": true
+      },
+      {
+        "id": "eleanor",
+        "first": "Eleanor",
+        "last": "Bennett",
+        "born": 1936,
+        "died": 2021,
+        "gender": "female",
+        "photo": null,
+        "biologicalParentsComplete": true
+      },
+      {
+        "id": "samuel",
+        "first": "Samuel",
+        "last": "Reed",
+        "born": 1934,
+        "died": 2019,
+        "gender": "male",
+        "photo": null,
+        "biologicalParentsComplete": false
+      },
+      {
+        "id": "iris",
+        "first": "Iris",
+        "last": "Reed",
+        "born": 1938,
+        "gender": "female",
+        "photo": "/family-portraits/iris.jpg",
+        "biologicalParentsComplete": false
+      },
+      {
+        "id": "david",
+        "first": "David",
+        "last": "Bennett",
+        "born": 1958,
+        "gender": "male",
+        "photo": "/family-portraits/david.jpg",
+        "biologicalParentsComplete": true
+      },
+      {
+        "id": "clara",
+        "first": "Clara",
+        "last": "Reed",
+        "born": 1960,
+        "gender": "female",
+        "photo": null,
+        "biologicalParentsComplete": true
+      },
+      {
+        "id": "ruth",
+        "first": "Ruth",
+        "last": "Lane",
+        "born": 1969,
+        "gender": "female",
+        "photo": null,
+        "biologicalParentsComplete": false
+      },
+      {
+        "id": "emma",
+        "first": "Emma",
+        "last": "Bennett",
+        "born": 1984,
+        "gender": "female",
+        "photo": "/family-portraits/emma.jpg",
+        "biologicalParentsComplete": true
+      },
+      {
+        "id": "lucas",
+        "first": "Lucas",
+        "last": "Hart",
+        "born": 1983,
+        "gender": "male",
+        "photo": "/family-portraits/lucas.jpg",
+        "biologicalParentsComplete": false
+      },
+      {
+        "id": "ava",
+        "first": "Ava",
+        "last": "Hart",
+        "born": 2010,
+        "gender": "female",
+        "photo": "/family-portraits/ava.jpg",
+        "biologicalParentsComplete": true
+      },
+      {
+        "id": "theo",
+        "first": "Theo",
+        "last": "Hart",
+        "born": 2013,
+        "gender": "male",
+        "photo": "/family-portraits/theo.jpg",
+        "biologicalParentsComplete": true
+      },
+      {
+        "id": "edmund",
+        "first": "Edmund",
+        "last": "Bennett",
+        "born": 1905,
+        "died": 1989,
+        "gender": "unspecified",
+        "biologicalParentsComplete": false,
+        "photo": null
+      },
+      {
+        "id": "agnes",
+        "first": "Agnes",
+        "last": "Bennett",
+        "born": 1907,
+        "died": 1991,
+        "gender": "unspecified",
+        "biologicalParentsComplete": false,
+        "photo": null
+      },
+      {
+        "id": "walter",
+        "first": "Walter",
+        "last": "Stone",
+        "born": 1908,
+        "died": 1992,
+        "gender": "unspecified",
+        "biologicalParentsComplete": false,
+        "photo": null
+      },
+      {
+        "id": "beatrice",
+        "first": "Beatrice",
+        "last": "Stone",
+        "born": 1910,
+        "died": 1994,
+        "gender": "unspecified",
+        "biologicalParentsComplete": false,
+        "photo": null
+      }
+    ],
+    "parentages": [
+      {
+        "id": "arthur>david",
+        "parent": "arthur",
+        "child": "david",
+        "kind": "biological",
+        "union": "founders"
+      },
+      {
+        "id": "eleanor>david",
+        "parent": "eleanor",
+        "child": "david",
+        "kind": "biological",
+        "union": "founders"
+      },
+      {
+        "id": "samuel>clara",
+        "parent": "samuel",
+        "child": "clara",
+        "kind": "biological",
+        "union": "reeds"
+      },
+      {
+        "id": "iris>clara",
+        "parent": "iris",
+        "child": "clara",
+        "kind": "biological",
+        "union": "reeds"
+      },
+      {
+        "id": "david>emma",
+        "parent": "david",
+        "child": "emma",
+        "kind": "biological",
+        "union": "david-clara"
+      },
+      {
+        "id": "clara>emma",
+        "parent": "clara",
+        "child": "emma",
+        "kind": "biological",
+        "union": "david-clara"
+      },
+      {
+        "id": "emma>ava",
+        "parent": "emma",
+        "child": "ava",
+        "kind": "biological",
+        "union": "emma-lucas"
+      },
+      {
+        "id": "lucas>ava",
+        "parent": "lucas",
+        "child": "ava",
+        "kind": "biological",
+        "union": "emma-lucas"
+      },
+      {
+        "id": "emma>theo",
+        "parent": "emma",
+        "child": "theo",
+        "kind": "biological",
+        "union": "emma-lucas"
+      },
+      {
+        "id": "lucas>theo",
+        "parent": "lucas",
+        "child": "theo",
+        "kind": "biological",
+        "union": "emma-lucas"
+      },
+      {
+        "id": "edmund>arthur",
+        "parent": "edmund",
+        "child": "arthur",
+        "kind": "biological",
+        "union": "early-bennett"
+      },
+      {
+        "id": "agnes>arthur",
+        "parent": "agnes",
+        "child": "arthur",
+        "kind": "biological",
+        "union": "early-bennett"
+      },
+      {
+        "id": "walter>eleanor",
+        "parent": "walter",
+        "child": "eleanor",
+        "kind": "biological",
+        "union": "early-stone"
+      },
+      {
+        "id": "beatrice>eleanor",
+        "parent": "beatrice",
+        "child": "eleanor",
+        "kind": "biological",
+        "union": "early-stone"
+      }
+    ],
+    "partnerships": [
+      {
+        "id": "founders",
+        "partners": [
+          "arthur",
+          "eleanor"
+        ],
+        "status": "partnered",
+        "kind": "marriage"
+      },
+      {
+        "id": "reeds",
+        "partners": [
+          "samuel",
+          "iris"
+        ],
+        "status": "partnered",
+        "kind": "marriage"
+      },
+      {
+        "id": "david-clara",
+        "partners": [
+          "david",
+          "clara"
+        ],
+        "status": "former",
+        "kind": "marriage"
+      },
+      {
+        "id": "david-ruth",
+        "partners": [
+          "david",
+          "ruth"
+        ],
+        "status": "partnered",
+        "kind": "partnership"
+      },
+      {
+        "id": "emma-lucas",
+        "partners": [
+          "emma",
+          "lucas"
+        ],
+        "status": "partnered",
+        "kind": "marriage"
+      },
+      {
+        "id": "early-bennett",
+        "partners": [
+          "edmund",
+          "agnes"
+        ],
+        "status": "partnered",
+        "kind": "marriage"
+      },
+      {
+        "id": "early-stone",
+        "partners": [
+          "walter",
+          "beatrice"
+        ],
+        "status": "partnered",
+        "kind": "marriage"
+      }
+    ]
+  },
+  "layout": {
+    "nodes": [
+      {
+        "id": "arthur",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "2",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "arthur:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          },
+          {
+            "id": "arthur:junction:union:founders",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "SOUTH"
+            },
+            "x": 88,
+            "y": 208
+          }
+        ],
+        "$H": 526,
+        "x": 960,
+        "y": 302,
+        "person": {
+          "id": "arthur",
+          "first": "Arthur",
+          "last": "Bennett",
+          "born": 1932,
+          "died": 2016,
+          "gender": "male",
+          "photo": "/family-portraits/arthur.jpg",
+          "biologicalParentsComplete": true
+        },
+        "generation": 1
+      },
+      {
+        "id": "eleanor",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "2",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "eleanor:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          },
+          {
+            "id": "eleanor:junction:union:founders",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "SOUTH"
+            },
+            "x": 88,
+            "y": 208
+          }
+        ],
+        "$H": 530,
+        "x": 544,
+        "y": 302,
+        "person": {
+          "id": "eleanor",
+          "first": "Eleanor",
+          "last": "Bennett",
+          "born": 1936,
+          "died": 2021,
+          "gender": "female",
+          "photo": null,
+          "biologicalParentsComplete": true
+        },
+        "generation": 1
+      },
+      {
+        "id": "samuel",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "0",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "samuel:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          },
+          {
+            "id": "samuel:junction:union:reeds",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "SOUTH"
+            },
+            "x": 88,
+            "y": 208
+          }
+        ],
+        "$H": 534,
+        "x": 24,
+        "y": 24,
+        "person": {
+          "id": "samuel",
+          "first": "Samuel",
+          "last": "Reed",
+          "born": 1934,
+          "died": 2019,
+          "gender": "male",
+          "photo": null,
+          "biologicalParentsComplete": false
+        },
+        "generation": 0
+      },
+      {
+        "id": "iris",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "0",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "iris:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          },
+          {
+            "id": "iris:junction:union:reeds",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "SOUTH"
+            },
+            "x": 88,
+            "y": 208
+          }
+        ],
+        "$H": 538,
+        "x": 232,
+        "y": 24,
+        "person": {
+          "id": "iris",
+          "first": "Iris",
+          "last": "Reed",
+          "born": 1938,
+          "gender": "female",
+          "photo": "/family-portraits/iris.jpg",
+          "biologicalParentsComplete": false
+        },
+        "generation": 0
+      },
+      {
+        "id": "david",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "4",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "david:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          },
+          {
+            "id": "david:junction:union:david-clara",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "SOUTH"
+            },
+            "x": 58.666666666666664,
+            "y": 208
+          },
+          {
+            "id": "david:junction:union:david-ruth",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "SOUTH"
+            },
+            "x": 117.33333333333333,
+            "y": 208
+          }
+        ],
+        "$H": 542,
+        "x": 752,
+        "y": 580,
+        "person": {
+          "id": "david",
+          "first": "David",
+          "last": "Bennett",
+          "born": 1958,
+          "gender": "male",
+          "photo": "/family-portraits/david.jpg",
+          "biologicalParentsComplete": true
+        },
+        "generation": 2
+      },
+      {
+        "id": "clara",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "4",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "clara:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          },
+          {
+            "id": "clara:junction:union:david-clara",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "SOUTH"
+            },
+            "x": 88,
+            "y": 208
+          }
+        ],
+        "$H": 547,
+        "x": 128,
+        "y": 580,
+        "person": {
+          "id": "clara",
+          "first": "Clara",
+          "last": "Reed",
+          "born": 1960,
+          "gender": "female",
+          "photo": null,
+          "biologicalParentsComplete": true
+        },
+        "generation": 2
+      },
+      {
+        "id": "ruth",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "4",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "ruth:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          },
+          {
+            "id": "ruth:junction:union:david-ruth",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "SOUTH"
+            },
+            "x": 88,
+            "y": 208
+          }
+        ],
+        "$H": 551,
+        "x": 960,
+        "y": 580,
+        "person": {
+          "id": "ruth",
+          "first": "Ruth",
+          "last": "Lane",
+          "born": 1969,
+          "gender": "female",
+          "photo": null,
+          "biologicalParentsComplete": false
+        },
+        "generation": 2
+      },
+      {
+        "id": "emma",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "6",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "emma:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          },
+          {
+            "id": "emma:junction:union:emma-lucas",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "SOUTH"
+            },
+            "x": 88,
+            "y": 208
+          }
+        ],
+        "$H": 555,
+        "x": 529.3333333333333,
+        "y": 858,
+        "person": {
+          "id": "emma",
+          "first": "Emma",
+          "last": "Bennett",
+          "born": 1984,
+          "gender": "female",
+          "photo": "/family-portraits/emma.jpg",
+          "biologicalParentsComplete": true
+        },
+        "generation": 3
+      },
+      {
+        "id": "lucas",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "6",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "lucas:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          },
+          {
+            "id": "lucas:junction:union:emma-lucas",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "SOUTH"
+            },
+            "x": 88,
+            "y": 208
+          }
+        ],
+        "$H": 559,
+        "x": 321.3333333333333,
+        "y": 858,
+        "person": {
+          "id": "lucas",
+          "first": "Lucas",
+          "last": "Hart",
+          "born": 1983,
+          "gender": "male",
+          "photo": "/family-portraits/lucas.jpg",
+          "biologicalParentsComplete": false
+        },
+        "generation": 3
+      },
+      {
+        "id": "ava",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "8",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "ava:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          }
+        ],
+        "$H": 563,
+        "x": 321.3333333333333,
+        "y": 1154,
+        "person": {
+          "id": "ava",
+          "first": "Ava",
+          "last": "Hart",
+          "born": 2010,
+          "gender": "female",
+          "photo": "/family-portraits/ava.jpg",
+          "biologicalParentsComplete": true
+        },
+        "generation": 4
+      },
+      {
+        "id": "theo",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "8",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "theo:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          }
+        ],
+        "$H": 566,
+        "x": 529.3333333333333,
+        "y": 1154,
+        "person": {
+          "id": "theo",
+          "first": "Theo",
+          "last": "Hart",
+          "born": 2013,
+          "gender": "male",
+          "photo": "/family-portraits/theo.jpg",
+          "biologicalParentsComplete": true
+        },
+        "generation": 4
+      },
+      {
+        "id": "edmund",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "0",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "edmund:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          },
+          {
+            "id": "edmund:junction:union:early-bennett",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "SOUTH"
+            },
+            "x": 88,
+            "y": 208
+          }
+        ],
+        "$H": 569,
+        "x": 856,
+        "y": 24,
+        "person": {
+          "id": "edmund",
+          "first": "Edmund",
+          "last": "Bennett",
+          "born": 1905,
+          "died": 1989,
+          "gender": "unspecified",
+          "biologicalParentsComplete": false,
+          "photo": null
+        },
+        "generation": 0
+      },
+      {
+        "id": "agnes",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "0",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "agnes:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          },
+          {
+            "id": "agnes:junction:union:early-bennett",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "SOUTH"
+            },
+            "x": 88,
+            "y": 208
+          }
+        ],
+        "$H": 573,
+        "x": 1064,
+        "y": 24,
+        "person": {
+          "id": "agnes",
+          "first": "Agnes",
+          "last": "Bennett",
+          "born": 1907,
+          "died": 1991,
+          "gender": "unspecified",
+          "biologicalParentsComplete": false,
+          "photo": null
+        },
+        "generation": 0
+      },
+      {
+        "id": "walter",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "0",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "walter:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          },
+          {
+            "id": "walter:junction:union:early-stone",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "SOUTH"
+            },
+            "x": 88,
+            "y": 208
+          }
+        ],
+        "$H": 577,
+        "x": 648,
+        "y": 24,
+        "person": {
+          "id": "walter",
+          "first": "Walter",
+          "last": "Stone",
+          "born": 1908,
+          "died": 1992,
+          "gender": "unspecified",
+          "biologicalParentsComplete": false,
+          "photo": null
+        },
+        "generation": 0
+      },
+      {
+        "id": "beatrice",
+        "width": 176,
+        "height": 208,
+        "layoutOptions": {
+          "elk.partitioning.partition": "0",
+          "elk.portConstraints": "FIXED_SIDE"
+        },
+        "ports": [
+          {
+            "id": "beatrice:in",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "NORTH"
+            },
+            "x": 88,
+            "y": 0
+          },
+          {
+            "id": "beatrice:junction:union:early-stone",
+            "width": 0,
+            "height": 0,
+            "layoutOptions": {
+              "elk.port.side": "SOUTH"
+            },
+            "x": 88,
+            "y": 208
+          }
+        ],
+        "$H": 581,
+        "x": 440,
+        "y": 24,
+        "person": {
+          "id": "beatrice",
+          "first": "Beatrice",
+          "last": "Stone",
+          "born": 1910,
+          "died": 1994,
+          "gender": "unspecified",
+          "biologicalParentsComplete": false,
+          "photo": null
+        },
+        "generation": 0
+      },
+      {
+        "id": "junction:union:founders",
+        "width": 8,
+        "height": 8,
+        "layoutOptions": {
+          "elk.partitioning.partition": "3",
+          "elk.portConstraints": "FIXED_POS"
+        },
+        "ports": [
+          {
+            "id": "junction:union:founders:in",
+            "x": 4,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          {
+            "id": "junction:union:founders:out",
+            "x": 4,
+            "y": 8,
+            "width": 0,
+            "height": 0
+          }
+        ],
+        "$H": 585,
+        "x": 836,
+        "y": 550
+      },
+      {
+        "id": "junction:union:reeds",
+        "width": 8,
+        "height": 8,
+        "layoutOptions": {
+          "elk.partitioning.partition": "1",
+          "elk.portConstraints": "FIXED_POS"
+        },
+        "ports": [
+          {
+            "id": "junction:union:reeds:in",
+            "x": 4,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          {
+            "id": "junction:union:reeds:out",
+            "x": 4,
+            "y": 8,
+            "width": 0,
+            "height": 0
+          }
+        ],
+        "$H": 589,
+        "x": 212,
+        "y": 272
+      },
+      {
+        "id": "junction:union:david-clara",
+        "width": 8,
+        "height": 8,
+        "layoutOptions": {
+          "elk.partitioning.partition": "5",
+          "elk.portConstraints": "FIXED_POS"
+        },
+        "ports": [
+          {
+            "id": "junction:union:david-clara:in",
+            "x": 4,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          {
+            "id": "junction:union:david-clara:out",
+            "x": 4,
+            "y": 8,
+            "width": 0,
+            "height": 0
+          }
+        ],
+        "$H": 593,
+        "x": 613.3333333333334,
+        "y": 828
+      },
+      {
+        "id": "junction:union:david-ruth",
+        "width": 8,
+        "height": 8,
+        "layoutOptions": {
+          "elk.partitioning.partition": "5",
+          "elk.portConstraints": "FIXED_POS"
+        },
+        "ports": [
+          {
+            "id": "junction:union:david-ruth:in",
+            "x": 4,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          {
+            "id": "junction:union:david-ruth:out",
+            "x": 4,
+            "y": 8,
+            "width": 0,
+            "height": 0
+          }
+        ],
+        "$H": 597,
+        "x": 954.6666666666667,
+        "y": 828
+      },
+      {
+        "id": "junction:union:emma-lucas",
+        "width": 8,
+        "height": 8,
+        "layoutOptions": {
+          "elk.partitioning.partition": "7",
+          "elk.portConstraints": "FIXED_POS"
+        },
+        "ports": [
+          {
+            "id": "junction:union:emma-lucas:in",
+            "x": 4,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          {
+            "id": "junction:union:emma-lucas:out",
+            "x": 4,
+            "y": 8,
+            "width": 0,
+            "height": 0
+          }
+        ],
+        "$H": 601,
+        "x": 509.33333333333337,
+        "y": 1106
+      },
+      {
+        "id": "junction:union:early-bennett",
+        "width": 8,
+        "height": 8,
+        "layoutOptions": {
+          "elk.partitioning.partition": "1",
+          "elk.portConstraints": "FIXED_POS"
+        },
+        "ports": [
+          {
+            "id": "junction:union:early-bennett:in",
+            "x": 4,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          {
+            "id": "junction:union:early-bennett:out",
+            "x": 4,
+            "y": 8,
+            "width": 0,
+            "height": 0
+          }
+        ],
+        "$H": 605,
+        "x": 1044,
+        "y": 272
+      },
+      {
+        "id": "junction:union:early-stone",
+        "width": 8,
+        "height": 8,
+        "layoutOptions": {
+          "elk.partitioning.partition": "1",
+          "elk.portConstraints": "FIXED_POS"
+        },
+        "ports": [
+          {
+            "id": "junction:union:early-stone:in",
+            "x": 4,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          {
+            "id": "junction:union:early-stone:out",
+            "x": 4,
+            "y": 8,
+            "width": 0,
+            "height": 0
+          }
+        ],
+        "$H": 609,
+        "x": 628,
+        "y": 272
+      }
+    ],
+    "edges": [
+      {
+        "id": "junction:union:founders:from:arthur",
+        "sources": [
+          "arthur:junction:union:founders"
+        ],
+        "targets": [
+          "junction:union:founders:in"
+        ],
+        "semantic": [
+          "arthur>david",
+          "founders"
+        ],
+        "role": "parent",
+        "former": false,
+        "sections": [
+          {
+            "id": "junction:union:founders:from:arthur_s0",
+            "startPoint": {
+              "x": 1048,
+              "y": 510
+            },
+            "endPoint": {
+              "x": 840,
+              "y": 550
+            },
+            "bendPoints": [
+              {
+                "x": 1048,
+                "y": 530
+              },
+              {
+                "x": 840,
+                "y": 530
+              }
+            ],
+            "incomingShape": "arthur:junction:union:founders",
+            "outgoingShape": "junction:union:founders:in"
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:founders:from:eleanor",
+        "sources": [
+          "eleanor:junction:union:founders"
+        ],
+        "targets": [
+          "junction:union:founders:in"
+        ],
+        "semantic": [
+          "eleanor>david",
+          "founders"
+        ],
+        "role": "parent",
+        "former": false,
+        "sections": [
+          {
+            "id": "junction:union:founders:from:eleanor_s0",
+            "startPoint": {
+              "x": 632,
+              "y": 510
+            },
+            "endPoint": {
+              "x": 840,
+              "y": 550
+            },
+            "bendPoints": [
+              {
+                "x": 632,
+                "y": 530
+              },
+              {
+                "x": 840,
+                "y": 530
+              }
+            ],
+            "incomingShape": "eleanor:junction:union:founders",
+            "outgoingShape": "junction:union:founders:in"
+          }
+        ],
+        "junctionPoints": [
+          {
+            "x": 840,
+            "y": 530
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:founders:to:david",
+        "sources": [
+          "junction:union:founders:out"
+        ],
+        "targets": [
+          "david:in"
+        ],
+        "semantic": [
+          "arthur>david",
+          "eleanor>david"
+        ],
+        "role": "child",
+        "adoptive": false,
+        "sections": [
+          {
+            "id": "junction:union:founders:to:david_s0",
+            "startPoint": {
+              "x": 840,
+              "y": 558
+            },
+            "endPoint": {
+              "x": 840,
+              "y": 580
+            },
+            "incomingShape": "junction:union:founders:out",
+            "outgoingShape": "david:in"
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:reeds:from:samuel",
+        "sources": [
+          "samuel:junction:union:reeds"
+        ],
+        "targets": [
+          "junction:union:reeds:in"
+        ],
+        "semantic": [
+          "samuel>clara",
+          "reeds"
+        ],
+        "role": "parent",
+        "former": false,
+        "sections": [
+          {
+            "id": "junction:union:reeds:from:samuel_s0",
+            "startPoint": {
+              "x": 112,
+              "y": 232
+            },
+            "endPoint": {
+              "x": 216,
+              "y": 272
+            },
+            "bendPoints": [
+              {
+                "x": 112,
+                "y": 252
+              },
+              {
+                "x": 216,
+                "y": 252
+              }
+            ],
+            "incomingShape": "samuel:junction:union:reeds",
+            "outgoingShape": "junction:union:reeds:in"
+          }
+        ],
+        "junctionPoints": [
+          {
+            "x": 216,
+            "y": 252
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:reeds:from:iris",
+        "sources": [
+          "iris:junction:union:reeds"
+        ],
+        "targets": [
+          "junction:union:reeds:in"
+        ],
+        "semantic": [
+          "iris>clara",
+          "reeds"
+        ],
+        "role": "parent",
+        "former": false,
+        "sections": [
+          {
+            "id": "junction:union:reeds:from:iris_s0",
+            "startPoint": {
+              "x": 320,
+              "y": 232
+            },
+            "endPoint": {
+              "x": 216,
+              "y": 272
+            },
+            "bendPoints": [
+              {
+                "x": 320,
+                "y": 252
+              },
+              {
+                "x": 216,
+                "y": 252
+              }
+            ],
+            "incomingShape": "iris:junction:union:reeds",
+            "outgoingShape": "junction:union:reeds:in"
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:reeds:to:clara",
+        "sources": [
+          "junction:union:reeds:out"
+        ],
+        "targets": [
+          "clara:in"
+        ],
+        "semantic": [
+          "samuel>clara",
+          "iris>clara"
+        ],
+        "role": "child",
+        "adoptive": false,
+        "sections": [
+          {
+            "id": "junction:union:reeds:to:clara_s0",
+            "startPoint": {
+              "x": 216,
+              "y": 280
+            },
+            "endPoint": {
+              "x": 216,
+              "y": 580
+            },
+            "incomingShape": "junction:union:reeds:out",
+            "outgoingShape": "clara:in"
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:david-clara:from:david",
+        "sources": [
+          "david:junction:union:david-clara"
+        ],
+        "targets": [
+          "junction:union:david-clara:in"
+        ],
+        "semantic": [
+          "david>emma",
+          "david-clara"
+        ],
+        "role": "parent",
+        "former": true,
+        "sections": [
+          {
+            "id": "junction:union:david-clara:from:david_s0",
+            "startPoint": {
+              "x": 810.6666666666666,
+              "y": 788
+            },
+            "endPoint": {
+              "x": 617.3333333333334,
+              "y": 828
+            },
+            "bendPoints": [
+              {
+                "x": 810.6666666666666,
+                "y": 808
+              },
+              {
+                "x": 617.3333333333334,
+                "y": 808
+              }
+            ],
+            "incomingShape": "david:junction:union:david-clara",
+            "outgoingShape": "junction:union:david-clara:in"
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:david-clara:from:clara",
+        "sources": [
+          "clara:junction:union:david-clara"
+        ],
+        "targets": [
+          "junction:union:david-clara:in"
+        ],
+        "semantic": [
+          "clara>emma",
+          "david-clara"
+        ],
+        "role": "parent",
+        "former": true,
+        "sections": [
+          {
+            "id": "junction:union:david-clara:from:clara_s0",
+            "startPoint": {
+              "x": 216,
+              "y": 788
+            },
+            "endPoint": {
+              "x": 617.3333333333334,
+              "y": 828
+            },
+            "bendPoints": [
+              {
+                "x": 216,
+                "y": 808
+              },
+              {
+                "x": 617.3333333333334,
+                "y": 808
+              }
+            ],
+            "incomingShape": "clara:junction:union:david-clara",
+            "outgoingShape": "junction:union:david-clara:in"
+          }
+        ],
+        "junctionPoints": [
+          {
+            "x": 617.3333333333334,
+            "y": 808
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:david-clara:to:emma",
+        "sources": [
+          "junction:union:david-clara:out"
+        ],
+        "targets": [
+          "emma:in"
+        ],
+        "semantic": [
+          "david>emma",
+          "clara>emma"
+        ],
+        "role": "child",
+        "adoptive": false,
+        "sections": [
+          {
+            "id": "junction:union:david-clara:to:emma_s0",
+            "startPoint": {
+              "x": 617.3333333333334,
+              "y": 836
+            },
+            "endPoint": {
+              "x": 617.3333333333333,
+              "y": 858
+            },
+            "incomingShape": "junction:union:david-clara:out",
+            "outgoingShape": "emma:in"
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:david-ruth:from:david",
+        "sources": [
+          "david:junction:union:david-ruth"
+        ],
+        "targets": [
+          "junction:union:david-ruth:in"
+        ],
+        "semantic": [
+          "david-ruth"
+        ],
+        "role": "parent",
+        "former": false,
+        "sections": [
+          {
+            "id": "junction:union:david-ruth:from:david_s0",
+            "startPoint": {
+              "x": 869.3333333333334,
+              "y": 788
+            },
+            "endPoint": {
+              "x": 958.6666666666667,
+              "y": 828
+            },
+            "bendPoints": [
+              {
+                "x": 869.3333333333334,
+                "y": 808
+              },
+              {
+                "x": 958.6666666666667,
+                "y": 808
+              }
+            ],
+            "incomingShape": "david:junction:union:david-ruth",
+            "outgoingShape": "junction:union:david-ruth:in"
+          }
+        ],
+        "junctionPoints": [
+          {
+            "x": 958.6666666666667,
+            "y": 808
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:david-ruth:from:ruth",
+        "sources": [
+          "ruth:junction:union:david-ruth"
+        ],
+        "targets": [
+          "junction:union:david-ruth:in"
+        ],
+        "semantic": [
+          "david-ruth"
+        ],
+        "role": "parent",
+        "former": false,
+        "sections": [
+          {
+            "id": "junction:union:david-ruth:from:ruth_s0",
+            "startPoint": {
+              "x": 1048,
+              "y": 788
+            },
+            "endPoint": {
+              "x": 958.6666666666667,
+              "y": 828
+            },
+            "bendPoints": [
+              {
+                "x": 1048,
+                "y": 808
+              },
+              {
+                "x": 958.6666666666667,
+                "y": 808
+              }
+            ],
+            "incomingShape": "ruth:junction:union:david-ruth",
+            "outgoingShape": "junction:union:david-ruth:in"
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:emma-lucas:from:emma",
+        "sources": [
+          "emma:junction:union:emma-lucas"
+        ],
+        "targets": [
+          "junction:union:emma-lucas:in"
+        ],
+        "semantic": [
+          "emma>ava",
+          "emma>theo",
+          "emma-lucas"
+        ],
+        "role": "parent",
+        "former": false,
+        "sections": [
+          {
+            "id": "junction:union:emma-lucas:from:emma_s0",
+            "startPoint": {
+              "x": 617.3333333333333,
+              "y": 1066
+            },
+            "endPoint": {
+              "x": 513.3333333333334,
+              "y": 1106
+            },
+            "bendPoints": [
+              {
+                "x": 617.3333333333333,
+                "y": 1086
+              },
+              {
+                "x": 513.3333333333334,
+                "y": 1086
+              }
+            ],
+            "incomingShape": "emma:junction:union:emma-lucas",
+            "outgoingShape": "junction:union:emma-lucas:in"
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:emma-lucas:from:lucas",
+        "sources": [
+          "lucas:junction:union:emma-lucas"
+        ],
+        "targets": [
+          "junction:union:emma-lucas:in"
+        ],
+        "semantic": [
+          "lucas>ava",
+          "lucas>theo",
+          "emma-lucas"
+        ],
+        "role": "parent",
+        "former": false,
+        "sections": [
+          {
+            "id": "junction:union:emma-lucas:from:lucas_s0",
+            "startPoint": {
+              "x": 409.3333333333333,
+              "y": 1066
+            },
+            "endPoint": {
+              "x": 513.3333333333334,
+              "y": 1106
+            },
+            "bendPoints": [
+              {
+                "x": 409.3333333333333,
+                "y": 1086
+              },
+              {
+                "x": 513.3333333333334,
+                "y": 1086
+              }
+            ],
+            "incomingShape": "lucas:junction:union:emma-lucas",
+            "outgoingShape": "junction:union:emma-lucas:in"
+          }
+        ],
+        "junctionPoints": [
+          {
+            "x": 513.3333333333334,
+            "y": 1086
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:emma-lucas:to:ava",
+        "sources": [
+          "junction:union:emma-lucas:out"
+        ],
+        "targets": [
+          "ava:in"
+        ],
+        "semantic": [
+          "emma>ava",
+          "lucas>ava"
+        ],
+        "role": "child",
+        "adoptive": false,
+        "sections": [
+          {
+            "id": "junction:union:emma-lucas:to:ava_s0",
+            "startPoint": {
+              "x": 513.3333333333334,
+              "y": 1114
+            },
+            "endPoint": {
+              "x": 409.3333333333333,
+              "y": 1154
+            },
+            "bendPoints": [
+              {
+                "x": 513.3333333333334,
+                "y": 1134
+              },
+              {
+                "x": 409.3333333333333,
+                "y": 1134
+              }
+            ],
+            "incomingShape": "junction:union:emma-lucas:out",
+            "outgoingShape": "ava:in"
+          }
+        ],
+        "junctionPoints": [
+          {
+            "x": 513.3333333333334,
+            "y": 1134
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:emma-lucas:to:theo",
+        "sources": [
+          "junction:union:emma-lucas:out"
+        ],
+        "targets": [
+          "theo:in"
+        ],
+        "semantic": [
+          "emma>theo",
+          "lucas>theo"
+        ],
+        "role": "child",
+        "adoptive": false,
+        "sections": [
+          {
+            "id": "junction:union:emma-lucas:to:theo_s0",
+            "startPoint": {
+              "x": 513.3333333333334,
+              "y": 1114
+            },
+            "endPoint": {
+              "x": 617.3333333333333,
+              "y": 1154
+            },
+            "bendPoints": [
+              {
+                "x": 513.3333333333334,
+                "y": 1134
+              },
+              {
+                "x": 617.3333333333333,
+                "y": 1134
+              }
+            ],
+            "incomingShape": "junction:union:emma-lucas:out",
+            "outgoingShape": "theo:in"
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:early-bennett:from:edmund",
+        "sources": [
+          "edmund:junction:union:early-bennett"
+        ],
+        "targets": [
+          "junction:union:early-bennett:in"
+        ],
+        "semantic": [
+          "edmund>arthur",
+          "early-bennett"
+        ],
+        "role": "parent",
+        "former": false,
+        "sections": [
+          {
+            "id": "junction:union:early-bennett:from:edmund_s0",
+            "startPoint": {
+              "x": 944,
+              "y": 232
+            },
+            "endPoint": {
+              "x": 1048,
+              "y": 272
+            },
+            "bendPoints": [
+              {
+                "x": 944,
+                "y": 252
+              },
+              {
+                "x": 1048,
+                "y": 252
+              }
+            ],
+            "incomingShape": "edmund:junction:union:early-bennett",
+            "outgoingShape": "junction:union:early-bennett:in"
+          }
+        ],
+        "junctionPoints": [
+          {
+            "x": 1048,
+            "y": 252
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:early-bennett:from:agnes",
+        "sources": [
+          "agnes:junction:union:early-bennett"
+        ],
+        "targets": [
+          "junction:union:early-bennett:in"
+        ],
+        "semantic": [
+          "agnes>arthur",
+          "early-bennett"
+        ],
+        "role": "parent",
+        "former": false,
+        "sections": [
+          {
+            "id": "junction:union:early-bennett:from:agnes_s0",
+            "startPoint": {
+              "x": 1152,
+              "y": 232
+            },
+            "endPoint": {
+              "x": 1048,
+              "y": 272
+            },
+            "bendPoints": [
+              {
+                "x": 1152,
+                "y": 252
+              },
+              {
+                "x": 1048,
+                "y": 252
+              }
+            ],
+            "incomingShape": "agnes:junction:union:early-bennett",
+            "outgoingShape": "junction:union:early-bennett:in"
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:early-bennett:to:arthur",
+        "sources": [
+          "junction:union:early-bennett:out"
+        ],
+        "targets": [
+          "arthur:in"
+        ],
+        "semantic": [
+          "edmund>arthur",
+          "agnes>arthur"
+        ],
+        "role": "child",
+        "adoptive": false,
+        "sections": [
+          {
+            "id": "junction:union:early-bennett:to:arthur_s0",
+            "startPoint": {
+              "x": 1048,
+              "y": 280
+            },
+            "endPoint": {
+              "x": 1048,
+              "y": 302
+            },
+            "incomingShape": "junction:union:early-bennett:out",
+            "outgoingShape": "arthur:in"
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:early-stone:from:walter",
+        "sources": [
+          "walter:junction:union:early-stone"
+        ],
+        "targets": [
+          "junction:union:early-stone:in"
+        ],
+        "semantic": [
+          "walter>eleanor",
+          "early-stone"
+        ],
+        "role": "parent",
+        "former": false,
+        "sections": [
+          {
+            "id": "junction:union:early-stone:from:walter_s0",
+            "startPoint": {
+              "x": 736,
+              "y": 232
+            },
+            "endPoint": {
+              "x": 632,
+              "y": 272
+            },
+            "bendPoints": [
+              {
+                "x": 736,
+                "y": 252
+              },
+              {
+                "x": 632,
+                "y": 252
+              }
+            ],
+            "incomingShape": "walter:junction:union:early-stone",
+            "outgoingShape": "junction:union:early-stone:in"
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:early-stone:from:beatrice",
+        "sources": [
+          "beatrice:junction:union:early-stone"
+        ],
+        "targets": [
+          "junction:union:early-stone:in"
+        ],
+        "semantic": [
+          "beatrice>eleanor",
+          "early-stone"
+        ],
+        "role": "parent",
+        "former": false,
+        "sections": [
+          {
+            "id": "junction:union:early-stone:from:beatrice_s0",
+            "startPoint": {
+              "x": 528,
+              "y": 232
+            },
+            "endPoint": {
+              "x": 632,
+              "y": 272
+            },
+            "bendPoints": [
+              {
+                "x": 528,
+                "y": 252
+              },
+              {
+                "x": 632,
+                "y": 252
+              }
+            ],
+            "incomingShape": "beatrice:junction:union:early-stone",
+            "outgoingShape": "junction:union:early-stone:in"
+          }
+        ],
+        "junctionPoints": [
+          {
+            "x": 632,
+            "y": 252
+          }
+        ],
+        "container": "family"
+      },
+      {
+        "id": "junction:union:early-stone:to:eleanor",
+        "sources": [
+          "junction:union:early-stone:out"
+        ],
+        "targets": [
+          "eleanor:in"
+        ],
+        "semantic": [
+          "walter>eleanor",
+          "beatrice>eleanor"
+        ],
+        "role": "child",
+        "adoptive": false,
+        "sections": [
+          {
+            "id": "junction:union:early-stone:to:eleanor_s0",
+            "startPoint": {
+              "x": 632,
+              "y": 280
+            },
+            "endPoint": {
+              "x": 632,
+              "y": 302
+            },
+            "incomingShape": "junction:union:early-stone:out",
+            "outgoingShape": "eleanor:in"
+          }
+        ],
+        "container": "family"
+      }
+    ],
+    "width": 1264,
+    "height": 1386,
+    "graph": {
+      "people": [
+        {
+          "id": "arthur",
+          "first": "Arthur",
+          "last": "Bennett",
+          "born": 1932,
+          "died": 2016,
+          "gender": "male",
+          "photo": "/family-portraits/arthur.jpg",
+          "biologicalParentsComplete": true
+        },
+        {
+          "id": "eleanor",
+          "first": "Eleanor",
+          "last": "Bennett",
+          "born": 1936,
+          "died": 2021,
+          "gender": "female",
+          "photo": null,
+          "biologicalParentsComplete": true
+        },
+        {
+          "id": "samuel",
+          "first": "Samuel",
+          "last": "Reed",
+          "born": 1934,
+          "died": 2019,
+          "gender": "male",
+          "photo": null,
+          "biologicalParentsComplete": false
+        },
+        {
+          "id": "iris",
+          "first": "Iris",
+          "last": "Reed",
+          "born": 1938,
+          "gender": "female",
+          "photo": "/family-portraits/iris.jpg",
+          "biologicalParentsComplete": false
+        },
+        {
+          "id": "david",
+          "first": "David",
+          "last": "Bennett",
+          "born": 1958,
+          "gender": "male",
+          "photo": "/family-portraits/david.jpg",
+          "biologicalParentsComplete": true
+        },
+        {
+          "id": "clara",
+          "first": "Clara",
+          "last": "Reed",
+          "born": 1960,
+          "gender": "female",
+          "photo": null,
+          "biologicalParentsComplete": true
+        },
+        {
+          "id": "ruth",
+          "first": "Ruth",
+          "last": "Lane",
+          "born": 1969,
+          "gender": "female",
+          "photo": null,
+          "biologicalParentsComplete": false
+        },
+        {
+          "id": "emma",
+          "first": "Emma",
+          "last": "Bennett",
+          "born": 1984,
+          "gender": "female",
+          "photo": "/family-portraits/emma.jpg",
+          "biologicalParentsComplete": true
+        },
+        {
+          "id": "lucas",
+          "first": "Lucas",
+          "last": "Hart",
+          "born": 1983,
+          "gender": "male",
+          "photo": "/family-portraits/lucas.jpg",
+          "biologicalParentsComplete": false
+        },
+        {
+          "id": "ava",
+          "first": "Ava",
+          "last": "Hart",
+          "born": 2010,
+          "gender": "female",
+          "photo": "/family-portraits/ava.jpg",
+          "biologicalParentsComplete": true
+        },
+        {
+          "id": "theo",
+          "first": "Theo",
+          "last": "Hart",
+          "born": 2013,
+          "gender": "male",
+          "photo": "/family-portraits/theo.jpg",
+          "biologicalParentsComplete": true
+        },
+        {
+          "id": "edmund",
+          "first": "Edmund",
+          "last": "Bennett",
+          "born": 1905,
+          "died": 1989,
+          "gender": "unspecified",
+          "biologicalParentsComplete": false,
+          "photo": null
+        },
+        {
+          "id": "agnes",
+          "first": "Agnes",
+          "last": "Bennett",
+          "born": 1907,
+          "died": 1991,
+          "gender": "unspecified",
+          "biologicalParentsComplete": false,
+          "photo": null
+        },
+        {
+          "id": "walter",
+          "first": "Walter",
+          "last": "Stone",
+          "born": 1908,
+          "died": 1992,
+          "gender": "unspecified",
+          "biologicalParentsComplete": false,
+          "photo": null
+        },
+        {
+          "id": "beatrice",
+          "first": "Beatrice",
+          "last": "Stone",
+          "born": 1910,
+          "died": 1994,
+          "gender": "unspecified",
+          "biologicalParentsComplete": false,
+          "photo": null
+        }
+      ],
+      "parentages": [
+        {
+          "id": "arthur>david",
+          "parent": "arthur",
+          "child": "david",
+          "kind": "biological",
+          "union": "founders"
+        },
+        {
+          "id": "eleanor>david",
+          "parent": "eleanor",
+          "child": "david",
+          "kind": "biological",
+          "union": "founders"
+        },
+        {
+          "id": "samuel>clara",
+          "parent": "samuel",
+          "child": "clara",
+          "kind": "biological",
+          "union": "reeds"
+        },
+        {
+          "id": "iris>clara",
+          "parent": "iris",
+          "child": "clara",
+          "kind": "biological",
+          "union": "reeds"
+        },
+        {
+          "id": "david>emma",
+          "parent": "david",
+          "child": "emma",
+          "kind": "biological",
+          "union": "david-clara"
+        },
+        {
+          "id": "clara>emma",
+          "parent": "clara",
+          "child": "emma",
+          "kind": "biological",
+          "union": "david-clara"
+        },
+        {
+          "id": "emma>ava",
+          "parent": "emma",
+          "child": "ava",
+          "kind": "biological",
+          "union": "emma-lucas"
+        },
+        {
+          "id": "lucas>ava",
+          "parent": "lucas",
+          "child": "ava",
+          "kind": "biological",
+          "union": "emma-lucas"
+        },
+        {
+          "id": "emma>theo",
+          "parent": "emma",
+          "child": "theo",
+          "kind": "biological",
+          "union": "emma-lucas"
+        },
+        {
+          "id": "lucas>theo",
+          "parent": "lucas",
+          "child": "theo",
+          "kind": "biological",
+          "union": "emma-lucas"
+        },
+        {
+          "id": "edmund>arthur",
+          "parent": "edmund",
+          "child": "arthur",
+          "kind": "biological",
+          "union": "early-bennett"
+        },
+        {
+          "id": "agnes>arthur",
+          "parent": "agnes",
+          "child": "arthur",
+          "kind": "biological",
+          "union": "early-bennett"
+        },
+        {
+          "id": "walter>eleanor",
+          "parent": "walter",
+          "child": "eleanor",
+          "kind": "biological",
+          "union": "early-stone"
+        },
+        {
+          "id": "beatrice>eleanor",
+          "parent": "beatrice",
+          "child": "eleanor",
+          "kind": "biological",
+          "union": "early-stone"
+        }
+      ],
+      "partnerships": [
+        {
+          "id": "founders",
+          "partners": [
+            "arthur",
+            "eleanor"
+          ],
+          "status": "partnered",
+          "kind": "marriage"
+        },
+        {
+          "id": "reeds",
+          "partners": [
+            "samuel",
+            "iris"
+          ],
+          "status": "partnered",
+          "kind": "marriage"
+        },
+        {
+          "id": "david-clara",
+          "partners": [
+            "david",
+            "clara"
+          ],
+          "status": "former",
+          "kind": "marriage"
+        },
+        {
+          "id": "david-ruth",
+          "partners": [
+            "david",
+            "ruth"
+          ],
+          "status": "partnered",
+          "kind": "partnership"
+        },
+        {
+          "id": "emma-lucas",
+          "partners": [
+            "emma",
+            "lucas"
+          ],
+          "status": "partnered",
+          "kind": "marriage"
+        },
+        {
+          "id": "early-bennett",
+          "partners": [
+            "edmund",
+            "agnes"
+          ],
+          "status": "partnered",
+          "kind": "marriage"
+        },
+        {
+          "id": "early-stone",
+          "partners": [
+            "walter",
+            "beatrice"
+          ],
+          "status": "partnered",
+          "kind": "marriage"
+        }
+      ]
+    },
+    "layoutMs": 107.36169999837875,
+    "crossovers": []
+  },
+  "formats": {
+    "poster18": {
+      "width": 1200,
+      "height": 1599.9999999999998,
+      "paper": {
+        "width": 457.2,
+        "height": 609.5999999999999
+      },
+      "scale": 0.8291139240506329,
+      "landscape": false,
+      "top": 220,
+      "bottom": 100,
+      "firstNamePt": 17.90886075949367,
+      "surnamePt": 12.536202531645568,
+      "datePt": 9.84987341772152,
+      "x": 76,
+      "y": 285.4240506329113,
+      "readable": true,
+      "recommendation": "Portrait composition selected automatically."
+    },
+    "poster24": {
+      "width": 1200,
+      "height": 1800.0000000000002,
+      "paper": {
+        "width": 609.5999999999999,
+        "height": 914.4
+      },
+      "scale": 0.8291139240506329,
+      "landscape": false,
+      "top": 220,
+      "bottom": 100,
+      "firstNamePt": 23.878481012658224,
+      "surnamePt": 16.714936708860755,
+      "datePt": 13.133164556962024,
+      "x": 76,
+      "y": 385.42405063291153,
+      "readable": true,
+      "recommendation": "Portrait composition selected automatically."
+    }
+  }
+}

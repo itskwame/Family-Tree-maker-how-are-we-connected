@@ -1,0 +1,866 @@
+{
+  "browser": "155.0.8059.80",
+  "navigationReadyWallMs": 4299.532299995422,
+  "initial": {
+    "metrics": {
+      "people": 300,
+      "layoutMs": 3781.699999988079,
+      "workerWallMs": 3821.7999999523163,
+      "renderToPaintMs": 175.5,
+      "readyMs": 4281.5,
+      "heapBytes": 17508123
+    },
+    "tasks": [
+      {
+        "at": 4106.199999988079,
+        "duration": 80
+      },
+      {
+        "at": 4186.5,
+        "duration": 52
+      }
+    ],
+    "beats": [
+      {
+        "at": 71.29999995231628,
+        "interval": 52.19999998807907
+      },
+      {
+        "at": 145.19999998807907,
+        "interval": 73.90000003576279
+      },
+      {
+        "at": 172.69999998807907,
+        "interval": 27.5
+      },
+      {
+        "at": 226.79999995231628,
+        "interval": 54.09999996423721
+      },
+      {
+        "at": 285.5,
+        "interval": 58.700000047683716
+      },
+      {
+        "at": 332.5,
+        "interval": 47
+      },
+      {
+        "at": 370.89999997615814,
+        "interval": 38.39999997615814
+      },
+      {
+        "at": 421.2999999523163,
+        "interval": 50.39999997615814
+      },
+      {
+        "at": 473.2999999523163,
+        "interval": 52
+      },
+      {
+        "at": 525.8999999761581,
+        "interval": 52.60000002384186
+      },
+      {
+        "at": 577.2999999523163,
+        "interval": 51.39999997615814
+      },
+      {
+        "at": 624.0999999642372,
+        "interval": 46.80000001192093
+      },
+      {
+        "at": 672.3999999761581,
+        "interval": 48.30000001192093
+      },
+      {
+        "at": 728.7999999523163,
+        "interval": 56.39999997615814
+      },
+      {
+        "at": 777.7999999523163,
+        "interval": 49
+      },
+      {
+        "at": 824.6999999880791,
+        "interval": 46.90000003576279
+      },
+      {
+        "at": 875.3999999761581,
+        "interval": 50.69999998807907
+      },
+      {
+        "at": 922.5,
+        "interval": 47.10000002384186
+      },
+      {
+        "at": 978.2999999523163,
+        "interval": 55.799999952316284
+      },
+      {
+        "at": 1032.2999999523163,
+        "interval": 54
+      },
+      {
+        "at": 1073.5999999642372,
+        "interval": 41.30000001192093
+      },
+      {
+        "at": 1131,
+        "interval": 57.40000003576279
+      },
+      {
+        "at": 1172.199999988079,
+        "interval": 41.19999998807907
+      },
+      {
+        "at": 1228.699999988079,
+        "interval": 56.5
+      },
+      {
+        "at": 1277.3999999761581,
+        "interval": 48.69999998807907
+      },
+      {
+        "at": 1333.699999988079,
+        "interval": 56.30000001192093
+      },
+      {
+        "at": 1378.199999988079,
+        "interval": 44.5
+      },
+      {
+        "at": 1430.5,
+        "interval": 52.30000001192093
+      },
+      {
+        "at": 1478.5,
+        "interval": 48
+      },
+      {
+        "at": 1521.199999988079,
+        "interval": 42.69999998807907
+      },
+      {
+        "at": 1578.3999999761581,
+        "interval": 57.19999998807907
+      },
+      {
+        "at": 1631.699999988079,
+        "interval": 53.30000001192093
+      },
+      {
+        "at": 1679.5,
+        "interval": 47.80000001192093
+      },
+      {
+        "at": 1728,
+        "interval": 48.5
+      },
+      {
+        "at": 1777,
+        "interval": 49
+      },
+      {
+        "at": 1832,
+        "interval": 55
+      },
+      {
+        "at": 1881.0999999642372,
+        "interval": 49.09999996423721
+      },
+      {
+        "at": 1921.699999988079,
+        "interval": 40.60000002384186
+      },
+      {
+        "at": 1977.5,
+        "interval": 55.80000001192093
+      },
+      {
+        "at": 2033,
+        "interval": 55.5
+      },
+      {
+        "at": 2084.199999988079,
+        "interval": 51.19999998807907
+      },
+      {
+        "at": 2125.599999964237,
+        "interval": 41.39999997615814
+      },
+      {
+        "at": 2174.599999964237,
+        "interval": 49
+      },
+      {
+        "at": 2230.7999999523163,
+        "interval": 56.19999998807907
+      },
+      {
+        "at": 2283.599999964237,
+        "interval": 52.80000001192093
+      },
+      {
+        "at": 2324.5,
+        "interval": 40.90000003576279
+      },
+      {
+        "at": 2373.7999999523163,
+        "interval": 49.299999952316284
+      },
+      {
+        "at": 2431.199999988079,
+        "interval": 57.40000003576279
+      },
+      {
+        "at": 2472.5,
+        "interval": 41.30000001192093
+      },
+      {
+        "at": 2528.899999976158,
+        "interval": 56.39999997615814
+      },
+      {
+        "at": 2579.599999964237,
+        "interval": 50.69999998807907
+      },
+      {
+        "at": 2632.099999964237,
+        "interval": 52.5
+      },
+      {
+        "at": 2672.399999976158,
+        "interval": 40.30000001192093
+      },
+      {
+        "at": 2727.899999976158,
+        "interval": 55.5
+      },
+      {
+        "at": 2780,
+        "interval": 52.10000002384186
+      },
+      {
+        "at": 2831.7999999523163,
+        "interval": 51.799999952316284
+      },
+      {
+        "at": 2880,
+        "interval": 48.200000047683716
+      },
+      {
+        "at": 2928.399999976158,
+        "interval": 48.39999997615814
+      },
+      {
+        "at": 2976.7999999523163,
+        "interval": 48.39999997615814
+      },
+      {
+        "at": 3032.899999976158,
+        "interval": 56.10000002384186
+      },
+      {
+        "at": 3072.899999976158,
+        "interval": 40
+      },
+      {
+        "at": 3122.599999964237,
+        "interval": 49.69999998807907
+      },
+      {
+        "at": 3178.2999999523163,
+        "interval": 55.69999998807907
+      },
+      {
+        "at": 3228.099999964237,
+        "interval": 49.80000001192093
+      },
+      {
+        "at": 3283.899999976158,
+        "interval": 55.80000001192093
+      },
+      {
+        "at": 3331.5,
+        "interval": 47.60000002384186
+      },
+      {
+        "at": 3380.099999964237,
+        "interval": 48.59999996423721
+      },
+      {
+        "at": 3433,
+        "interval": 52.90000003576279
+      },
+      {
+        "at": 3480.399999976158,
+        "interval": 47.39999997615814
+      },
+      {
+        "at": 3532.399999976158,
+        "interval": 52
+      },
+      {
+        "at": 3580.599999964237,
+        "interval": 48.19999998807907
+      },
+      {
+        "at": 3628.399999976158,
+        "interval": 47.80000001192093
+      },
+      {
+        "at": 3677.2999999523163,
+        "interval": 48.89999997615814
+      },
+      {
+        "at": 3719.599999964237,
+        "interval": 42.30000001192093
+      },
+      {
+        "at": 3782.7999999523163,
+        "interval": 63.19999998807907
+      },
+      {
+        "at": 3830.7999999523163,
+        "interval": 48
+      },
+      {
+        "at": 3878.7999999523163,
+        "interval": 48
+      },
+      {
+        "at": 3926.199999988079,
+        "interval": 47.40000003576279
+      },
+      {
+        "at": 3983.199999988079,
+        "interval": 57
+      },
+      {
+        "at": 4024.099999964237,
+        "interval": 40.89999997615814
+      },
+      {
+        "at": 4071.5,
+        "interval": 47.40000003576279
+      },
+      {
+        "at": 4276.799999952316,
+        "interval": 205.29999995231628
+      }
+    ],
+    "workers": {
+      "started": 2,
+      "completed": 1,
+      "cancelled": 1,
+      "failed": 0
+    },
+    "events": [
+      {
+        "type": "started",
+        "at": 283.19999998807907,
+        "people": 300
+      },
+      {
+        "type": "cancelled",
+        "at": 283.89999997615814,
+        "people": 300
+      },
+      {
+        "type": "started",
+        "at": 284,
+        "people": 300
+      },
+      {
+        "type": "completed",
+        "at": 4105.799999952316,
+        "people": 300
+      }
+    ]
+  },
+  "workerMemory": [
+    {
+      "elapsedMs": 796.4514000415802,
+      "heaps": [
+        {
+          "role": "layout preparation",
+          "usedSize": 1106920,
+          "totalSize": 3407872,
+          "embedderHeapUsedSize": 773712,
+          "backingStorageSize": 106510
+        },
+        {
+          "role": "ELK",
+          "usedSize": 52308328,
+          "totalSize": 78438400,
+          "embedderHeapUsedSize": 506360,
+          "backingStorageSize": 10352507
+        }
+      ]
+    },
+    {
+      "elapsedMs": 1336.9722999930382,
+      "heaps": [
+        {
+          "role": "layout preparation",
+          "usedSize": 1106920,
+          "totalSize": 3407872,
+          "embedderHeapUsedSize": 773712,
+          "backingStorageSize": 106510
+        },
+        {
+          "role": "ELK",
+          "error": "Worker snapshot timeout"
+        }
+      ]
+    },
+    {
+      "elapsedMs": 3866.2183000445366,
+      "heaps": [
+        {
+          "role": "layout preparation",
+          "usedSize": 1106920,
+          "totalSize": 3407872,
+          "embedderHeapUsedSize": 773712,
+          "backingStorageSize": 106510
+        },
+        {
+          "role": "ELK",
+          "usedSize": 67487536,
+          "totalSize": 119857152,
+          "embedderHeapUsedSize": 634520,
+          "backingStorageSize": 10352507
+        }
+      ]
+    }
+  ],
+  "layoutHeartbeatMaxMs": 63.19999998807907,
+  "connectionMs": 102.10410004854202,
+  "normalTasks": [
+    {
+      "at": 5188.099999964237,
+      "duration": 62
+    }
+  ],
+  "frameIntervalsMs": [
+    16.399999999999636,
+    16.399999999999636,
+    16.400000000000546,
+    16.400000000000546,
+    16.5,
+    16.5,
+    16.5,
+    16.5,
+    16.599999999999454,
+    16.599999999999454,
+    16.599999999999454,
+    16.599999999999454,
+    16.599999999999454,
+    16.599999999999454,
+    16.600000000000364,
+    16.600000000000364,
+    16.600000000000364,
+    16.600000000000364,
+    16.600000000000364,
+    16.600000000000364,
+    16.600000000000364,
+    16.600000000000364,
+    16.600000000000364,
+    16.600000000000364,
+    16.600000000000364,
+    16.600000000000364,
+    16.600000000000364,
+    16.600000000000364,
+    16.670000000000073,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.699999999999818,
+    16.700000000000728,
+    16.700000000000728,
+    16.700000000000728,
+    16.799999999999272,
+    16.799999999999272,
+    16.800000000000182,
+    16.800000000000182,
+    16.800000000000182,
+    16.800000000000182,
+    16.800000000000182,
+    16.800000000000182,
+    16.899999999999636,
+    16.899999999999636,
+    16.899999999999636,
+    16.900000000000546,
+    33.19999999999982,
+    33.30000000000018
+  ],
+  "exports": {
+    "SVG": {
+      "wallMs": 240.83529996871948,
+      "bytes": 4995289
+    },
+    "PDF": {
+      "wallMs": 921.6697000265121,
+      "bytes": 648422
+    },
+    "PNG": {
+      "wallMs": 629.30269998312,
+      "bytes": 1341375
+    }
+  },
+  "heapBefore": [
+    {
+      "name": "Timestamp",
+      "value": 294476.925551
+    },
+    {
+      "name": "AudioHandlers",
+      "value": 0
+    },
+    {
+      "name": "AudioWorkletProcessors",
+      "value": 0
+    },
+    {
+      "name": "Documents",
+      "value": 1
+    },
+    {
+      "name": "Frames",
+      "value": 1
+    },
+    {
+      "name": "JSEventListeners",
+      "value": 556
+    },
+    {
+      "name": "LayoutObjects",
+      "value": 6564
+    },
+    {
+      "name": "MediaKeySessions",
+      "value": 0
+    },
+    {
+      "name": "MediaKeys",
+      "value": 0
+    },
+    {
+      "name": "Nodes",
+      "value": 15345
+    },
+    {
+      "name": "Resources",
+      "value": 20
+    },
+    {
+      "name": "ContextLifecycleStateObservers",
+      "value": 10
+    },
+    {
+      "name": "V8PerContextDatas",
+      "value": 2
+    },
+    {
+      "name": "WorkerGlobalScopes",
+      "value": 0
+    },
+    {
+      "name": "UACSSResources",
+      "value": 0
+    },
+    {
+      "name": "RTCPeerConnections",
+      "value": 0
+    },
+    {
+      "name": "ResourceFetchers",
+      "value": 1
+    },
+    {
+      "name": "AdSubframes",
+      "value": 0
+    },
+    {
+      "name": "DetachedScriptStates",
+      "value": 0
+    },
+    {
+      "name": "ArrayBufferContents",
+      "value": 0
+    },
+    {
+      "name": "LayoutCount",
+      "value": 8
+    },
+    {
+      "name": "RecalcStyleCount",
+      "value": 14
+    },
+    {
+      "name": "LayoutDuration",
+      "value": 0.122013
+    },
+    {
+      "name": "RecalcStyleDuration",
+      "value": 0.046533
+    },
+    {
+      "name": "DevToolsCommandDuration",
+      "value": 0.052553
+    },
+    {
+      "name": "ScriptDuration",
+      "value": 0.191565
+    },
+    {
+      "name": "V8CompileDuration",
+      "value": 0
+    },
+    {
+      "name": "TaskDuration",
+      "value": 0.553335
+    },
+    {
+      "name": "TaskOtherDuration",
+      "value": 0.140671
+    },
+    {
+      "name": "ThreadTime",
+      "value": 0.597747
+    },
+    {
+      "name": "ProcessTime",
+      "value": 6.052656
+    },
+    {
+      "name": "JSHeapUsedSize",
+      "value": 10671412
+    },
+    {
+      "name": "JSHeapTotalSize",
+      "value": 23175168
+    },
+    {
+      "name": "FirstMeaningfulPaint",
+      "value": 294472.670834
+    },
+    {
+      "name": "DomContentLoaded",
+      "value": 294472.50014
+    },
+    {
+      "name": "NavigationStart",
+      "value": 294472.369582
+    }
+  ],
+  "heapAfter": [
+    {
+      "name": "Timestamp",
+      "value": 294482.414544
+    },
+    {
+      "name": "AudioHandlers",
+      "value": 0
+    },
+    {
+      "name": "AudioWorkletProcessors",
+      "value": 0
+    },
+    {
+      "name": "Documents",
+      "value": 3
+    },
+    {
+      "name": "Frames",
+      "value": 2
+    },
+    {
+      "name": "JSEventListeners",
+      "value": 1032
+    },
+    {
+      "name": "LayoutObjects",
+      "value": 12764
+    },
+    {
+      "name": "MediaKeySessions",
+      "value": 0
+    },
+    {
+      "name": "MediaKeys",
+      "value": 0
+    },
+    {
+      "name": "Nodes",
+      "value": 50599
+    },
+    {
+      "name": "Resources",
+      "value": 71
+    },
+    {
+      "name": "ContextLifecycleStateObservers",
+      "value": 14
+    },
+    {
+      "name": "V8PerContextDatas",
+      "value": 2
+    },
+    {
+      "name": "WorkerGlobalScopes",
+      "value": 0
+    },
+    {
+      "name": "UACSSResources",
+      "value": 0
+    },
+    {
+      "name": "RTCPeerConnections",
+      "value": 0
+    },
+    {
+      "name": "ResourceFetchers",
+      "value": 3
+    },
+    {
+      "name": "AdSubframes",
+      "value": 0
+    },
+    {
+      "name": "DetachedScriptStates",
+      "value": 0
+    },
+    {
+      "name": "ArrayBufferContents",
+      "value": 11
+    },
+    {
+      "name": "LayoutCount",
+      "value": 76
+    },
+    {
+      "name": "RecalcStyleCount",
+      "value": 112
+    },
+    {
+      "name": "LayoutDuration",
+      "value": 0.562226
+    },
+    {
+      "name": "RecalcStyleDuration",
+      "value": 0.096612
+    },
+    {
+      "name": "DevToolsCommandDuration",
+      "value": 0.228374
+    },
+    {
+      "name": "ScriptDuration",
+      "value": 0.757384
+    },
+    {
+      "name": "V8CompileDuration",
+      "value": 0
+    },
+    {
+      "name": "TaskDuration",
+      "value": 3.450842
+    },
+    {
+      "name": "TaskOtherDuration",
+      "value": 1.806246
+    },
+    {
+      "name": "ThreadTime",
+      "value": 3.33875
+    },
+    {
+      "name": "ProcessTime",
+      "value": 10.049745
+    },
+    {
+      "name": "JSHeapUsedSize",
+      "value": 61847784
+    },
+    {
+      "name": "JSHeapTotalSize",
+      "value": 102203392
+    },
+    {
+      "name": "FirstMeaningfulPaint",
+      "value": 294472.670834
+    },
+    {
+      "name": "DomContentLoaded",
+      "value": 294472.50014
+    },
+    {
+      "name": "NavigationStart",
+      "value": 294472.369582
+    }
+  ],
+  "allTasks": [
+    {
+      "at": 4106.199999988079,
+      "duration": 80
+    },
+    {
+      "at": 4186.5,
+      "duration": 52
+    },
+    {
+      "at": 5188.099999964237,
+      "duration": 62
+    },
+    {
+      "at": 6488.5,
+      "duration": 97
+    },
+    {
+      "at": 7161.5,
+      "duration": 144
+    },
+    {
+      "at": 7363.599999964237,
+      "duration": 123
+    },
+    {
+      "at": 7758.399999976158,
+      "duration": 58
+    },
+    {
+      "at": 8102.199999988079,
+      "duration": 57
+    },
+    {
+      "at": 8183.199999988079,
+      "duration": 193
+    }
+  ],
+  "workers": {
+    "started": 2,
+    "completed": 1,
+    "cancelled": 1,
+    "failed": 0
+  }
+}

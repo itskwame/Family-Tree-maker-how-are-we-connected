@@ -1,0 +1,128 @@
+{
+  "11": {
+    "people": 11,
+    "photos": 7,
+    "paper_mm": [
+      457.2,
+      609.5999999999999
+    ],
+    "first_names_pt": 23.7781512605042,
+    "dates_pt": 13.07798319327731,
+    "pdf_svg_mean_rgb_difference": 1.408759375,
+    "png_svg_mean_rgb_difference": 0.8586671875,
+    "png_pixels": [
+      5400,
+      7200
+    ],
+    "png_dpi": [
+      299.9994,
+      299.9994
+    ],
+    "portrait_differences": {
+      "arthur": 4.564,
+      "iris": 2.244,
+      "david": 2.649,
+      "emma": 2.075,
+      "lucas": 2.35,
+      "ava": 9.693,
+      "theo": 3.36
+    },
+    "pdf_names": "all exactly once",
+    "arch_clipping": "pass"
+  },
+  "15": {
+    "people": 15,
+    "photos": 7,
+    "paper_mm": [
+      457.2,
+      609.5999999999999
+    ],
+    "first_names_pt": 17.90886075949367,
+    "dates_pt": 9.84987341772152,
+    "pdf_svg_mean_rgb_difference": 1.451110763888889,
+    "png_svg_mean_rgb_difference": 0.8173847222222221,
+    "png_pixels": [
+      5400,
+      7200
+    ],
+    "png_dpi": [
+      299.9994,
+      299.9994
+    ],
+    "portrait_differences": {
+      "arthur": 5.576,
+      "iris": 3.554,
+      "david": 3.819,
+      "emma": 3.601,
+      "lucas": 2.879,
+      "ava": 13.295,
+      "theo": 4.521
+    },
+    "pdf_names": "all exactly once",
+    "arch_clipping": "pass"
+  },
+  "25": {
+    "people": 25,
+    "photos": 8,
+    "paper_mm": [
+      609.5999999999999,
+      457.2
+    ],
+    "first_names_pt": 15.151807228915658,
+    "dates_pt": 8.333493975903613,
+    "pdf_svg_mean_rgb_difference": 2.1646157407407407,
+    "png_svg_mean_rgb_difference": 1.1355583333333332,
+    "png_pixels": [
+      7200,
+      5400
+    ],
+    "png_dpi": [
+      299.9994,
+      299.9994
+    ],
+    "portrait_differences": {
+      "arthur": 7.723,
+      "iris": 4.891,
+      "david": 6.307,
+      "helen": 5.282,
+      "emma": 5.523,
+      "lucas": 3.967,
+      "ava": 15.137,
+      "theo": 8.692
+    },
+    "pdf_names": "all exactly once",
+    "arch_clipping": "pass"
+  },
+  "40": {
+    "people": 40,
+    "photos": 8,
+    "paper_mm": [
+      914.4,
+      609.5999999999999
+    ],
+    "first_names_pt": 15.385228817399188,
+    "dates_pt": 8.461875849569553,
+    "pdf_svg_mean_rgb_difference": 2.439873611111111,
+    "png_svg_mean_rgb_difference": 1.0754527777777778,
+    "png_pixels": [
+      10800,
+      7200
+    ],
+    "png_dpi": [
+      299.9994,
+      299.9994
+    ],
+    "portrait_differences": {
+      "arthur": 11.573,
+      "iris": 7.43,
+      "david": 7.017,
+      "helen": 6.836,
+      "emma": 9.715,
+      "lucas": 8.412,
+      "ava": 19.203,
+      "theo": 10.494
+    },
+    "pdf_names": "all exactly once",
+    "arch_clipping": "pass"
+  }
+}

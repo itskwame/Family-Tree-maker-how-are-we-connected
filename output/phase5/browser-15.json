@@ -1,0 +1,47 @@
+{
+  "stem": "familyconnect-botanical-15-poster18",
+  "format": "poster18",
+  "formats": {
+    "poster18": {
+      "readable": true,
+      "namePt": 17.90886075949367,
+      "paper": [
+        457.2,
+        609.5999999999999
+      ]
+    },
+    "poster24": {
+      "readable": true,
+      "namePt": 23.878481012658224,
+      "paper": [
+        609.5999999999999,
+        914.4
+      ]
+    }
+  },
+  "scene": {
+    "ids": [
+      "arthur",
+      "eleanor",
+      "samuel",
+      "iris",
+      "david",
+      "clara",
+      "ruth",
+      "emma",
+      "lucas",
+      "ava",
+      "theo",
+      "edmund",
+      "agnes",
+      "walter",
+      "beatrice"
+    ],
+    "photos": 7,
+    "overlap": [],
+    "width": 1200,
+    "height": 1600,
+    "textOverflow": []
+  },
+  "errors": []
+}

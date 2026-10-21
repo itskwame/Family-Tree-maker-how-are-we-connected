@@ -1,0 +1,62 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FamilyConnect — read-only schema audit</title>
+<style>body{max-width:1050px;margin:40px auto;padding:0 24px;background:#fafbf8;color:#243e35;font:16px/1.65 system-ui,sans-serif}h1,h2{line-height:1.2}table{border-collapse:collapse;width:100%}td,th{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid #ccd7ce}.notice{padding:20px;background:#f4eddc}code,pre{font-size:.9em}pre{padding:16px;background:#eef2ec;white-space:pre-wrap}a{color:#245f76}</style>
+<h1>Read-only inspection succeeds</h1>
+<p>20 October 2026. Project <code>jmsntxwkaneluqgnzzim</code>, Family Connect. Supersedes the inspection-access blocker in PHASE-6-PREREQUISITES.html. This is an audit report, not a completed Phase 6 implementation.</p>
+<p class="notice"><strong>The CLI role error has a working read-only alternative. Schema drift and security findings now block schema-dependent implementation.</strong> No hosted roles, grants, migrations, configuration, or production records were changed in this pass. No family records, invitation values, Auth users, or storage objects were queried.</p>
+<h2>Verified results</h2>
+<ul><li>Project status: ACTIVE_HEALTHY. Docker server: 28.0.4. Project status does not independently verify every service endpoint.</li>
+<li>Read-only SQL: HTTP 201, role <code>supabase_read_only_user</code>, <code>transaction_read_only=on</code>. Catalog probe: 717 pg_class relations, 263 information_schema table entries.</li>
+<li>Metadata inventory: 9 non-system schemas; 52 table/view relations; 504 columns; 156 constraints; 34 foreign keys; 156 indexes; 9 policies; 144 triggers including internal triggers; 103 functions/procedures; 29 role attribute records; 20 role memberships; 24 default ACL records.</li>
+<li>Auth settings, Storage settings, buckets, and migration history: GET requests all returned HTTP 200. Saved Auth output excludes secrets.</li></ul>
+<h2>Repeatable read-only procedure</h2>
+<ol><li>Use the existing Supabase CLI login. The helper reads only its known Windows Credential Manager entry, or an existing SUPABASE_ACCESS_TOKEN environment variable. It never prints or saves the credential; no new credential or elevated database privilege is needed.</li>
+<li>From the repository, run the probe below. Confirm the read-only role and transaction flag.</li>
+<li>Run --schema. It sends the SELECT in <a href="scripts/phase6-schema-inspection.sql">phase6-schema-inspection.sql</a> to the dedicated read-only endpoint, not the general SQL endpoint or CLI login-role setup.</li>
+<li>Run --config for non-secret Auth settings, Storage configuration/buckets, and migration versions.</li>
+<li>Review <code>output/phase6/private/hosted-schema-audit.json</code> and <code>hosted-service-config.json</code> locally. They are Git-ignored. Function definitions can contain hardcoded secrets in poorly designed applications: review before sharing. The metadata snapshot is not a restorable backup.</li></ol>
+<pre>python scripts/phase6-readonly-probe.py
+python scripts/phase6-readonly-probe.py --schema
+python scripts/phase6-readonly-probe.py --config</pre>
+<p>Endpoint: <code>POST https://api.supabase.com/v1/projects/jmsntxwkaneluqgnzzim/database/query/read-only</code>. Body: <code>{"query":"SELECT ..."}</code>. Supabase documents the endpoint as beta. Existing permissions were sufficient; future permission failures must stop inspection rather than trigger privilege changes.</p>
+<table><tr><th>Inspection</th><th>Catalog sources in the supplied query</th></tr>
+<tr><td>Tables, columns, defaults, views</td><td>pg_namespace, pg_class, pg_attribute, pg_attrdef; pg_get_expr, pg_get_viewdef, format_type</td></tr>
+<tr><td>Constraints and foreign keys</td><td>pg_constraint; source/target relations and column numbers; pg_get_constraintdef</td></tr>
+<tr><td>Indexes</td><td>pg_index; pg_get_indexdef; unique, primary, valid, ready flags</td></tr>
+<tr><td>RLS</td><td>pg_class enable/force flags; pg_policies roles, commands, USING and WITH CHECK</td></tr>
+<tr><td>Triggers and functions</td><td>pg_trigger, pg_proc; definitions, enabled/internal flags, ownership, SECURITY DEFINER, configuration/search_path, ACLs</td></tr>
+<tr><td>Grants</td><td>Database/schema/table/column/sequence/function ACLs; pg_default_acl; pg_roles without password fields; pg_auth_members; supplemental information_schema.table_privileges</td></tr></table>
+<p><strong>Visibility caveat:</strong> information_schema privilege views are filtered by the inspecting role; only two table-grant rows were visible. That is not the total grant count. Interpret catalog ACLs with ownership, role inheritance, default ACLs and PostgreSQL built-in defaults. NULL ACL does not mean no permissions. This inventory is not a complete effective-permission or exploit test.</p>
+<h2>Confirmed schema drift</h2>
+<p>The application's configured URL matches this project. The public schema has exactly three tables: <code>families</code>, <code>family_memberships</code>, <code>invites</code>. There are no public functions or custom public triggers in the snapshot.</p>
+<table><tr><th>Repository migrations expect</th><th>Hosted observation</th></tr>
+<tr><td>profiles, family_members, relationships</td><td>Absent. Repository ALTER statements require a missing baseline.</td></tr>
+<tr><td>family_groups, family_group_members</td><td>Absent; deployed model uses families/family_memberships with different fields.</td></tr>
+<tr><td>invitations and event/notification tables</td><td>Absent. Hosted invites contains family_id, token, type, target_person_id, role_default and expiry fields.</td></tr>
+<tr><td>Five migration files, November 2025–February 2026</td><td>Management API returns empty migration history. This does not prove no manual SQL was ever executed.</td></tr></table>
+<p>Do not apply the repository migration chain or treat it as an accurate deployed baseline. Identify the authoritative schema and recover its source history, or prepare an explicitly reviewed local baseline.</p>
+<h2>Security blockers</h2>
+<ol><li><strong>Invitation visibility:</strong> invites_select_for_authenticated_users permits SELECT TO authenticated USING (true), and table grants include SELECT. It does not isolate invitation fields, including the token column, by recipient/network. Actual values were not read; token hashing/storage format remains unverified.</li>
+<li><strong>Membership authorization:</strong> memberships_insert_self checks only user_id = auth.uid(). The role constraint allows admin/contributor/viewer and authenticated has INSERT. There is no family approval, valid invitation, or restricted-role check, nor a custom public trigger enforcing one. This is an admin self-assignment and unauthorized enrollment risk; no production exploit was attempted.</li>
+<li><strong>RLS recursion:</strong> membership SELECT/UPDATE policies query family_memberships itself. Reproduce possible recursion errors locally with fictional users. Accidental query failure is not a substitute for authorization.</li>
+<li><strong>Broad grants:</strong> anon and authenticated have broad DML plus TRUNCATE, REFERENCES, TRIGGER and MAINTAIN privileges on all three tables. RLS does not cover every PostgreSQL operation. Review least privilege and direct-role exposure; no destructive validation was attempted.</li>
+<li><strong>Unverified claiming/relationships:</strong> target_person_id has no person-table foreign key. No public person table, verified parentage model, claim workflow, consent model, minor protections or provisional/confirmed relationship separation is present to validate.</li></ol>
+<h2>Auth and Storage</h2>
+<p>Email sign-up is enabled; email auto-confirmation is disabled; secure email change is enabled. Anonymous, phone and inspected OAuth providers are disabled. TOTP enrollment/verification is enabled. Minimum password length is 6; CAPTCHA is disabled. Auth site URL is http://localhost:3000 with an empty redirect allow-list. Invitation continuation and secure claiming still require design and testing.</p>
+<p>No Storage buckets were returned, and no Storage RLS policies appear in the snapshot. Global file limit is 50 MiB; S3 protocol is enabled. Private portrait upload/access policies remain unimplemented/unverified. No object contents were read.</p>
+<h2>Local isolation</h2>
+<p>Initialized <code>local/phase6/supabase/config.toml</code>: distinct project ID familyconnect-phase6-isolated, PostgreSQL 17, API/database/Studio/mail ports 55321/55322/55323/55324, local Auth URL http://127.0.0.1:5176. Verified no hosted project-ref link. No migrations or hosted data copied. <strong>The local stack has not been started or health-validated.</strong> Existing application configuration still targets hosted Supabase and must not be used for fictional writes.</p>
+<p>No Phase 6 application components were added during this pass. Existing graph, layout and templates were untouched. No new application screenshots or regression results are claimed for this metadata inspection.</p>
+<h2>Dashboard fallback</h2>
+<ol><li>Open project jmsntxwkaneluqgnzzim → SQL Editor using existing authorized access. Do not change roles or grants.</li>
+<li>Paste BEGIN READ ONLY; followed by the complete supplied SQL file, followed by ROLLBACK;. Execute the entire selection together. If authorization fails, stop.</li>
+<li>Export the schema_audit result using the results export control, or copy its JSON cell into a private local file if export is unavailable. The query contains no application-table reads or writes.</li>
+<li>Read Auth URL Configuration and Sign-in/Providers settings. Record redirect URLs, enabled methods, confirmation/security settings and limits; exclude provider secrets, SMTP passwords and signing keys.</li>
+<li>Read Storage bucket settings and policies: public/private status, MIME types and size limits. Do not export objects. Read migration history and backup/PITR availability without running migrations or restoring anything.</li></ol>
+<h2>Remaining review and rollback prerequisites</h2>
+<p>The earlier HTTP 400/PostgreSQL 42501 error concerns CLI login-role setup. Today's read-only query and configuration calls succeed. Historical API Gateway errors have not been correlated to timestamped logs; recursive RLS is a possible error source, not a proven explanation.</p>
+<p>Before proposing hosted changes: preserve the private schema/security baseline, inventory backup retention/PITR, document Auth and Storage recovery separately, verify an isolated restore procedure, and test additive migrations plus rollback/forward fixes with fictional data. No backup availability check or restore rehearsal was completed here. The metadata JSON is not a backup.</p>
+<h2>Exact next action</h2>
+<p><strong>Confirm whether this three-table deployed schema is the intended FamilyConnect baseline, or identify the repository branch/migration source that matches the intended database.</strong> Your instruction to stop on schema inconsistencies now applies. No new credentials, elevated privileges, or manual dashboard export are needed for inspection. Baseline reconciliation and local security fixes must precede schema-dependent Phase 6 work. Hosted changes remain blocked pending complete review and separate explicit approval.</p>
+<p>Sources: <a href="https://supabase.com/docs/reference/api/v1-read-only-query">Read-only SQL endpoint</a>; <a href="https://supabase.com/docs/reference/api/v1-get-auth-service-config">Auth configuration</a>; <a href="https://supabase.com/docs/reference/api/v1-get-storage-config">Storage configuration</a>; <a href="https://supabase.com/docs/reference/api/v1-list-migration-history">Migration history</a>.</p>
+</html>

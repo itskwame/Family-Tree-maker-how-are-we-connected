@@ -1,0 +1,115 @@
+{
+  "familyconnect-300-portraits": {
+    "people": 300,
+    "pdf_full_name_occurrences": "one per card; selected person also named in personal-poster heading",
+    "portrait_instances": 36,
+    "unique_embedded_pdf_photos": 8,
+    "paper_mm": [
+      8233.530952380952,
+      639.2333333333332
+    ],
+    "user_unit": 2.0,
+    "first_names_pt": 11.999999999999998,
+    "surnames_pt": 10.285714285714286,
+    "pdf_svg_mean_rgb_difference": 1.0453880273360494,
+    "png_svg_mean_rgb_difference": 0.7848075305559207,
+    "png_dimensions": [
+      16384,
+      1273
+    ],
+    "portrait_differences": {
+      "arthur": 9.014,
+      "iris": 8.09,
+      "david": 9.869,
+      "helen": 7.897,
+      "emma": 8.553,
+      "lucas": 5.536,
+      "ava": 13.022,
+      "theo": 9.885,
+      "c1-0": 8.478,
+      "c1-3": 9.155,
+      "c1-9": 7.183,
+      "c1-22": 14.087,
+      "c2-0": 7.879,
+      "c2-3": 9.594,
+      "c2-9": 8.072,
+      "c2-22": 14.547,
+      "c3-0": 7.862,
+      "c3-3": 9.051,
+      "c3-9": 7.185,
+      "c3-22": 14.481,
+      "c4-0": 9.084,
+      "c4-3": 9.671,
+      "c4-9": 7.988,
+      "c4-22": 14.361,
+      "c5-0": 8.796,
+      "c5-3": 10.108,
+      "c5-9": 7.642,
+      "c5-22": 15.035,
+      "c6-0": 9.029,
+      "c6-3": 9.183,
+      "c6-9": 8.119,
+      "c6-22": 14.376,
+      "c7-0": 9.051,
+      "c7-3": 9.775,
+      "c7-9": 7.657,
+      "c7-22": 15.15
+    }
+  },
+  "familyconnect-emma-poster18": {
+    "people": 11,
+    "pdf_full_name_occurrences": "one per card; selected person also named in personal-poster heading",
+    "portrait_instances": 7,
+    "unique_embedded_pdf_photos": 7,
+    "paper_mm": [
+      457.2,
+      609.6
+    ],
+    "user_unit": 1.0,
+    "first_names_pt": 18.144000000000002,
+    "surnames_pt": 15.552000000000001,
+    "pdf_svg_mean_rgb_difference": 1.5155707146426787,
+    "png_svg_mean_rgb_difference": 1.043448275862069,
+    "png_dimensions": [
+      1800,
+      2401
+    ],
+    "portrait_differences": {
+      "arthur": 8.746,
+      "iris": 5.041,
+      "david": 6.184,
+      "emma": 4.656,
+      "lucas": 4.081,
+      "ava": 12.725,
+      "theo": 7.062
+    }
+  },
+  "familyconnect-emma-poster24": {
+    "people": 11,
+    "pdf_full_name_occurrences": "one per card; selected person also named in personal-poster heading",
+    "portrait_instances": 7,
+    "unique_embedded_pdf_photos": 7,
+    "paper_mm": [
+      609.6,
+      914.4
+    ],
+    "user_unit": 1.0,
+    "first_names_pt": 24.192000000000004,
+    "surnames_pt": 20.736000000000004,
+    "pdf_svg_mean_rgb_difference": 1.277669777777778,
+    "png_svg_mean_rgb_difference": 0.8358782222222222,
+    "png_dimensions": [
+      2401,
+      3601
+    ],
+    "portrait_differences": {
+      "arthur": 4.192,
+      "iris": 3.495,
+      "david": 3.074,
+      "emma": 4.591,
+      "lucas": 2.135,
+      "ava": 8.179,
+      "theo": 6.63
+    }
+  }
+}

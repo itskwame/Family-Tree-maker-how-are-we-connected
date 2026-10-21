@@ -1,0 +1,40 @@
+{
+  "cpu": "Intel(R) Core(TM) Ultra 5 125U",
+  "node": "v18.20.8",
+  "width": 27149,
+  "height": 1914,
+  "people": 300,
+  "partnerships": 104,
+  "parentages": 394,
+  "nodes": 406,
+  "edges": 408,
+  "crossovers": 226,
+  "intersections": {
+    "unrelatedOverlaps": [],
+    "unrelatedTouches": []
+  },
+  "runs": [
+    {
+      "wallMs": 4855.088500022888,
+      "layoutMs": 4854.821300029755,
+      "memory": {
+        "rss": 170643456,
+        "heapTotal": 130781184,
+        "heapUsed": 96063136,
+        "external": 7495188,
+        "arrayBuffers": 10626
+      }
+    },
+    {
+      "wallMs": 4587.608799993992,
+      "layoutMs": 4587.524399995804,
+      "memory": {
+        "rss": 255860736,
+        "heapTotal": 209895424,
+        "heapUsed": 185510792,
+        "external": 7495228,
+        "arrayBuffers": 10626
+      }
+    }
+  ]
+}

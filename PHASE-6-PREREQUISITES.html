@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FamilyConnect Phase 6 — environment verification and audit blocker</title>
+<style>body{max-width:1000px;margin:40px auto;padding:0 24px;background:#fafbf8;color:#243e35;font:16px/1.65 system-ui,sans-serif}h1,h2{line-height:1.2}table{border-collapse:collapse;width:100%}td,th{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid #ccd7ce}.notice{padding:20px;background:#f4eddc}code{font-size:.9em}</style>
+<h1>Phase 6 prerequisite verification</h1>
+<p class="notice"><strong>Update:</strong> the read-only API inspection now succeeds. See <a href="PHASE-6-READONLY-AUDIT.html">the current audit report</a> for schema drift, security blockers and the next action. The access-blocker findings below are historical.</p>
+<p>Assessment performed 20 October 2026 (local time). This is an environment/audit status report, not a completed Phase 6 implementation report.</p>
+<p class="notice"><strong>Health checks pass; hosted database inspection is blocked by connection-role permissions.</strong> Implementation stops under the user's explicit instruction to stop when missing permissions prevent safe implementation.</p>
+<table><tr><th>Check</th><th>Result</th></tr>
+<tr><td>Hosted project</td><td>Supabase management lookup reports <code>jmsntxwkaneluqgnzzim</code> / Family Connect as <code>ACTIVE_HEALTHY</code>. This verifies project status; it does not independently verify every service endpoint.</td></tr>
+<tr><td>Docker</td><td><code>docker info</code> reports server version <code>28.0.4</code>; active context is <code>desktop-linux</code>. The Linux engine is available.</td></tr>
+<tr><td>Separate audit configuration</td><td>Created <code>tmp/phase6-hosted-audit</code> and linked that temporary CLI configuration to the hosted project. The application's configuration and repository migration files were not changed. This directory is for hosted inspection only and must never be used as the local development migration target.</td></tr>
+<tr><td>Schema-only export</td><td>Attempted <code>supabase db dump --linked</code> with no data export. The CLI first attempted to initialize its temporary login role. Supabase returned HTTP 400 / PostgreSQL <code>42501</code>: permission denied to alter role <code>cli_login_postgres</code>. The error requires CREATEROLE and ADMIN authority for that role. No schema export completed.</td></tr>
+<tr><td>Migration inventory</td><td>The migration-list command encountered the same connection bootstrap failure. No hosted migration history was retrieved.</td></tr>
+<tr><td>Local database</td><td>Not created or migrated. Docker availability is confirmed, but a verified schema baseline is still missing. No partial production-data clone or guessed replacement schema was used.</td></tr></table>
+<h2>What remains unverified</h2>
+<p>The complete deployed schema, RLS policies, table/column/function grants, triggers, Auth configuration, Storage bucket/access rules and hosted migration history have not been inspected. Consequently no deployed-versus-repository schema comparison is claimed. Prior findings about permissive invitation access and plaintext invite codes remain repository findings, not confirmed deployed findings.</p>
+<h2>Connection behavior and safety</h2>
+<p>The CLI's nominally read-only export and migration-list commands attempted temporary database-role setup before connecting. Both attempts were rejected. No application migrations, seeds, application data writes or public deployments were run; no successful hosted modification was reported. That bootstrap path will not be retried for this audit. This report omits the temporary password-verifier material included in the CLI error.</p>
+<p>To continue without hosted role changes, provide an existing direct database connection with sufficient read-only catalog/schema visibility, configured through a secure environment or credential store, or supply complete schema/security configuration exports. Do not paste passwords, service-role keys or access tokens into chat. A new role or a repair to hosted role privileges would itself be a hosted change and is outside this authorization.</p>
+<h2>Reported API Gateway errors</h2>
+<p>The error actually reproduced here is the management API's temporary database-login-role failure. Its underlying SQL permission error is specific and actionable, but it is not evidence that the reported API Gateway errors have the same cause. No gateway request logs or traces were retrieved. Investigation remains pending read-only log access or sanitized records containing timestamps, route, status code and request ID. Do not include bearer tokens, invitation tokens, contacts or private response bodies in diagnostic exports.</p>
+<h2>Backup and rollback plan before any future hosted proposal</h2>
+<ol>
+<li>Inventory hosted backup/PITR availability, retention, recovery point and restore permissions. Record the actual verified recovery mechanism; a schema-only export is not a data backup.</li>
+<li>Capture a schema/security baseline and protected configuration inventory. Separately verify recovery of Storage objects and bucket policies, Auth settings and any required external secrets; do not assume database backup covers everything.</li>
+<li>Rehearse restoration in an authorized isolated environment. For this Phase 6 work use fictional seed data only; copying real family data into development is not authorized.</li>
+<li>Develop additive, versioned migrations locally. Test constraints, RLS and compatibility against the baseline. Record which changes can be reversed safely and which need a forward correction or restored backup.</li>
+<li>Use a feature flag to disable new onboarding immediately if needed. Keep existing graph and template routes operational. Do not automatically drop new tables or discard accepted claims during rollback.</li>
+<li>Before proposing a hosted rollout, present the schema diff, security results, restore evidence, recovery steps and any unavoidable data-loss window. Obtain separate explicit approval for hosted changes. No hosted backup or restore operation was performed during this check.</li>
+</ol>
+<h2>Next authorized work once access is available</h2>
+<p>Complete the metadata-only hosted audit and drift comparison first. Establish local Supabase under a distinct project ID and ports with no hosted project link, separate local credentials and fictional accounts. Verify target identity before every migration/seed command. Then implement the already approved invitation → identity → immediate reveal → optional Guided Family Builder → voluntary invitation flow, retaining the security and regression gates in <a href="PHASE-6-PLAN.html">the approved plan</a>.</p>
+<p>No working Phase 6 demonstration, new browser screenshots or passing onboarding tests are claimed at this stop.</p>
+</html>

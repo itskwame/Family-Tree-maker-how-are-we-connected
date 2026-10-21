@@ -1,0 +1,92 @@
+"""Build the offline Phase 4 evidence index from measured results."""
+from pathlib import Path
+import json
+from html import escape
+
+root = Path(__file__).resolve().parents[1]
+out = root / 'output/phase4'
+def read(name): return json.loads((out / name).read_text(encoding='utf-8'))
+b = read('browser-metrics.json')
+e = read('export-results.json')
+g = read('layout-metrics.json')
+p = read('personal-export-metrics.json')
+for name, count in [('browser-results.json', 11), ('production-results.json', 1)]:
+    stats = read(name)['stats']
+    assert stats['expected'] == count and stats['unexpected'] == 0 and stats['flaky'] == 0
+unit = (out / 'unit-results.txt').read_bytes()
+unit = unit.decode('utf-16' if unit.startswith(b'\xff\xfe') else 'utf-8-sig')
+assert '# pass 49' in unit and '# fail 0' in unit
+def link(path, label):
+    assert (root / path).is_file(), path
+    return f'<a href="{path}">{escape(label)}</a>'
+def evidence(name, caption, mobile=False):
+    path = 'output/phase4/' + name
+    return f'<figure>{link(path, caption)}<a href="{path}"><img loading="lazy" class="{"mobile" if mobile else ""}" src="{path}" alt="{escape(caption)}"></a></figure>'
+def row(label, value): return f'<tr><th>{label}</th><td>{value}</td></tr>'
+def mb(value): return f'{value / 1048576:.1f} MiB'
+frames = b['frameIntervalsMs']
+metrics = b['initial']['metrics']
+heap = lambda key: next(v['value'] for v in b[key] if v['name'] == 'JSHeapUsedSize')
+worker = [f"{h['role']}: {mb(h['usedSize'])}" for h in b['workerMemory'][0]['heaps'] if 'usedSize' in h]
+performance = ''.join([
+    row('Worker layout / worker round trip', f"{metrics['layoutMs']:.0f} / {metrics['workerWallMs']:.0f} ms"),
+    row('Layout result to two animation frames / navigation to ready', f"{metrics['renderToPaintMs']:.0f} / {b['navigationReadyWallMs']:.0f} ms"),
+    row('50 ms heartbeat: longest interval during worker calculation', f"{b['layoutHeartbeatMaxMs']:.1f} ms"),
+    row('Longest normal-navigation main-thread task', f"{max(t['duration'] for t in b['normalTasks']):.0f} ms"),
+    row('Pan/zoom frame interval: median / p95 / maximum', f'{frames[len(frames)//2]:.1f} / {frames[int(len(frames)*.95)]:.1f} / {max(frames):.1f} ms'),
+    row('Distant relationship UI action', f"{b['connectionMs']:.0f} ms"),
+    row('Main JS heap before / after navigation and exports', f"{mb(heap('heapBefore'))} / {mb(heap('heapAfter'))}"),
+    row('Successful worker JS heap sample', '; '.join(worker)),
+    row('Node layout runs', ' / '.join(f"{r['wallMs']:.0f} ms, RSS {mb(r['memory']['rss'])}" for r in g['runs'])),
+])
+exports = ''
+for stem, result in e.items():
+    label = 'Complete 300-person network' if '300' in stem else ('Emma: 18 × 24 inches' if 'poster18' in stem else 'Emma: 24 × 36 inches')
+    times = b['exports'] if '300' in stem else p['poster18' if 'poster18' in stem else 'poster24']
+    files = ' · '.join(link(f'output/{"pdf" if ext == "pdf" else "phase4"}/{stem}.{ext}', ext.upper()) for ext in ['pdf','svg','png'])
+    exports += f'<tr><th>{label}</th><td>{result["paper_mm"][0]:.1f} × {result["paper_mm"][1]:.1f} mm<br>First names {result["first_names_pt"]:.1f} pt; surnames {result["surnames_pt"]:.1f} pt</td><td>{files}<br>' + '; '.join(f'{kind} {value["wallMs"]:.0f} ms' for kind,value in times.items()) + '</td></tr>'
+gallery = ''.join(evidence(*item) for item in [
+    ('01-complete-desktop.png', '1. Complete desktop network — overview; zoom or select a branch to read cards.'),
+    ('02-distant-relationship.png', '2. Milo Morgan and Ellis Abbott: third cousins, once removed. The orange route and evidence chips identify the ancestry path.'),
+    ('03-person-focused-branch.png', '3. Person-focused branch, automatically positioned.'),
+    ('04-mobile-start.png', '4. Mobile starts with Emma, her partner and two children.', True),
+    ('04-mobile-selected-relative.png', '5. Mobile search and selected-relative branch.', True),
+    ('05-complete-print-preview.png', '6. Complete-tree print preview; the full family requires roll output.'),
+    ('06-personalized-poster18.png', '7. Personalized 18 × 24 inch print preview.'),
+    ('06-personalized-poster24.png', '8. Personalized 24 × 36 inch print preview.'),
+    ('familyconnect-emma-poster18-pdf-render.png', '9. Independent PDFium rendering: 18 × 24 inch poster.'),
+    ('familyconnect-emma-poster24-pdf-render.png', '10. Independent PDFium rendering: 24 × 36 inch poster.'),
+    ('familyconnect-300-portraits-pdf-render.png', '11. Independent PDFium rendering of the complete roll PDF. Open the full-resolution image for detail.'),
+    ('familyconnect-300-portraits-detail-emma.png', '12. Direct high-resolution PDF detail: portrait, clipping, names and connector anchors.'),
+    ('familyconnect-300-portraits-detail-c5-17.png', '13. Direct PDF detail: adopted relative and adoption connector.'),
+])
+raw = ' · '.join(link('output/phase4/'+name, name) for name in ['unit-results.txt','browser-results.json','production-results.json','layout-metrics.json','relationship-metrics.json','browser-metrics.json','personal-export-metrics.json','cancellation-results.json','export-results.json','fictional-family-300.json'])
+html = f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>FamilyConnect Phase 4 review</title>
+<style>body{{max-width:1180px;margin:40px auto;padding:0 24px;color:#223b35;background:#fafbf9;font:16px/1.6 system-ui,sans-serif}}h1,h2{{line-height:1.2}}h2{{margin-top:48px}}a{{color:#165d78}}table{{width:100%;border-collapse:collapse}}td,th{{padding:12px;border-bottom:1px solid #ccd8d2;text-align:left;vertical-align:top}}th{{font-weight:600}}figure{{margin:32px 0}}img{{display:block;width:100%;height:auto;border:1px solid #ccd8d2;margin-top:10px}}img.mobile{{max-width:390px}}pre{{background:#eaf0ed;padding:18px;overflow:auto}}.status{{padding:18px;background:#eaf0ed}}@media(max-width:600px){{body{{padding:0 12px}}td,th{{padding:6px;font-size:13px}}}}</style>
+<h1>FamilyConnect Phase 4: 300-person validation</h1><p>20 October 2026 · Fictional data only · Existing graph, ELK automatic layout and SVG architecture.</p>
+<p class="status"><strong>Implementation and evidence are ready for visual review.</strong> 49 engine tests, 11 browser scenarios and 1 built-app smoke test passed. Actual application screenshots and independently rendered PDFs were inspected. Phase 4 stops here; this is not a production-readiness claim.</p>
+<h2>What was validated</h2><p>Exactly 300 unique people appear once across six generations, with 104 partnerships and 394 parentage records. The deterministic network extends the 100-person fixture with interconnected branches, remarriages, half-siblings, adoption and unknown parentage. It contains 36 portrait placements and 264 initial-based cards. Eight licensed stock photographs portray fictional characters; models are deliberately reused in this stress fixture.</p>
+<p>Two automatic layouts matched deterministically. Geometry checks found no card overlaps, detached anchors, connectors crossing unrelated cards, unrelated collinear overlaps or ambiguous touching lines. The 408 routed edges have 226 explicitly gapped crossings: these are visual crossings, not family junctions. No per-person coordinates or individual connector corrections were introduced.</p>
+<p>All 90,000 ordered person pairs were checked for valid, cycle-free relationship paths and endpoints; representative results were compared with the original relationship implementation. Explicit expected cases cover third cousins once removed, multiple ancestry paths, half-siblings, adoption and unknown parentage. Path validity is exhaustive for this fixture; semantic labels are covered by targeted goldens, not an independent genealogy oracle for every pair.</p>
+<h2>Navigation and implementation</h2><p>Layout and crossover preprocessing run in cancellable workers. Changing branches terminates obsolete work; tests observed three cancelled operations, two completed operations, no failures, and no surviving layout workers after completion. The main thread renders SVG and handles navigation. Search, pan, zoom, branch selection and distant relationship highlighting were exercised.</p>
+<p>Mobile starts with a readable four-person Emma branch. Users can search for another relative, set ancestor and descendant depth independently, or expand to the complete overview. Personalized branches include immediate partners for context without importing every cousin of included ancestors. The sample posters use two ancestor generations and one descendant generation, resulting in 11 people.</p>
+<p>Validation also corrected a resize callback firing after unmount, preserved zoom on viewport resizing, verified ELK's browser worker entry in the production build, and enforced poster aspect ratios for taller branches. Duplicate partnership pairs now fail validation rather than silently collapsing a junction. Existing Phase 2B and Phase 3 browser scenarios pass.</p>
+<h2>Print formats and export samples</h2><table><tr><th>Sample</th><th>Physical size and text</th><th>Files and measured export time</th></tr>{exports}</table>
+<p>The complete family requires approximately <strong>8.23 metres × 0.64 metres</strong> at readable text sizes. Large-format printing is supported; tiled printing is not implemented. The full PDF uses PDF 1.6 UserUnit=2, which was independently verified with PDFium and pypdf. A print provider must support that physical page size and UserUnit. Printing at “fit to A4” would defeat readability.</p>
+<p>Both personalized posters preserve practical page sizes and comfortable margins. PDF export is blocked when calculated names would be below 9 pt. SVGs embed all photographs and specify physical dimensions. PNGs are review rasters capped at 16,384 pixels per side and 24 megapixels; use PDF or SVG as print masters. The full-tree PNG is 16,384 × 1,273 pixels, approximately 50.5 pixels per inch at the intended roll size.</p>
+<p>Standalone SVGs were opened with external network requests blocked. Independent PDF checks verify person names, image resources, page dimensions, portrait content and clipping, and comparison against SVG/PNG renders. All three PDF samples passed. Their whole-image mean RGB differences from the standalone SVG renders were below 2 on a 0–255 scale.</p>
+<h2>Performance and memory</h2><table>{performance}</table>
+<p>Measured locally on {escape(g['cpu'])}, Node {escape(g['node'])}, Chromium {escape(b['browser'])}; desktop 1600 × 1200 and mobile emulation 390 × 844. Timings are single instrumented development-browser runs, not service guarantees. The built application also passed its separate worker/search/branch/export smoke test. The build completed successfully.</p>
+<p>Memory values are sampled JavaScript heaps or Node RSS, not browser-process peak memory. Some CDP worker samples timed out while ELK was busy; successful samples are reported rather than presenting them as a peak. SVG mounting and export still run on the main thread. Navigation is usable in this test, but observed long tasks and slower frames mean it is not uniformly 60 fps. Physical phones, Safari/Firefox and physical print output were not tested.</p>
+<h2>Visual evidence</h2><p>These are actual Playwright application captures and independent PDF rasterizations. Click any image to inspect its original resolution. The complete overview and long-distance path necessarily show small cards at fit-to-screen scale; branch views provide readable detail.</p>{gallery}
+<h2>Known limitations and review decisions</h2><ul><li>The automatic layout is very wide. Full-network fit is an overview, not a readable portrait sheet; the large roll is a specialist print product.</li><li>No tiling workflow, physical print certification or cross-browser/device matrix is included.</li><li>The repeated eight source photos validate placement, embedding and fallback behavior, but do not simulate downloading 300 distinct portraits.</li><li>Rank-conflicting cross-generation partnership constraints remain a limitation of the existing generation layout. The fixture does not prove support for every possible pedigree.</li><li>Geometry passes with explicitly marked crossings, not a promise that an interconnected graph has no crossings.</li><li>No known failing automated checks remain. Visual acceptance of the wide overview, distant path and poster composition remains yours.</li></ul>
+<h2>Run and review locally</h2><pre>npm run dev:family</pre><p>Open <a href="http://127.0.0.1:5174/?family=300#/tree-prototype">http://127.0.0.1:5174/?family=300#/tree-prototype</a>. Select a relative under Family view, choose Personalized generations, set ancestor/descendant depth, then open Print studio and select 18 × 24 or 24 × 36 inches. Expand complete family for the full roll export. The default 25-person and ?family=100 routes remain available.</p>
+<pre>npm run test:family
+npm run test:family:browser
+npm run build:family
+npm run test:family:production
+python scripts/verify-family-phase4.py
+python scripts/report-family-phase4.py</pre>
+<h2>Raw evidence</h2><p>{raw}</p><p>No real family records were used. No payments, decorative templates or subsequent platform phase were implemented.</p></html>'''
+(root / 'PHASE-4.html').write_text(html, encoding='utf-8')
+print('Created PHASE-4.html; all linked artifacts exist.')

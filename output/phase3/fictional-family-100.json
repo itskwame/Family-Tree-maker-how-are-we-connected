@@ -1,0 +1,2110 @@
+{
+  "people": [
+    {
+      "id": "arthur",
+      "first": "Arthur",
+      "last": "Bennett",
+      "born": 1932,
+      "died": 2016,
+      "gender": "male",
+      "photo": "/family-portraits/arthur.jpg",
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "eleanor",
+      "first": "Eleanor",
+      "last": "Bennett",
+      "born": 1936,
+      "died": 2021,
+      "gender": "female",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "samuel",
+      "first": "Samuel",
+      "last": "Reed",
+      "born": 1934,
+      "died": 2019,
+      "gender": "male",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "iris",
+      "first": "Iris",
+      "last": "Reed",
+      "born": 1938,
+      "gender": "female",
+      "photo": "/family-portraits/iris.jpg",
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "david",
+      "first": "David",
+      "last": "Bennett",
+      "born": 1958,
+      "gender": "male",
+      "photo": "/family-portraits/david.jpg",
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "helen",
+      "first": "Helen",
+      "last": "Bennett",
+      "born": 1961,
+      "gender": "female",
+      "photo": "/family-portraits/helen.jpg",
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "thomas",
+      "first": "Thomas",
+      "last": "Bennett",
+      "born": 1965,
+      "gender": "male",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "clara",
+      "first": "Clara",
+      "last": "Reed",
+      "born": 1960,
+      "gender": "female",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "peter",
+      "first": "Peter",
+      "last": "Ellis",
+      "born": 1960,
+      "gender": "male",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "nora",
+      "first": "Nora",
+      "last": "Wells",
+      "born": 1967,
+      "gender": "female",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "ruth",
+      "first": "Ruth",
+      "last": "Lane",
+      "born": 1969,
+      "gender": "female",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "emma",
+      "first": "Emma",
+      "last": "Bennett",
+      "born": 1984,
+      "gender": "female",
+      "photo": "/family-portraits/emma.jpg",
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "jack",
+      "first": "Jack",
+      "last": "Bennett",
+      "born": 1987,
+      "gender": "male",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "leo",
+      "first": "Leo",
+      "last": "Bennett",
+      "born": 1996,
+      "gender": "male",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "sophie",
+      "first": "Sophie",
+      "last": "Ellis",
+      "born": 1988,
+      "gender": "female",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "ben",
+      "first": "Ben",
+      "last": "Ellis",
+      "born": 1991,
+      "gender": "male",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "olivia",
+      "first": "Olivia",
+      "last": "Bennett",
+      "born": 1990,
+      "gender": "female",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "noah",
+      "first": "Noah",
+      "last": "Bennett",
+      "born": 1992,
+      "gender": "male",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "lucas",
+      "first": "Lucas",
+      "last": "Hart",
+      "born": 1983,
+      "gender": "male",
+      "photo": "/family-portraits/lucas.jpg",
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "grace",
+      "first": "Grace",
+      "last": "Shaw",
+      "born": 1988,
+      "gender": "female",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "ava",
+      "first": "Ava",
+      "last": "Hart",
+      "born": 2010,
+      "gender": "female",
+      "photo": "/family-portraits/ava.jpg",
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "theo",
+      "first": "Theo",
+      "last": "Hart",
+      "born": 2013,
+      "gender": "male",
+      "photo": "/family-portraits/theo.jpg",
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "mia",
+      "first": "Mia",
+      "last": "Bennett",
+      "born": 2015,
+      "gender": "female",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "ethan",
+      "first": "Ethan",
+      "last": "Ellis",
+      "born": 2017,
+      "gender": "male",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "zoe",
+      "first": "Zoe",
+      "last": "Ellis",
+      "born": 2020,
+      "gender": "female",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b1-root",
+      "first": "Alice",
+      "last": "Morgan",
+      "born": 1954,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b1-spouse",
+      "first": "Oscar",
+      "last": "Morgan",
+      "born": 1956,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b1-a",
+      "first": "Ivy",
+      "last": "Morgan",
+      "born": 1975,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b1-ap",
+      "first": "Finn",
+      "last": "Morgan",
+      "born": 1975,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b1-b",
+      "first": "Lily",
+      "last": "Morgan",
+      "born": 1982,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b1-bp",
+      "first": "Owen",
+      "last": "Morgan",
+      "born": 1981,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b1-aa",
+      "first": "Ruby",
+      "last": "Morgan",
+      "born": 1997,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b1-ab",
+      "first": "Max",
+      "last": "Morgan",
+      "born": 2000,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b1-ba",
+      "first": "Ella",
+      "last": "Morgan",
+      "born": 2003,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b1-bb",
+      "first": "Jude",
+      "last": "Morgan",
+      "born": 2006,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b1-aap",
+      "first": "Isla",
+      "last": "Morgan",
+      "born": 1997,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b1-bap",
+      "first": "Adam",
+      "last": "Morgan",
+      "born": 2002,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b1-aaa",
+      "first": "Milo",
+      "last": "Morgan",
+      "born": 2020,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b1-baa",
+      "first": "Evie",
+      "last": "Morgan",
+      "born": 2024,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b1-second",
+      "first": "Hazel",
+      "last": "Morgan",
+      "born": 1959,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b2-root",
+      "first": "George",
+      "last": "Cole",
+      "born": 1955,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b2-spouse",
+      "first": "Rose",
+      "last": "Cole",
+      "born": 1956,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b2-a",
+      "first": "Freya",
+      "last": "Cole",
+      "born": 1976,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b2-ap",
+      "first": "Henry",
+      "last": "Cole",
+      "born": 1976,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b2-b",
+      "first": "Daisy",
+      "last": "Cole",
+      "born": 1983,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b2-bp",
+      "first": "Isaac",
+      "last": "Cole",
+      "born": 1982,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b2-aa",
+      "first": "Louis",
+      "last": "Cole",
+      "born": 1998,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b2-ab",
+      "first": "Lucy",
+      "last": "Cole",
+      "born": 2001,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b2-ba",
+      "first": "Nina",
+      "last": "Cole",
+      "born": 2004,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b2-bb",
+      "first": "Alex",
+      "last": "Cole",
+      "born": 2007,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b2-aap",
+      "first": "Eden",
+      "last": "Cole",
+      "born": 1998,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b2-bap",
+      "first": "Felix",
+      "last": "Cole",
+      "born": 2003,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b2-aaa",
+      "first": "Otis",
+      "last": "Cole",
+      "born": 2021,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b2-baa",
+      "first": "Esme",
+      "last": "Cole",
+      "born": 2025,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b2-second",
+      "first": "Mabel",
+      "last": "Cole",
+      "born": 1960,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b3-root",
+      "first": "Edward",
+      "last": "Brooks",
+      "born": 1954,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b3-spouse",
+      "first": "Vera",
+      "last": "Brooks",
+      "born": 1955,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b3-a",
+      "first": "Hugo",
+      "last": "Brooks",
+      "born": 1975,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b3-ap",
+      "first": "Cora",
+      "last": "Brooks",
+      "born": 1975,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b3-b",
+      "first": "Arlo",
+      "last": "Brooks",
+      "born": 1982,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b3-bp",
+      "first": "Maya",
+      "last": "Brooks",
+      "born": 1981,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b3-aa",
+      "first": "Eliza",
+      "last": "Brooks",
+      "born": 1997,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b3-ab",
+      "first": "Leon",
+      "last": "Brooks",
+      "born": 2000,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b3-ba",
+      "first": "Lara",
+      "last": "Brooks",
+      "born": 2003,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b3-bb",
+      "first": "Joel",
+      "last": "Brooks",
+      "born": 2006,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b3-aap",
+      "first": "Anya",
+      "last": "Brooks",
+      "born": 1997,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b3-bap",
+      "first": "Eric",
+      "last": "Brooks",
+      "born": 2002,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b3-aaa",
+      "first": "Rory",
+      "last": "Brooks",
+      "born": 2020,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b3-baa",
+      "first": "Lena",
+      "last": "Brooks",
+      "born": 2024,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b3-second",
+      "first": "Ada",
+      "last": "Brooks",
+      "born": 1959,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b4-root",
+      "first": "Frank",
+      "last": "Turner",
+      "born": 1955,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b4-spouse",
+      "first": "June",
+      "last": "Turner",
+      "born": 1956,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b4-a",
+      "first": "Oscar",
+      "last": "Turner",
+      "born": 1976,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b4-ap",
+      "first": "Nell",
+      "last": "Turner",
+      "born": 1976,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b4-b",
+      "first": "Amelia",
+      "last": "Turner",
+      "born": 1983,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b4-bp",
+      "first": "Aaron",
+      "last": "Turner",
+      "born": 1982,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b4-aa",
+      "first": "Harvey",
+      "last": "Turner",
+      "born": 1998,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b4-ab",
+      "first": "Millie",
+      "last": "Turner",
+      "born": 2001,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b4-ba",
+      "first": "Elise",
+      "last": "Turner",
+      "born": 2004,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b4-bb",
+      "first": "Sean",
+      "last": "Turner",
+      "born": 2007,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b4-aap",
+      "first": "Tessa",
+      "last": "Turner",
+      "born": 1998,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b4-bap",
+      "first": "Liam",
+      "last": "Turner",
+      "born": 2003,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b4-aaa",
+      "first": "Alfie",
+      "last": "Turner",
+      "born": 2021,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b4-baa",
+      "first": "Poppy",
+      "last": "Turner",
+      "born": 2025,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b4-second",
+      "first": "Faye",
+      "last": "Turner",
+      "born": 1960,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b5-root",
+      "first": "Victor",
+      "last": "Hayes",
+      "born": 1954,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b5-spouse",
+      "first": "Pearl",
+      "last": "Hayes",
+      "born": 1955,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b5-a",
+      "first": "Edith",
+      "last": "Hayes",
+      "born": 1975,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b5-ap",
+      "first": "Dylan",
+      "last": "Hayes",
+      "born": 1975,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b5-b",
+      "first": "Willa",
+      "last": "Hayes",
+      "born": 1982,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b5-bp",
+      "first": "Ryan",
+      "last": "Hayes",
+      "born": 1981,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b5-aa",
+      "first": "Holly",
+      "last": "Hayes",
+      "born": 1997,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b5-ab",
+      "first": "Toby",
+      "last": "Hayes",
+      "born": 2000,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b5-ba",
+      "first": "Naomi",
+      "last": "Hayes",
+      "born": 2003,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b5-bb",
+      "first": "Evan",
+      "last": "Hayes",
+      "born": 2006,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b5-aap",
+      "first": "Celia",
+      "last": "Hayes",
+      "born": 1997,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b5-bap",
+      "first": "Miles",
+      "last": "Hayes",
+      "born": 2002,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    },
+    {
+      "id": "b5-aaa",
+      "first": "Luca",
+      "last": "Hayes",
+      "born": 2020,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b5-baa",
+      "first": "Elsie",
+      "last": "Hayes",
+      "born": 2024,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": true
+    },
+    {
+      "id": "b5-second",
+      "first": "Olive",
+      "last": "Hayes",
+      "born": 1959,
+      "gender": "unspecified",
+      "photo": null,
+      "biologicalParentsComplete": false
+    }
+  ],
+  "partnerships": [
+    {
+      "id": "founders",
+      "partners": [
+        "arthur",
+        "eleanor"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "reeds",
+      "partners": [
+        "samuel",
+        "iris"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "david-clara",
+      "partners": [
+        "david",
+        "clara"
+      ],
+      "status": "former",
+      "kind": "marriage"
+    },
+    {
+      "id": "david-ruth",
+      "partners": [
+        "david",
+        "ruth"
+      ],
+      "status": "partnered",
+      "kind": "partnership"
+    },
+    {
+      "id": "helen-peter",
+      "partners": [
+        "helen",
+        "peter"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "thomas-nora",
+      "partners": [
+        "thomas",
+        "nora"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "emma-lucas",
+      "partners": [
+        "emma",
+        "lucas"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "jack-grace",
+      "partners": [
+        "jack",
+        "grace"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "sophie-noah",
+      "partners": [
+        "sophie",
+        "noah"
+      ],
+      "status": "partnered",
+      "kind": "partnership"
+    },
+    {
+      "id": "b1-first",
+      "partners": [
+        "b1-root",
+        "b1-spouse"
+      ],
+      "status": "former",
+      "kind": "marriage"
+    },
+    {
+      "id": "b1-remarriage",
+      "partners": [
+        "b1-root",
+        "b1-second"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b1-a",
+      "partners": [
+        "b1-a",
+        "b1-ap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b1-b",
+      "partners": [
+        "b1-b",
+        "b1-bp"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b1-aa",
+      "partners": [
+        "b1-aa",
+        "b1-aap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b1-ba",
+      "partners": [
+        "b1-ba",
+        "b1-bap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b2-first",
+      "partners": [
+        "b2-root",
+        "b2-spouse"
+      ],
+      "status": "former",
+      "kind": "marriage"
+    },
+    {
+      "id": "b2-remarriage",
+      "partners": [
+        "b2-root",
+        "b2-second"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b2-a",
+      "partners": [
+        "b2-a",
+        "b2-ap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b2-b",
+      "partners": [
+        "b2-b",
+        "b2-bp"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b2-aa",
+      "partners": [
+        "b2-aa",
+        "b2-aap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b2-ba",
+      "partners": [
+        "b2-ba",
+        "b2-bap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b3-first",
+      "partners": [
+        "b3-root",
+        "b3-spouse"
+      ],
+      "status": "former",
+      "kind": "marriage"
+    },
+    {
+      "id": "b3-remarriage",
+      "partners": [
+        "b3-root",
+        "b3-second"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b3-a",
+      "partners": [
+        "b3-a",
+        "b3-ap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b3-b",
+      "partners": [
+        "b3-b",
+        "b3-bp"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b3-aa",
+      "partners": [
+        "b3-aa",
+        "b3-aap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b3-ba",
+      "partners": [
+        "b3-ba",
+        "b3-bap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b4-first",
+      "partners": [
+        "b4-root",
+        "b4-spouse"
+      ],
+      "status": "former",
+      "kind": "marriage"
+    },
+    {
+      "id": "b4-remarriage",
+      "partners": [
+        "b4-root",
+        "b4-second"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b4-a",
+      "partners": [
+        "b4-a",
+        "b4-ap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b4-b",
+      "partners": [
+        "b4-b",
+        "b4-bp"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b4-aa",
+      "partners": [
+        "b4-aa",
+        "b4-aap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b4-ba",
+      "partners": [
+        "b4-ba",
+        "b4-bap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b5-first",
+      "partners": [
+        "b5-root",
+        "b5-spouse"
+      ],
+      "status": "former",
+      "kind": "marriage"
+    },
+    {
+      "id": "b5-remarriage",
+      "partners": [
+        "b5-root",
+        "b5-second"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b5-a",
+      "partners": [
+        "b5-a",
+        "b5-ap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b5-b",
+      "partners": [
+        "b5-b",
+        "b5-bp"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b5-aa",
+      "partners": [
+        "b5-aa",
+        "b5-aap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    },
+    {
+      "id": "b5-ba",
+      "partners": [
+        "b5-ba",
+        "b5-bap"
+      ],
+      "status": "partnered",
+      "kind": "marriage"
+    }
+  ],
+  "parentages": [
+    {
+      "id": "arthur>david",
+      "parent": "arthur",
+      "child": "david",
+      "kind": "biological",
+      "union": "founders"
+    },
+    {
+      "id": "eleanor>david",
+      "parent": "eleanor",
+      "child": "david",
+      "kind": "biological",
+      "union": "founders"
+    },
+    {
+      "id": "arthur>helen",
+      "parent": "arthur",
+      "child": "helen",
+      "kind": "biological",
+      "union": "founders"
+    },
+    {
+      "id": "eleanor>helen",
+      "parent": "eleanor",
+      "child": "helen",
+      "kind": "biological",
+      "union": "founders"
+    },
+    {
+      "id": "arthur>thomas",
+      "parent": "arthur",
+      "child": "thomas",
+      "kind": "biological",
+      "union": "founders"
+    },
+    {
+      "id": "eleanor>thomas",
+      "parent": "eleanor",
+      "child": "thomas",
+      "kind": "biological",
+      "union": "founders"
+    },
+    {
+      "id": "samuel>clara",
+      "parent": "samuel",
+      "child": "clara",
+      "kind": "biological",
+      "union": "reeds"
+    },
+    {
+      "id": "iris>clara",
+      "parent": "iris",
+      "child": "clara",
+      "kind": "biological",
+      "union": "reeds"
+    },
+    {
+      "id": "david>emma",
+      "parent": "david",
+      "child": "emma",
+      "kind": "biological",
+      "union": "david-clara"
+    },
+    {
+      "id": "clara>emma",
+      "parent": "clara",
+      "child": "emma",
+      "kind": "biological",
+      "union": "david-clara"
+    },
+    {
+      "id": "david>jack",
+      "parent": "david",
+      "child": "jack",
+      "kind": "biological",
+      "union": "david-clara"
+    },
+    {
+      "id": "clara>jack",
+      "parent": "clara",
+      "child": "jack",
+      "kind": "biological",
+      "union": "david-clara"
+    },
+    {
+      "id": "david>leo",
+      "parent": "david",
+      "child": "leo",
+      "kind": "biological",
+      "union": "david-ruth"
+    },
+    {
+      "id": "ruth>leo",
+      "parent": "ruth",
+      "child": "leo",
+      "kind": "biological",
+      "union": "david-ruth"
+    },
+    {
+      "id": "helen>sophie",
+      "parent": "helen",
+      "child": "sophie",
+      "kind": "biological",
+      "union": "helen-peter"
+    },
+    {
+      "id": "peter>sophie",
+      "parent": "peter",
+      "child": "sophie",
+      "kind": "biological",
+      "union": "helen-peter"
+    },
+    {
+      "id": "helen>ben",
+      "parent": "helen",
+      "child": "ben",
+      "kind": "biological",
+      "union": "helen-peter"
+    },
+    {
+      "id": "peter>ben",
+      "parent": "peter",
+      "child": "ben",
+      "kind": "biological",
+      "union": "helen-peter"
+    },
+    {
+      "id": "thomas>olivia",
+      "parent": "thomas",
+      "child": "olivia",
+      "kind": "biological",
+      "union": "thomas-nora"
+    },
+    {
+      "id": "nora>olivia",
+      "parent": "nora",
+      "child": "olivia",
+      "kind": "biological",
+      "union": "thomas-nora"
+    },
+    {
+      "id": "thomas>noah",
+      "parent": "thomas",
+      "child": "noah",
+      "kind": "biological",
+      "union": "thomas-nora"
+    },
+    {
+      "id": "nora>noah",
+      "parent": "nora",
+      "child": "noah",
+      "kind": "biological",
+      "union": "thomas-nora"
+    },
+    {
+      "id": "emma>ava",
+      "parent": "emma",
+      "child": "ava",
+      "kind": "biological",
+      "union": "emma-lucas"
+    },
+    {
+      "id": "lucas>ava",
+      "parent": "lucas",
+      "child": "ava",
+      "kind": "biological",
+      "union": "emma-lucas"
+    },
+    {
+      "id": "emma>theo",
+      "parent": "emma",
+      "child": "theo",
+      "kind": "biological",
+      "union": "emma-lucas"
+    },
+    {
+      "id": "lucas>theo",
+      "parent": "lucas",
+      "child": "theo",
+      "kind": "biological",
+      "union": "emma-lucas"
+    },
+    {
+      "id": "jack>mia",
+      "parent": "jack",
+      "child": "mia",
+      "kind": "biological",
+      "union": "jack-grace"
+    },
+    {
+      "id": "grace>mia",
+      "parent": "grace",
+      "child": "mia",
+      "kind": "biological",
+      "union": "jack-grace"
+    },
+    {
+      "id": "sophie>ethan",
+      "parent": "sophie",
+      "child": "ethan",
+      "kind": "biological",
+      "union": "sophie-noah"
+    },
+    {
+      "id": "noah>ethan",
+      "parent": "noah",
+      "child": "ethan",
+      "kind": "biological",
+      "union": "sophie-noah"
+    },
+    {
+      "id": "sophie>zoe",
+      "parent": "sophie",
+      "child": "zoe",
+      "kind": "biological",
+      "union": "sophie-noah"
+    },
+    {
+      "id": "noah>zoe",
+      "parent": "noah",
+      "child": "zoe",
+      "kind": "biological",
+      "union": "sophie-noah"
+    },
+    {
+      "id": "arthur>b1-root",
+      "parent": "arthur",
+      "child": "b1-root",
+      "kind": "biological"
+    },
+    {
+      "id": "eleanor>b1-root",
+      "parent": "eleanor",
+      "child": "b1-root",
+      "kind": "biological"
+    },
+    {
+      "id": "b1-root>b1-a",
+      "parent": "b1-root",
+      "child": "b1-a",
+      "kind": "biological",
+      "union": "b1-first"
+    },
+    {
+      "id": "b1-spouse>b1-a",
+      "parent": "b1-spouse",
+      "child": "b1-a",
+      "kind": "biological",
+      "union": "b1-first"
+    },
+    {
+      "id": "b1-root>b1-b",
+      "parent": "b1-root",
+      "child": "b1-b",
+      "kind": "biological",
+      "union": "b1-remarriage"
+    },
+    {
+      "id": "b1-second>b1-b",
+      "parent": "b1-second",
+      "child": "b1-b",
+      "kind": "biological",
+      "union": "b1-remarriage"
+    },
+    {
+      "id": "b1-a>b1-aa",
+      "parent": "b1-a",
+      "child": "b1-aa",
+      "kind": "biological",
+      "union": "b1-a"
+    },
+    {
+      "id": "b1-ap>b1-aa",
+      "parent": "b1-ap",
+      "child": "b1-aa",
+      "kind": "biological",
+      "union": "b1-a"
+    },
+    {
+      "id": "b1-a>b1-ab",
+      "parent": "b1-a",
+      "child": "b1-ab",
+      "kind": "biological",
+      "union": "b1-a"
+    },
+    {
+      "id": "b1-ap>b1-ab",
+      "parent": "b1-ap",
+      "child": "b1-ab",
+      "kind": "biological",
+      "union": "b1-a"
+    },
+    {
+      "id": "b1-b>b1-ba",
+      "parent": "b1-b",
+      "child": "b1-ba",
+      "kind": "biological",
+      "union": "b1-b"
+    },
+    {
+      "id": "b1-bp>b1-ba",
+      "parent": "b1-bp",
+      "child": "b1-ba",
+      "kind": "biological",
+      "union": "b1-b"
+    },
+    {
+      "id": "b1-b>b1-bb",
+      "parent": "b1-b",
+      "child": "b1-bb",
+      "kind": "biological",
+      "union": "b1-b"
+    },
+    {
+      "id": "b1-bp>b1-bb",
+      "parent": "b1-bp",
+      "child": "b1-bb",
+      "kind": "biological",
+      "union": "b1-b"
+    },
+    {
+      "id": "b1-aa>b1-aaa",
+      "parent": "b1-aa",
+      "child": "b1-aaa",
+      "kind": "biological",
+      "union": "b1-aa"
+    },
+    {
+      "id": "b1-aap>b1-aaa",
+      "parent": "b1-aap",
+      "child": "b1-aaa",
+      "kind": "biological",
+      "union": "b1-aa"
+    },
+    {
+      "id": "b1-ba>b1-baa",
+      "parent": "b1-ba",
+      "child": "b1-baa",
+      "kind": "biological",
+      "union": "b1-ba"
+    },
+    {
+      "id": "b1-bap>b1-baa",
+      "parent": "b1-bap",
+      "child": "b1-baa",
+      "kind": "biological",
+      "union": "b1-ba"
+    },
+    {
+      "id": "arthur>b2-root",
+      "parent": "arthur",
+      "child": "b2-root",
+      "kind": "biological"
+    },
+    {
+      "id": "eleanor>b2-root",
+      "parent": "eleanor",
+      "child": "b2-root",
+      "kind": "biological"
+    },
+    {
+      "id": "b2-root>b2-a",
+      "parent": "b2-root",
+      "child": "b2-a",
+      "kind": "biological",
+      "union": "b2-first"
+    },
+    {
+      "id": "b2-spouse>b2-a",
+      "parent": "b2-spouse",
+      "child": "b2-a",
+      "kind": "biological",
+      "union": "b2-first"
+    },
+    {
+      "id": "b2-root>b2-b",
+      "parent": "b2-root",
+      "child": "b2-b",
+      "kind": "biological",
+      "union": "b2-remarriage"
+    },
+    {
+      "id": "b2-second>b2-b",
+      "parent": "b2-second",
+      "child": "b2-b",
+      "kind": "biological",
+      "union": "b2-remarriage"
+    },
+    {
+      "id": "b2-a>b2-aa",
+      "parent": "b2-a",
+      "child": "b2-aa",
+      "kind": "biological",
+      "union": "b2-a"
+    },
+    {
+      "id": "b2-ap>b2-aa",
+      "parent": "b2-ap",
+      "child": "b2-aa",
+      "kind": "biological",
+      "union": "b2-a"
+    },
+    {
+      "id": "b2-a>b2-ab",
+      "parent": "b2-a",
+      "child": "b2-ab",
+      "kind": "biological",
+      "union": "b2-a"
+    },
+    {
+      "id": "b2-ap>b2-ab",
+      "parent": "b2-ap",
+      "child": "b2-ab",
+      "kind": "biological",
+      "union": "b2-a"
+    },
+    {
+      "id": "b2-b>b2-ba",
+      "parent": "b2-b",
+      "child": "b2-ba",
+      "kind": "biological",
+      "union": "b2-b"
+    },
+    {
+      "id": "b2-bp>b2-ba",
+      "parent": "b2-bp",
+      "child": "b2-ba",
+      "kind": "biological",
+      "union": "b2-b"
+    },
+    {
+      "id": "b2-b>b2-bb",
+      "parent": "b2-b",
+      "child": "b2-bb",
+      "kind": "adoptive",
+      "union": "b2-b"
+    },
+    {
+      "id": "b2-bp>b2-bb",
+      "parent": "b2-bp",
+      "child": "b2-bb",
+      "kind": "adoptive",
+      "union": "b2-b"
+    },
+    {
+      "id": "b2-aa>b2-aaa",
+      "parent": "b2-aa",
+      "child": "b2-aaa",
+      "kind": "biological",
+      "union": "b2-aa"
+    },
+    {
+      "id": "b2-aap>b2-aaa",
+      "parent": "b2-aap",
+      "child": "b2-aaa",
+      "kind": "biological",
+      "union": "b2-aa"
+    },
+    {
+      "id": "b2-ba>b2-baa",
+      "parent": "b2-ba",
+      "child": "b2-baa",
+      "kind": "biological",
+      "union": "b2-ba"
+    },
+    {
+      "id": "b2-bap>b2-baa",
+      "parent": "b2-bap",
+      "child": "b2-baa",
+      "kind": "biological",
+      "union": "b2-ba"
+    },
+    {
+      "id": "arthur>b3-root",
+      "parent": "arthur",
+      "child": "b3-root",
+      "kind": "biological"
+    },
+    {
+      "id": "eleanor>b3-root",
+      "parent": "eleanor",
+      "child": "b3-root",
+      "kind": "biological"
+    },
+    {
+      "id": "b3-root>b3-a",
+      "parent": "b3-root",
+      "child": "b3-a",
+      "kind": "biological",
+      "union": "b3-first"
+    },
+    {
+      "id": "b3-spouse>b3-a",
+      "parent": "b3-spouse",
+      "child": "b3-a",
+      "kind": "biological",
+      "union": "b3-first"
+    },
+    {
+      "id": "b3-root>b3-b",
+      "parent": "b3-root",
+      "child": "b3-b",
+      "kind": "biological",
+      "union": "b3-remarriage"
+    },
+    {
+      "id": "b3-second>b3-b",
+      "parent": "b3-second",
+      "child": "b3-b",
+      "kind": "biological",
+      "union": "b3-remarriage"
+    },
+    {
+      "id": "b3-a>b3-aa",
+      "parent": "b3-a",
+      "child": "b3-aa",
+      "kind": "biological",
+      "union": "b3-a"
+    },
+    {
+      "id": "b3-ap>b3-aa",
+      "parent": "b3-ap",
+      "child": "b3-aa",
+      "kind": "biological",
+      "union": "b3-a"
+    },
+    {
+      "id": "b3-a>b3-ab",
+      "parent": "b3-a",
+      "child": "b3-ab",
+      "kind": "biological",
+      "union": "b3-a"
+    },
+    {
+      "id": "b3-ap>b3-ab",
+      "parent": "b3-ap",
+      "child": "b3-ab",
+      "kind": "biological",
+      "union": "b3-a"
+    },
+    {
+      "id": "b3-b>b3-ba",
+      "parent": "b3-b",
+      "child": "b3-ba",
+      "kind": "biological",
+      "union": "b3-b"
+    },
+    {
+      "id": "b3-bp>b3-ba",
+      "parent": "b3-bp",
+      "child": "b3-ba",
+      "kind": "biological",
+      "union": "b3-b"
+    },
+    {
+      "id": "b3-b>b3-bb",
+      "parent": "b3-b",
+      "child": "b3-bb",
+      "kind": "biological"
+    },
+    {
+      "id": "b3-aa>b3-aaa",
+      "parent": "b3-aa",
+      "child": "b3-aaa",
+      "kind": "biological",
+      "union": "b3-aa"
+    },
+    {
+      "id": "b3-aap>b3-aaa",
+      "parent": "b3-aap",
+      "child": "b3-aaa",
+      "kind": "biological",
+      "union": "b3-aa"
+    },
+    {
+      "id": "b3-ba>b3-baa",
+      "parent": "b3-ba",
+      "child": "b3-baa",
+      "kind": "biological",
+      "union": "b3-ba"
+    },
+    {
+      "id": "b3-bap>b3-baa",
+      "parent": "b3-bap",
+      "child": "b3-baa",
+      "kind": "biological",
+      "union": "b3-ba"
+    },
+    {
+      "id": "arthur>b4-root",
+      "parent": "arthur",
+      "child": "b4-root",
+      "kind": "biological"
+    },
+    {
+      "id": "eleanor>b4-root",
+      "parent": "eleanor",
+      "child": "b4-root",
+      "kind": "biological"
+    },
+    {
+      "id": "b4-root>b4-a",
+      "parent": "b4-root",
+      "child": "b4-a",
+      "kind": "biological",
+      "union": "b4-first"
+    },
+    {
+      "id": "b4-spouse>b4-a",
+      "parent": "b4-spouse",
+      "child": "b4-a",
+      "kind": "biological",
+      "union": "b4-first"
+    },
+    {
+      "id": "b4-root>b4-b",
+      "parent": "b4-root",
+      "child": "b4-b",
+      "kind": "biological",
+      "union": "b4-remarriage"
+    },
+    {
+      "id": "b4-second>b4-b",
+      "parent": "b4-second",
+      "child": "b4-b",
+      "kind": "biological",
+      "union": "b4-remarriage"
+    },
+    {
+      "id": "b4-a>b4-aa",
+      "parent": "b4-a",
+      "child": "b4-aa",
+      "kind": "biological",
+      "union": "b4-a"
+    },
+    {
+      "id": "b4-ap>b4-aa",
+      "parent": "b4-ap",
+      "child": "b4-aa",
+      "kind": "biological",
+      "union": "b4-a"
+    },
+    {
+      "id": "b4-a>b4-ab",
+      "parent": "b4-a",
+      "child": "b4-ab",
+      "kind": "biological",
+      "union": "b4-a"
+    },
+    {
+      "id": "b4-ap>b4-ab",
+      "parent": "b4-ap",
+      "child": "b4-ab",
+      "kind": "biological",
+      "union": "b4-a"
+    },
+    {
+      "id": "b4-b>b4-ba",
+      "parent": "b4-b",
+      "child": "b4-ba",
+      "kind": "biological",
+      "union": "b4-b"
+    },
+    {
+      "id": "b4-bp>b4-ba",
+      "parent": "b4-bp",
+      "child": "b4-ba",
+      "kind": "biological",
+      "union": "b4-b"
+    },
+    {
+      "id": "b4-b>b4-bb",
+      "parent": "b4-b",
+      "child": "b4-bb",
+      "kind": "biological",
+      "union": "b4-b"
+    },
+    {
+      "id": "b4-bp>b4-bb",
+      "parent": "b4-bp",
+      "child": "b4-bb",
+      "kind": "biological",
+      "union": "b4-b"
+    },
+    {
+      "id": "b4-aa>b4-aaa",
+      "parent": "b4-aa",
+      "child": "b4-aaa",
+      "kind": "biological",
+      "union": "b4-aa"
+    },
+    {
+      "id": "b4-aap>b4-aaa",
+      "parent": "b4-aap",
+      "child": "b4-aaa",
+      "kind": "biological",
+      "union": "b4-aa"
+    },
+    {
+      "id": "b4-ba>b4-baa",
+      "parent": "b4-ba",
+      "child": "b4-baa",
+      "kind": "biological",
+      "union": "b4-ba"
+    },
+    {
+      "id": "b4-bap>b4-baa",
+      "parent": "b4-bap",
+      "child": "b4-baa",
+      "kind": "biological",
+      "union": "b4-ba"
+    },
+    {
+      "id": "arthur>b5-root",
+      "parent": "arthur",
+      "child": "b5-root",
+      "kind": "biological"
+    },
+    {
+      "id": "eleanor>b5-root",
+      "parent": "eleanor",
+      "child": "b5-root",
+      "kind": "biological"
+    },
+    {
+      "id": "b5-root>b5-a",
+      "parent": "b5-root",
+      "child": "b5-a",
+      "kind": "biological",
+      "union": "b5-first"
+    },
+    {
+      "id": "b5-spouse>b5-a",
+      "parent": "b5-spouse",
+      "child": "b5-a",
+      "kind": "biological",
+      "union": "b5-first"
+    },
+    {
+      "id": "b5-root>b5-b",
+      "parent": "b5-root",
+      "child": "b5-b",
+      "kind": "biological",
+      "union": "b5-remarriage"
+    },
+    {
+      "id": "b5-second>b5-b",
+      "parent": "b5-second",
+      "child": "b5-b",
+      "kind": "biological",
+      "union": "b5-remarriage"
+    },
+    {
+      "id": "b5-a>b5-aa",
+      "parent": "b5-a",
+      "child": "b5-aa",
+      "kind": "biological",
+      "union": "b5-a"
+    },
+    {
+      "id": "b5-ap>b5-aa",
+      "parent": "b5-ap",
+      "child": "b5-aa",
+      "kind": "biological",
+      "union": "b5-a"
+    },
+    {
+      "id": "b5-a>b5-ab",
+      "parent": "b5-a",
+      "child": "b5-ab",
+      "kind": "biological",
+      "union": "b5-a"
+    },
+    {
+      "id": "b5-ap>b5-ab",
+      "parent": "b5-ap",
+      "child": "b5-ab",
+      "kind": "biological",
+      "union": "b5-a"
+    },
+    {
+      "id": "b5-b>b5-ba",
+      "parent": "b5-b",
+      "child": "b5-ba",
+      "kind": "biological",
+      "union": "b5-b"
+    },
+    {
+      "id": "b5-bp>b5-ba",
+      "parent": "b5-bp",
+      "child": "b5-ba",
+      "kind": "biological",
+      "union": "b5-b"
+    },
+    {
+      "id": "b5-b>b5-bb",
+      "parent": "b5-b",
+      "child": "b5-bb",
+      "kind": "biological",
+      "union": "b5-b"
+    },
+    {
+      "id": "b5-bp>b5-bb",
+      "parent": "b5-bp",
+      "child": "b5-bb",
+      "kind": "biological",
+      "union": "b5-b"
+    },
+    {
+      "id": "b5-aa>b5-aaa",
+      "parent": "b5-aa",
+      "child": "b5-aaa",
+      "kind": "biological",
+      "union": "b5-aa"
+    },
+    {
+      "id": "b5-aap>b5-aaa",
+      "parent": "b5-aap",
+      "child": "b5-aaa",
+      "kind": "biological",
+      "union": "b5-aa"
+    },
+    {
+      "id": "b5-ba>b5-baa",
+      "parent": "b5-ba",
+      "child": "b5-baa",
+      "kind": "biological",
+      "union": "b5-ba"
+    },
+    {
+      "id": "b5-bap>b5-baa",
+      "parent": "b5-bap",
+      "child": "b5-baa",
+      "kind": "biological",
+      "union": "b5-ba"
+    },
+    {
+      "id": "samuel>b1-spouse",
+      "parent": "samuel",
+      "child": "b1-spouse",
+      "kind": "biological"
+    },
+    {
+      "id": "iris>b1-spouse",
+      "parent": "iris",
+      "child": "b1-spouse",
+      "kind": "biological"
+    }
+  ]
+}

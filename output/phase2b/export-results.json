@@ -1,0 +1,83 @@
+{
+  "pages": 1,
+  "paper": "A2 landscape",
+  "paper_mm": [
+    594.0,
+    420.0
+  ],
+  "people_in_svg": 25,
+  "names_present_in_pdf": [
+    "Arthur",
+    "Eleanor",
+    "Samuel",
+    "Iris",
+    "David",
+    "Helen",
+    "Thomas",
+    "Clara",
+    "Peter",
+    "Nora",
+    "Ruth",
+    "Emma",
+    "Jack",
+    "Leo",
+    "Sophie",
+    "Ben",
+    "Olivia",
+    "Noah",
+    "Lucas",
+    "Grace",
+    "Ava",
+    "Theo",
+    "Mia",
+    "Ethan",
+    "Zoe"
+  ],
+  "external_images": 0,
+  "embedded_photographs": 8,
+  "portrait_checks": {
+    "arthur": {
+      "mean_channel_difference": 6.995,
+      "circular_clip": "pass",
+      "nonblank": true
+    },
+    "iris": {
+      "mean_channel_difference": 4.88,
+      "circular_clip": "pass",
+      "nonblank": true
+    },
+    "david": {
+      "mean_channel_difference": 5.728,
+      "circular_clip": "pass",
+      "nonblank": true
+    },
+    "helen": {
+      "mean_channel_difference": 5.27,
+      "circular_clip": "pass",
+      "nonblank": true
+    },
+    "emma": {
+      "mean_channel_difference": 5.21,
+      "circular_clip": "pass",
+      "nonblank": true
+    },
+    "lucas": {
+      "mean_channel_difference": 3.83,
+      "circular_clip": "pass",
+      "nonblank": true
+    },
+    "ava": {
+      "mean_channel_difference": 9.72,
+      "circular_clip": "pass",
+      "nonblank": true
+    },
+    "theo": {
+      "mean_channel_difference": 5.248,
+      "circular_clip": "pass",
+      "nonblank": true
+    }
+  },
+  "svg_pdf_mean_channel_difference_0_to_255": 1.1992,
+  "raster_comparison_threshold": 5,
+  "note": "Raster comparison supplements, and does not replace, visual inspection."
+}
