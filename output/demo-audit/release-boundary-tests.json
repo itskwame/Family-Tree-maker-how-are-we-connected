@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-21T17:40:32.783Z",
+  "checks": [
+    {
+      "name": "Unconfigured release cannot reuse development or legacy .env credentials",
+      "passed": true
+    },
+    {
+      "name": "private-beta: demos disabled, no public copy, only current application entry",
+      "passed": true
+    },
+    {
+      "name": "private-beta: localhost backend and demo opt-in overrides rejected",
+      "passed": true
+    },
+    {
+      "name": "production: demos disabled, no public copy, only current application entry",
+      "passed": true
+    },
+    {
+      "name": "production: localhost backend and demo opt-in overrides rejected",
+      "passed": true
+    },
+    {
+      "name": "Service-role and secret API keys cannot enter release bundles",
+      "passed": true
+    },
+    {
+      "name": "Graph adapter never fills empty data or uses known sample portrait references in release context",
+      "passed": true
+    },
+    {
+      "name": "Automatic local SQL seeding disabled and deployment publishes only release artifact",
+      "passed": true
+    }
+  ]
+}

@@ -8,7 +8,7 @@
     "seed:phase6": "node scripts/phase6-local.mjs --seed",
     "test:phase6": "node scripts/test-phase6.mjs",
     "test:phase6:first-time": "node scripts/phase6-first-time.mjs",
-    "dev": "vite",
+    "dev": "vite --config vite.phase6.config.mjs --mode phase6 --open /phase6.html",
     "build": "vite build",
     "preview": "vite preview",
     "dev:family": "vite --config vite.prototype.config.mjs",
@@ -24,7 +24,15 @@
     "test:phase7": "node scripts/test-phase7.mjs",
     "test:phase7:browser": "node scripts/phase7-browser.mjs",
     "test:phase7:media": "node scripts/test-phase7-media-realtime.mjs",
-    "test:phase7:boundaries": "node scripts/test-phase7-boundaries.mjs"
+    "test:phase7:boundaries": "node scripts/test-phase7-boundaries.mjs",
+    "demo:business": "node scripts/business-demo.mjs",
+    "test:business": "node scripts/test-business.mjs && node scripts/test-business-boundaries.mjs",
+    "test:business:browser": "node scripts/business-browser.mjs && node scripts/business-collaboration-browser.mjs",
+    "build:release": "vite build --config vite.release.config.mjs",
+    "audit:demo": "node scripts/audit-demo-inventory.mjs",
+    "prepare:clean-audit": "node scripts/prepare-clean-audit.mjs",
+    "test:release-boundary": "node scripts/test-release-boundary.mjs",
+    "test:clean-start": "node scripts/test-clean-start.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",

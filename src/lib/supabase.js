@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabaseUrl = 'http://127.0.0.1:55321' // Legacy UI is isolated-only; never read hosted .env values.
+const supabaseAnonKey = import.meta.env.VITE_PHASE6_ANON_KEY || 'local-setup-required'
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 

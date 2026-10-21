@@ -1,6 +1,6 @@
 import { useEffect, useId, useState } from 'react';
 import { edgePath, lineCrossovers } from './geometry.js';
-import { nameOf } from './fixture.js';
+import { nameOf } from './display.js';
 
 export const INK = '#223d38', ACCENT = '#a06031';
 const palette = ['#e5eee7', '#ede8df', '#e4ebee', '#f0e5de'];
@@ -8,7 +8,7 @@ export function Portrait({ person }) {
   const [failed, setFailed] = useState(false);
   const clipId = `portrait-${useId().replace(/:/g, '')}`;
   useEffect(() => setFailed(false), [person.photo]);
-  const initials = person.first[0] + person.last[0];
+  const initials = (person.first?.[0]||'') + (person.last?.[0]||'');
   return <g aria-label={`${nameOf(person)} portrait`} data-portrait={person.id}>
     <circle cx="81" cy="45" r="32" fill={palette[person.id.length % palette.length]} />
     <text x="81" y="50" textAnchor="middle" fill={INK} fontFamily="Helvetica, Arial, sans-serif" fontSize="17" fontWeight="bold" data-initials={person.id}>{initials}</text>
@@ -83,7 +83,7 @@ export function printNameSize(layout, format) {
   return 14 * Math.min(paper.width / size.width, paper.height / size.height) * 72 / 25.4;
 }
 
-export function Poster({ layout, format = 'a2', title = 'The Bennett & Reed family', svgRef, subjectId }) {
+export function Poster({ layout, format = 'a2', title = 'Our family', svgRef, subjectId }) {
   const { width, height, graphX, graphY } = posterSize(layout, format);
   return <svg ref={svgRef} data-testid="print-svg" xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${width} ${height}`}
     width={width} height={height} data-format={format} data-subject={subjectId} data-count={layout.graph.people.length} role="img" aria-label="Minimalist printable family tree">

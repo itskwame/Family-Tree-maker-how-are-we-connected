@@ -1,0 +1,6 @@
+{
+  "command": "npm run test:family",
+  "passed": 53,
+  "failed": 0,
+  "scope": "25/100/300-person geometry and relationships; premium compositions; observed node test runner result"
+}

@@ -1,0 +1,93 @@
+{
+  "date": "2026-10-21T15:29:34.250Z",
+  "results": [
+    {
+      "name": "desktop: Returning user lands on Family Home with private photo timeline",
+      "passed": true
+    },
+    {
+      "name": "desktop: Text and photograph upload through UI",
+      "passed": true
+    },
+    {
+      "name": "desktop: Own post edit, like and comment",
+      "passed": true
+    },
+    {
+      "name": "desktop: Profile photograph, optional fields, privacy settings and shared posts",
+      "passed": true
+    },
+    {
+      "name": "desktop: Private history, text and emoji send",
+      "passed": true
+    },
+    {
+      "name": "desktop: Incoming message appears through actual Realtime",
+      "passed": true
+    },
+    {
+      "name": "desktop: Private group, accepted member list, invitations and administrator controls",
+      "passed": true
+    },
+    {
+      "name": "desktop: Group creation and explicit pending invitation",
+      "passed": true
+    },
+    {
+      "name": "desktop: Existing automatic family tree remains accessible",
+      "passed": true
+    },
+    {
+      "name": "desktop: Own post deletion",
+      "passed": true
+    },
+    {
+      "name": "desktop: No browser runtime errors or horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "mobile: Returning user lands on Family Home with private photo timeline",
+      "passed": true
+    },
+    {
+      "name": "mobile: Text and photograph upload through UI",
+      "passed": true
+    },
+    {
+      "name": "mobile: Own post edit, like and comment",
+      "passed": true
+    },
+    {
+      "name": "mobile: Profile photograph, optional fields, privacy settings and shared posts",
+      "passed": true
+    },
+    {
+      "name": "mobile: Private history, text and emoji send",
+      "passed": true
+    },
+    {
+      "name": "mobile: Incoming message appears through actual Realtime",
+      "passed": true
+    },
+    {
+      "name": "mobile: Private group, accepted member list, invitations and administrator controls",
+      "passed": true
+    },
+    {
+      "name": "mobile: Group creation and explicit pending invitation",
+      "passed": true
+    },
+    {
+      "name": "mobile: Existing automatic family tree remains accessible",
+      "passed": true
+    },
+    {
+      "name": "mobile: Own post deletion",
+      "passed": true
+    },
+    {
+      "name": "mobile: No browser runtime errors or horizontal overflow",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,557 @@
+{
+  "tables": [
+    {
+      "name": "partnership_events",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "claims",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "audit",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "receipts",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "networks",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres,authenticated=r/postgres}"
+    },
+    {
+      "name": "memberships",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres,authenticated=r/postgres}"
+    },
+    {
+      "name": "people",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres,authenticated=r/postgres}"
+    },
+    {
+      "name": "parentages",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres,authenticated=r/postgres}"
+    },
+    {
+      "name": "progress",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres,authenticated=r/postgres}"
+    },
+    {
+      "name": "connections",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres,authenticated=r/postgres}"
+    },
+    {
+      "name": "guardian_requests",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres,authenticated=r/postgres}"
+    },
+    {
+      "name": "person_accounts",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres,authenticated=r/postgres}"
+    },
+    {
+      "name": "guardians",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres,authenticated=r/postgres}"
+    },
+    {
+      "name": "partnerships",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres,authenticated=r/postgres}"
+    },
+    {
+      "name": "invitations",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "proposals",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres,authenticated=r/postgres}"
+    },
+    {
+      "name": "builder_receipts",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "posts",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "post_media",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "comments",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "reactions",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "blocks",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "conversations",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "conversation_members",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "messages",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "reports",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "social_limits",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "notifications",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres,authenticated=r/postgres}"
+    },
+    {
+      "name": "social_profiles",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "businesses",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "business_owners",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "business_links",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "business_media",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "business_reviews",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    },
+    {
+      "name": "business_reports",
+      "rls": true,
+      "acl": "{postgres=arwdDxtm/postgres}"
+    }
+  ],
+  "functions": [
+    {
+      "schema": "public",
+      "name": "fc_review_queue",
+      "arguments": "",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "fc_my_reveals",
+      "arguments": "",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "one_identity_per_network",
+      "arguments": "",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "social_post",
+      "arguments": "p uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "fc_social",
+      "arguments": "action text, payload jsonb",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,service_role=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "social_owner",
+      "arguments": "p uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "social_adult",
+      "arguments": "p uuid, n uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "social_blocked",
+      "arguments": "a uuid, b uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "member",
+      "arguments": "n uuid, roles text[]",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "controls",
+      "arguments": "p uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "visible",
+      "arguments": "p uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "fc_guardian",
+      "arguments": "action text, person uuid, requester uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "fc_snapshot",
+      "arguments": "",
+      "definer": false,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,service_role=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "mutate",
+      "arguments": "action text, payload jsonb",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "social_reader",
+      "arguments": "n uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "admin_for_person",
+      "arguments": "p uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "fc_phase6_action",
+      "arguments": "action text, payload jsonb",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "fc_action",
+      "arguments": "action text, payload jsonb",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "fc_invitation_preview",
+      "arguments": "token text",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,service_role=X/postgres,anon=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "social_asset",
+      "arguments": "asset uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "social_chat",
+      "arguments": "c uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "social_notification",
+      "arguments": "c uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "social_storage",
+      "arguments": "path text",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "fc_group_admin",
+      "arguments": "conversation uuid, person uuid, promote boolean",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "fc_social_view",
+      "arguments": "network uuid, person uuid, conversation uuid, before_at timestamp with time zone, before_id uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "fc_media_complete",
+      "arguments": "asset uuid, w integer, h integer, size_bytes integer",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "notify_message_deletion",
+      "arguments": "",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "business_manage",
+      "arguments": "b uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "business_moderator",
+      "arguments": "b uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "business_read",
+      "arguments": "b uuid",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "schema": "familyconnect",
+      "name": "business_storage",
+      "arguments": "object_path text",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "fc_business",
+      "arguments": "action text, payload jsonb",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,service_role=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "fc_business_media_complete",
+      "arguments": "asset uuid, w integer, h integer, size_bytes integer",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "fc_social_maintenance",
+      "arguments": "",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "fc_business_view",
+      "arguments": "network uuid, listing uuid, search text, category_filter text, after_name text, after_id uuid, mine boolean, review_queue boolean",
+      "definer": true,
+      "config": [
+        "search_path=\"\""
+      ],
+      "acl": "{postgres=X/postgres,service_role=X/postgres,authenticated=X/postgres}"
+    }
+  ],
+  "storage_policies": [
+    {
+      "cmd": "SELECT",
+      "qual": "((bucket_id = 'family-private'::text) AND familyconnect.social_storage(name))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "objects",
+      "permissive": "PERMISSIVE",
+      "policyname": "social_private_images",
+      "schemaname": "storage",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "((bucket_id = 'family-private'::text) AND familyconnect.business_storage(name))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "objects",
+      "permissive": "PERMISSIVE",
+      "policyname": "business_private_images",
+      "schemaname": "storage",
+      "with_check": null
+    }
+  ]
+}

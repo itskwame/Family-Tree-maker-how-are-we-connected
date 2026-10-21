@@ -4,6 +4,8 @@ Last assessed: 2026-10-21 (America/New_York). Phase 6B historical evidence remai
 
 Phase 7 local evidence is now available in [PHASE-7-REPORT.html](PHASE-7-REPORT.html). Hosted and real-user gates remain unchanged.
 
+The **Family Business Directory is included in the first private beta**, as requested. Its isolated implementation and evidence are in [BUSINESS-DIRECTORY-REPORT.html](BUSINESS-DIRECTORY-REPORT.html). This is required beta scope, not an optional monetization feature. No hosted changes or real-user access are authorized by its local completion.
+
 This is the release-gate record, not a feature wish list. **No hosted migration, public deployment, or invitation to real relatives is authorized by this checklist.** Preserve the two existing hosted Auth accounts. Current implementation and tests use fictional data in isolated local Supabase.
 
 ## How to maintain this file
@@ -24,6 +26,7 @@ This is the release-gate record, not a feature wish list. **No hosted migration,
 | Phase 6B — local UX refinement | Local guided onboarding and security regressions pass; visual evidence ready | **Passed** | [Phase 6B report](PHASE-6B-REPORT.html): 27 browser journey checks, 17 new security checks, 29 existing security + 12 consent + 3 adapter checks, 53 engine + 16 legacy browser checks. Final Phase 6B user visual review is pending. |
 | Private family beta | Critical security/privacy checks pass on the reviewed hosted candidate; real-user access explicitly approved | **Blocked** | Hosted invitation/membership defects remain; hosted migration, deployment/security review, recovery verification, beta scope, and real-user approval are outstanding. See blockers below. |
 | Phase 7 — local social experience | Family Home, profiles, private media/messages and invitation-only groups tested locally; actual visuals inspected | **Passed** | [Phase 7 report](PHASE-7-REPORT.html): 32 database/media/Realtime scenarios, 22 desktop/mobile browser scenarios, 14 screenshots and existing regressions. Final user visual/security approval is pending. Local pass only. |
+| Family Business Directory — local beta scope | Optional multi-business directory, consented ownership, moderation, private media and network isolation | **Passed** | [Directory report](BUSINESS-DIRECTORY-REPORT.html): 27 database/security scenarios, 29 browser journeys, inspected desktop/mobile screenshots, 189 existing regression checks. User review and hosted certification remain pending. |
 | Public launch | Beta findings addressed, operational controls working, no unresolved critical defects | **Blocked** | Private beta has not begun; public operations and legal/privacy readiness are unverified. |
 | Monetization | Payment experience and commercial demand validated | **Not Tested** | Premium design feasibility exists; demand, pricing, payments and subscriptions are unvalidated. Not a private-beta or free-public-launch prerequisite. |
 
@@ -37,6 +40,7 @@ This is the release-gate record, not a feature wish list. **No hosted migration,
 | B4 | Beta privacy/consent, correction/removal and deletion procedures are not established | **Not Tested** | Publish understandable beta privacy/terms and a reachable request channel; document who handles correction, dispute, removal and deletion requests. A verified manual process can suffice; a full self-service portal is not required. |
 | B5 | Invitation decline and real delivery/recovery/device validation are incomplete | **Failed** | Expiry/revocation pass locally, but no explicit decline action exists. Add/test decline, then verify actual email delivery/recovery and representative real iPhone/Android journeys on the approved candidate. |
 | B6 | Real-user access and exact beta scope are not approved | **Blocked** | Obtain explicit approval after the above evidence is reviewed. Recommended first scope: 10–20 trusted adults, conservative visibility, no arbitrary branch sharing. Adult testers do not remove privacy duties for minors or other people they add. Disable unvalidated capabilities server-side if excluded; document and approve exclusions. |
+| B7 | Directory hosted permissions and ownership/moderation operations are unreviewed | **Blocked** | Include the directory in the first beta. Review its local evidence, assign an independent ownership verifier and report handler, verify actual hosted network/media boundaries and storage limits, and close any legacy unrestricted business-read policy. No hosted migration is authorized. |
 
 Do not hold this beta for payments, subscriptions, additional decorative styles, broad social features, sophisticated growth analytics, or arbitrary cross-network branch merging. Any scope reduction must be explicit, enforceable and reviewed; it is not a waiver of critical privacy/security defects.
 
@@ -169,9 +173,46 @@ Existing regression evidence: [summary](output/phase7/regression-summary.json). 
 3. Prepare hosted migration/security, backup/restore and deployment/rollback evidence for **separate approval**. Do not execute hosted changes merely because this file lists them.
 4. After the actual hosted candidate passes critical checks, request explicit approval for real-user invitations. Record the approving decision here before sending any.
 
+## 9. Family Business Directory — required for first private beta
+
+| ID | Requirement | Status | Evidence / remaining scope |
+| --- | --- | --- | --- |
+| D1 | Audit legacy directory and reuse suitable code securely | **Passed** | [Inventory](BUSINESS-DIRECTORY-REPORT.html): legacy form/card structure retained conceptually; global-read policy and unsafe HTML rejected; existing private media and relationship engine reused. |
+| D2 | All authorized members can browse; listings optional; owners can manage multiple businesses | **Passed** | [Security tests](output/business/security-tests.json), [desktop/mobile journeys](output/business/browser-tests.json). Viewer/minor browsing and adult-only ownership tested. No registration/onboarding business fields. |
+| D3 | Name, logo, description, category, services, photos, general area, approved contacts, multiple links and optional offers | **Passed** | Four fictional listings; private contact default, expiry, 12-link and image limits tested; [actual detail screenshot](output/business/screenshots/desktop-02-business-detail.png). |
+| D4 | Search/filter/detail, edit/hide/delete and optional owner relationship paths | **Passed** | 29 browser scenarios plus pagination/security checks. Confirmed graph reused; unknown relationships not invented. Detail views follow current state-based routing. |
+| D5 | Ownership verification, co-owner consent and appropriate moderation | **Passed** | [Co-owner/moderation browser evidence](output/business/collaboration-browser-tests.json); independent approval enforced in SQL, including for owner-admins. Human verification only. Assign real operators before beta. |
+| D6 | Network boundaries, profile privacy and private image authorization | **Passed** | [Boundary tests](output/business/boundary-tests.json): connected identities do not expose businesses; revoked membership/ownership and changed minor eligibility tested. Local scope only. |
+| D7 | Low-cost images; no video or commercial placement | **Passed** | Existing worker reused; six images/listing maximum, WebP + thumbnails, 106,606 measured demo bytes. [Cost assumptions and limits](BUSINESS-DIRECTORY-REPORT.html). Hosted budgets and alerts remain unverified. |
+| D8 | Preserve Phase 7, onboarding, family engine and templates | **Passed** | [Current regression evidence](output/business/test-summary.json): 189 existing scenarios pass. No hosted deployment. |
+| D9 | Hosted directory/security review, real ownership checks, device validation and operational readiness | **Blocked** | User visual review, approved hosted candidate, independent moderators, privacy/retention decisions, physical-device tests and explicit real-user authorization required. See B1–B7. |
+
 ### Update log
 
 | Date | Change | Evidence basis |
 | --- | --- | --- |
 | 2026-10-20 local | Initial evidence-backed checklist; separated local success, hosted blockers, beta activities, public operations and optional monetization | Existing Phase 2–6 reports, local JSON test artifacts, screenshots, read-only hosted audit and reconciliation. This update did not rerun tests or change hosted data. |
 | 2026-10-20 local / 2026-10-21 UTC | Phase 6B guided UX, duplicate safeguards, consented invitation portrait and same-tab invitation continuation verified; hosted gates unchanged | [Phase 6B report](PHASE-6B-REPORT.html), current JSON checks and inspected desktop/mobile screenshots. |
+| 2026-10-21 local | Included Family Business Directory in first-beta scope; completed isolated implementation, security/browser testing, visual inspection and cost measurements | [Directory report](BUSINESS-DIRECTORY-REPORT.html), 27 new security + 29 browser + 189 regression scenarios. Hosted and real-user gates unchanged; stopped for review. |
+
+
+## 10. Demonstration data release boundary
+
+| Requirement | Status | Evidence / remaining scope |
+| --- | --- | --- |
+| Inventory fictional records, stock portraits, fixture writers, local storage and generated evidence | **Passed** | [Audit](DEMO-DATA-AUDIT.html), [file and aggregate-count inventory](output/demo-audit/inventory.json). Local repository and isolated database only. |
+| Release excludes demos, legacy fixture imports and public stock assets; no automatic seeds | **Passed** | [8 boundary checks](output/demo-audit/release-boundary-tests.json); explicit release configuration, separate session keys and dist-only publishing. |
+| Clean application starts without fictional users, posts, businesses or conversations | **Passed** | [12 clean-start checks](output/demo-audit/verification.json), real fresh local Supabase with 15 migrations and compiled release app; zero application records before and after disposable probe. |
+| Desktop/mobile empty states, initials and explicit isolated demo | **Passed** | [Screenshots and 3 opt-in checks](DEMO-DATA-AUDIT.html); no demo assets requested by release application. |
+| Hosted candidate contains no unintended demonstration data; deployment and real-user access approved | **Blocked** | Hosted data was not inspected or changed. Schema-only migration, asset provenance and candidate environment verification remain required before separate explicit deployment approval. Preserve both existing hosted Auth accounts. |
+
+
+## 11. Hosted private beta preparation - 2026-10-21
+
+| Requirement | Status | Evidence / limit |
+| --- | --- | --- |
+| Fresh read-only hosted catalog/count/config capture | **Passed** | [Schema diff](HOSTED-SCHEMA-DIFF.md): two Auth users/two identities, zero legacy rows/buckets/objects. Complete dependency/consumer sign-off remains blocked. |
+| Additive migration and synthetic account preservation | **Passed** locally | [10-check rehearsal](HOSTED-MIGRATION-REHEARSAL.md); actual local Auth before/after, injected failure, unchanged legacy records. Hosted continuity Not Tested. |
+| Backup restoration | **Failed** locally / **Blocked** hosted | Restore cannot assign managed schema owner; no listed hosted backups/PITR. No escalation workaround attempted. |
+| Hosted security acceptance | **Blocked** | [Findings](HOSTED-SECURITY-AUDIT.md): legacy access, blocked-history mismatch, hosted media, real-family print workflow and service settings outstanding. |
+| Hosted deployment / admission | **Blocked** | [Readiness](HOSTED-BETA-READINESS.md). No explicit hosted approval; prior boundaries unchanged. |

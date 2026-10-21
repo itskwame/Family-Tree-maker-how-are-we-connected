@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-21T15:32:32.339Z",
+  "fictionalDemo": {
+    "listings": 4,
+    "images": 6,
+    "optimizedBytes": 106606,
+    "thumbnailBytes": 23878
+  },
+  "limits": {
+    "imagesPerListing": 6,
+    "maxCombinedBytesPerImage": 1500000,
+    "maxThumbnailBytes": 100000,
+    "listingsPerPage": 20,
+    "maxStoredBytesPerListing": 9000000
+  },
+  "notes": "Actual WebP image plus thumbnail bytes. Excludes database, backups, Auth and transfer overhead. No provider price assumptions."
+}

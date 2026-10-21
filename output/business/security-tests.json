@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-21T15:23:27.492Z",
+  "checks": [
+    {
+      "name": "Anonymous and different-network accounts cannot browse or create",
+      "passed": true
+    },
+    {
+      "name": "Ownership requires actual adult profile owner and consent; minor denied",
+      "passed": true
+    },
+    {
+      "name": "One adult owns multiple optional private drafts",
+      "passed": true
+    },
+    {
+      "name": "Nonowners and outsiders cannot edit, delete, upload, or approve",
+      "passed": true
+    },
+    {
+      "name": "Multiple typed links and explicit business-only contacts save",
+      "passed": true
+    },
+    {
+      "name": "Unsafe URLs, oversized link arrays and stale writes rejected atomically",
+      "passed": true
+    },
+    {
+      "name": "Unreviewed listings cannot publish; owners cannot self-approve even as admin",
+      "passed": true
+    },
+    {
+      "name": "Independent approval keeps listing hidden until voluntary publication",
+      "passed": true
+    },
+    {
+      "name": "Members without businesses including viewer and minor may browse; contacts private",
+      "passed": true
+    },
+    {
+      "name": "Search, category filtering and owner-approved contact sharing",
+      "passed": true
+    },
+    {
+      "name": "Co-owner invitation requires consent and independent verification, not a name match",
+      "passed": true
+    },
+    {
+      "name": "Co-owner removal immediately revokes management, primary cannot be removed",
+      "passed": true
+    },
+    {
+      "name": "Reports private to moderators; suspension cannot be bypassed by owner save",
+      "passed": true
+    },
+    {
+      "name": "Real image processor optimizes logo; uploads require review and reject video",
+      "passed": true
+    },
+    {
+      "name": "Private image bytes enforce exact path, anonymous and cross-network boundaries",
+      "passed": true
+    },
+    {
+      "name": "Photo limit, service-only finalization, unfinished upload review protection",
+      "passed": true
+    },
+    {
+      "name": "Live business images survive shared maintenance and deletion revokes byte access",
+      "passed": true
+    },
+    {
+      "name": "Raw business tables have RLS and no browser grants; ownership tables cannot be rewritten",
+      "passed": true
+    },
+    {
+      "name": "Membership revocation immediately removes listing management and directory access",
+      "passed": true
+    }
+  ]
+}

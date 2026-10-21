@@ -3,14 +3,14 @@ import { lazy, Suspense } from 'react';
 import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
-const FamilyPrototype = lazy(() => import('./family/FamilyPrototype.jsx'));
+const FamilyPrototype = __FAMILYCONNECT_DEMO__ ? lazy(() => import('./family/FamilyPrototype.jsx')) : null;
 
 const navLinkClass = ({ isActive }) =>
   `react-nav__link${isActive ? ' react-nav__link--active' : ''}`;
 
 export default function App() {
   const location = useLocation();
-  if (location.pathname === '/tree-prototype') {
+  if (__FAMILYCONNECT_DEMO__ && ['localhost','127.0.0.1'].includes(window.location.hostname) && location.pathname === '/tree-prototype') {
     return <Suspense fallback={<p>Loading family prototype…</p>}><FamilyPrototype /></Suspense>;
   }
   return (

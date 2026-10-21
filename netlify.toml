@@ -1,7 +1,9 @@
 [build]
-  publish = "./"
-  command = ""
+  publish = "dist-release"
+  command = "npm run build:release"
 
+# No repository-root publishing: fixtures, reports, private test output and .env stay out.
+# Build fails closed without an explicit reviewed release target and endpoint.
 [[redirects]]
   from = "/*"
   to = "/index.html"

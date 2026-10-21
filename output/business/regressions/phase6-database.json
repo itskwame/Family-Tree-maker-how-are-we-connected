@@ -1,0 +1,121 @@
+{
+  "at": "2026-10-21T15:29:04.498Z",
+  "results": [
+    {
+      "name": "Anonymous cannot retrieve family snapshot",
+      "status": "passed"
+    },
+    {
+      "name": "Unrelated account sees no people or networks",
+      "status": "passed"
+    },
+    {
+      "name": "Private schema is not exposed through Data API",
+      "status": "passed"
+    },
+    {
+      "name": "Direct SQL authenticated grants prohibit membership escalation",
+      "status": "passed"
+    },
+    {
+      "name": "RLS snapshot does not recurse; non-guardian cannot see minors",
+      "status": "passed"
+    },
+    {
+      "name": "Issue an adult invitation; stored hash differs from token",
+      "status": "passed"
+    },
+    {
+      "name": "Unapproved invitation cannot claim a profile",
+      "status": "passed"
+    },
+    {
+      "name": "Inviter cannot approve own identity invitation",
+      "status": "passed"
+    },
+    {
+      "name": "Independent network administrator can approve",
+      "status": "passed"
+    },
+    {
+      "name": "Wrong verified email cannot claim profile",
+      "status": "passed"
+    },
+    {
+      "name": "Atomic invitation consumption permits only one concurrent claim",
+      "status": "passed"
+    },
+    {
+      "name": "New member cannot see other network",
+      "status": "passed"
+    },
+    {
+      "name": "Minor invitations prohibited",
+      "status": "passed"
+    },
+    {
+      "name": "Builder records provisional parentage without confirmed edge",
+      "status": "passed"
+    },
+    {
+      "name": "Contributor cannot confirm their own assertion",
+      "status": "passed"
+    },
+    {
+      "name": "Independent administrator can confirm typed parentage",
+      "status": "passed"
+    },
+    {
+      "name": "Confirmed edge has correct anchors and parentage type",
+      "status": "passed"
+    },
+    {
+      "name": "Builder cannot mutate another person’s branch",
+      "status": "passed"
+    },
+    {
+      "name": "Draft persists across new login",
+      "status": "passed"
+    },
+    {
+      "name": "Request id prevents duplicate relative insertion",
+      "status": "passed"
+    },
+    {
+      "name": "Sibling assertion cannot be converted to invented parentage",
+      "status": "passed"
+    },
+    {
+      "name": "Invitations and claim material have no authenticated SELECT grant",
+      "status": "passed"
+    },
+    {
+      "name": "Cross-network connection cannot use an unclaimed profile",
+      "status": "passed"
+    },
+    {
+      "name": "Minor addition grants no automatic guardian authority",
+      "status": "passed"
+    },
+    {
+      "name": "Guardian request requires independent approval",
+      "status": "passed"
+    },
+    {
+      "name": "All application tables enforce RLS",
+      "status": "passed"
+    },
+    {
+      "name": "Application security-definer functions pin search_path",
+      "status": "passed"
+    },
+    {
+      "name": "One verified account cannot claim two identities in one network",
+      "status": "passed"
+    },
+    {
+      "name": "Guardian revocation removes managed-branch authority",
+      "status": "passed"
+    }
+  ]
+}

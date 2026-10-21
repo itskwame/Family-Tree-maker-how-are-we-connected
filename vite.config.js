@@ -1,15 +1,3 @@
-import { resolve } from 'node:path';
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-
-export default defineConfig({
-  plugins: [react()],
-  build: {
-    rollupOptions: {
-      input: {
-        home: resolve(__dirname, 'index.html'),
-        app: resolve(__dirname, 'app.html'),
-      },
-    },
-  },
-});
+// Default build is the fixture-free release path. Legacy/prototype builds are explicit local tools.
+import {releaseConfig} from './scripts/release-config.mjs';
+export default ({mode})=>releaseConfig(mode);

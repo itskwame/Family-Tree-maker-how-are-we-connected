@@ -1,0 +1,798 @@
+{
+  "tables": [
+    {
+      "acl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}",
+      "kind": "r",
+      "name": "families",
+      "owner": "postgres",
+      "schema": "public",
+      "rls_forced": false,
+      "rls_enabled": true
+    },
+    {
+      "acl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}",
+      "kind": "r",
+      "name": "family_memberships",
+      "owner": "postgres",
+      "schema": "public",
+      "rls_forced": false,
+      "rls_enabled": true
+    },
+    {
+      "acl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}",
+      "kind": "r",
+      "name": "invites",
+      "owner": "postgres",
+      "schema": "public",
+      "rls_forced": false,
+      "rls_enabled": true
+    }
+  ],
+  "columns": [
+    {
+      "acl": null,
+      "name": "id",
+      "type": "uuid",
+      "schema": "public",
+      "ordinal": 1,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "families",
+      "default_expression": "gen_random_uuid()"
+    },
+    {
+      "acl": null,
+      "name": "name",
+      "type": "text",
+      "schema": "public",
+      "ordinal": 2,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "families",
+      "default_expression": null
+    },
+    {
+      "acl": null,
+      "name": "created_by",
+      "type": "uuid",
+      "schema": "public",
+      "ordinal": 3,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "families",
+      "default_expression": null
+    },
+    {
+      "acl": null,
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "schema": "public",
+      "ordinal": 4,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "families",
+      "default_expression": "now()"
+    },
+    {
+      "acl": null,
+      "name": "id",
+      "type": "uuid",
+      "schema": "public",
+      "ordinal": 1,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "family_memberships",
+      "default_expression": "gen_random_uuid()"
+    },
+    {
+      "acl": null,
+      "name": "family_id",
+      "type": "uuid",
+      "schema": "public",
+      "ordinal": 2,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "family_memberships",
+      "default_expression": null
+    },
+    {
+      "acl": null,
+      "name": "user_id",
+      "type": "uuid",
+      "schema": "public",
+      "ordinal": 3,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "family_memberships",
+      "default_expression": null
+    },
+    {
+      "acl": null,
+      "name": "role",
+      "type": "text",
+      "schema": "public",
+      "ordinal": 4,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "family_memberships",
+      "default_expression": "'contributor'::text"
+    },
+    {
+      "acl": null,
+      "name": "joined_at",
+      "type": "timestamp with time zone",
+      "schema": "public",
+      "ordinal": 5,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "family_memberships",
+      "default_expression": "now()"
+    },
+    {
+      "acl": null,
+      "name": "id",
+      "type": "uuid",
+      "schema": "public",
+      "ordinal": 1,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "invites",
+      "default_expression": "gen_random_uuid()"
+    },
+    {
+      "acl": null,
+      "name": "family_id",
+      "type": "uuid",
+      "schema": "public",
+      "ordinal": 2,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "invites",
+      "default_expression": null
+    },
+    {
+      "acl": null,
+      "name": "token",
+      "type": "text",
+      "schema": "public",
+      "ordinal": 3,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "invites",
+      "default_expression": null
+    },
+    {
+      "acl": null,
+      "name": "type",
+      "type": "text",
+      "schema": "public",
+      "ordinal": 4,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "invites",
+      "default_expression": null
+    },
+    {
+      "acl": null,
+      "name": "target_person_id",
+      "type": "uuid",
+      "schema": "public",
+      "ordinal": 5,
+      "identity": "",
+      "not_null": false,
+      "generated": "",
+      "table_name": "invites",
+      "default_expression": null
+    },
+    {
+      "acl": null,
+      "name": "role_default",
+      "type": "text",
+      "schema": "public",
+      "ordinal": 6,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "invites",
+      "default_expression": "'contributor'::text"
+    },
+    {
+      "acl": null,
+      "name": "created_by",
+      "type": "uuid",
+      "schema": "public",
+      "ordinal": 7,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "invites",
+      "default_expression": null
+    },
+    {
+      "acl": null,
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "schema": "public",
+      "ordinal": 8,
+      "identity": "",
+      "not_null": true,
+      "generated": "",
+      "table_name": "invites",
+      "default_expression": "now()"
+    },
+    {
+      "acl": null,
+      "name": "expires_at",
+      "type": "timestamp with time zone",
+      "schema": "public",
+      "ordinal": 9,
+      "identity": "",
+      "not_null": false,
+      "generated": "",
+      "table_name": "invites",
+      "default_expression": null
+    }
+  ],
+  "constraints": [
+    {
+      "name": "families_name_check",
+      "type": "c",
+      "schema": "public",
+      "deferred": false,
+      "validated": true,
+      "deferrable": false,
+      "definition": "CHECK (char_length(TRIM(BOTH FROM name)) > 0)",
+      "table_name": "families"
+    },
+    {
+      "name": "families_pkey",
+      "type": "p",
+      "schema": "public",
+      "deferred": false,
+      "validated": true,
+      "deferrable": false,
+      "definition": "PRIMARY KEY (id)",
+      "table_name": "families"
+    },
+    {
+      "name": "families_created_by_fkey",
+      "type": "f",
+      "schema": "public",
+      "deferred": false,
+      "validated": true,
+      "deferrable": false,
+      "definition": "FOREIGN KEY (created_by) REFERENCES auth.users(id) ON DELETE CASCADE",
+      "table_name": "families"
+    },
+    {
+      "name": "family_memberships_role_check",
+      "type": "c",
+      "schema": "public",
+      "deferred": false,
+      "validated": true,
+      "deferrable": false,
+      "definition": "CHECK (role = ANY (ARRAY['admin'::text, 'contributor'::text, 'viewer'::text]))",
+      "table_name": "family_memberships"
+    },
+    {
+      "name": "family_memberships_pkey",
+      "type": "p",
+      "schema": "public",
+      "deferred": false,
+      "validated": true,
+      "deferrable": false,
+      "definition": "PRIMARY KEY (id)",
+      "table_name": "family_memberships"
+    },
+    {
+      "name": "family_memberships_family_id_user_id_key",
+      "type": "u",
+      "schema": "public",
+      "deferred": false,
+      "validated": true,
+      "deferrable": false,
+      "definition": "UNIQUE (family_id, user_id)",
+      "table_name": "family_memberships"
+    },
+    {
+      "name": "family_memberships_family_id_fkey",
+      "type": "f",
+      "schema": "public",
+      "deferred": false,
+      "validated": true,
+      "deferrable": false,
+      "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE CASCADE",
+      "table_name": "family_memberships"
+    },
+    {
+      "name": "family_memberships_user_id_fkey",
+      "type": "f",
+      "schema": "public",
+      "deferred": false,
+      "validated": true,
+      "deferrable": false,
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE",
+      "table_name": "family_memberships"
+    },
+    {
+      "name": "invites_type_check",
+      "type": "c",
+      "schema": "public",
+      "deferred": false,
+      "validated": true,
+      "deferrable": false,
+      "definition": "CHECK (type = ANY (ARRAY['join'::text, 'claim'::text, 'branch'::text]))",
+      "table_name": "invites"
+    },
+    {
+      "name": "invites_role_default_check",
+      "type": "c",
+      "schema": "public",
+      "deferred": false,
+      "validated": true,
+      "deferrable": false,
+      "definition": "CHECK (role_default = ANY (ARRAY['contributor'::text, 'viewer'::text]))",
+      "table_name": "invites"
+    },
+    {
+      "name": "invites_pkey",
+      "type": "p",
+      "schema": "public",
+      "deferred": false,
+      "validated": true,
+      "deferrable": false,
+      "definition": "PRIMARY KEY (id)",
+      "table_name": "invites"
+    },
+    {
+      "name": "invites_token_key",
+      "type": "u",
+      "schema": "public",
+      "deferred": false,
+      "validated": true,
+      "deferrable": false,
+      "definition": "UNIQUE (token)",
+      "table_name": "invites"
+    },
+    {
+      "name": "invites_family_id_fkey",
+      "type": "f",
+      "schema": "public",
+      "deferred": false,
+      "validated": true,
+      "deferrable": false,
+      "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE CASCADE",
+      "table_name": "invites"
+    },
+    {
+      "name": "invites_created_by_fkey",
+      "type": "f",
+      "schema": "public",
+      "deferred": false,
+      "validated": true,
+      "deferrable": false,
+      "definition": "FOREIGN KEY (created_by) REFERENCES auth.users(id) ON DELETE CASCADE",
+      "table_name": "invites"
+    }
+  ],
+  "indexes": [
+    {
+      "ready": true,
+      "valid": true,
+      "schema": "public",
+      "definition": "CREATE UNIQUE INDEX families_pkey ON public.families USING btree (id)",
+      "table_name": "families",
+      "unique_index": true,
+      "primary_index": true
+    },
+    {
+      "ready": true,
+      "valid": true,
+      "schema": "public",
+      "definition": "CREATE UNIQUE INDEX family_memberships_pkey ON public.family_memberships USING btree (id)",
+      "table_name": "family_memberships",
+      "unique_index": true,
+      "primary_index": true
+    },
+    {
+      "ready": true,
+      "valid": true,
+      "schema": "public",
+      "definition": "CREATE UNIQUE INDEX family_memberships_family_id_user_id_key ON public.family_memberships USING btree (family_id, user_id)",
+      "table_name": "family_memberships",
+      "unique_index": true,
+      "primary_index": false
+    },
+    {
+      "ready": true,
+      "valid": true,
+      "schema": "public",
+      "definition": "CREATE UNIQUE INDEX invites_pkey ON public.invites USING btree (id)",
+      "table_name": "invites",
+      "unique_index": true,
+      "primary_index": true
+    },
+    {
+      "ready": true,
+      "valid": true,
+      "schema": "public",
+      "definition": "CREATE UNIQUE INDEX invites_token_key ON public.invites USING btree (token)",
+      "table_name": "invites",
+      "unique_index": true,
+      "primary_index": false
+    },
+    {
+      "ready": true,
+      "valid": true,
+      "schema": "public",
+      "definition": "CREATE INDEX family_memberships_user_id_idx ON public.family_memberships USING btree (user_id)",
+      "table_name": "family_memberships",
+      "unique_index": false,
+      "primary_index": false
+    },
+    {
+      "ready": true,
+      "valid": true,
+      "schema": "public",
+      "definition": "CREATE INDEX invites_family_id_idx ON public.invites USING btree (family_id)",
+      "table_name": "invites",
+      "unique_index": false,
+      "primary_index": false
+    }
+  ],
+  "foreign_keys": [
+    {
+      "name": "families_created_by_fkey",
+      "schema": "public",
+      "definition": "FOREIGN KEY (created_by) REFERENCES auth.users(id) ON DELETE CASCADE",
+      "table_name": "families",
+      "referenced_table": "users",
+      "referenced_schema": "auth",
+      "source_column_numbers": [
+        3
+      ],
+      "target_column_numbers": [
+        2
+      ]
+    },
+    {
+      "name": "family_memberships_family_id_fkey",
+      "schema": "public",
+      "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE CASCADE",
+      "table_name": "family_memberships",
+      "referenced_table": "families",
+      "referenced_schema": "public",
+      "source_column_numbers": [
+        2
+      ],
+      "target_column_numbers": [
+        1
+      ]
+    },
+    {
+      "name": "family_memberships_user_id_fkey",
+      "schema": "public",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE",
+      "table_name": "family_memberships",
+      "referenced_table": "users",
+      "referenced_schema": "auth",
+      "source_column_numbers": [
+        3
+      ],
+      "target_column_numbers": [
+        2
+      ]
+    },
+    {
+      "name": "invites_family_id_fkey",
+      "schema": "public",
+      "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE CASCADE",
+      "table_name": "invites",
+      "referenced_table": "families",
+      "referenced_schema": "public",
+      "source_column_numbers": [
+        2
+      ],
+      "target_column_numbers": [
+        1
+      ]
+    },
+    {
+      "name": "invites_created_by_fkey",
+      "schema": "public",
+      "definition": "FOREIGN KEY (created_by) REFERENCES auth.users(id) ON DELETE CASCADE",
+      "table_name": "invites",
+      "referenced_table": "users",
+      "referenced_schema": "auth",
+      "source_column_numbers": [
+        7
+      ],
+      "target_column_numbers": [
+        2
+      ]
+    }
+  ],
+  "policies": [
+    {
+      "cmd": "UPDATE",
+      "qual": "(EXISTS ( SELECT 1\n   FROM family_memberships fm\n  WHERE ((fm.family_id = families.id) AND (fm.user_id = auth.uid()) AND (fm.role = 'admin'::text))))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "families",
+      "permissive": "PERMISSIVE",
+      "policyname": "families_update_for_admins",
+      "schemaname": "public",
+      "with_check": "(EXISTS ( SELECT 1\n   FROM family_memberships fm\n  WHERE ((fm.family_id = families.id) AND (fm.user_id = auth.uid()) AND (fm.role = 'admin'::text))))"
+    },
+    {
+      "cmd": "INSERT",
+      "qual": null,
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "families",
+      "permissive": "PERMISSIVE",
+      "policyname": "families_insert_for_authenticated_users",
+      "schemaname": "public",
+      "with_check": "(created_by = auth.uid())"
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM family_memberships fm\n  WHERE ((fm.family_id = families.id) AND (fm.user_id = auth.uid()))))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "families",
+      "permissive": "PERMISSIVE",
+      "policyname": "families_select_for_members",
+      "schemaname": "public",
+      "with_check": null
+    },
+    {
+      "cmd": "UPDATE",
+      "qual": "(EXISTS ( SELECT 1\n   FROM family_memberships fm\n  WHERE ((fm.family_id = family_memberships.family_id) AND (fm.user_id = auth.uid()) AND (fm.role = 'admin'::text))))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "family_memberships",
+      "permissive": "PERMISSIVE",
+      "policyname": "memberships_update_admins",
+      "schemaname": "public",
+      "with_check": "(EXISTS ( SELECT 1\n   FROM family_memberships fm\n  WHERE ((fm.family_id = family_memberships.family_id) AND (fm.user_id = auth.uid()) AND (fm.role = 'admin'::text))))"
+    },
+    {
+      "cmd": "INSERT",
+      "qual": null,
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "family_memberships",
+      "permissive": "PERMISSIVE",
+      "policyname": "memberships_insert_self",
+      "schemaname": "public",
+      "with_check": "(user_id = auth.uid())"
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "((user_id = auth.uid()) OR (EXISTS ( SELECT 1\n   FROM family_memberships fm\n  WHERE ((fm.family_id = family_memberships.family_id) AND (fm.user_id = auth.uid())))))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "family_memberships",
+      "permissive": "PERMISSIVE",
+      "policyname": "memberships_select_own_or_same_family",
+      "schemaname": "public",
+      "with_check": null
+    },
+    {
+      "cmd": "UPDATE",
+      "qual": "(EXISTS ( SELECT 1\n   FROM family_memberships fm\n  WHERE ((fm.family_id = invites.family_id) AND (fm.user_id = auth.uid()) AND (fm.role = 'admin'::text))))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "invites",
+      "permissive": "PERMISSIVE",
+      "policyname": "invites_update_for_admins",
+      "schemaname": "public",
+      "with_check": "(EXISTS ( SELECT 1\n   FROM family_memberships fm\n  WHERE ((fm.family_id = invites.family_id) AND (fm.user_id = auth.uid()) AND (fm.role = 'admin'::text))))"
+    },
+    {
+      "cmd": "INSERT",
+      "qual": null,
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "invites",
+      "permissive": "PERMISSIVE",
+      "policyname": "invites_insert_for_members",
+      "schemaname": "public",
+      "with_check": "((created_by = auth.uid()) AND (EXISTS ( SELECT 1\n   FROM family_memberships fm\n  WHERE ((fm.family_id = invites.family_id) AND (fm.user_id = auth.uid())))))"
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "true",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "invites",
+      "permissive": "PERMISSIVE",
+      "policyname": "invites_select_for_authenticated_users",
+      "schemaname": "public",
+      "with_check": null
+    }
+  ],
+  "functions": [],
+  "triggers": [
+    {
+      "name": "RI_ConstraintTrigger_c_18612",
+      "schema": "public",
+      "enabled": "O",
+      "internal": true,
+      "definition": "CREATE CONSTRAINT TRIGGER \"RI_ConstraintTrigger_c_18612\" AFTER INSERT ON families FROM auth.users NOT DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION \"RI_FKey_check_ins\"()",
+      "table_name": "families"
+    },
+    {
+      "name": "RI_ConstraintTrigger_c_18613",
+      "schema": "public",
+      "enabled": "O",
+      "internal": true,
+      "definition": "CREATE CONSTRAINT TRIGGER \"RI_ConstraintTrigger_c_18613\" AFTER UPDATE ON families FROM auth.users NOT DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION \"RI_FKey_check_upd\"()",
+      "table_name": "families"
+    },
+    {
+      "name": "RI_ConstraintTrigger_a_18628",
+      "schema": "public",
+      "enabled": "O",
+      "internal": true,
+      "definition": "CREATE CONSTRAINT TRIGGER \"RI_ConstraintTrigger_a_18628\" AFTER DELETE ON families FROM family_memberships NOT DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION \"RI_FKey_cascade_del\"()",
+      "table_name": "families"
+    },
+    {
+      "name": "RI_ConstraintTrigger_a_18629",
+      "schema": "public",
+      "enabled": "O",
+      "internal": true,
+      "definition": "CREATE CONSTRAINT TRIGGER \"RI_ConstraintTrigger_a_18629\" AFTER UPDATE ON families FROM family_memberships NOT DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION \"RI_FKey_noaction_upd\"()",
+      "table_name": "families"
+    },
+    {
+      "name": "RI_ConstraintTrigger_c_18630",
+      "schema": "public",
+      "enabled": "O",
+      "internal": true,
+      "definition": "CREATE CONSTRAINT TRIGGER \"RI_ConstraintTrigger_c_18630\" AFTER INSERT ON family_memberships FROM families NOT DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION \"RI_FKey_check_ins\"()",
+      "table_name": "family_memberships"
+    },
+    {
+      "name": "RI_ConstraintTrigger_c_18631",
+      "schema": "public",
+      "enabled": "O",
+      "internal": true,
+      "definition": "CREATE CONSTRAINT TRIGGER \"RI_ConstraintTrigger_c_18631\" AFTER UPDATE ON family_memberships FROM families NOT DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION \"RI_FKey_check_upd\"()",
+      "table_name": "family_memberships"
+    },
+    {
+      "name": "RI_ConstraintTrigger_c_18635",
+      "schema": "public",
+      "enabled": "O",
+      "internal": true,
+      "definition": "CREATE CONSTRAINT TRIGGER \"RI_ConstraintTrigger_c_18635\" AFTER INSERT ON family_memberships FROM auth.users NOT DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION \"RI_FKey_check_ins\"()",
+      "table_name": "family_memberships"
+    },
+    {
+      "name": "RI_ConstraintTrigger_c_18636",
+      "schema": "public",
+      "enabled": "O",
+      "internal": true,
+      "definition": "CREATE CONSTRAINT TRIGGER \"RI_ConstraintTrigger_c_18636\" AFTER UPDATE ON family_memberships FROM auth.users NOT DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION \"RI_FKey_check_upd\"()",
+      "table_name": "family_memberships"
+    },
+    {
+      "name": "RI_ConstraintTrigger_a_18652",
+      "schema": "public",
+      "enabled": "O",
+      "internal": true,
+      "definition": "CREATE CONSTRAINT TRIGGER \"RI_ConstraintTrigger_a_18652\" AFTER DELETE ON families FROM invites NOT DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION \"RI_FKey_cascade_del\"()",
+      "table_name": "families"
+    },
+    {
+      "name": "RI_ConstraintTrigger_a_18653",
+      "schema": "public",
+      "enabled": "O",
+      "internal": true,
+      "definition": "CREATE CONSTRAINT TRIGGER \"RI_ConstraintTrigger_a_18653\" AFTER UPDATE ON families FROM invites NOT DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION \"RI_FKey_noaction_upd\"()",
+      "table_name": "families"
+    },
+    {
+      "name": "RI_ConstraintTrigger_c_18654",
+      "schema": "public",
+      "enabled": "O",
+      "internal": true,
+      "definition": "CREATE CONSTRAINT TRIGGER \"RI_ConstraintTrigger_c_18654\" AFTER INSERT ON invites FROM families NOT DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION \"RI_FKey_check_ins\"()",
+      "table_name": "invites"
+    },
+    {
+      "name": "RI_ConstraintTrigger_c_18655",
+      "schema": "public",
+      "enabled": "O",
+      "internal": true,
+      "definition": "CREATE CONSTRAINT TRIGGER \"RI_ConstraintTrigger_c_18655\" AFTER UPDATE ON invites FROM families NOT DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION \"RI_FKey_check_upd\"()",
+      "table_name": "invites"
+    },
+    {
+      "name": "RI_ConstraintTrigger_c_18659",
+      "schema": "public",
+      "enabled": "O",
+      "internal": true,
+      "definition": "CREATE CONSTRAINT TRIGGER \"RI_ConstraintTrigger_c_18659\" AFTER INSERT ON invites FROM auth.users NOT DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION \"RI_FKey_check_ins\"()",
+      "table_name": "invites"
+    },
+    {
+      "name": "RI_ConstraintTrigger_c_18660",
+      "schema": "public",
+      "enabled": "O",
+      "internal": true,
+      "definition": "CREATE CONSTRAINT TRIGGER \"RI_ConstraintTrigger_c_18660\" AFTER UPDATE ON invites FROM auth.users NOT DEFERRABLE INITIALLY IMMEDIATE FOR EACH ROW EXECUTE FUNCTION \"RI_FKey_check_upd\"()",
+      "table_name": "invites"
+    }
+  ],
+  "views": [],
+  "default_grants": [
+    {
+      "acl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}",
+      "owner": "postgres",
+      "schema": "public",
+      "object_type": "r"
+    },
+    {
+      "acl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "owner": "postgres",
+      "schema": "public",
+      "object_type": "f"
+    },
+    {
+      "acl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}",
+      "owner": "postgres",
+      "schema": "public",
+      "object_type": "S"
+    },
+    {
+      "acl": "{postgres=rwU/supabase_admin,anon=rwU/supabase_admin,authenticated=rwU/supabase_admin,service_role=rwU/supabase_admin}",
+      "owner": "supabase_admin",
+      "schema": "public",
+      "object_type": "S"
+    },
+    {
+      "acl": "{postgres=arwdDxtm/supabase_admin,anon=arwdDxtm/supabase_admin,authenticated=arwdDxtm/supabase_admin,service_role=arwdDxtm/supabase_admin}",
+      "owner": "supabase_admin",
+      "schema": "public",
+      "object_type": "r"
+    },
+    {
+      "acl": "{postgres=X/supabase_admin,anon=X/supabase_admin,authenticated=X/supabase_admin,service_role=X/supabase_admin}",
+      "owner": "supabase_admin",
+      "schema": "public",
+      "object_type": "f"
+    }
+  ],
+  "inspection": {
+    "role": "supabase_read_only_user",
+    "version": "PostgreSQL 17.6 on aarch64-unknown-linux-gnu, compiled by gcc (GCC) 13.2.0, 64-bit",
+    "read_only": "on",
+    "captured_at": "2026-10-21T17:31:35.292482+00:00"
+  }
+}

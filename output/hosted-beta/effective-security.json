@@ -1,0 +1,645 @@
+{
+  "policies": [
+    {
+      "cmd": "SELECT",
+      "qual": "familyconnect.member(id)",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "networks",
+      "permissive": "PERMISSIVE",
+      "policyname": "network_read",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "(user_id = auth.uid())",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "memberships",
+      "permissive": "PERMISSIVE",
+      "policyname": "member_read",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "familyconnect.visible(id)",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "people",
+      "permissive": "PERMISSIVE",
+      "policyname": "person_read",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "(familyconnect.member(network_id) AND familyconnect.visible(parent_id) AND familyconnect.visible(child_id))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "parentages",
+      "permissive": "PERMISSIVE",
+      "policyname": "parent_read",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "(familyconnect.member(network_id) AND familyconnect.visible(person_a) AND familyconnect.visible(person_b))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "partnerships",
+      "permissive": "PERMISSIVE",
+      "policyname": "partner_read",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "(familyconnect.member(network_id) AND ((created_by = auth.uid()) OR familyconnect.member(network_id, ARRAY['admin'::text])) AND familyconnect.visible(subject_id) AND familyconnect.visible(relative_id))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "proposals",
+      "permissive": "PERMISSIVE",
+      "policyname": "proposal_read",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "(user_id = auth.uid())",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "progress",
+      "permissive": "PERMISSIVE",
+      "policyname": "progress_read",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "(familyconnect.member(network_a) OR familyconnect.member(network_b))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "connections",
+      "permissive": "PERMISSIVE",
+      "policyname": "connection_read",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "(user_id = auth.uid())",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "person_accounts",
+      "permissive": "PERMISSIVE",
+      "policyname": "own_claims",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "(user_id = auth.uid())",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "guardians",
+      "permissive": "PERMISSIVE",
+      "policyname": "own_guardians",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "((requester = auth.uid()) OR familyconnect.admin_for_person(person_id))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "guardian_requests",
+      "permissive": "PERMISSIVE",
+      "policyname": "guardian_request_read",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "familyconnect.social_post(id)",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "posts",
+      "permissive": "PERMISSIVE",
+      "policyname": "readable_posts",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "familyconnect.social_asset(id)",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "post_media",
+      "permissive": "PERMISSIVE",
+      "policyname": "readable_media",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "familyconnect.social_post(post_id)",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "comments",
+      "permissive": "PERMISSIVE",
+      "policyname": "readable_comments",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "familyconnect.social_post(post_id)",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "reactions",
+      "permissive": "PERMISSIVE",
+      "policyname": "readable_reactions",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "familyconnect.social_chat(id)",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "conversations",
+      "permissive": "PERMISSIVE",
+      "policyname": "readable_conversations",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "familyconnect.social_chat(conversation_id)",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "messages",
+      "permissive": "PERMISSIVE",
+      "policyname": "readable_messages",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "(user_id = auth.uid())",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "blocks",
+      "permissive": "PERMISSIVE",
+      "policyname": "own_blocks",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "(reporter_id = auth.uid())",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "reports",
+      "permissive": "PERMISSIVE",
+      "policyname": "own_reports",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "familyconnect.social_owner(person_id)",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "social_profiles",
+      "permissive": "PERMISSIVE",
+      "policyname": "own_profile",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "(user_id = auth.uid())",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "conversation_members",
+      "permissive": "PERMISSIVE",
+      "policyname": "own_chat_membership",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "((bucket_id = 'family-private'::text) AND familyconnect.social_storage(name))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "objects",
+      "permissive": "PERMISSIVE",
+      "policyname": "social_private_images",
+      "schemaname": "storage",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "((user_id = auth.uid()) AND familyconnect.social_notification(conversation_id))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "notifications",
+      "permissive": "PERMISSIVE",
+      "policyname": "own_social_notifications",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "familyconnect.business_read(id)",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "businesses",
+      "permissive": "PERMISSIVE",
+      "policyname": "business_read",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "familyconnect.business_read(business_id)",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "business_links",
+      "permissive": "PERMISSIVE",
+      "policyname": "business_links_read",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "familyconnect.business_read(business_id)",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "business_media",
+      "permissive": "PERMISSIVE",
+      "policyname": "business_media_read",
+      "schemaname": "familyconnect",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "((bucket_id = 'family-private'::text) AND familyconnect.business_storage(name))",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "objects",
+      "permissive": "PERMISSIVE",
+      "policyname": "business_private_images",
+      "schemaname": "storage",
+      "with_check": null
+    }
+  ],
+  "function_access": [
+    {
+      "signature": "fc_review_queue()",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "fc_my_reveals()",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "familyconnect.one_identity_per_network()",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "familyconnect.social_post(uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "fc_social(text,jsonb)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "familyconnect.social_owner(uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "familyconnect.social_adult(uuid,uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "familyconnect.social_blocked(uuid,uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "familyconnect.member(uuid,text[])",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "familyconnect.controls(uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "familyconnect.visible(uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "fc_guardian(text,uuid,uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "fc_snapshot()",
+      "definer": false,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "familyconnect.mutate(text,jsonb)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "familyconnect.social_reader(uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "familyconnect.admin_for_person(uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "familyconnect.fc_phase6_action(text,jsonb)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "fc_action(text,jsonb)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "fc_invitation_preview(text)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "familyconnect.social_asset(uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "familyconnect.social_chat(uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "familyconnect.social_notification(uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "familyconnect.social_storage(text)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "fc_group_admin(uuid,uuid,boolean)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "fc_social_view(uuid,uuid,uuid,timestamp with time zone,uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "fc_media_complete(uuid,integer,integer,integer)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "familyconnect.notify_message_deletion()",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "familyconnect.business_manage(uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "familyconnect.business_moderator(uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "familyconnect.business_read(uuid)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "familyconnect.business_storage(text)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "fc_business(text,jsonb)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "signature": "fc_business_media_complete(uuid,integer,integer,integer)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "fc_social_maintenance()",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "signature": "fc_business_view(uuid,uuid,text,text,text,uuid,boolean,boolean)",
+      "definer": true,
+      "search_path": [
+        "search_path=\"\""
+      ],
+      "anon_execute": false,
+      "authenticated_execute": true
+    }
+  ]
+}

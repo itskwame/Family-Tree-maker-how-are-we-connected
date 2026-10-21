@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-21T16:22:10.223Z",
+  "checks": [
+    {
+      "name": "Normal local onboarding does not load the fictional tree modules",
+      "passed": true
+    },
+    {
+      "name": "Explicit local demo route is labeled separate and preserves the 11-person premium example",
+      "passed": true
+    },
+    {
+      "name": "Leaving the demonstration returns to onboarding; viewing samples creates no family records",
+      "passed": true
+    }
+  ]
+}

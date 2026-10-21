@@ -13,14 +13,14 @@ const server=http.createServer(async(req,res)=>{
  if(req.method==='OPTIONS'){res.setHeader('Access-Control-Allow-Headers','authorization, content-type');res.setHeader('Access-Control-Allow-Methods','POST');res.writeHead(204);res.end();return;}
  if(req.method!=='POST'||active>=2){res.writeHead(429);res.end('Please retry');return;}
  active++;
- let asset,user;
+ let asset,user,business;
  try{
   const token=req.headers.authorization?.replace(/^Bearer /,'');if(!token)throw Error('Sign in required');
   user=createClient(config.API_URL,config.ANON_KEY,{global:{headers:{Authorization:`Bearer ${token}`}},auth:{persistSession:false,autoRefreshToken:false}});
   const auth=await user.auth.getUser(token);if(auth.error)throw Error('Sign in required');
   if(!['image/jpeg','image/png','image/webp'].includes(req.headers['content-type']))throw Error('Use JPEG, PNG or WebP photographs');
-  const url=new URL(req.url,'http://127.0.0.1'),payload=url.searchParams.has('post')?{post:url.searchParams.get('post')}:{person:url.searchParams.get('person')};
-  const r=await user.rpc('fc_social',{action:'reserve_media',payload});if(r.error)throw r.error;asset=r.data.id;
+  const url=new URL(req.url,'http://127.0.0.1');business=url.searchParams.get('business');const payload=business?{id:business,kind:url.searchParams.get('kind')||'photo'}:url.searchParams.has('post')?{post:url.searchParams.get('post')}:{person:url.searchParams.get('person')};
+  const r=await user.rpc(business?'fc_business':'fc_social',{action:'reserve_media',payload});if(r.error)throw r.error;asset=r.data.id;
   if(Number(req.headers['content-length'])>8*1024*1024)throw Error('Photos must be under 8 MB');
   const chunks=[];let size=0;for await(const chunk of req){size+=chunk.length;if(size>8*1024*1024)throw Error('Photos must be under 8 MB');chunks.push(chunk)}
   const source=Buffer.concat(chunks),decoder=sharp(source,{limitInputPixels:25000000,animated:false,failOn:'warning'}),meta=await decoder.metadata();
@@ -29,10 +29,10 @@ const server=http.createServer(async(req,res)=>{
   const thumb=await sharp(image.data).resize({width:400,height:400,fit:'inside',withoutEnlargement:true}).webp({quality:70}).toBuffer();
   if(image.data.length>1400000||thumb.length>100000)throw Error('This image cannot be compressed within the photo limit');
   for(const [name,data] of [['image',image.data],['thumbnail',thumb]]){const up=await admin.storage.from('family-private').upload(`${asset}/${name}.webp`,data,{contentType:'image/webp',cacheControl:'0'});if(up.error)throw up.error;}
-  const complete=await admin.rpc('fc_media_complete',{asset,w:image.info.width,h:image.info.height,size_bytes:image.data.length+thumb.length});if(complete.error)throw complete.error;
+  const complete=await admin.rpc(business?'fc_business_media_complete':'fc_media_complete',{asset,w:image.info.width,h:image.info.height,size_bytes:image.data.length+thumb.length});if(complete.error)throw complete.error;
   res.writeHead(200,{'Content-Type':'application/json'});res.end(JSON.stringify({id:asset,width:image.info.width,height:image.info.height,bytes:image.data.length+thumb.length}));
  }catch(e){
-  if(asset){await admin.storage.from('family-private').remove([`${asset}/image.webp`,`${asset}/thumbnail.webp`]);await user.rpc('fc_social',{action:'delete_media',payload:{id:asset}})}
+  if(asset){await admin.storage.from('family-private').remove([`${asset}/image.webp`,`${asset}/thumbnail.webp`]);await user.rpc(business?'fc_business':'fc_social',{action:'delete_media',payload:business?{id:business,asset}:{id:asset}})}
   res.writeHead(400,{'Content-Type':'application/json'});res.end(JSON.stringify({error:String(e.message||'Photo upload failed').slice(0,200)}));
  }finally{active--}
 });

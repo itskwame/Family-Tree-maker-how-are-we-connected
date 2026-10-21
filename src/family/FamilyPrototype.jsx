@@ -10,7 +10,8 @@ import { createRelationshipFinder } from './relationships.js';
 import { FamilyScene, Poster, FORMATS, printNameSize } from './Scene.jsx';
 import { exportPDF, exportSVG, exportPNG } from './export.js';
 import { PremiumPoster } from './PremiumPoster.jsx';
-import { premiumSamples, premiumComposition } from './premium.js';
+import { premiumComposition } from './premium.js';
+import { premiumSamples } from './premium-samples.js';
 import './prototype.css';
 
 const InteractiveTree = memo(function InteractiveTree({ layout, path, onPerson, focus, activePerson }) {
@@ -195,7 +196,7 @@ export default function FamilyPrototype() {
               <p className="fc-small">{premium ? 'PNG exports at 300 pixels per inch with embedded print resolution. PDF and SVG preserve vector type and decoration.' : 'PNG is a review raster capped at 16,384 pixels per side and 24 megapixels. Use PDF or SVG for printing.'}</p>
               <p className="fc-small">Embedded portraits, vector text and precise connectors. Exports open independently of this app.</p>
             </div>
-            <div className="fc-paper-wrap"><div className="fc-paper">{premium ? premiumError ? <p role="alert">{premiumError}</p> : premiumLayout ? <PremiumPoster layout={premiumLayout} format={format} svgRef={poster} /> : <p role="status">Composing your family portrait…</p> : <Poster layout={layout} format={format} svgRef={poster} subjectId={branch || undefined} title={branch ? `${nameOf(fixture.people.find(p => p.id === branch))}’s family` : undefined} />}</div><p>{FORMATS[format].label} · {(premium ? premiumGraph : layout.graph).people.filter(p => p.photo).length} licensed portraits · Fictional family</p></div>
+            <div className="fc-paper-wrap"><div className="fc-paper">{premium ? premiumError ? <p role="alert">{premiumError}</p> : premiumLayout ? <PremiumPoster title="The Bennett & Reed family" layout={premiumLayout} format={format} svgRef={poster} /> : <p role="status">Composing your family portrait…</p> : <Poster layout={layout} format={format} svgRef={poster} subjectId={branch || undefined} title={branch ? `${nameOf(fixture.people.find(p => p.id === branch))}’s family` : "The Bennett & Reed family"} />}</div><p>{FORMATS[format].label} · {(premium ? premiumGraph : layout.graph).people.filter(p => p.photo).length} licensed portraits · Fictional family</p></div>
           </section>}
         {mode === 'explore' && <section className="fc-relationship" aria-label="Relationship finder">
           <div className="fc-relationship-title"><span className="fc-kicker">DISCOVER A CONNECTION</span><h2>How are we related?</h2></div>

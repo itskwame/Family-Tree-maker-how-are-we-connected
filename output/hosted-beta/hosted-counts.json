@@ -1,0 +1,58 @@
+{
+  "public.families": {
+    "status": 201,
+    "result": [
+      {
+        "record_count": 0
+      }
+    ]
+  },
+  "public.family_memberships": {
+    "status": 201,
+    "result": [
+      {
+        "record_count": 0
+      }
+    ]
+  },
+  "public.invites": {
+    "status": 201,
+    "result": [
+      {
+        "record_count": 0
+      }
+    ]
+  },
+  "auth.users": {
+    "status": 201,
+    "result": [
+      {
+        "record_count": 2
+      }
+    ]
+  },
+  "auth.identities": {
+    "status": 201,
+    "result": [
+      {
+        "record_count": 2
+      }
+    ]
+  },
+  "storage.buckets": {
+    "status": 201,
+    "result": [
+      {
+        "record_count": 0
+      }
+    ]
+  },
+  "storage.objects": {
+    "status": 201,
+    "result": [
+      {
+        "record_count": 0
+      }
+    ]
+  }
+}

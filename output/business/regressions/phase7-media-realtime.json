@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-21T15:28:14.201Z",
+  "checks": [
+    {
+      "name": "Worker re-encodes, resizes, strips metadata, creates thumbnail",
+      "passed": true
+    },
+    {
+      "name": "Private photos denied across network and before publication",
+      "passed": true
+    },
+    {
+      "name": "Owning a valid photograph never unlocks another network object",
+      "passed": true
+    },
+    {
+      "name": "Reject SVG, video, malformed bytes, oversized images and bad origin",
+      "passed": true
+    },
+    {
+      "name": "Direct storage writes bypassing image worker are denied",
+      "passed": true
+    },
+    {
+      "name": "Realtime delivers own notification and does not leak to outsider",
+      "passed": true
+    },
+    {
+      "name": "Deleted photo authorization revoked immediately",
+      "passed": true
+    }
+  ]
+}

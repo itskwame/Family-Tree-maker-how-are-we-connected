@@ -1,0 +1,137 @@
+{
+  "at": "2026-10-21T17:39:50.233Z",
+  "checks": [
+    {
+      "name": "Two synthetic pre-existing accounts authenticate through real local Auth",
+      "passed": true
+    },
+    {
+      "name": "Injected migration failure rolls back additive objects without account or legacy loss",
+      "passed": true
+    },
+    {
+      "name": "16 candidate SQL files apply atomically on observed legacy structure",
+      "passed": true
+    },
+    {
+      "name": "Migration preserves complete synthetic Auth rows, identities and legacy sentinel data",
+      "passed": true
+    },
+    {
+      "name": "Raw duplicate migration fails safely; no false idempotency claim",
+      "passed": true
+    },
+    {
+      "name": "Checksum-ledger resume skips already-applied candidates",
+      "passed": true
+    },
+    {
+      "name": "All normalized tables enable RLS and no initial person/profile assignment is made",
+      "passed": true
+    },
+    {
+      "name": "Existing synthetic accounts still authenticate after migration",
+      "passed": true
+    },
+    {
+      "name": "Legacy invitation access is denied by grants after quarantine",
+      "passed": true
+    },
+    {
+      "name": "Ordinary authenticated user cannot self-promote through SQL grants",
+      "passed": true
+    }
+  ],
+  "restoration": {
+    "exitCode": 1,
+    "scope": "Synthetic local backup into a separate database on the same local PostgreSQL cluster; NOT hosted disaster recovery.",
+    "error": "pg_restore: error: could not execute query: ERROR:  must be able to SET ROLE \"supabase_admin\"\nCommand was: ALTER SCHEMA auth OWNER TO supabase_admin;\n\n"
+  },
+  "candidates": [
+    {
+      "file": "migration-review/hosted-beta/20261021000000_quarantine_legacy.sql",
+      "sha256": "d07bb6261cdc08da38780a4cb8ea7af831469e4aa5fcc704072f095d9c92dbd3"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021000100_familyconnect_baseline.sql",
+      "source": "local/phase6/supabase/migrations/20261021000100_familyconnect_baseline.sql",
+      "sha256": "22e8d5c74d7c6007a2fc77a9f485038ffa4522d0d58e34aae0f08757daf30632"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021000200_guardians_and_identity.sql",
+      "source": "local/phase6/supabase/migrations/20261021000200_guardians_and_identity.sql",
+      "sha256": "4472855f524d579cd19adbc339f9768f2e5dc27f463097237cda472411aa287c"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021000300_claim_review.sql",
+      "source": "local/phase6/supabase/migrations/20261021000300_claim_review.sql",
+      "sha256": "9097e0f2c0782c67f8e747b425e8a7970e5b3f20e7d1d669161453fc80f720fc"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021000400_per_network_reveal.sql",
+      "source": "local/phase6/supabase/migrations/20261021000400_per_network_reveal.sql",
+      "sha256": "aa89daa5f670130a95c87428cfa55c19de18925ba2712b5bbac7c6a7670bddc3"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021000500_partnership_semantics.sql",
+      "source": "local/phase6/supabase/migrations/20261021000500_partnership_semantics.sql",
+      "sha256": "17500e7945fc35b34b8cca3e4171de2c9a314fd3db4c71d622f50baf092e6dd2"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021000600_guided_builder.sql",
+      "source": "local/phase6/supabase/migrations/20261021000600_guided_builder.sql",
+      "sha256": "5c10453b2dd9ed901b6061e7256a1772a9b46469238571ed625d08c032122eb9"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021000700_invitation_portrait_path.sql",
+      "source": "local/phase6/supabase/migrations/20261021000700_invitation_portrait_path.sql",
+      "sha256": "92f4c86d1017e26be26dfd94b99287dc12108bde770bbc884f2809e5a04b2a27"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021000800_social.sql",
+      "source": "local/phase6/supabase/migrations/20261021000800_social.sql",
+      "sha256": "7a18f4244eecc42e600a24da20e1c41991e30630f9c516371697a782be518aac"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021000900_social_notification_guard.sql",
+      "source": "local/phase6/supabase/migrations/20261021000900_social_notification_guard.sql",
+      "sha256": "bf65703442ff83ae4424c43b4a5feea11e2a0061740b4eefaca25cf4e1fde7a1"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021001000_social_pagination.sql",
+      "source": "local/phase6/supabase/migrations/20261021001000_social_pagination.sql",
+      "sha256": "908f7f2f4f31e76bd717c729d054b7d0092b029024b0cef835d0ef75f98c0c34"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021001100_social_retention.sql",
+      "source": "local/phase6/supabase/migrations/20261021001100_social_retention.sql",
+      "sha256": "fd8f550f74d0181ecfa6793aa5a393b9993364da9095bfcdb819d91fc5d66fd5"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021001200_storage_exact_path.sql",
+      "source": "local/phase6/supabase/migrations/20261021001200_storage_exact_path.sql",
+      "sha256": "63e7cf5388bfb94288039fd8840978ff5624d0c53ede014144b9859612f3e958"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021001300_media_finalize_and_message_deletion.sql",
+      "source": "local/phase6/supabase/migrations/20261021001300_media_finalize_and_message_deletion.sql",
+      "sha256": "fd9f51aab9d319aec7632d5534fb34fe060e3b2ce7344a12996a36c2cef9e691"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021001400_family_businesses.sql",
+      "source": "local/phase6/supabase/migrations/20261021001400_family_businesses.sql",
+      "sha256": "18c4aff74c5803db25c7b0f4678cc65397dcdc8c06920361954db0da6d2d7509"
+    },
+    {
+      "file": "migration-review/hosted-beta/20261021001500_business_private_projection.sql",
+      "source": "local/phase6/supabase/migrations/20261021001500_business_private_projection.sql",
+      "sha256": "288fac7f19b80ae2e564f229d163dabfff13756d71c08271fa3a4dd1507e3138"
+    }
+  ],
+  "limitations": [
+    "No hosted backup available; hosted restoration not tested",
+    "Replay SQL is intentionally not idempotent; checksum-ledger skip was simulated, not a production runner",
+    "Full cross-user API security matrix remains required on release candidate",
+    "Local account preservation uses synthetic accounts, not hosted credentials"
+  ]
+}

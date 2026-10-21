@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-21T15:28:03.026Z",
+  "checks": [
+    {
+      "name": "Anonymous, outsider, and minor cannot read social network",
+      "passed": true
+    },
+    {
+      "name": "Adult profile owner; sensitive fields private by default",
+      "passed": true
+    },
+    {
+      "name": "Post drafts private; author and network cannot be impersonated",
+      "passed": true
+    },
+    {
+      "name": "Published post read, edit ownership, likes and comments",
+      "passed": true
+    },
+    {
+      "name": "Cross-network comment, like and edit rejected",
+      "passed": true
+    },
+    {
+      "name": "Media reservations capped at five; finalize requires worker",
+      "passed": true
+    },
+    {
+      "name": "Direct conversation requires adult same-network recipient acceptance",
+      "passed": true
+    },
+    {
+      "name": "Network administrator cannot read or inject private messages",
+      "passed": true
+    },
+    {
+      "name": "Unread read marker and message deletion ownership",
+      "passed": true
+    },
+    {
+      "name": "Group invitations do not enroll members; only accepted members read",
+      "passed": true
+    },
+    {
+      "name": "Group privacy and removal revoke access independently of UI",
+      "passed": true
+    },
+    {
+      "name": "Blocking stops sending; reporting requires participation",
+      "passed": true
+    },
+    {
+      "name": "Raw social tables reject authenticated writes and sensitive reads",
+      "passed": true
+    },
+    {
+      "name": "Post deletion removes dependent comments/reactions/media metadata",
+      "passed": true
+    }
+  ]
+}

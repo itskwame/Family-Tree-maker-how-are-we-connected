@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-21",
+  "hostedWrites": false,
+  "hostedAccounts": 2,
+  "hostedIdentities": 2,
+  "emailConfirmedAccounts": 0,
+  "legacyRows": 0,
+  "hostedStorageObjects": 0,
+  "listedBackups": 0,
+  "pitrEnabled": false,
+  "additiveRehearsalChecksPassed": 10,
+  "syntheticRestore": "failed: managed auth schema ownership",
+  "releaseBoundaryChecksPassed": 8,
+  "cleanStartChecksPassed": 12,
+  "hostedSecurityMatrix": "not tested",
+  "migrationReady": false
+}

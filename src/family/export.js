@@ -64,7 +64,7 @@ export async function exportPDF(element, format) {
   const scale = Math.min(pageWidth / box.width, pageHeight / box.height);
   const width = box.width * scale, height = box.height * scale;
   await doc.svg(artwork, { x: (pageWidth - width) / 2, y: (pageHeight - height) / 2, width, height });
-  doc.setProperties({ title: element.dataset.template ? 'Our family - Botanical heirloom' : 'Bennett & Reed Family - Fictional feasibility prototype', author: 'FamilyConnect', subject: `${element.dataset.count} fictional family members; licensed stock portraits; automatic layout` });
+  doc.setProperties({ title: element.dataset.template ? 'Our family - Botanical heirloom' : 'Our family', author: 'FamilyConnect', subject: `${element.dataset.count} family members; automatic layout` });
   doc.save(`${filename(element)}.pdf`);
 }
 export async function exportPNG(element, format) {

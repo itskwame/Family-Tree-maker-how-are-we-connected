@@ -11,3 +11,13 @@ dist-phase6/
 scripts/__pycache__/
 output/phase6b/private/
 output/phase7/private/
+output/business/private/
+
+# Isolated clean-start verification and release build output
+local/clean-audit/
+output/demo-audit/private/
+dist-release/
+dist-cleancheck/
+
+output/hosted-beta/private/
+local/hosted-rehearsal/

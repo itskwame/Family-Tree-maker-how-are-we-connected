@@ -1,7 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
-import { premiumSamples, premiumComposition } from '../../src/family/premium.js';
+import { premiumComposition } from '../../src/family/premium.js';
+import { premiumSamples } from '../../src/family/premium-samples.js';
 import { layoutFamily } from '../../src/family/layout.js';
 import { validateGraph } from '../../src/family/graph.js';
 import { relationshipsBetween } from '../../src/family/relationships.js';

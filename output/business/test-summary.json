@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-21T15:35:00.749151+00:00",
+  "suites": [
+    {
+      "suite": "Business security",
+      "passed": 19,
+      "failed": 0
+    },
+    {
+      "suite": "Business boundaries",
+      "passed": 8,
+      "failed": 0
+    },
+    {
+      "suite": "Business desktop/mobile browser",
+      "passed": 23,
+      "failed": 0
+    },
+    {
+      "suite": "Co-owner and moderation browser",
+      "passed": 6,
+      "failed": 0
+    },
+    {
+      "suite": "Phase 6 database",
+      "passed": 29,
+      "failed": 0
+    },
+    {
+      "suite": "Phase 6 consent",
+      "passed": 12,
+      "failed": 0
+    },
+    {
+      "suite": "Phase 6 graph adapter",
+      "passed": 3,
+      "failed": 0
+    },
+    {
+      "suite": "Phase 6B database",
+      "passed": 17,
+      "failed": 0
+    },
+    {
+      "suite": "Passwordless browser",
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "suite": "Phase 7 database",
+      "passed": 14,
+      "failed": 0
+    },
+    {
+      "suite": "Phase 7 boundaries",
+      "passed": 11,
+      "failed": 0
+    },
+    {
+      "suite": "Phase 7 media and Realtime",
+      "passed": 7,
+      "failed": 0
+    },
+    {
+      "suite": "Phase 7 browser",
+      "passed": 22,
+      "failed": 0
+    },
+    {
+      "suite": "Family engine and geometry",
+      "passed": 53,
+      "failed": 0
+    },
+    {
+      "suite": "Family browser",
+      "passed": 11,
+      "failed": 0
+    },
+    {
+      "suite": "Premium browser",
+      "passed": 5,
+      "failed": 0
+    }
+  ],
+  "build": "npm run build:phase6 passed; 535 modules",
+  "scope": "Observed local test runs only; no hosted certification."
+}

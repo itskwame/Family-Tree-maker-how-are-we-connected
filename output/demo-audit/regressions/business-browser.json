@@ -1,0 +1,97 @@
+{
+  "date": "2026-10-21T16:14:46.614Z",
+  "results": [
+    {
+      "name": "desktop: Family Home remains authenticated landing page",
+      "passed": true
+    },
+    {
+      "name": "desktop: Main navigation opens optional directory with four optimized logos",
+      "passed": true
+    },
+    {
+      "name": "desktop: Search and category filtering combine correctly",
+      "passed": true
+    },
+    {
+      "name": "desktop: Detail has private photograph, multiple links, offer and verified owners",
+      "passed": true
+    },
+    {
+      "name": "desktop: Owner relationship uses existing confirmed graph and highlighted tree",
+      "passed": true
+    },
+    {
+      "name": "desktop: Existing owner creates another optional private listing",
+      "passed": true
+    },
+    {
+      "name": "desktop: Owner edits details, adds a link and uploads optimized logo",
+      "passed": true
+    },
+    {
+      "name": "desktop: Owner explicitly publishes after review and can temporarily hide",
+      "passed": true
+    },
+    {
+      "name": "desktop: Explicit permanent deletion removes the listing",
+      "passed": true
+    },
+    {
+      "name": "desktop: Tree and optional Guided Family Builder remain usable",
+      "passed": true
+    },
+    {
+      "name": "desktop: No browser runtime errors or horizontal page overflow",
+      "passed": true
+    },
+    {
+      "name": "mobile: Family Home remains authenticated landing page",
+      "passed": true
+    },
+    {
+      "name": "mobile: Main navigation opens optional directory with four optimized logos",
+      "passed": true
+    },
+    {
+      "name": "mobile: Search and category filtering combine correctly",
+      "passed": true
+    },
+    {
+      "name": "mobile: Detail has private photograph, multiple links, offer and verified owners",
+      "passed": true
+    },
+    {
+      "name": "mobile: Owner relationship uses existing confirmed graph and highlighted tree",
+      "passed": true
+    },
+    {
+      "name": "mobile: Existing owner creates another optional private listing",
+      "passed": true
+    },
+    {
+      "name": "mobile: Owner edits details, adds a link and uploads optimized logo",
+      "passed": true
+    },
+    {
+      "name": "mobile: Owner explicitly publishes after review and can temporarily hide",
+      "passed": true
+    },
+    {
+      "name": "mobile: Explicit permanent deletion removes the listing",
+      "passed": true
+    },
+    {
+      "name": "mobile: Tree and optional Guided Family Builder remain usable",
+      "passed": true
+    },
+    {
+      "name": "mobile: No browser runtime errors or horizontal page overflow",
+      "passed": true
+    },
+    {
+      "name": "desktop: Independent moderator reviews listing through UI",
+      "passed": true
+    }
+  ]
+}

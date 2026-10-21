@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-21T15:28:04.361Z",
+  "checks": [
+    {
+      "name": "Expired offers disappear; user content remains text, without executable HTML",
+      "passed": true
+    },
+    {
+      "name": "Connected identity consent does not grant directory or image access across networks",
+      "passed": true
+    },
+    {
+      "name": "Declining co-ownership does not grant authority or display an owner",
+      "passed": true
+    },
+    {
+      "name": "Pagination uses unique tie-breaker without skipping equal business names",
+      "passed": true
+    },
+    {
+      "name": "Mutation throttling is enforced in database, independent of client controls",
+      "passed": true
+    },
+    {
+      "name": "Hidden businesses cannot expose another listing or social image through OR policies",
+      "passed": true
+    },
+    {
+      "name": "Owner becoming a minor removes identity from public owners while co-owner remains",
+      "passed": true
+    },
+    {
+      "name": "Worker finalization rechecks revoked owner authority",
+      "passed": true
+    }
+  ]
+}

@@ -32,7 +32,7 @@ function Botanical({ x, y, mirror = false, scale = 1 }) {
   </g>;
 }
 
-export function PremiumPoster({ layout, format, svgRef }) {
+export function PremiumPoster({ layout, format, svgRef, title = "Our family" }) {
   const c = premiumComposition(layout, format);
   const connectedPorts = new Set(layout.edges.flatMap(edge => [...edge.sources, ...edge.targets]));
   const { width, height, scale, x, y } = c;
@@ -47,7 +47,7 @@ export function PremiumPoster({ layout, format, svgRef }) {
     <g fontFamily="Times, Georgia, serif" textAnchor="middle" fill={INK}>
       <text x={width/2} y={c.landscape ? 60 : 69} fontFamily="Helvetica, Arial, sans-serif" fontSize="10">THE BOTANICAL HEIRLOOM</text>
       <text x={width/2} y={c.landscape ? 113 : 133} fontSize={c.landscape ? 52 : 60} fontStyle="italic">Our family</text>
-      <text x={width/2} y={c.landscape ? 143 : 168} fontSize="19">The Bennett &amp; Reed family</text>
+      <text x={width/2} y={c.landscape ? 143 : 168} fontSize="19">{title}</text>
       <path d={`M${width/2-72} ${c.landscape ? 163 : 193}h56 m32 0h56`} stroke={GOLD} strokeWidth=".7" />
       <path d={`M${width/2} ${c.landscape ? 158 : 188}l5 5-5 5-5-5Z`} fill="none" stroke={GOLD} strokeWidth=".7" />
     </g>

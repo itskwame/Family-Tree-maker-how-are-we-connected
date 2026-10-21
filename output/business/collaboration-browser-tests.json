@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-21T15:30:58.330Z",
+  "results": [
+    {
+      "name": "Non-owner mobile member reads details and photographs without owner controls",
+      "passed": true
+    },
+    {
+      "name": "Unestablished owner relationship is never invented",
+      "passed": true
+    },
+    {
+      "name": "Co-owner accepts in-app invitation but cannot manage until independently verified",
+      "passed": true
+    },
+    {
+      "name": "Independent verification enables the accepted co-owner controls",
+      "passed": true
+    },
+    {
+      "name": "Owner removes a co-owner and management access disappears",
+      "passed": true
+    },
+    {
+      "name": "Member concern reaches moderator and can be resolved privately",
+      "passed": true
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import { createHash } from 'node:crypto';
 // Independent cache avoids interfering with an existing Vite development session.
 export default defineConfig({
   plugins: [react()],
+  define:{__FAMILYCONNECT_DEMO__:'true',__FAMILYCONNECT_ENV__:JSON.stringify('local-demo'),__FAMILYCONNECT_CONFIG__:'null'},
   worker: { format: 'es' },
   // Keep ephemeral dependency optimization outside OneDrive's synced tree.
   cacheDir: join(tmpdir(), 'familyconnect-vite-' + createHash('sha256').update(process.cwd()).digest('hex').slice(0, 10)),

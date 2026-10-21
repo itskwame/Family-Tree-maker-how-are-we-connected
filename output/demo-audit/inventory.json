@@ -1,0 +1,1994 @@
+{
+  "date": "2026-10-21T16:22:36.235Z",
+  "scope": "Repository and isolated familyconnect-phase6-isolated only; counts, not personal records. Hosted not inspected.",
+  "portraits": [
+    {
+      "path": "public/family-portraits/arthur.jpg",
+      "bytes": 125070,
+      "sha256": "9858bc17e338966a092dcff5b1ff6710c10d2238d4e7b937ed39eb1938bf4dba",
+      "location": "Public development assets; excluded from release builds"
+    },
+    {
+      "path": "public/family-portraits/ava.jpg",
+      "bytes": 180750,
+      "sha256": "46cfb49f4376e603a2ec38d64e017d1f82eb8ced2d1a1631a216de964151531e",
+      "location": "Public development assets; excluded from release builds"
+    },
+    {
+      "path": "public/family-portraits/david.jpg",
+      "bytes": 75488,
+      "sha256": "0f4ac1cf1bbde23d23f1a71f6a88f537ef734a5078c161d63b4b505294c654fb",
+      "location": "Public development assets; excluded from release builds"
+    },
+    {
+      "path": "public/family-portraits/emma.jpg",
+      "bytes": 26102,
+      "sha256": "03792137389add46228c34e046878108709a1f8c6bd66d4147c919ed391364cb",
+      "location": "Public development assets; excluded from release builds"
+    },
+    {
+      "path": "public/family-portraits/helen.jpg",
+      "bytes": 24920,
+      "sha256": "d735f8dadc965205bb546226a8ff27b76a92032d1cb833b1109c084e5bbdf2b9",
+      "location": "Public development assets; excluded from release builds"
+    },
+    {
+      "path": "public/family-portraits/iris.jpg",
+      "bytes": 28610,
+      "sha256": "4aaf8b2826d9855e8a6e8ecb9b0649c8bf720c99feb094fa849f67cf08db5d5a",
+      "location": "Public development assets; excluded from release builds"
+    },
+    {
+      "path": "public/family-portraits/lucas.jpg",
+      "bytes": 43363,
+      "sha256": "1a2d5ebabc26493852bf238505f5dc649455d4eaf5b9e9d93cdd330922730950",
+      "location": "Public development assets; excluded from release builds"
+    },
+    {
+      "path": "public/family-portraits/sources.json",
+      "bytes": 1526,
+      "sha256": "682cc94611325c1a0375349848b02148d24ff2bedb80096b765b2d5d32b17ee0",
+      "location": "Public development assets; excluded from release builds"
+    },
+    {
+      "path": "public/family-portraits/theo.jpg",
+      "bytes": 75054,
+      "sha256": "fb9ad183bf678b3fe8ef43f8a712047993280f6be0a0368d81550af721446134",
+      "location": "Public development assets; excluded from release builds"
+    }
+  ],
+  "sources": [
+    {
+      "path": "src/family/FamilyPrototype.jsx",
+      "location": "Application source",
+      "writesPossible": false
+    },
+    {
+      "path": "src/family/fixture.js",
+      "location": "Application source",
+      "writesPossible": false
+    },
+    {
+      "path": "src/family/fixture100.js",
+      "location": "Application source",
+      "writesPossible": false
+    },
+    {
+      "path": "src/family/fixture300.js",
+      "location": "Application source",
+      "writesPossible": false
+    },
+    {
+      "path": "src/family/premium-samples.js",
+      "location": "Application source",
+      "writesPossible": false
+    },
+    {
+      "path": "src/family/Scene.jsx",
+      "location": "Application source",
+      "writesPossible": false
+    },
+    {
+      "path": "src/phase6/EmailLinkAuth.jsx",
+      "location": "Application source",
+      "writesPossible": false
+    },
+    {
+      "path": "src/phase6/main.jsx",
+      "location": "Application source",
+      "writesPossible": true
+    },
+    {
+      "path": "src/phase6/runtime.mjs",
+      "location": "Application source",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/audit-demo-inventory.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/business-browser.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/business-checkpoint.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/business-collaboration-browser.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/business-demo.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/business-fixture.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/business-measure.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/business-visuals.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/download-family-portraits.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/phase6-browser.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/phase6-final-evidence.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/phase6-first-time.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/phase6-local.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/phase6b-browser.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/phase6b-checkpoint.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/phase6b-demo.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/phase6b-final-check.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/phase6b-fixture.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/phase7-browser.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/phase7-checkpoint.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/phase7-demo.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/phase7-fixture.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/phase7-measure.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/phase7-media-server.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/phase7-report.py",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/phase7-start.ps1",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/release-config.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/report-family-phase4.py",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/report-family-phase5.py",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/test-business-boundaries.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/test-business.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/test-clean-start.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/test-demo-opt-in.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/test-phase6-adapter.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/test-phase6-consent.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/test-phase6-email-link.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/test-phase6.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/test-phase6b.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/test-phase7-boundaries.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/test-phase7-media-realtime.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/test-phase7.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": true
+    },
+    {
+      "path": "scripts/test-release-boundary.mjs",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/verify-family-exports.py",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/verify-family-phase4.py",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "scripts/verify-family-phase5.py",
+      "location": "Explicit local fixture, test or evidence script",
+      "writesPossible": false
+    },
+    {
+      "path": "tests/family/browser/phase3.spec.mjs",
+      "location": "Automated test source",
+      "writesPossible": false
+    },
+    {
+      "path": "tests/family/browser/phase4.spec.mjs",
+      "location": "Automated test source",
+      "writesPossible": false
+    },
+    {
+      "path": "tests/family/browser/portrait-harness.jsx",
+      "location": "Automated test source",
+      "writesPossible": false
+    },
+    {
+      "path": "tests/family/browser/prototype.spec.mjs",
+      "location": "Automated test source",
+      "writesPossible": false
+    },
+    {
+      "path": "tests/family/engine.test.mjs",
+      "location": "Automated test source",
+      "writesPossible": false
+    },
+    {
+      "path": "tests/family/phase3.test.mjs",
+      "location": "Automated test source",
+      "writesPossible": false
+    },
+    {
+      "path": "tests/family/phase4.test.mjs",
+      "location": "Automated test source",
+      "writesPossible": false
+    },
+    {
+      "path": "tests/family/phase5.test.mjs",
+      "location": "Automated test source",
+      "writesPossible": false
+    },
+    {
+      "path": "tests/family/premium/design.spec.mjs",
+      "location": "Automated test source",
+      "writesPossible": false
+    },
+    {
+      "path": "tests/family/production/worker.spec.mjs",
+      "location": "Automated test source",
+      "writesPossible": false
+    }
+  ],
+  "generated": [
+    {
+      "path": "output/business/assets/fictional-logo.png",
+      "bytes": 29932,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/boundary-tests.json",
+      "bytes": 1063,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/browser-tests.json",
+      "bytes": 2761,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/collaboration-browser-tests.json",
+      "bytes": 760,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/regressions/family-browser.json",
+      "bytes": 14416,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/regressions/passwordless.json",
+      "bytes": 882,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/regressions/phase6-adapter.json",
+      "bytes": 207,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/regressions/phase6-consent.json",
+      "bytes": 1293,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/regressions/phase6-database.json",
+      "bytes": 3114,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/regressions/phase6b-database.json",
+      "bytes": 1956,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/regressions/phase7-boundaries.json",
+      "bytes": 1301,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/regressions/phase7-browser.json",
+      "bytes": 2430,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/regressions/phase7-database.json",
+      "bytes": 1609,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/regressions/phase7-media-realtime.json",
+      "bytes": 838,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/regressions/premium-browser.json",
+      "bytes": 7802,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/screenshots/desktop-00-starting-view.png",
+      "bytes": 89506,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/screenshots/desktop-01-directory.png",
+      "bytes": 131927,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/screenshots/desktop-02-business-detail.png",
+      "bytes": 237585,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/screenshots/desktop-03-owner-draft.png",
+      "bytes": 135224,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/screenshots/desktop-04-moderation.png",
+      "bytes": 218021,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/screenshots/desktop-06-owner-relationship.png",
+      "bytes": 69700,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/screenshots/desktop-07-family-home-regression.png",
+      "bytes": 558348,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/screenshots/mobile-00-starting-view.png",
+      "bytes": 40784,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/screenshots/mobile-01-directory.png",
+      "bytes": 124124,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/screenshots/mobile-02-business-detail.png",
+      "bytes": 158852,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/screenshots/mobile-03-owner-draft.png",
+      "bytes": 101203,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/screenshots/mobile-05-member-detail.png",
+      "bytes": 119724,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/screenshots/mobile-06-owner-relationship.png",
+      "bytes": 64463,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/security-tests.json",
+      "bytes": 2420,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/storage-measurements.json",
+      "bytes": 488,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/test-summary.json",
+      "bytes": 1710,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/business/visual-capture-tests.json",
+      "bytes": 347,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/passwordless/desktop-email-link.png",
+      "bytes": 95726,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/passwordless/desktop-reveal.png",
+      "bytes": 89952,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/passwordless/mobile-email-link.png",
+      "bytes": 36688,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/passwordless/mobile-reveal.png",
+      "bytes": 68782,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/passwordless/results.json",
+      "bytes": 882,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/pdf/familyconnect-100-portraits.pdf",
+      "bytes": 603719,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/pdf/familyconnect-25-minimalist.pdf",
+      "bytes": 8093,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/pdf/familyconnect-25-portraits.pdf",
+      "bytes": 590360,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/pdf/familyconnect-300-portraits.pdf",
+      "bytes": 648422,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/pdf/familyconnect-botanical-11-poster18.pdf",
+      "bytes": 563509,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/pdf/familyconnect-botanical-15-poster18.pdf",
+      "bytes": 564310,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/pdf/familyconnect-botanical-25-poster18.pdf",
+      "bytes": 590842,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/pdf/familyconnect-botanical-40-poster24.pdf",
+      "bytes": 593824,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/pdf/familyconnect-emma-poster18.pdf",
+      "bytes": 562942,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/pdf/familyconnect-emma-poster24.pdf",
+      "bytes": 562539,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2/01-interactive-desktop.png",
+      "bytes": 122270,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2/02-cousin-connection.png",
+      "bytes": 141743,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2/03-print-studio.png",
+      "bytes": 139601,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2/04-minimalist-preview.png",
+      "bytes": 72346,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2/05-mobile.png",
+      "bytes": 65930,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2/06-exported-pdf.png",
+      "bytes": 226951,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2/07-mobile-branch.png",
+      "bytes": 60383,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2/08-standalone-svg.png",
+      "bytes": 78225,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2/browser-results.json",
+      "bytes": 6784,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2/export-results.json",
+      "bytes": 647,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2/familyconnect-25-minimalist.svg",
+      "bytes": 28112,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2/unit-results.txt",
+      "bytes": 9110,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2b/01-interactive-desktop.png",
+      "bytes": 167826,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2b/02-cousin-connection.png",
+      "bytes": 186863,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2b/03-print-studio.png",
+      "bytes": 181592,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2b/04-minimalist-preview.png",
+      "bytes": 102884,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2b/05-mobile-default.png",
+      "bytes": 67363,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2b/05-mobile.png",
+      "bytes": 83140,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2b/06-exported-pdf.png",
+      "bytes": 294716,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2b/07-mobile-branch.png",
+      "bytes": 82921,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2b/08-standalone-svg.png",
+      "bytes": 160465,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2b/browser-results.json",
+      "bytes": 6775,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2b/export-results.json",
+      "bytes": 1711,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2b/familyconnect-25-portraits.svg",
+      "bytes": 807380,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2b/page-coverage.json",
+      "bytes": 65,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase2b/unit-results.txt",
+      "bytes": 4393,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/01-complete-desktop.png",
+      "bytes": 109679,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/02-distant-relationship.png",
+      "bytes": 127536,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/02-relationship-focused.png",
+      "bytes": 170737,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/03-selected-branch.png",
+      "bytes": 91182,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/04-print-studio.png",
+      "bytes": 128427,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/05-mobile-default.png",
+      "bytes": 83702,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/05-mobile-navigation.png",
+      "bytes": 65956,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/06-exported-pdf.png",
+      "bytes": 865377,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/06-pdf-detail-b1-aaa.png",
+      "bytes": 36497,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/06-pdf-detail-b2-bb.png",
+      "bytes": 30683,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/06-pdf-detail-emma.png",
+      "bytes": 42526,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/08-standalone-svg.png",
+      "bytes": 262556,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/browser-metrics.json",
+      "bytes": 7711,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/browser-results.json",
+      "bytes": 10101,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/export-results.json",
+      "bytes": 2838,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/familyconnect-100-portraits.png",
+      "bytes": 1070629,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/familyconnect-100-portraits.svg",
+      "bytes": 904805,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/fictional-family-100.json",
+      "bytes": 42826,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/layout-metrics.json",
+      "bytes": 1788,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase3/unit-results.txt",
+      "bytes": 13910,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/01-complete-desktop.png",
+      "bytes": 109395,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/02-distant-relationship.png",
+      "bytes": 128067,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/03-person-focused-branch.png",
+      "bytes": 134608,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/04-mobile-selected-relative.png",
+      "bytes": 78537,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/04-mobile-start.png",
+      "bytes": 88230,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/05-complete-print-preview.png",
+      "bytes": 120197,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/06-personalized-poster18.png",
+      "bytes": 233748,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/06-personalized-poster24.png",
+      "bytes": 233850,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/browser-metrics.json",
+      "bytes": 37934,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/browser-results.json",
+      "bytes": 15590,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/cancellation-results.json",
+      "bytes": 69,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/export-results.json",
+      "bytes": 2955,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-300-portraits-detail-c5-17.png",
+      "bytes": 30209,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-300-portraits-detail-emma.png",
+      "bytes": 56419,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-300-portraits-offline-svg.png",
+      "bytes": 571845,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-300-portraits-pdf-render.png",
+      "bytes": 610945,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-300-portraits.png",
+      "bytes": 1341375,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-300-portraits.svg",
+      "bytes": 4995289,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-emma-poster18-detail-emma.png",
+      "bytes": 57707,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-emma-poster18-offline-svg.png",
+      "bytes": 113088,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-emma-poster18-pdf-render.png",
+      "bytes": 137531,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-emma-poster18.png",
+      "bytes": 467597,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-emma-poster18.svg",
+      "bytes": 756591,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-emma-poster24-detail-emma.png",
+      "bytes": 57746,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-emma-poster24-offline-svg.png",
+      "bytes": 114645,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-emma-poster24-pdf-render.png",
+      "bytes": 138402,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-emma-poster24.png",
+      "bytes": 739863,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/familyconnect-emma-poster24.svg",
+      "bytes": 756478,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/fictional-family-300.json",
+      "bytes": 129796,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/layout-metrics.json",
+      "bytes": 835,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/personal-export-metrics.json",
+      "bytes": 505,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/production-results.json",
+      "bytes": 4679,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/relationship-metrics.json",
+      "bytes": 58,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase4/unit-results.txt",
+      "bytes": 16842,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/11-offline-svg.png",
+      "bytes": 311533,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/11-pdf-portrait-detail.png",
+      "bytes": 125568,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/11-pdf-render.png",
+      "bytes": 305926,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/11-preview.png",
+      "bytes": 297930,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/11-studio.png",
+      "bytes": 387538,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/15-offline-svg.png",
+      "bytes": 232489,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/15-pdf-portrait-detail.png",
+      "bytes": 125921,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/15-pdf-render.png",
+      "bytes": 241834,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/15-preview.png",
+      "bytes": 222174,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/15-studio.png",
+      "bytes": 311986,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/25-offline-svg.png",
+      "bytes": 151029,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/25-pdf-portrait-detail.png",
+      "bytes": 125736,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/25-pdf-render.png",
+      "bytes": 162134,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/25-preview.png",
+      "bytes": 146267,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/25-studio.png",
+      "bytes": 234112,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/40-offline-svg.png",
+      "bytes": 120719,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/40-pdf-portrait-detail.png",
+      "bytes": 125474,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/40-pdf-render.png",
+      "bytes": 131389,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/40-preview.png",
+      "bytes": 118159,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/40-studio.png",
+      "bytes": 205883,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/browser-11.json",
+      "bytes": 708,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/browser-15.json",
+      "bytes": 774,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/browser-25.json",
+      "bytes": 911,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/browser-40.json",
+      "bytes": 1149,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/browser-results.json",
+      "bytes": 7802,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/export-results.json",
+      "bytes": 2777,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/familyconnect-botanical-11-poster18.png",
+      "bytes": 5005052,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/familyconnect-botanical-11-poster18.svg",
+      "bytes": 758543,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/familyconnect-botanical-15-poster18.png",
+      "bytes": 3719775,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/familyconnect-botanical-15-poster18.svg",
+      "bytes": 763481,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/familyconnect-botanical-25-poster18.png",
+      "bytes": 3557934,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/familyconnect-botanical-25-poster18.svg",
+      "bytes": 808318,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/familyconnect-botanical-40-poster24.png",
+      "bytes": 5005445,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/familyconnect-botanical-40-poster24.svg",
+      "bytes": 828403,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/layout-11.json",
+      "bytes": 41688,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/layout-15.json",
+      "bytes": 57338,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/layout-25.json",
+      "bytes": 93553,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/layout-40.json",
+      "bytes": 160068,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/production-results.json",
+      "bytes": 4679,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/regression-results.json",
+      "bytes": 14414,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase5/unit-results.txt",
+      "bytes": 387,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/adapter-tests.json",
+      "bytes": 207,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/browser-results.json",
+      "bytes": 496,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/consent-tests.json",
+      "bytes": 1293,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/database-tests.json",
+      "bytes": 3114,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/final-browser-check.json",
+      "bytes": 176,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/first-time-mobile-results.json",
+      "bytes": 279,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/first-time-results.json",
+      "bytes": 279,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/screenshots/01-desktop-invitation.png",
+      "bytes": 59150,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/screenshots/02-desktop-connection.png",
+      "bytes": 95003,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/screenshots/03-desktop-builder.png",
+      "bytes": 160730,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/screenshots/04-voluntary-invitation.png",
+      "bytes": 167387,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/screenshots/05-mobile-connection.png",
+      "bytes": 81811,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/screenshots/06-mobile-builder.png",
+      "bytes": 89040,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/screenshots/07-first-time-verified-reveal.png",
+      "bytes": 82952,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/screenshots/08-network-consent.png",
+      "bytes": 60330,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6/screenshots/09-mobile-first-time.png",
+      "bytes": 64407,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/browser-tests.json",
+      "bytes": 3484,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/checkpoint-validation.json",
+      "bytes": 100,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/database-tests.json",
+      "bytes": 1956,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/duplicate-investigation.json",
+      "bytes": 72,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/final-check.json",
+      "bytes": 178,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/regression-results.json",
+      "bytes": 944,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/desktop-01-invitation.png",
+      "bytes": 91729,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/desktop-02-identity.png",
+      "bytes": 85270,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/desktop-03-reveal.png",
+      "bytes": 88648,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/desktop-04-parent-flow.png",
+      "bytes": 99350,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/desktop-05-sibling-flow.png",
+      "bytes": 104657,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/desktop-06-relative-added.png",
+      "bytes": 110260,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/desktop-07-invitation-suggestion.png",
+      "bytes": 110260,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/desktop-08-invitation-options.png",
+      "bytes": 151112,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/desktop-09-connected-branches.png",
+      "bytes": 68492,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/mobile-01-invitation.png",
+      "bytes": 50296,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/mobile-02-identity.png",
+      "bytes": 28221,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/mobile-03-reveal.png",
+      "bytes": 69259,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/mobile-04-parent-flow.png",
+      "bytes": 77558,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/mobile-05-sibling-flow.png",
+      "bytes": 84019,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/mobile-06-relative-added.png",
+      "bytes": 88512,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/mobile-07-invitation-suggestion.png",
+      "bytes": 88512,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/mobile-08-invitation-options.png",
+      "bytes": 128604,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase6b/screenshots/mobile-09-connected-branches.png",
+      "bytes": 61735,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/boundary-tests.json",
+      "bytes": 1301,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/browser-tests.json",
+      "bytes": 2430,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/database-tests.json",
+      "bytes": 1609,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/dependency-audit.json",
+      "bytes": 1242,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/measurements.json",
+      "bytes": 844,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/media-realtime-tests.json",
+      "bytes": 838,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/regression-summary.json",
+      "bytes": 981,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/report-check.json",
+      "bytes": 277,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/report-preview.png",
+      "bytes": 101080,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/screenshots/desktop-01-family-home.png",
+      "bytes": 151949,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/screenshots/desktop-02-composer.png",
+      "bytes": 785714,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/screenshots/desktop-03-timeline.png",
+      "bytes": 968778,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/screenshots/desktop-04-profile.png",
+      "bytes": 764240,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/screenshots/desktop-05-private-conversation.png",
+      "bytes": 83586,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/screenshots/desktop-06-group-conversation.png",
+      "bytes": 82748,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/screenshots/desktop-07-group-membership.png",
+      "bytes": 116484,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/screenshots/mobile-01-family-home.png",
+      "bytes": 289101,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/screenshots/mobile-02-composer.png",
+      "bytes": 313427,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/screenshots/mobile-03-timeline.png",
+      "bytes": 343729,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/screenshots/mobile-04-profile.png",
+      "bytes": 264083,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/screenshots/mobile-05-private-conversation.png",
+      "bytes": 42976,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/screenshots/mobile-06-group-conversation.png",
+      "bytes": 46197,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/screenshots/mobile-07-group-membership.png",
+      "bytes": 78249,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/phase7/tree-mobile-retry.json",
+      "bytes": 7236,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/social-audit/local-catalog.json",
+      "bytes": 1047,
+      "location": "Generated local evidence/export; never a release asset"
+    },
+    {
+      "path": "output/social-audit/source-evidence.json",
+      "bytes": 12987,
+      "location": "Generated local evidence/export; never a release asset"
+    }
+  ],
+  "scratchAssets": [
+    {
+      "path": "tmp/phase5/alternate-11-poster24-render.png",
+      "bytes": 236582,
+      "location": "Local scratch/reference/export asset; excluded from release"
+    },
+    {
+      "path": "tmp/phase5/alternate-11-poster24.pdf",
+      "bytes": 563477,
+      "location": "Local scratch/reference/export asset; excluded from release"
+    },
+    {
+      "path": "tmp/phase5/alternate-11-poster24.svg",
+      "bytes": 758545,
+      "location": "Local scratch/reference/export asset; excluded from release"
+    },
+    {
+      "path": "tmp/phase5/reference1.png",
+      "bytes": 366143,
+      "location": "Local scratch/reference/export asset; excluded from release"
+    }
+  ],
+  "privateLocations": [
+    {
+      "path": "output/phase6/private",
+      "files": 6,
+      "classification": "Ignored local credentials, invitation links, fixture snapshots and/or checkpoints; never publish or copy to beta."
+    },
+    {
+      "path": "output/phase6b/private",
+      "files": 59,
+      "classification": "Ignored local credentials, invitation links, fixture snapshots and/or checkpoints; never publish or copy to beta."
+    },
+    {
+      "path": "output/phase7/private",
+      "files": 72,
+      "classification": "Ignored local credentials, invitation links, fixture snapshots and/or checkpoints; never publish or copy to beta."
+    },
+    {
+      "path": "output/business/private",
+      "files": 95,
+      "classification": "Ignored local credentials, invitation links, fixture snapshots and/or checkpoints; never publish or copy to beta."
+    }
+  ],
+  "localDatabase": [
+    {
+      "schema": "auth",
+      "table": "instances",
+      "count": 0
+    },
+    {
+      "schema": "auth",
+      "table": "audit_log_entries",
+      "count": 556
+    },
+    {
+      "schema": "familyconnect",
+      "table": "guardian_requests",
+      "count": 7
+    },
+    {
+      "schema": "auth",
+      "table": "schema_migrations",
+      "count": 74
+    },
+    {
+      "schema": "familyconnect",
+      "table": "builder_receipts",
+      "count": 79
+    },
+    {
+      "schema": "storage",
+      "table": "s3_multipart_uploads",
+      "count": 0
+    },
+    {
+      "schema": "storage",
+      "table": "migrations",
+      "count": 56
+    },
+    {
+      "schema": "storage",
+      "table": "buckets",
+      "count": 1
+    },
+    {
+      "schema": "storage",
+      "table": "objects",
+      "count": 177
+    },
+    {
+      "schema": "storage",
+      "table": "s3_multipart_uploads_parts",
+      "count": 0
+    },
+    {
+      "schema": "storage",
+      "table": "buckets_vectors",
+      "count": 0
+    },
+    {
+      "schema": "storage",
+      "table": "vector_indexes",
+      "count": 0
+    },
+    {
+      "schema": "storage",
+      "table": "buckets_analytics",
+      "count": 0
+    },
+    {
+      "schema": "storage",
+      "table": "iceberg_namespaces",
+      "count": 0
+    },
+    {
+      "schema": "storage",
+      "table": "iceberg_tables",
+      "count": 0
+    },
+    {
+      "schema": "familyconnect",
+      "table": "posts",
+      "count": 134
+    },
+    {
+      "schema": "familyconnect",
+      "table": "post_media",
+      "count": 59
+    },
+    {
+      "schema": "familyconnect",
+      "table": "comments",
+      "count": 26
+    },
+    {
+      "schema": "familyconnect",
+      "table": "reactions",
+      "count": 26
+    },
+    {
+      "schema": "familyconnect",
+      "table": "blocks",
+      "count": 0
+    },
+    {
+      "schema": "familyconnect",
+      "table": "conversations",
+      "count": 50
+    },
+    {
+      "schema": "familyconnect",
+      "table": "conversation_members",
+      "count": 117
+    },
+    {
+      "schema": "familyconnect",
+      "table": "social_profiles",
+      "count": 14
+    },
+    {
+      "schema": "auth",
+      "table": "saml_providers",
+      "count": 0
+    },
+    {
+      "schema": "auth",
+      "table": "sso_providers",
+      "count": 0
+    },
+    {
+      "schema": "familyconnect",
+      "table": "messages",
+      "count": 219
+    },
+    {
+      "schema": "familyconnect",
+      "table": "reports",
+      "count": 3
+    },
+    {
+      "schema": "familyconnect",
+      "table": "social_limits",
+      "count": 996
+    },
+    {
+      "schema": "familyconnect",
+      "table": "notifications",
+      "count": 115
+    },
+    {
+      "schema": "auth",
+      "table": "sso_domains",
+      "count": 0
+    },
+    {
+      "schema": "auth",
+      "table": "mfa_amr_claims",
+      "count": 345
+    },
+    {
+      "schema": "auth",
+      "table": "mfa_factors",
+      "count": 0
+    },
+    {
+      "schema": "auth",
+      "table": "users",
+      "count": 207
+    },
+    {
+      "schema": "auth",
+      "table": "saml_relay_states",
+      "count": 0
+    },
+    {
+      "schema": "auth",
+      "table": "refresh_tokens",
+      "count": 345
+    },
+    {
+      "schema": "auth",
+      "table": "identities",
+      "count": 207
+    },
+    {
+      "schema": "auth",
+      "table": "one_time_tokens",
+      "count": 0
+    },
+    {
+      "schema": "auth",
+      "table": "mfa_challenges",
+      "count": 0
+    },
+    {
+      "schema": "auth",
+      "table": "oauth_authorizations",
+      "count": 0
+    },
+    {
+      "schema": "auth",
+      "table": "oauth_client_states",
+      "count": 0
+    },
+    {
+      "schema": "auth",
+      "table": "sessions",
+      "count": 345
+    },
+    {
+      "schema": "auth",
+      "table": "oauth_consents",
+      "count": 0
+    },
+    {
+      "schema": "auth",
+      "table": "oauth_clients",
+      "count": 0
+    },
+    {
+      "schema": "auth",
+      "table": "flow_state",
+      "count": 0
+    },
+    {
+      "schema": "familyconnect",
+      "table": "businesses",
+      "count": 32
+    },
+    {
+      "schema": "familyconnect",
+      "table": "business_owners",
+      "count": 35
+    },
+    {
+      "schema": "familyconnect",
+      "table": "business_links",
+      "count": 12
+    },
+    {
+      "schema": "familyconnect",
+      "table": "business_media",
+      "count": 14
+    },
+    {
+      "schema": "familyconnect",
+      "table": "business_reviews",
+      "count": 13
+    },
+    {
+      "schema": "familyconnect",
+      "table": "person_accounts",
+      "count": 240
+    },
+    {
+      "schema": "familyconnect",
+      "table": "guardians",
+      "count": 4
+    },
+    {
+      "schema": "familyconnect",
+      "table": "partnership_events",
+      "count": 0
+    },
+    {
+      "schema": "familyconnect",
+      "table": "claims",
+      "count": 36
+    },
+    {
+      "schema": "familyconnect",
+      "table": "partnerships",
+      "count": 63
+    },
+    {
+      "schema": "familyconnect",
+      "table": "audit",
+      "count": 330
+    },
+    {
+      "schema": "familyconnect",
+      "table": "receipts",
+      "count": 113
+    },
+    {
+      "schema": "familyconnect",
+      "table": "networks",
+      "count": 93
+    },
+    {
+      "schema": "familyconnect",
+      "table": "memberships",
+      "count": 276
+    },
+    {
+      "schema": "familyconnect",
+      "table": "people",
+      "count": 501
+    },
+    {
+      "schema": "familyconnect",
+      "table": "parentages",
+      "count": 262
+    },
+    {
+      "schema": "familyconnect",
+      "table": "progress",
+      "count": 28
+    },
+    {
+      "schema": "familyconnect",
+      "table": "connections",
+      "count": 14
+    },
+    {
+      "schema": "familyconnect",
+      "table": "invitations",
+      "count": 62
+    },
+    {
+      "schema": "familyconnect",
+      "table": "proposals",
+      "count": 74
+    },
+    {
+      "schema": "familyconnect",
+      "table": "business_reports",
+      "count": 1
+    }
+  ],
+  "localBuckets": [
+    {
+      "bucket": "family-private",
+      "public": false,
+      "objects": 177
+    }
+  ],
+  "peopleWithPhotoReferences": 116,
+  "exampleTestAccounts": 207,
+  "mediaOrigins": {
+    "socialMediaRecords": 59,
+    "businessMediaRecords": 14,
+    "unreferencedObjects": 47
+  },
+  "license": {
+    "license": "Pexels License",
+    "licenseUrl": "https://www.pexels.com/license/",
+    "usage": "Licensed stock models portray fictional demo characters. Names, dates and relationships are invented; no endorsement or actual family connection is implied.",
+    "portraits": [
+      {
+        "person": "arthur",
+        "photoId": 6667746,
+        "credit": "Kampus Production",
+        "source": "https://www.pexels.com/photo/portrait-of-an-elderly-man-smiling-6667746/"
+      },
+      {
+        "person": "iris",
+        "photoId": 8865426,
+        "credit": "RDNE Stock project",
+        "source": "https://www.pexels.com/photo/portrait-of-an-elderly-woman-s-face-8865426/"
+      },
+      {
+        "person": "david",
+        "photoId": 17824398,
+        "credit": "Sandro Tavares",
+        "source": "https://www.pexels.com/photo/portrait-of-an-adult-man-smiling-17824398/"
+      },
+      {
+        "person": "helen",
+        "photoId": 29405854,
+        "credit": "Alimi Sandrine",
+        "source": "https://www.pexels.com/photo/professional-portrait-of-smiling-middle-aged-woman-29405854/"
+      },
+      {
+        "person": "emma",
+        "photoId": 20591769,
+        "credit": "Александр Лич",
+        "source": "https://www.pexels.com/photo/close-up-portrait-of-a-woman-20591769/"
+      },
+      {
+        "person": "lucas",
+        "photoId": 31869535,
+        "credit": "Finn Gruber",
+        "source": "https://www.pexels.com/photo/portrait-of-a-thoughtful-young-man-against-neutral-background-31869535/"
+      },
+      {
+        "person": "ava",
+        "photoId": 25849096,
+        "credit": "Jon Champaigne",
+        "source": "https://www.pexels.com/photo/portrait-of-smiling-girl-25849096/"
+      },
+      {
+        "person": "theo",
+        "photoId": 20189738,
+        "credit": "Kimy Moto",
+        "source": "https://www.pexels.com/photo/portrait-of-smiling-boy-20189738/"
+      }
+    ]
+  }
+}

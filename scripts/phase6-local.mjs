@@ -3,6 +3,8 @@ import {writeFileSync,mkdirSync,existsSync,readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {createClient} from '@supabase/supabase-js';
 import {fixture} from '../src/family/fixture.js';
+if(process.env.NODE_ENV==='production'||process.env.FAMILYCONNECT_RELEASE_TARGET||['production','private-beta','clean-check'].includes(process.env.FAMILYCONNECT_ENV))throw Error('Development fixture helpers are forbidden in release environments');
+if(!/project_id\s*=\s*"familyconnect-phase6-isolated"/.test(readFileSync('local/phase6/supabase/config.toml','utf8')))throw Error('Fixture helpers require the named isolated development project');
 if(existsSync('local/phase6/supabase/.temp/project-ref'))throw Error('Local workspace must never be linked');
 export const config=JSON.parse(execFileSync('supabase',['status','--workdir','local/phase6','--output','json'],{encoding:'utf8',stdio:['ignore','pipe','pipe']}));
 if(config.API_URL!=='http://127.0.0.1:55321')throw Error('Refusing non-local Supabase');

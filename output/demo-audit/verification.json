@@ -1,0 +1,132 @@
+{
+  "date": "2026-10-21T17:42:19.447Z",
+  "initial": {
+    "auth.users": 0,
+    "storage.objects": 0,
+    "familyconnect.partnerships": 0,
+    "familyconnect.invitations": 0,
+    "familyconnect.proposals": 0,
+    "familyconnect.partnership_events": 0,
+    "familyconnect.claims": 0,
+    "familyconnect.audit": 0,
+    "familyconnect.receipts": 0,
+    "familyconnect.networks": 0,
+    "familyconnect.memberships": 0,
+    "familyconnect.people": 0,
+    "familyconnect.parentages": 0,
+    "familyconnect.progress": 0,
+    "familyconnect.connections": 0,
+    "familyconnect.guardian_requests": 0,
+    "familyconnect.person_accounts": 0,
+    "familyconnect.guardians": 0,
+    "familyconnect.builder_receipts": 0,
+    "familyconnect.posts": 0,
+    "familyconnect.post_media": 0,
+    "familyconnect.comments": 0,
+    "familyconnect.reactions": 0,
+    "familyconnect.blocks": 0,
+    "familyconnect.conversations": 0,
+    "familyconnect.conversation_members": 0,
+    "familyconnect.messages": 0,
+    "familyconnect.reports": 0,
+    "familyconnect.social_limits": 0,
+    "familyconnect.notifications": 0,
+    "familyconnect.social_profiles": 0,
+    "familyconnect.businesses": 0,
+    "familyconnect.business_owners": 0,
+    "familyconnect.business_links": 0,
+    "familyconnect.business_media": 0,
+    "familyconnect.business_reviews": 0,
+    "familyconnect.business_reports": 0
+  },
+  "final": {
+    "auth.users": 0,
+    "storage.objects": 0,
+    "familyconnect.partnerships": 0,
+    "familyconnect.invitations": 0,
+    "familyconnect.proposals": 0,
+    "familyconnect.partnership_events": 0,
+    "familyconnect.claims": 0,
+    "familyconnect.audit": 0,
+    "familyconnect.receipts": 0,
+    "familyconnect.networks": 0,
+    "familyconnect.memberships": 0,
+    "familyconnect.people": 0,
+    "familyconnect.parentages": 0,
+    "familyconnect.progress": 0,
+    "familyconnect.connections": 0,
+    "familyconnect.guardian_requests": 0,
+    "familyconnect.person_accounts": 0,
+    "familyconnect.guardians": 0,
+    "familyconnect.builder_receipts": 0,
+    "familyconnect.posts": 0,
+    "familyconnect.post_media": 0,
+    "familyconnect.comments": 0,
+    "familyconnect.reactions": 0,
+    "familyconnect.blocks": 0,
+    "familyconnect.conversations": 0,
+    "familyconnect.conversation_members": 0,
+    "familyconnect.messages": 0,
+    "familyconnect.reports": 0,
+    "familyconnect.social_limits": 0,
+    "familyconnect.notifications": 0,
+    "familyconnect.social_profiles": 0,
+    "familyconnect.businesses": 0,
+    "familyconnect.business_owners": 0,
+    "familyconnect.business_links": 0,
+    "familyconnect.business_media": 0,
+    "familyconnect.business_reviews": 0,
+    "familyconnect.business_reports": 0
+  },
+  "checks": [
+    {
+      "name": "Fresh migrated database has zero Auth users, family records, posts, comments, invitations, businesses, messages and stored objects",
+      "passed": true
+    },
+    {
+      "name": "Production helpers fail closed before connecting or seeding",
+      "passed": true
+    },
+    {
+      "name": "Release-mode clean-check build excludes fixture modules and all public sample images",
+      "passed": true
+    },
+    {
+      "name": "desktop: signed-out release starts without portraits or automatic demonstration route",
+      "passed": true
+    },
+    {
+      "name": "New verified account receives no automatic family, posts, invitation, business or conversation",
+      "passed": true
+    },
+    {
+      "name": "desktop: empty family feed, messaging and business states use prompts without samples",
+      "passed": true
+    },
+    {
+      "name": "desktop: missing profile photo and one-person tree use initials, without a stock-image fallback",
+      "passed": true
+    },
+    {
+      "name": "mobile: signed-out release starts without portraits or automatic demonstration route",
+      "passed": true
+    },
+    {
+      "name": "mobile: empty family feed, messaging and business states use prompts without samples",
+      "passed": true
+    },
+    {
+      "name": "mobile: missing profile photo and one-person tree use initials, without a stock-image fallback",
+      "passed": true
+    },
+    {
+      "name": "No browser errors, demo image requests, development API calls or sample content writes",
+      "passed": true
+    },
+    {
+      "name": "Clean stack is empty again after removing only the newly created UI probe",
+      "passed": true
+    }
+  ],
+  "scope": "Actual independent local Supabase, compiled release-mode application; no hosted access. UI probe created only after empty baseline and removed afterward."
+}
