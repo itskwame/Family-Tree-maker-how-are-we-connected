@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {createHash,randomUUID} from 'node:crypto';
+import {login,sql,uuid,ids} from './phase6-local.mjs';
+const emma=await login('emma'),dave=await login('david'),maya=await login('maya'),outsider=await login('outsider');
+const results=[];const call=(c,action,payload)=>c.rpc('fc_action',{action,payload});
+async function test(name,f){try{await f();results.push({name,status:'passed'});console.log('PASS',name)}catch(e){results.push({name,status:'failed',error:e.message});console.log('FAIL',name,e.message)}}
+await test('Claim second-network profile with independently approved invitation',async()=>{const token=readFileSync('output/phase6/private/reed-invitation.txt','utf8').split('#invite=')[1];assert.ifError((await call(emma,'accept_invitation',{token})).error)});
+let connection;
+await test('Verified person requests connection between their own claimed records',async()=>{const r=await call(emma,'request_connection',{person_a:uuid('emma'),person_b:uuid('emma-reed')});assert.ifError(r.error);connection=r.data.id});
+await test('Pending connection shares no foreign profile',async()=>assert(!(await outsider.rpc('fc_snapshot')).data.people.some(p=>p.id===uuid('emma-reed'))));
+await test('Unrelated member cannot approve network connection',async()=>assert((await call(outsider,'connection_consent',{id:connection,scope:'admin'})).error));
+await test('One administrator approval is insufficient',async()=>{assert.ifError((await call(dave,'connection_consent',{id:connection,scope:'admin'})).error);assert(!(await outsider.rpc('fc_snapshot')).data.people.some(p=>p.id===uuid('emma-reed')))});
+await test('Both administrator approvals still require personal consent',async()=>{assert.ifError((await call(maya,'connection_consent',{id:connection,scope:'admin'})).error);assert(!(await outsider.rpc('fc_snapshot')).data.people.some(p=>p.id===uuid('emma-reed')))});
+await test('Personal consent enables only explicitly scoped profile sharing',async()=>{assert.ifError((await call(emma,'connection_consent',{id:connection,scope:'person'})).error);const snap=(await outsider.rpc('fc_snapshot')).data;assert(snap.people.some(p=>p.id===uuid('emma-reed')));assert(!snap.people.some(p=>p.id===uuid('maya')));assert(!snap.networks.some(n=>n.id===ids.other))});
+await test('Consent revocation immediately removes shared visibility',async()=>{assert.ifError((await call(emma,'connection_consent',{id:connection,decision:'revoke'})).error);assert(!(await outsider.rpc('fc_snapshot')).data.people.some(p=>p.id===uuid('emma-reed')))});
+const accounts=JSON.parse(readFileSync('output/phase6/private/local-fixture-accounts.json'));
+for(const kind of ['expired','revoked'])await test(`${kind} invitation cannot be accepted`,async()=>{const token=randomUUID(),id=randomUUID();sql(`insert into familyconnect.invitations(id,token_hash,network_id,target_id,inviter_id,recipient_email,created_by,approved_by,expires_at,revoked_at) values('${id}','${createHash('sha256').update(token).digest('hex')}','${ids.network}','${uuid('emma')}','${uuid('david')}','emma@example.test','${accounts.david}','${accounts.reviewer}',${kind==='expired'?"now()-interval '1 day'":"now()+interval '1 day'"},${kind==='revoked'?'now()':'null'});`);assert((await call(emma,'accept_invitation',{token})).error)});
+await test('Ancestry cycle blocked on verification',async()=>{const p=await call(emma,'add_relative',{subject_id:uuid('emma'),existing_id:uuid('david'),relation:'child',kind:'biological'});assert.ifError(p.error);assert((await call(dave,'review_relationship',{id:p.data.proposal_id,decision:'confirm'})).error)});
+await test('Local Auth requires email confirmation',async()=>{const {config}=await import('./phase6-local.mjs');const settings=await fetch(config.API_URL+'/auth/v1/settings',{headers:{apikey:config.ANON_KEY}}).then(r=>r.json());assert.equal(settings.mailer_autoconfirm,false)});
+writeFileSync('output/phase6/consent-tests.json',JSON.stringify({results},null,2));if(results.some(r=>r.status==='failed'))process.exitCode=1;

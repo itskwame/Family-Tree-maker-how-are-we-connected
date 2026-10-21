@@ -44,7 +44,7 @@ export function FamilyScene({ layout, selected = [], pathEdges = [], onPerson, b
     {layout.nodes.map(node => node.person ? <g key={node.id} data-person={node.id}
       transform={`translate(${node.x} ${node.y})`}
       role={onPerson ? 'button' : undefined} tabIndex={onPerson ? 0 : undefined}
-      aria-label={`${nameOf(node.person)}, born ${node.person.born}${node.person.died ? `, died ${node.person.died}` : ''}`}
+      aria-label={`${nameOf(node.person)}${node.person.born ? `, born ${node.person.born}` : ''}${node.person.died ? `, died ${node.person.died}` : ''}`}
       onClick={() => onPerson?.(node.id)}
       onKeyDown={event => { if (onPerson && ['Enter', ' '].includes(event.key)) { event.preventDefault(); onPerson(node.id); } }}
       style={{ cursor: onPerson ? 'pointer' : 'default' }}>
@@ -55,8 +55,8 @@ export function FamilyScene({ layout, selected = [], pathEdges = [], onPerson, b
       <text x="81" y="97" textAnchor="middle" fontSize="14" fontWeight="bold" fill={INK}>{node.person.first}</text>
       <text x="81" y="113" textAnchor="middle" fontSize="12" fill="#53675f">{node.person.last}</text>
       <path d="M28 124 H134" stroke="#e4eae6" />
-      <text x="81" y="140" textAnchor="middle" fontSize="11" fill="#53675f">{node.person.born}{node.person.died ? ` - ${node.person.died}` : ' - present'}</text>
-      <text x="81" y="154" textAnchor="middle" fontSize="7" fill="#65786f">{node.person.died ? 'IN MEMORY' : 'BENNETT & REED FAMILY'}</text>
+      <text x="81" y="140" textAnchor="middle" fontSize="11" fill="#53675f">{node.person.dateLabel ?? `${node.person.born}${node.person.died ? ` - ${node.person.died}` : ' - present'}`}</text>
+      <text x="81" y="154" textAnchor="middle" fontSize="7" fill="#65786f">{node.person.familyLabel ?? (node.person.died ? 'IN MEMORY' : 'BENNETT & REED FAMILY')}</text>
     </g> : <circle key={node.id} data-junction={node.id} cx={node.x + node.width / 2} cy={node.y + node.height / 2} r="4" fill="#ffffff" stroke="#94a69f" strokeWidth="1.5" />)}
   </g>;
 }

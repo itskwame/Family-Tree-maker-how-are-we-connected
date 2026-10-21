@@ -17,55 +17,55 @@
   "unrelatedTouches": [],
   "measurements": [
     {
-      "wallMs": 1009.4009000062943,
-      "layoutMs": 1009.1001999974251,
+      "wallMs": 2264.584100008011,
+      "layoutMs": 2263.8170000314713,
       "before": {
-        "rss": 92168192,
+        "rss": 90857472,
         "heapTotal": 58073088,
-        "heapUsed": 36014688,
+        "heapUsed": 38816256,
         "external": 939971,
         "arrayBuffers": 10618
       },
       "after": {
-        "rss": 108183552,
-        "heapTotal": 63725568,
-        "heapUsed": 36191896,
+        "rss": 101400576,
+        "heapTotal": 63201280,
+        "heapUsed": 36489416,
         "external": 7495234,
         "arrayBuffers": 10626
       }
     },
     {
-      "wallMs": 479.1013000011444,
-      "layoutMs": 479.01380002498627,
+      "wallMs": 1243.2168000340462,
+      "layoutMs": 1243.104000031948,
       "before": {
-        "rss": 108183552,
-        "heapTotal": 63725568,
-        "heapUsed": 36192272,
+        "rss": 101400576,
+        "heapTotal": 63201280,
+        "heapUsed": 36489792,
         "external": 7495234,
         "arrayBuffers": 10626
       },
       "after": {
-        "rss": 124420096,
+        "rss": 122929152,
         "heapTotal": 81551360,
-        "heapUsed": 55140704,
+        "heapUsed": 56053352,
         "external": 7495234,
         "arrayBuffers": 10626
       }
     },
     {
-      "wallMs": 346.2641999721527,
-      "layoutMs": 346.1777999997139,
+      "wallMs": 1049.5755999684334,
+      "layoutMs": 1049.3587999939919,
       "before": {
-        "rss": 124444672,
-        "heapTotal": 81813504,
-        "heapUsed": 55456008,
+        "rss": 122994688,
+        "heapTotal": 81551360,
+        "heapUsed": 56137328,
         "external": 7495234,
         "arrayBuffers": 10626
       },
       "after": {
-        "rss": 144326656,
+        "rss": 144887808,
         "heapTotal": 101474304,
-        "heapUsed": 69923656,
+        "heapUsed": 70684288,
         "external": 7495234,
         "arrayBuffers": 10626
       }

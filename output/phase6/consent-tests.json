@@ -1,0 +1,52 @@
+{
+  "results": [
+    {
+      "name": "Claim second-network profile with independently approved invitation",
+      "status": "passed"
+    },
+    {
+      "name": "Verified person requests connection between their own claimed records",
+      "status": "passed"
+    },
+    {
+      "name": "Pending connection shares no foreign profile",
+      "status": "passed"
+    },
+    {
+      "name": "Unrelated member cannot approve network connection",
+      "status": "passed"
+    },
+    {
+      "name": "One administrator approval is insufficient",
+      "status": "passed"
+    },
+    {
+      "name": "Both administrator approvals still require personal consent",
+      "status": "passed"
+    },
+    {
+      "name": "Personal consent enables only explicitly scoped profile sharing",
+      "status": "passed"
+    },
+    {
+      "name": "Consent revocation immediately removes shared visibility",
+      "status": "passed"
+    },
+    {
+      "name": "expired invitation cannot be accepted",
+      "status": "passed"
+    },
+    {
+      "name": "revoked invitation cannot be accepted",
+      "status": "passed"
+    },
+    {
+      "name": "Ancestry cycle blocked on verification",
+      "status": "passed"
+    },
+    {
+      "name": "Local Auth requires email confirmation",
+      "status": "passed"
+    }
+  ]
+}

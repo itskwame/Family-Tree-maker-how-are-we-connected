@@ -1,0 +1,33 @@
+import {chromium} from '@playwright/test';
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+const root='http://127.0.0.1:5176/phase6.html';
+const link=readFileSync('output/phase6/private/bennett-invitation.txt','utf8');
+const browser=await chromium.launch({headless:true,channel:'chrome'});
+const context=await browser.newContext({viewport:{width:1440,height:1000}});
+const page=await context.newPage();const errors=[];
+page.on('pageerror',e=>errors.push(e.message));
+mkdirSync('output/phase6/screenshots',{recursive:true});
+const shot=async(name)=>page.screenshot({path:`output/phase6/screenshots/${name}.png`,fullPage:true});
+const started=performance.now();
+try{
+ await page.goto(link);await page.getByRole('heading',{name:'David invited you to connect.'}).waitFor();await shot('01-desktop-invitation');
+ await page.getByLabel('Email address',{exact:true}).fill('emma@example.test');await page.getByLabel('Password',{exact:true}).fill('Fictional-Phase6-Only!42');
+ await page.getByRole('button',{name:'Sign in & continue'}).click();await page.getByRole('button',{name:'Confirm identity & reveal my connection'}).click();
+ await page.getByRole('heading',{name:/Emma is David/}).waitFor({timeout:20000});
+ await page.locator('svg [data-person]').first().waitFor();await page.waitForTimeout(700);const revealMs=performance.now()-started;await shot('02-desktop-connection');
+ assert(await page.locator('[data-highlighted="true"]').count()>0,'Expected highlighted confirmed path');
+ await page.getByRole('button',{name:'Grow my family',exact:true}).click();await page.getByRole('button',{name:'My brothers or sisters'}).click();
+ await page.getByLabel('Relationship type').selectOption('half');await page.getByLabel('First name',{exact:true}).fill('Maya');await page.getByLabel('Last name',{exact:true}).fill('Fictional');
+ await page.getByText('Saved',{exact:true}).waitFor();await page.reload();await page.getByRole('button',{name:'Grow my family',exact:true}).click();assert.equal(await page.getByLabel('First name',{exact:true}).inputValue(),'Maya');
+ await page.getByRole('button',{name:'Save relative',exact:true}).click();await page.getByRole('heading',{name:'You added Maya. Invite them to connect?'}).waitFor();await shot('03-desktop-builder');
+ await page.getByLabel('Their email address').fill('maya-fictional@example.test');await page.getByRole('button',{name:'Create private invitation link'}).click();await page.getByRole('button',{name:'Copy link',exact:true}).waitFor();await shot('04-voluntary-invitation');
+ await page.getByRole('button',{name:'My connection',exact:true}).click();await page.getByRole('button',{name:'Zoom in',exact:true}).click();await page.getByRole('button',{name:'Complete overview'}).click();await page.locator('svg [data-person]').first().waitFor();
+ const mobile=await browser.newContext({viewport:{width:390,height:844},isMobile:true,deviceScaleFactor:1});
+ await mobile.addCookies(await context.cookies());await mobile.addInitScript(storage=>{for(const [k,v]of Object.entries(storage))localStorage.setItem(k,v)},await page.evaluate(()=>({...localStorage})));
+ const mp=await mobile.newPage();mp.on('pageerror',e=>errors.push(e.message));await mp.goto(root);await mp.locator('svg [data-person]').first().waitFor({timeout:20000});await mp.waitForTimeout(700);
+ await mp.screenshot({path:'output/phase6/screenshots/05-mobile-connection.png',fullPage:true});assert(await mp.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Mobile document overflow');
+ await mp.getByRole('button',{name:'Grow my family',exact:true}).click();await mp.screenshot({path:'output/phase6/screenshots/06-mobile-builder.png',fullPage:true});
+ assert.equal(errors.length,0,errors.join('\n'));
+ writeFileSync('output/phase6/browser-results.json',JSON.stringify({passed:true,invitationToRevealMs:revealMs,timingNote:'Automated existing-account journey; not a human first-time completion measurement',checks:['Invitation landing','Verified login and claim','Confirmed connection highlight','Autosave across reload','Optional half-sibling proposal','Voluntary link creation without sending','Zoom and overview','Mobile overflow','No browser runtime exceptions'],errors},null,2));
+}catch(error){await shot('browser-failure');console.error(error);writeFileSync('output/phase6/browser-results.json',JSON.stringify({passed:false,error:error.message,errors},null,2));process.exitCode=1}finally{await browser.close()}

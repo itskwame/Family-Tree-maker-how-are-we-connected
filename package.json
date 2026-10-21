@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "dev:phase6": "vite --config vite.phase6.config.mjs --mode phase6 --open /phase6.html",
+    "build:phase6": "vite build --config vite.phase6.config.mjs --mode phase6",
+    "seed:phase6": "node scripts/phase6-local.mjs --seed",
+    "test:phase6": "node scripts/test-phase6.mjs",
+    "test:phase6:first-time": "node scripts/phase6-first-time.mjs",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",

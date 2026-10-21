@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "totalMs": 1744.6983000040054,
+  "emailWaitMs": 65.6094999909401,
+  "excludingEmailWaitMs": 1679.0888000130653,
+  "note": "Actual automated new-account signup, local email verification, claim and reveal; not a human usability timing claim",
+  "errors": []
+}

@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "invitationToRevealMs": 18619.30929994583,
+  "timingNote": "Automated existing-account journey; not a human first-time completion measurement",
+  "checks": [
+    "Invitation landing",
+    "Verified login and claim",
+    "Confirmed connection highlight",
+    "Autosave across reload",
+    "Optional half-sibling proposal",
+    "Voluntary link creation without sending",
+    "Zoom and overview",
+    "Mobile overflow",
+    "No browser runtime exceptions"
+  ],
+  "errors": []
+}

@@ -1,0 +1,75 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FamilyConnect Phase 6 — local implementation review</title>
+<style>body{max-width:1120px;margin:40px auto;padding:0 24px;background:#f7f6f0;color:#243e35;font:16px/1.65 system-ui,sans-serif}h1,h2{font-family:Georgia,serif;line-height:1.2}h1{font-size:40px}h2{margin-top:38px}a{color:#286348}table{width:100%;border-collapse:collapse}td,th{padding:12px;border-bottom:1px solid #ccd7ce;text-align:left;vertical-align:top}pre{background:#e9eee4;padding:20px;overflow:auto}.notice{padding:20px;background:#e2ecdc;border-radius:12px}.gallery{display:grid;grid-template-columns:1fr 1fr;gap:24px}.gallery img{width:100%;height:350px;object-fit:contain;object-position:top;background:white;border:1px solid #d4ddcf}.gallery figure{margin:0}figcaption{font-size:14px}code{font-size:.9em}@media(max-width:700px){.gallery{grid-template-columns:1fr}}</style>
+<h1>Phase 6: local implementation ready for review</h1>
+<p class="notice">The isolated Docker/Supabase demonstration is running. The hosted project and its two existing Auth accounts were not accessed or modified during implementation. No public deployment or real-family invitations occurred. Stop here for visual and workflow review before any hosted migration or Phase 7.</p>
+<h2>Open the demonstration</h2>
+<p><a href="http://127.0.0.1:5176/phase6.html">FamilyConnect local application</a> · <a href="http://127.0.0.1:55323">Local Supabase Studio</a> · <a href="http://127.0.0.1:55324">Local verification-email inbox</a></p>
+<p>Use <strong>emma@example.test</strong> with password <code>Fictional-Phase6-Only!42</code>. These are fictional local-only credentials. Emma has already completed the invitation journey and can return directly to her confirmed family connection. Try Grow my family, add a relative, reload to verify saved progress, and explore Connected networks.</p>
+<p>Other fictional roles use the same local password: david@example.test (Bennett administrator), maya@example.test (Reed administrator), reviewer@example.test (independent reviewer). Reviewers must independently verify identity/guardianship before approving; the UI records an attestation, not an external identity-verification service.</p>
+<p>The seeded invitation links are single-use and were consumed during testing. Run <code>npm run test:phase6:first-time</code> for a fresh complete signup/verification/claim demonstration with a newly generated fictional recipient. Newly created adult invitations remain unusable until independent administrator approval. No delivery occurs automatically.</p>
+<h2>Implemented journey</h2>
+<ul><li>Personal invitation landing exposes only the inviter's approved display name and network label.</li>
+<li>Sign-in or account creation with verified email, secure invitation continuation in tab-lifetime session storage, independent invitation review, atomic single-use claim and role assignment. Tokens are removed from the URL/session storage after acceptance.</li>
+<li>Immediate confirmed relationship reveal and highlighted path using the existing relationship engine; incomplete data produces an honest incomplete-connection message.</li>
+<li>Optional parent, sibling, child and other-relative builder. Biological/adoptive/full/half/step/unknown assertions are distinguished. Authorized duplicate checks, existing-record selection, autosaved drafts, persistent pending suggestions and live confirmed-tree refresh.</li>
+<li>Independent parentage review promotes supported biological/adoptive edges. Sibling and step assertions do not invent missing parentage. Cycle checks and typed endpoint constraints protect confirmed ancestry.</li>
+<li>Voluntary adult invitations: copy-link, email, SMS, WhatsApp and native share where available. Creation sends nothing. Revocation is supported.</li>
+<li>Guardian request, independent approval and revocation. Minors and unknown-age profiles cannot be invited; their records are restricted to their creator/authorized guardian rather than all network members.</li>
+<li>Separate network memberships, independent administrator approvals on both sides, personal consent, narrowly scoped profile sharing and immediate revocation. A connection never automatically grants access to an entire other network.</li>
+<li>Per-network reveal restoration, readable person-focused mobile branch, scroll navigation, zoom and complete overview. Existing interactive/printable templates remain accessible inside the isolated application.</li></ul>
+<h2>Database and security implementation</h2>
+<p>Five new migrations live only in <code>local/phase6/supabase/migrations/</code>. The old repository migrations were not applied. The normalized familyconnect schema separates networks/memberships, people/account links, guardians, typed parentage/partnerships, proposals, claims, invitations, progress, connections, receipts and audit records. RLS is enabled on every application table, direct client writes are revoked, and mutation functions validate the authenticated caller and explicit permissions. Private schema objects are not directly exposed through PostgREST.</p>
+<p>Invitation tokens use 32 cryptographically random bytes and SHA-256 hashes at rest; raw tokens are excluded from audit/receipt records. New invitations require an independent authorized reviewer. The accepting user's confirmed email must match the invitation; profile ownership is atomic and limited to one claimed identity per account per network. Guardianship is distinct from identity ownership and is never inferred automatically from parentage.</p>
+<p>The browser client refuses any backend except localhost/127.0.0.1 on port 55321. The setup helper refuses a linked local workspace or unexpected API URL. Vite uses a separate Phase 6 environment prefix, entry point and build output. The existing hosted .env is not used by this entry. All local seeds use example.test accounts and fictional family data.</p>
+<h2>Automated results</h2>
+<table><tr><th>Suite</th><th>Result and evidence</th></tr>
+<tr><td>Database/security</td><td><strong>29 passed</strong>: anonymous isolation, RLS/grants, escalation rejection, independent claims, wrong-email/replay/concurrent consumption, minor privacy, guardian approval/revocation, duplicate identity rejection, provisional/confirmed separation, autosave and idempotency. <a href="output/phase6/database-tests.json">Results</a></td></tr>
+<tr><td>Consent and additional security</td><td><strong>12 passed</strong>: both network approvals plus person consent required, scoped sharing, revocation, expired/revoked invitations, ancestry-cycle rejection and email-confirmation configuration. <a href="output/phase6/consent-tests.json">Results</a></td></tr>
+<tr><td>Phase 6 browser journey</td><td>Passed invitation/sign-in/claim/reveal, path highlighting, draft reload, optional builder, voluntary link creation, zoom/overview, mobile overflow and runtime-error checks. <a href="output/phase6/browser-results.json">Initial journey</a></td></tr>
+<tr><td>Actual first-time signup</td><td>Passed new account creation → local email verification → claim → reveal. Last measured run: <strong>2.34 seconds total; 2.29 seconds excluding measured local email wait</strong>. This is automated execution, not proof of a 60–90 second human completion target. <a href="output/phase6/first-time-results.json">Timing/results</a></td></tr>
+<tr><td>First-time mobile signup</td><td>Passed the complete signup/email-verification/claim/reveal journey at 390 × 844. Measured 1.74 seconds total, 1.68 seconds excluding local email wait; automated timing only. <a href="output/phase6/first-time-mobile-results.json">Results</a> · <a href="output/phase6/screenshots/09-mobile-first-time.png">Screenshot</a></td></tr>
+<tr><td>Final visual/browser checks</td><td>Passed updated builder preview, voluntary link approval notice and isolated template entry. Corrected mobile view also checks that Emma's card is horizontally visible. <a href="output/phase6/final-browser-check.json">Results</a></td></tr>
+<tr><td>Local database-to-graph checks</td><td><strong>3 passed</strong>: fixture partnership types/former status preserved, authorized graph validates, and the existing relationship engine returns the correct parent-child description. <a href="output/phase6/adapter-tests.json">Results</a></td></tr>
+<tr><td>Existing engine/geometry regression</td><td><strong>53 passed</strong>, including 25/100/300-person relationships, automatic geometry, duplicate/cycle detection and premium compositions.</td></tr>
+<tr><td>Existing browser regression</td><td><strong>11 passed</strong>, including search/zoom/pan, branches, highlighting, worker cancellation, portraits and SVG/PDF/PNG exports.</td></tr>
+<tr><td>Premium template regression</td><td><strong>5 passed</strong>, including 11/15/25/40-person compositions, export generation, portrait fallback and template switching.</td></tr>
+<tr><td>Build</td><td>Phase 6 production build passed. It remains local; nothing was published.</td></tr></table>
+<p>Security suites exercise real local PostgreSQL/Supabase, not mocked authorization. Some integration suites consume their fixture invitations and mutate fictional records. The repeatable database suite generates a new fictional test identity; invitation rate limits still apply. Do not point any test helper at hosted Supabase.</p>
+<h2>Actual rendered evidence</h2>
+<p>Captured with Playwright in installed Chrome and inspected as images. Visual inspection identified and corrected mobile focus clipping, blank-date labels and network-specific return restoration. Final builder captures wait for the automatic layout and autosave to finish. Click an image for full resolution.</p>
+<div class="gallery">
+<figure><a href="output/phase6/screenshots/01-desktop-invitation.png"><img src="output/phase6/screenshots/01-desktop-invitation.png" alt="Personal invitation landing"></a><figcaption>Personal invitation and minimal identity confirmation.</figcaption></figure>
+<figure><a href="output/phase6/screenshots/02-desktop-connection.png"><img src="output/phase6/screenshots/02-desktop-connection.png" alt="Confirmed desktop connection"></a><figcaption>Emma's confirmed connection and automatic tree.</figcaption></figure>
+<figure><a href="output/phase6/screenshots/03-desktop-builder.png"><img src="output/phase6/screenshots/03-desktop-builder.png" alt="Guided family builder"></a><figcaption>Optional builder, autosave and distinct pending suggestions.</figcaption></figure>
+<figure><a href="output/phase6/screenshots/04-voluntary-invitation.png"><img src="output/phase6/screenshots/04-voluntary-invitation.png" alt="Voluntary invitation controls"></a><figcaption>Adult invitation controls; no automatic delivery.</figcaption></figure>
+<figure><a href="output/phase6/screenshots/05-mobile-connection.png"><img src="output/phase6/screenshots/05-mobile-connection.png" alt="Mobile person-focused tree"></a><figcaption>Readable mobile branch centered on Emma.</figcaption></figure>
+<figure><a href="output/phase6/screenshots/06-mobile-builder.png"><img src="output/phase6/screenshots/06-mobile-builder.png" alt="Mobile builder"></a><figcaption>Mobile Guided Family Builder.</figcaption></figure>
+<figure><a href="output/phase6/screenshots/07-first-time-verified-reveal.png"><img src="output/phase6/screenshots/07-first-time-verified-reveal.png" alt="New account verified reveal"></a><figcaption>New fictional account after real local email confirmation.</figcaption></figure>
+<figure><a href="output/phase6/screenshots/08-network-consent.png"><img src="output/phase6/screenshots/08-network-consent.png" alt="Network consent and revocation"></a><figcaption>Separate networks and revocable consent; test connection shown revoked.</figcaption></figure>
+</div>
+<h2>Restart and test locally</h2>
+<p>The application currently runs on port 5176. If restarting later, from the repository:</p>
+<pre>supabase start --workdir local/phase6
+supabase migration up --local --workdir local/phase6
+npm run seed:phase6
+npm run dev:phase6</pre>
+<p>Docker Desktop must be running. Optional local analytics is disabled after a Windows logging-container restart conflict; core Auth, database, API, Studio and local mail services are running. No Docker daemon TCP exposure was enabled. The seed helper writes only the local public API key into Git-ignored .env.phase6.local; privileged local credentials are kept out of browser code.</p>
+<pre>npm run test:phase6
+npm run test:phase6:first-time
+npm run test:family
+npm run test:family:browser
+npm run test:family:premium
+npm run build:phase6</pre>
+<h2>Limits requiring review</h2>
+<ul><li>Human usability testing is still needed to establish the 60–90 second onboarding target. Automated timing is reported separately.</li>
+<li>Identity and guardianship verification use an independently authorized human review/attestation. No external identity-document verification or automated proof of legal guardianship is claimed.</li>
+<li>Cross-network sharing deliberately supports only the explicitly consented identity profile. Whole-branch sharing, arbitrary field-level grant editing and automatic identity merges are not implemented. Separate networks remain isolated.</li>
+<li>Full/half/step and other assertions remain pending when supporting parentage is unavailable. The system does not guess relationships to make the tree look complete.</li>
+<li>Autosave is server-persisted for the active draft, with last-write behavior across simultaneous tabs; collaborative conflict-resolution UI is not implemented.</li>
+<li>Existing fictional portraits and initials are supported. A new user-media upload service, memory feature and Storage bucket policies were not added in this onboarding slice.</li>
+<li>Share handlers are available, but real SMS/WhatsApp/email delivery was deliberately not tested. Local links work on this computer only; native sharing depends on browser support.</li>
+<li>Fixtures include security-test assertions and extra fictional accounts. A rejected cycle attempt remains unconfirmed and never enters the verified graph. This is a review environment, not clean production content.</li>
+<li>The installed Node 18 runtime emits a Supabase SDK deprecation warning. Upgrade the development runtime before production readiness work.</li></ul>
+<p>The existing hosted security findings remain unresolved because hosted changes are prohibited. No claim of production readiness, hosted backup/restore validation, or public deployment is made. Review this local implementation and visual evidence before any further phase.</p>
+</html>

@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "checks": [
+    "Pending builder preview",
+    "Voluntary link and approval notice",
+    "Existing templates load in isolated entry"
+  ],
+  "errors": []
+}

@@ -1,0 +1,48 @@
+import assert from 'node:assert/strict';
+import {writeFileSync,mkdirSync} from 'node:fs';
+import {randomUUID} from 'node:crypto';
+import {client,login,sql,uuid as fixtureUuid,ids,admin,password} from './phase6-local.mjs';
+const targetId=randomUUID(),outsideEmail=`security-${randomUUID()}@example.test`;
+const uuid=name=>name==='lucas'?targetId:fixtureUuid(name);
+const created=await admin.auth.admin.createUser({email:outsideEmail,password,email_confirm:true});if(created.error)throw created.error;
+sql(`insert into familyconnect.people(id,network_id,first_name,last_name,age_class) values('${targetId}','${ids.network}','Fictional','Security Test','adult');`);
+async function outsideLogin(){const c=client();const r=await c.auth.signInWithPassword({email:outsideEmail,password});if(r.error)throw r.error;return c}
+const results=[];
+async function test(name,fn){try{await fn();results.push({name,status:'passed'});console.log('PASS',name)}catch(e){results.push({name,status:'failed',error:e.message});console.log('FAIL',name,e.message)}}
+async function call(c,action,payload={}){return c.rpc('fc_action',{action,payload})}
+const dave=await login('david'),reviewer=await login('reviewer'),outsider=await outsideLogin(),maya=await login('maya');
+const outsideId=(await outsider.auth.getUser()).data.user.id;
+await test('Anonymous cannot retrieve family snapshot',async()=>assert((await client().rpc('fc_snapshot')).error));
+await test('Unrelated account sees no people or networks',async()=>{const {data,error}=await outsider.rpc('fc_snapshot');assert.ifError(error);assert.equal(data.people.length,0);assert.equal(data.networks.length,0)});
+await test('Private schema is not exposed through Data API',async()=>assert((await outsider.schema('familyconnect').from('memberships').insert({network_id:ids.network,user_id:outsideId,role:'admin'})).error));
+await test('Direct SQL authenticated grants prohibit membership escalation',async()=>assert.throws(()=>sql(`begin; set local role authenticated; insert into familyconnect.memberships values('${ids.network}','${outsideId}','admin'); rollback;`)));
+await test('RLS snapshot does not recurse; non-guardian cannot see minors',async()=>{const {data,error}=await dave.rpc('fc_snapshot');assert.ifError(error);assert(!data.people.some(p=>p.id===uuid('ava')));assert(!data.parentages.some(p=>p.child_id===uuid('ava')))});
+let invitation;
+await test('Issue an adult invitation; stored hash differs from token',async()=>{const {data,error}=await call(dave,'create_invitation',{target_id:uuid('lucas'),inviter_id:uuid('david'),email:outsideEmail});assert.ifError(error);invitation=data;assert.equal(data.token.length,64);assert.notEqual(sql(`select token_hash from familyconnect.invitations where id='${data.id}'`).trim(),data.token)});
+await test('Unapproved invitation cannot claim a profile',async()=>assert((await call(outsider,'accept_invitation',{token:invitation.token})).error));
+await test('Inviter cannot approve own identity invitation',async()=>assert((await call(dave,'approve_invitation',{id:invitation.id})).error));
+await test('Independent network administrator can approve',async()=>assert.ifError((await call(reviewer,'approve_invitation',{id:invitation.id})).error));
+await test('Wrong verified email cannot claim profile',async()=>assert((await call(maya,'accept_invitation',{token:invitation.token})).error));
+await test('Atomic invitation consumption permits only one concurrent claim',async()=>{const answers=await Promise.all([call(outsider,'accept_invitation',{token:invitation.token}),call(outsider,'accept_invitation',{token:invitation.token})]);assert.equal(answers.filter(a=>!a.error).length,1);assert.equal(answers.filter(a=>a.error).length,1)});
+await test('New member cannot see other network',async()=>{const {data,error}=await outsider.rpc('fc_snapshot');assert.ifError(error);assert.equal(data.networks.length,1);assert(!data.people.some(p=>p.network_id===ids.other))});
+await test('Minor invitations prohibited',async()=>assert((await call(dave,'create_invitation',{target_id:uuid('ava'),inviter_id:uuid('david'),email:'minor@example.test'})).error));
+let proposal,relative;
+await test('Builder records provisional parentage without confirmed edge',async()=>{const {data,error}=await call(outsider,'add_relative',{subject_id:uuid('lucas'),relation:'parent',kind:'adoptive',first:'FictionalTest',last:randomUUID().slice(0,8),age_class:'adult',request_id:randomUUID()});assert.ifError(error);proposal=data.proposal_id;relative=data.person_id;const snap=(await outsider.rpc('fc_snapshot')).data;assert(!snap.parentages.some(p=>p.parent_id===relative));assert(snap.proposals.some(p=>p.id===proposal&&p.status==='pending'))});
+await test('Contributor cannot confirm their own assertion',async()=>assert((await call(outsider,'review_relationship',{id:proposal,decision:'confirm'})).error));
+await test('Independent administrator can confirm typed parentage',async()=>assert.ifError((await call(reviewer,'review_relationship',{id:proposal,decision:'confirm'})).error));
+await test('Confirmed edge has correct anchors and parentage type',async()=>{const snap=(await outsider.rpc('fc_snapshot')).data;assert(snap.parentages.some(p=>p.parent_id===relative&&p.child_id===uuid('lucas')&&p.kind==='adoptive'))});
+await test('Builder cannot mutate another person’s branch',async()=>assert((await call(outsider,'add_relative',{subject_id:uuid('david'),relation:'child',kind:'biological',first:'Denied',last:'Test',age_class:'adult'})).error));
+await test('Draft persists across new login',async()=>{assert.ifError((await call(outsider,'save_progress',{draft:{builder:{first:'Autosaved Fictional'}}})).error);const fresh=await outsideLogin();assert.equal((await fresh.rpc('fc_snapshot')).data.progress.draft.builder.first,'Autosaved Fictional')});
+await test('Request id prevents duplicate relative insertion',async()=>{const payload={subject_id:uuid('lucas'),relation:'sibling',kind:'half',first:'Idempotent',last:randomUUID().slice(0,8),age_class:'adult',request_id:randomUUID()};const a=await call(outsider,'add_relative',payload),b=await call(outsider,'add_relative',payload);assert.ifError(a.error);assert.deepEqual(a.data,b.data)});
+await test('Sibling assertion cannot be converted to invented parentage',async()=>{const snap=(await reviewer.rpc('fc_snapshot')).data;const p=snap.proposals.find(p=>p.relation==='sibling');assert((await call(reviewer,'review_relationship',{id:p.id,decision:'confirm'})).error)});
+await test('Invitations and claim material have no authenticated SELECT grant',async()=>assert.throws(()=>sql('begin; set local role authenticated; select token_hash from familyconnect.invitations; rollback;')));
+await test('Cross-network connection cannot use an unclaimed profile',async()=>assert((await call(outsider,'request_connection',{person_a:uuid('lucas'),person_b:uuid('maya')})).error));
+let child;
+await test('Minor addition grants no automatic guardian authority',async()=>{const r=await call(outsider,'add_relative',{subject_id:uuid('lucas'),relation:'child',kind:'biological',first:'Protected',last:randomUUID().slice(0,8),age_class:'minor'});assert.ifError(r.error);child=r.data.person_id;assert(!(await outsider.rpc('fc_snapshot')).data.my_people.includes(child));assert(!(await dave.rpc('fc_snapshot')).data.people.some(p=>p.id===child))});
+await test('Guardian request requires independent approval',async()=>{assert.ifError((await outsider.rpc('fc_guardian',{action:'request',person:child})).error);assert((await outsider.rpc('fc_guardian',{action:'approve',person:child,requester:outsideId})).error);assert.ifError((await reviewer.rpc('fc_guardian',{action:'approve',person:child,requester:outsideId})).error);assert((await outsider.rpc('fc_snapshot')).data.my_people.includes(child))});
+await test('All application tables enforce RLS',async()=>assert.equal(sql("select count(*) from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='familyconnect' and c.relkind='r' and not c.relrowsecurity").trim(),'0'));
+await test('Application security-definer functions pin search_path',async()=>assert.equal(sql("select count(*) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where (n.nspname='familyconnect' or (n.nspname='public' and p.proname like 'fc_%')) and p.prosecdef and p.proconfig is null").trim(),'0'));
+await test('One verified account cannot claim two identities in one network',async()=>assert.throws(()=>sql(`insert into familyconnect.person_accounts(person_id,user_id) values('${uuid('arthur')}','${outsideId}');`)));
+await test('Guardian revocation removes managed-branch authority',async()=>{assert.ifError((await reviewer.rpc('fc_guardian',{action:'revoke',person:child,requester:outsideId})).error);assert(!(await outsider.rpc('fc_snapshot')).data.my_people.includes(child))});
+mkdirSync('output/phase6',{recursive:true});writeFileSync('output/phase6/database-tests.json',JSON.stringify({at:new Date().toISOString(),results},null,2));
+if(results.some(r=>r.status==='failed'))process.exitCode=1;
