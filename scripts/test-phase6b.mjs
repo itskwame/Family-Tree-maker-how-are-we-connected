@@ -1,0 +1,37 @@
+import assert from 'node:assert/strict';
+import {randomUUID} from 'node:crypto';
+import {writeFileSync,mkdirSync} from 'node:fs';
+import {sql,login,client,admin,password,uuid,ids} from './phase6-local.mjs';
+const results=[];
+async function test(name,fn){try{await fn();results.push({name,status:'passed'});console.log('PASS',name)}catch(e){results.push({name,status:'failed',error:e.message});console.log('FAIL',name,e.message)}}
+const call=(c,action,payload)=>c.rpc('fc_action',{action,payload});
+const dave=await login('david'),reviewer=await login('reviewer'),anon=client();
+const suffix=randomUUID().slice(0,8),first='Concurrent',last=suffix;
+let person,proposal;
+await test('Concurrent identical retry creates exactly one person and suggestion',async()=>{const payload={subject_id:uuid('david'),relation:'sibling',kind:'half',first,last,age_class:'adult',request_id:randomUUID()};const r=await Promise.all(Array.from({length:4},()=>call(dave,'add_relative',payload)));r.forEach(x=>assert.ifError(x.error));assert.equal(new Set(r.map(x=>x.data.person_id)).size,1);person=r[0].data.person_id;proposal=r[0].data.proposal_id;assert.equal(sql(`select count(*) from familyconnect.people where first_name='${first}' and last_name='${last}'`).trim(),'1');assert((await call(dave,'add_relative',{...payload,first:'Changed'})).error)});
+await test('Equivalent concurrent assertions with different retry IDs reuse suggestion',async()=>{const r=await Promise.all(Array.from({length:4},()=>call(dave,'add_relative',{subject_id:uuid('david'),existing_id:person,relation:'sibling',kind:'half',request_id:randomUUID()})));r.forEach(x=>assert.ifError(x.error));assert(r.every(x=>x.data.proposal_id===proposal))});
+await test('Same-name records require explicit distinction; never silently merge',async()=>{const payload={subject_id:uuid('david'),relation:'sibling',kind:'half',first,last,age_class:'adult'};assert((await call(dave,'add_relative',payload)).error);const r=await call(dave,'add_relative',{...payload,different_person:true,request_id:randomUUID()});assert.ifError(r.error);assert.notEqual(r.data.person_id,person)});
+await test('Private or cross-network existing record cannot be attached',async()=>{for(const id of [uuid('ava'),uuid('maya')])assert((await call(dave,'add_relative',{subject_id:uuid('david'),existing_id:id,relation:'child',kind:'unknown'})).error)});
+await test('Pending sibling does not become a confirmed ancestor',async()=>{const snap=(await dave.rpc('fc_snapshot')).data;assert(snap.proposals.some(p=>p.id===proposal&&p.status==='pending'));assert(!snap.parentages.some(p=>p.parent_id===person||p.child_id===person))});
+await test('Unsupported type combination is rejected server-side',async()=>assert((await call(dave,'add_relative',{subject_id:uuid('david'),existing_id:person,relation:'parent',kind:'full'})).error));
+await test('Private mutation helpers cannot bypass public review wrapper',async()=>assert.throws(()=>sql("begin; set local role authenticated; select familyconnect.fc_phase6_action('accept_invitation','{}'); rollback;")));
+let invite;
+await test('Unapproved invitation exposes no metadata or portrait',async()=>{const r=await call(dave,'create_invitation',{target_id:person,inviter_id:uuid('david'),email:'fictional@example.test',share_inviter_photo:true});assert.ifError(r.error);invite=r.data;assert.deepEqual((await anon.rpc('fc_invitation_preview',{token:invite.token})).data,{})});
+await test('Only approved and opted-in local portrait appears in preview',async()=>{assert.ifError((await call(reviewer,'approve_invitation',{id:invite.id})).error);const preview=(await anon.rpc('fc_invitation_preview',{token:invite.token})).data;assert.equal(preview.valid,true);const photo=sql(`select photo from familyconnect.people where id='${uuid('david')}'`).trim();assert.equal(preview.photo,photo);sql(`update familyconnect.invitations set share_inviter_photo=false where id='${invite.id}'`);assert.equal((await anon.rpc('fc_invitation_preview',{token:invite.token})).data.photo,null)});
+await test('Revoked invitation no longer exposes metadata',async()=>{assert.ifError((await call(dave,'revoke_invitation',{id:invite.id})).error);assert.deepEqual((await anon.rpc('fc_invitation_preview',{token:invite.token})).data,{})});
+
+// Repeatable consent coverage uses a fresh pair of fictional networks and accounts.
+const netA=randomUUID(),netB=randomUUID(),pa=randomUUID(),pb=randomUUID(),extra=randomUUID();
+const accounts={};
+for(const name of ['owner','admina','adminb','member']){const email=`${name}-${suffix}@example.test`;const r=await admin.auth.admin.createUser({email,password,email_confirm:true});assert.ifError(r.error);const c=client();assert.ifError((await c.auth.signInWithPassword({email,password})).error);accounts[name]={id:r.data.user.id,c}}
+sql(`begin; insert into familyconnect.networks values('${netA}','Fictional Consent A'),('${netB}','Fictional Consent B'); insert into familyconnect.people(id,network_id,first_name,age_class) values('${pa}','${netA}','Consent Owner','adult'),('${pb}','${netB}','Consent Owner','adult'),('${extra}','${netB}','Private Branch','adult'); insert into familyconnect.person_accounts values('${pa}','${accounts.owner.id}',now()),('${pb}','${accounts.owner.id}',now()); insert into familyconnect.memberships values('${netA}','${accounts.owner.id}','contributor'),('${netB}','${accounts.owner.id}','contributor'),('${netA}','${accounts.admina.id}','admin'),('${netB}','${accounts.adminb.id}','admin'),('${netA}','${accounts.member.id}','contributor'); commit;`);
+let connection;
+await test('Owner can request scoped connection; unrelated member cannot',async()=>{assert((await call(accounts.member.c,'request_connection',{person_a:pa,person_b:pb})).error);const r=await call(accounts.owner.c,'request_connection',{person_a:pa,person_b:pb});assert.ifError(r.error);connection=r.data.id});
+const visible=async()=> (await accounts.member.c.rpc('fc_snapshot')).data.people.map(p=>p.id);
+await test('Pending connection shares nothing across networks',async()=>assert(!(await visible()).includes(pb)));
+await test('Contributor cannot approve as administrator',async()=>assert((await call(accounts.member.c,'connection_consent',{id:connection,scope:'admin'})).error));
+await test('One administrator approval is insufficient',async()=>{assert.ifError((await call(accounts.admina.c,'connection_consent',{id:connection,scope:'admin'})).error);assert(!(await visible()).includes(pb))});
+await test('Both administrator approvals still require owner consent',async()=>{assert.ifError((await call(accounts.adminb.c,'connection_consent',{id:connection,scope:'admin'})).error);assert(!(await visible()).includes(pb));assert((await call(accounts.member.c,'connection_consent',{id:connection,scope:'person'})).error)});
+await test('Personal consent shares only named profile, never full branch',async()=>{assert.ifError((await call(accounts.owner.c,'connection_consent',{id:connection,scope:'person'})).error);assert((await visible()).includes(pb));assert(!(await visible()).includes(extra))});
+await test('Revocation removes shared profile immediately',async()=>{assert.ifError((await call(accounts.owner.c,'connection_consent',{id:connection,decision:'revoke'})).error);assert(!(await visible()).includes(pb))});
+mkdirSync('output/phase6b',{recursive:true});writeFileSync('output/phase6b/database-tests.json',JSON.stringify({at:new Date().toISOString(),results},null,2));if(results.some(x=>x.status==='failed'))process.exitCode=1;

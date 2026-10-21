@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-21T14:36:51.265Z",
+  "checks": [
+    {
+      "name": "Invalid birthday and minor social profile rejected",
+      "passed": true
+    },
+    {
+      "name": "Group administrator delegation is limited to authorized members",
+      "passed": true
+    },
+    {
+      "name": "Leaving revokes read/send; creator can leave after administrator delegation",
+      "passed": true
+    },
+    {
+      "name": "Family membership revocation removes chat, profile, and feed access",
+      "passed": true
+    },
+    {
+      "name": "Feed cursor handles equal timestamps without omissions or repeats",
+      "passed": true
+    },
+    {
+      "name": "Message cursor handles equal timestamps without omissions or repeats",
+      "passed": true
+    },
+    {
+      "name": "Rate limits enforced in database independently of UI",
+      "passed": true
+    },
+    {
+      "name": "Maintenance endpoint inaccessible to authenticated clients",
+      "passed": true
+    },
+    {
+      "name": "RLS notifications expose only current user and authorized conversations",
+      "passed": true
+    },
+    {
+      "name": "Abandoned metadata cleanup removes only stale data",
+      "passed": true
+    },
+    {
+      "name": "Upload completion rechecks revoked author permission",
+      "passed": true
+    }
+  ]
+}

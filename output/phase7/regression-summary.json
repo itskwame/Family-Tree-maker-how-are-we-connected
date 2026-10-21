@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-21T14:41:10.473198+00:00",
+  "engine": {
+    "passed": 53,
+    "command": "npm run test:family"
+  },
+  "treeBrowser": {
+    "coveredScenarios": 11,
+    "lastFullRun": {
+      "passed": 10,
+      "failed": 1,
+      "failure": "OneDrive screenshot write UNKNOWN error in 300-person mobile scenario"
+    },
+    "targetedRetry": {
+      "passed": 1,
+      "failed": 0,
+      "evidence": "tree-mobile-retry.json"
+    },
+    "earlierAttempt": "100-person cold-start 5-second assertion timeout; passed in later full run",
+    "unresolvedFunctionalRegressions": 0
+  },
+  "premiumBrowser": {
+    "passed": 5,
+    "evidence": "../phase5/browser-results.json"
+  },
+  "onboarding": {
+    "security": 29,
+    "consent": 12,
+    "adapter": 3,
+    "phase6bSecurity": 17,
+    "phase6bBrowser": 27,
+    "passwordlessBrowser": 5
+  },
+  "note": "Actual isolated local suites. Browser retry incidents retained; no claim of clean first-run suite."
+}

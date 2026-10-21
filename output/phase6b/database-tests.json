@@ -1,0 +1,73 @@
+{
+  "at": "2026-10-21T14:21:39.170Z",
+  "results": [
+    {
+      "name": "Concurrent identical retry creates exactly one person and suggestion",
+      "status": "passed"
+    },
+    {
+      "name": "Equivalent concurrent assertions with different retry IDs reuse suggestion",
+      "status": "passed"
+    },
+    {
+      "name": "Same-name records require explicit distinction; never silently merge",
+      "status": "passed"
+    },
+    {
+      "name": "Private or cross-network existing record cannot be attached",
+      "status": "passed"
+    },
+    {
+      "name": "Pending sibling does not become a confirmed ancestor",
+      "status": "passed"
+    },
+    {
+      "name": "Unsupported type combination is rejected server-side",
+      "status": "passed"
+    },
+    {
+      "name": "Private mutation helpers cannot bypass public review wrapper",
+      "status": "passed"
+    },
+    {
+      "name": "Unapproved invitation exposes no metadata or portrait",
+      "status": "passed"
+    },
+    {
+      "name": "Only approved and opted-in local portrait appears in preview",
+      "status": "passed"
+    },
+    {
+      "name": "Revoked invitation no longer exposes metadata",
+      "status": "passed"
+    },
+    {
+      "name": "Owner can request scoped connection; unrelated member cannot",
+      "status": "passed"
+    },
+    {
+      "name": "Pending connection shares nothing across networks",
+      "status": "passed"
+    },
+    {
+      "name": "Contributor cannot approve as administrator",
+      "status": "passed"
+    },
+    {
+      "name": "One administrator approval is insufficient",
+      "status": "passed"
+    },
+    {
+      "name": "Both administrator approvals still require owner consent",
+      "status": "passed"
+    },
+    {
+      "name": "Personal consent shares only named profile, never full branch",
+      "status": "passed"
+    },
+    {
+      "name": "Revocation removes shared profile immediately",
+      "status": "passed"
+    }
+  ]
+}

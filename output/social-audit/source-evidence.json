@@ -1,0 +1,552 @@
+[
+  {
+    "ref": "1bc35a6^",
+    "file": "feed/index.html",
+    "lines": [
+      {
+        "line": 142,
+        "text": "selectedFiles = Array.from(event.target.files);"
+      },
+      {
+        "line": 185,
+        "text": ".from('post-media')"
+      },
+      {
+        "line": 190,
+        "text": ".from('post-media')"
+      },
+      {
+        "line": 191,
+        "text": ".getPublicUrl(fileName);"
+      },
+      {
+        "line": 203,
+        "text": "window.createPost = async function() {"
+      },
+      {
+        "line": 220,
+        "text": "postData.media_urls = mediaUrls.length > 0 ? mediaUrls : (linkInput ? [{ url: linkInput, type: 'link' }] : null);"
+      },
+      {
+        "line": 224,
+        "text": ".from('posts')"
+      },
+      {
+        "line": 239,
+        "text": "window.toggleLike = async function(postId) {"
+      },
+      {
+        "line": 241,
+        "text": ".from('post_likes')"
+      },
+      {
+        "line": 248,
+        "text": "await supabase.from('post_likes').delete().eq('id', existing.id);"
+      },
+      {
+        "line": 250,
+        "text": "await supabase.from('post_likes').insert({ post_id: postId, profile_id: currentUser.id });"
+      },
+      {
+        "line": 256,
+        "text": "window.addComment = async function(postId) {"
+      },
+      {
+        "line": 261,
+        "text": "await supabase.from('post_comments').insert({"
+      },
+      {
+        "line": 271,
+        "text": "async function loadPosts() {"
+      },
+      {
+        "line": 273,
+        "text": ".from('posts')"
+      },
+      {
+        "line": 283,
+        "text": ".order('created_at', { ascending: false });"
+      },
+      {
+        "line": 315,
+        "text": "${renderPostMedia(post.media_urls)}"
+      },
+      {
+        "line": 335,
+        "text": "<div class=\"comment-text\">${comment.content}</div>"
+      },
+      {
+        "line": 428,
+        "text": ".from('profiles')"
+      }
+    ]
+  },
+  {
+    "ref": "1bc35a6^",
+    "file": "dashboard/index.html",
+    "lines": [
+      {
+        "line": 76,
+        "text": "<h2 style=\"margin-bottom: 16px;\">Recent Activity</h2>"
+      },
+      {
+        "line": 77,
+        "text": "<p style=\"color: #718096;\">No recent activity yet. Start by adding family members!</p>"
+      },
+      {
+        "line": 98,
+        "text": ".from('profiles')"
+      },
+      {
+        "line": 108,
+        "text": ".from('family_members')"
+      },
+      {
+        "line": 113,
+        "text": ".from('posts')"
+      },
+      {
+        "line": 118,
+        "text": ".from('businesses')"
+      }
+    ]
+  },
+  {
+    "ref": "1bc35a6^",
+    "file": "profile/view.html",
+    "lines": [
+      {
+        "line": 120,
+        "text": "async function loadProfile() {"
+      },
+      {
+        "line": 130,
+        "text": ".from('profiles')"
+      }
+    ]
+  },
+  {
+    "ref": "1bc35a6^",
+    "file": "profile/edit.html",
+    "lines": [
+      {
+        "line": 167,
+        "text": "async function loadProfile() {"
+      },
+      {
+        "line": 169,
+        "text": ".from('profiles')"
+      },
+      {
+        "line": 217,
+        "text": ".from('profiles')"
+      }
+    ]
+  },
+  {
+    "ref": "1bc35a6^",
+    "file": "insights/index.html",
+    "lines": [
+      {
+        "line": 114,
+        "text": "<div class=\"stat-number\" id=\"upcomingBirthdays\">0</div>"
+      },
+      {
+        "line": 137,
+        "text": "<div class=\"timeline\" id=\"familyTimeline\">"
+      },
+      {
+        "line": 151,
+        "text": "async function loadInsights() {"
+      },
+      {
+        "line": 153,
+        "text": ".from('family_members')"
+      },
+      {
+        "line": 165,
+        "text": "const upcomingBirthdays = members.filter(m => {"
+      },
+      {
+        "line": 171,
+        "text": "document.getElementById('upcomingBirthdays').textContent = upcomingBirthdays.length;"
+      },
+      {
+        "line": 202,
+        "text": "const { data: businesses } = await supabase.from('businesses').select('*');"
+      },
+      {
+        "line": 212,
+        "text": ".from('relationships')"
+      },
+      {
+        "line": 240,
+        "text": ".slice(0, 10);"
+      },
+      {
+        "line": 255,
+        "text": "document.getElementById('familyTimeline').innerHTML = timelineHTML || '<p style=\"color: #718096;\">No timeline data available</p>';"
+      }
+    ]
+  },
+  {
+    "ref": "1bc35a6^",
+    "file": "events/index.html",
+    "lines": [
+      {
+        "line": 184,
+        "text": "const { data, error } = await supabase.from('events').insert({"
+      },
+      {
+        "line": 194,
+        "text": "await supabase.from('notifications').insert({"
+      },
+      {
+        "line": 208,
+        "text": ".from('events')"
+      },
+      {
+        "line": 210,
+        "text": ".order('event_date', { ascending: true });"
+      },
+      {
+        "line": 220,
+        "text": ".from('event_rsvps')"
+      },
+      {
+        "line": 226,
+        "text": ".from('event_rsvps')"
+      },
+      {
+        "line": 270,
+        "text": ".from('events')"
+      },
+      {
+        "line": 304,
+        "text": ".from('event_rsvps')"
+      },
+      {
+        "line": 319,
+        "text": ".from('event_rsvps')"
+      },
+      {
+        "line": 372,
+        "text": ".from('event_rsvps')"
+      }
+    ]
+  },
+  {
+    "ref": "1bc35a6^",
+    "file": "js/notifications.js",
+    "lines": [
+      {
+        "line": 19,
+        "text": ".from('notifications')"
+      },
+      {
+        "line": 23,
+        "text": ".order('created_at', { ascending: false });"
+      },
+      {
+        "line": 53,
+        "text": ".from('notifications')"
+      },
+      {
+        "line": 56,
+        "text": ".order('created_at', { ascending: false })"
+      },
+      {
+        "line": 57,
+        "text": ".limit(20);"
+      },
+      {
+        "line": 89,
+        "text": ".from('notifications')"
+      },
+      {
+        "line": 108,
+        "text": ".from('notifications')"
+      }
+    ]
+  },
+  {
+    "ref": "origin/codex/rebuild-app-with-next.js-and-tailwindcss",
+    "file": "feed/index.html",
+    "lines": [
+      {
+        "line": 142,
+        "text": "selectedFiles = Array.from(event.target.files);"
+      },
+      {
+        "line": 185,
+        "text": ".from('post-media')"
+      },
+      {
+        "line": 190,
+        "text": ".from('post-media')"
+      },
+      {
+        "line": 191,
+        "text": ".getPublicUrl(fileName);"
+      },
+      {
+        "line": 203,
+        "text": "window.createPost = async function() {"
+      },
+      {
+        "line": 220,
+        "text": "postData.media_urls = mediaUrls.length > 0 ? mediaUrls : (linkInput ? [{ url: linkInput, type: 'link' }] : null);"
+      },
+      {
+        "line": 224,
+        "text": ".from('posts')"
+      },
+      {
+        "line": 239,
+        "text": "window.toggleLike = async function(postId) {"
+      },
+      {
+        "line": 241,
+        "text": ".from('post_likes')"
+      },
+      {
+        "line": 248,
+        "text": "await supabase.from('post_likes').delete().eq('id', existing.id);"
+      },
+      {
+        "line": 250,
+        "text": "await supabase.from('post_likes').insert({ post_id: postId, profile_id: currentUser.id });"
+      },
+      {
+        "line": 256,
+        "text": "window.addComment = async function(postId) {"
+      },
+      {
+        "line": 261,
+        "text": "await supabase.from('post_comments').insert({"
+      },
+      {
+        "line": 271,
+        "text": "async function loadPosts() {"
+      },
+      {
+        "line": 273,
+        "text": ".from('posts')"
+      },
+      {
+        "line": 283,
+        "text": ".order('created_at', { ascending: false });"
+      },
+      {
+        "line": 315,
+        "text": "${renderPostMedia(post.media_urls)}"
+      },
+      {
+        "line": 335,
+        "text": "<div class=\"comment-text\">${comment.content}</div>"
+      },
+      {
+        "line": 428,
+        "text": ".from('profiles')"
+      }
+    ]
+  },
+  {
+    "ref": "origin/codex/rebuild-app-with-next.js-and-tailwindcss",
+    "file": "dashboard/index.html",
+    "lines": [
+      {
+        "line": 76,
+        "text": "<h2 style=\"margin-bottom: 16px;\">Recent Activity</h2>"
+      },
+      {
+        "line": 77,
+        "text": "<p style=\"color: #718096;\">No recent activity yet. Start by adding family members!</p>"
+      },
+      {
+        "line": 98,
+        "text": ".from('profiles')"
+      },
+      {
+        "line": 108,
+        "text": ".from('family_members')"
+      },
+      {
+        "line": 113,
+        "text": ".from('posts')"
+      },
+      {
+        "line": 118,
+        "text": ".from('businesses')"
+      }
+    ]
+  },
+  {
+    "ref": "origin/codex/rebuild-app-with-next.js-and-tailwindcss",
+    "file": "profile/view.html",
+    "lines": [
+      {
+        "line": 120,
+        "text": "async function loadProfile() {"
+      },
+      {
+        "line": 130,
+        "text": ".from('profiles')"
+      }
+    ]
+  },
+  {
+    "ref": "origin/codex/rebuild-app-with-next.js-and-tailwindcss",
+    "file": "profile/edit.html",
+    "lines": [
+      {
+        "line": 167,
+        "text": "async function loadProfile() {"
+      },
+      {
+        "line": 169,
+        "text": ".from('profiles')"
+      },
+      {
+        "line": 217,
+        "text": ".from('profiles')"
+      }
+    ]
+  },
+  {
+    "ref": "origin/codex/rebuild-app-with-next.js-and-tailwindcss",
+    "file": "insights/index.html",
+    "lines": [
+      {
+        "line": 114,
+        "text": "<div class=\"stat-number\" id=\"upcomingBirthdays\">0</div>"
+      },
+      {
+        "line": 137,
+        "text": "<div class=\"timeline\" id=\"familyTimeline\">"
+      },
+      {
+        "line": 151,
+        "text": "async function loadInsights() {"
+      },
+      {
+        "line": 153,
+        "text": ".from('family_members')"
+      },
+      {
+        "line": 165,
+        "text": "const upcomingBirthdays = members.filter(m => {"
+      },
+      {
+        "line": 171,
+        "text": "document.getElementById('upcomingBirthdays').textContent = upcomingBirthdays.length;"
+      },
+      {
+        "line": 202,
+        "text": "const { data: businesses } = await supabase.from('businesses').select('*');"
+      },
+      {
+        "line": 212,
+        "text": ".from('relationships')"
+      },
+      {
+        "line": 240,
+        "text": ".slice(0, 10);"
+      },
+      {
+        "line": 255,
+        "text": "document.getElementById('familyTimeline').innerHTML = timelineHTML || '<p style=\"color: #718096;\">No timeline data available</p>';"
+      }
+    ]
+  },
+  {
+    "ref": "origin/codex/rebuild-app-with-next.js-and-tailwindcss",
+    "file": "events/index.html",
+    "lines": [
+      {
+        "line": 184,
+        "text": "const { data, error } = await supabase.from('events').insert({"
+      },
+      {
+        "line": 194,
+        "text": "await supabase.from('notifications').insert({"
+      },
+      {
+        "line": 208,
+        "text": ".from('events')"
+      },
+      {
+        "line": 210,
+        "text": ".order('event_date', { ascending: true });"
+      },
+      {
+        "line": 220,
+        "text": ".from('event_rsvps')"
+      },
+      {
+        "line": 226,
+        "text": ".from('event_rsvps')"
+      },
+      {
+        "line": 270,
+        "text": ".from('events')"
+      },
+      {
+        "line": 304,
+        "text": ".from('event_rsvps')"
+      },
+      {
+        "line": 319,
+        "text": ".from('event_rsvps')"
+      },
+      {
+        "line": 372,
+        "text": ".from('event_rsvps')"
+      }
+    ]
+  },
+  {
+    "ref": "origin/codex/rebuild-app-with-next.js-and-tailwindcss",
+    "file": "js/notifications.js",
+    "lines": [
+      {
+        "line": 19,
+        "text": ".from('notifications')"
+      },
+      {
+        "line": 23,
+        "text": ".order('created_at', { ascending: false });"
+      },
+      {
+        "line": 53,
+        "text": ".from('notifications')"
+      },
+      {
+        "line": 56,
+        "text": ".order('created_at', { ascending: false })"
+      },
+      {
+        "line": 57,
+        "text": ".limit(20);"
+      },
+      {
+        "line": 89,
+        "text": ".from('notifications')"
+      },
+      {
+        "line": 108,
+        "text": ".from('notifications')"
+      }
+    ]
+  },
+  {
+    "ref": "origin/codex/rebuild-app-with-next.js-and-tailwindcss",
+    "file": "app/feed/page.js",
+    "lines": []
+  },
+  {
+    "ref": "origin/codex/rebuild-app-with-next.js-and-tailwindcss",
+    "file": "app/profile/page.js",
+    "lines": []
+  }
+]

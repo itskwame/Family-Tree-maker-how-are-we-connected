@@ -9,3 +9,5 @@ supabase/.temp/
 .env.phase6.local
 dist-phase6/
 scripts/__pycache__/
+output/phase6b/private/
+output/phase7/private/

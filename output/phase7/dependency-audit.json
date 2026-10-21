@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-21T14:33:46.069Z",
+  "summary": {
+    "info": 0,
+    "low": 0,
+    "moderate": 2,
+    "high": 0,
+    "critical": 0,
+    "total": 2
+  },
+  "remaining": [
+    {
+      "name": "react-router",
+      "severity": "moderate",
+      "advisories": [
+        {
+          "title": "React Router: Open redirect via backslash in <Link> and useNavigate (CVE-2025-68470 bypass)",
+          "url": "https://github.com/advisories/GHSA-wrjc-x8rr-h8h6"
+        },
+        {
+          "title": "React Router: Arbitrary Constructor Injection via deserializeErrors() in React Router SSR Hydration",
+          "url": "https://github.com/advisories/GHSA-337j-9hxr-rhxg"
+        }
+      ],
+      "fix": {
+        "name": "react-router-dom",
+        "version": "7.18.4",
+        "isSemVerMajor": true
+      }
+    },
+    {
+      "name": "react-router-dom",
+      "severity": "moderate",
+      "advisories": [],
+      "fix": {
+        "name": "react-router-dom",
+        "version": "7.18.4",
+        "isSemVerMajor": true
+      }
+    }
+  ],
+  "scope": "Remaining React Router advisories concern the legacy generic SPA. Phase 6/7 entry does not import React Router. No forced major router migration in this phase; review before any hosted candidate."
+}

@@ -1,0 +1,12 @@
+import {setup} from './phase6b-fixture.mjs';
+import {mkdirSync,writeFileSync,readFileSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {client,password} from './phase6-local.mjs';
+import assert from 'node:assert/strict';
+const f=await setup('review');
+const r=await client().rpc('fc_invitation_preview',{token:f.token});assert.ifError(r.error);assert.equal(r.data.valid,true);assert(r.data.photo);
+mkdirSync('output/phase6b/private',{recursive:true});
+writeFileSync('output/phase6b/private/review-invitation.json',JSON.stringify({url:'http://127.0.0.1:5176/phase6.html#invite='+f.token,email:f.email,suggestedFictionalPassword:password,instructions:'Open URL, Explore My Family Connection, Create an account using this fictional email. Verify through local Mailpit http://127.0.0.1:55324, then confirm identity. Nothing is sent externally.'},null,2));
+const listing=execFileSync('docker',['exec','-i','supabase_db_familyconnect-phase6-isolated','pg_restore','--list'],{input:readFileSync('output/phase6b/private/checkpoint/local-fictional.dump'),encoding:'utf8',maxBuffer:10*1024*1024});
+writeFileSync('output/phase6b/checkpoint-validation.json',JSON.stringify({archiveReadable:listing.includes('familyconnect'),note:'Archive catalog inspection only; not a restore rehearsal.'},null,2));
+console.log('Unused fictional invitation prepared in output/phase6b/private/review-invitation.json; local backup catalog is readable.');

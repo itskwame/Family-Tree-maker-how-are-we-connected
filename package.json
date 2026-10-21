@@ -16,7 +16,15 @@
     "test:family": "node --test tests/family/engine.test.mjs tests/family/phase3.test.mjs tests/family/phase4.test.mjs tests/family/phase5.test.mjs",
     "test:family:premium": "playwright test --config playwright.family.premium.config.mjs",
     "test:family:browser": "playwright test --config playwright.family.config.mjs",
-    "test:family:production": "playwright test --config playwright.family.production.config.mjs"
+    "test:family:production": "playwright test --config playwright.family.production.config.mjs",
+    "test:phase6b": "node scripts/test-phase6b.mjs",
+    "test:phase6b:browser": "node scripts/phase6b-browser.mjs",
+    "demo:phase6b": "node scripts/phase6b-demo.mjs",
+    "dev:phase7:media": "node scripts/phase7-media-server.mjs",
+    "test:phase7": "node scripts/test-phase7.mjs",
+    "test:phase7:browser": "node scripts/phase7-browser.mjs",
+    "test:phase7:media": "node scripts/test-phase7-media-realtime.mjs",
+    "test:phase7:boundaries": "node scripts/test-phase7-boundaries.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
@@ -27,11 +35,15 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.30.1",
+    "sharp": "^0.35.5",
     "svg2pdf.js": "^2.8.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1",
     "@vitejs/plugin-react": "^4.7.0",
-    "vite": "^5.0.0"
+    "vite": "^6.4.5"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

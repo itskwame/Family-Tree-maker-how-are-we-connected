@@ -1,11 +1,20 @@
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync} from 'node:fs';
 import {createHash,randomUUID} from 'node:crypto';
-import {login,sql,uuid,ids} from './phase6-local.mjs';
+import {login,sql} from './phase6-local.mjs';
 const emma=await login('emma'),dave=await login('david'),maya=await login('maya'),outsider=await login('outsider');
+const ids={network:randomUUID(),other:randomUUID()},map=new Map(['emma','emma-reed','david','maya','lucas'].map(n=>[n,randomUUID()])),uuid=n=>map.get(n);
+const fixtureAccounts=JSON.parse(readFileSync('output/phase6/private/local-fixture-accounts.json'));
+const secondToken=randomUUID();
+sql(`begin; insert into familyconnect.networks values('${ids.network}','Consent regression Bennett'),('${ids.other}','Consent regression Reed');
+insert into familyconnect.people(id,network_id,first_name,age_class) values('${uuid('emma')}','${ids.network}','Emma','adult'),('${uuid('david')}','${ids.network}','David','adult'),('${uuid('lucas')}','${ids.network}','Lucas','adult'),('${uuid('emma-reed')}','${ids.other}','Emma','adult'),('${uuid('maya')}','${ids.other}','Maya','adult');
+insert into familyconnect.memberships values('${ids.network}','${fixtureAccounts.emma}','contributor'),('${ids.network}','${fixtureAccounts.david}','admin'),('${ids.network}','${fixtureAccounts.outsider}','contributor'),('${ids.other}','${fixtureAccounts.maya}','admin'),('${ids.other}','${fixtureAccounts.reviewer}','admin');
+insert into familyconnect.person_accounts(person_id,user_id) values('${uuid('emma')}','${fixtureAccounts.emma}'),('${uuid('david')}','${fixtureAccounts.david}'),('${uuid('lucas')}','${fixtureAccounts.outsider}'),('${uuid('maya')}','${fixtureAccounts.maya}');
+insert into familyconnect.parentages(network_id,parent_id,child_id,kind) values('${ids.network}','${uuid('david')}','${uuid('emma')}','biological');
+insert into familyconnect.invitations(token_hash,network_id,target_id,inviter_id,recipient_email,created_by,approved_by) values('${createHash('sha256').update(secondToken).digest('hex')}','${ids.other}','${uuid('emma-reed')}','${uuid('maya')}','emma@example.test','${fixtureAccounts.maya}','${fixtureAccounts.reviewer}'); commit;`);
 const results=[];const call=(c,action,payload)=>c.rpc('fc_action',{action,payload});
 async function test(name,f){try{await f();results.push({name,status:'passed'});console.log('PASS',name)}catch(e){results.push({name,status:'failed',error:e.message});console.log('FAIL',name,e.message)}}
-await test('Claim second-network profile with independently approved invitation',async()=>{const token=readFileSync('output/phase6/private/reed-invitation.txt','utf8').split('#invite=')[1];assert.ifError((await call(emma,'accept_invitation',{token})).error)});
+await test('Claim second-network profile with independently approved invitation',async()=>{const token=secondToken;assert.ifError((await call(emma,'accept_invitation',{token})).error)});
 let connection;
 await test('Verified person requests connection between their own claimed records',async()=>{const r=await call(emma,'request_connection',{person_a:uuid('emma'),person_b:uuid('emma-reed')});assert.ifError(r.error);connection=r.data.id});
 await test('Pending connection shares no foreign profile',async()=>assert(!(await outsider.rpc('fc_snapshot')).data.people.some(p=>p.id===uuid('emma-reed'))));

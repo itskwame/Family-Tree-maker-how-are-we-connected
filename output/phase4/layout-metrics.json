@@ -15,23 +15,23 @@
   },
   "runs": [
     {
-      "wallMs": 15299.200600028038,
-      "layoutMs": 15298.520600020885,
+      "wallMs": 13004.985700011253,
+      "layoutMs": 13004.3192999959,
       "memory": {
-        "rss": 174215168,
-        "heapTotal": 130256896,
-        "heapUsed": 96131968,
+        "rss": 173522944,
+        "heapTotal": 129994752,
+        "heapUsed": 96644832,
         "external": 7495188,
         "arrayBuffers": 10626
       }
     },
     {
-      "wallMs": 10554.307600021362,
-      "layoutMs": 10554.159299969673,
+      "wallMs": 11772.231000006199,
+      "layoutMs": 11772.057700037956,
       "memory": {
-        "rss": 254894080,
+        "rss": 253894656,
         "heapTotal": 209633280,
-        "heapUsed": 185119480,
+        "heapUsed": 185655120,
         "external": 7495228,
         "arrayBuffers": 10626
       }

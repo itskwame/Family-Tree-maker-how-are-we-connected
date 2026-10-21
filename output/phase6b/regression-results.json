@@ -1,0 +1,39 @@
+{
+  "environment": "Isolated local Supabase + Chrome; fictional data only",
+  "observed_runs": [
+    {
+      "command": "npm run test:phase6",
+      "passed": 29
+    },
+    {
+      "command": "node scripts/test-phase6-consent.mjs",
+      "passed": 12
+    },
+    {
+      "command": "node scripts/test-phase6-adapter.mjs",
+      "passed": 3
+    },
+    {
+      "command": "npm run test:phase6b",
+      "passed": 17
+    },
+    {
+      "command": "npm run test:phase6b:browser",
+      "passed": 27
+    },
+    {
+      "command": "npm run test:family",
+      "passed": 53
+    },
+    {
+      "command": "npm run test:family:browser",
+      "passed": 11
+    },
+    {
+      "command": "npm run test:family:premium",
+      "passed": 5
+    }
+  ],
+  "build": "npm run build:phase6 passed",
+  "note": "Regression summary recorded from completed command outputs; detailed Phase 6B and security JSON linked in report."
+}

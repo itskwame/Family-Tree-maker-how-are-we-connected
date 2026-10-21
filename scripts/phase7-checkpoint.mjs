@@ -1,0 +1,12 @@
+import {mkdirSync,cpSync,writeFileSync,existsSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import './phase6-local.mjs';
+const dest='output/phase7/private/checkpoint';
+if(existsSync(`${dest}/manifest.json`))throw Error('Checkpoint already exists; refusing overwrite');
+mkdirSync(dest,{recursive:true});
+for(const path of ['src','scripts','local/phase6/supabase/migrations','local/phase6/supabase/config.toml','package.json','package-lock.json','vite.phase6.config.mjs','LAUNCH-READINESS.md'])cpSync(path,`${dest}/${path}`,{recursive:true});
+const dump=execFileSync('docker',['exec','supabase_db_familyconnect-phase6-isolated','pg_dump','-U','postgres','-d','postgres','--format=custom'],{maxBuffer:100*1024*1024});
+writeFileSync(`${dest}/local-fictional.dump`,dump);
+writeFileSync(`${dest}/manifest.json`,JSON.stringify({commit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),created:new Date().toISOString(),databaseSha256:createHash('sha256').update(dump).digest('hex'),scope:'Local fictional database only; private Auth backup. Restoration not yet rehearsed.'},null,2));
+console.log('Phase 7 source and local database checkpoint saved.');

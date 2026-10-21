@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-21T14:27:31.331Z",
+  "results": [
+    {
+      "name": "desktop: email-only new account, cooldown, verified session, invitation continuation, explicit claim and confirmed reveal",
+      "status": "passed",
+      "continuation": "Email verified in a second tab; original invitation tab resumes"
+    },
+    {
+      "name": "desktop: consumed email verification token cannot be replayed",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: email-only new account, cooldown, verified session, invitation continuation, explicit claim and confirmed reveal",
+      "status": "passed",
+      "continuation": "Same-tab email verification"
+    },
+    {
+      "name": "mobile: consumed email verification token cannot be replayed",
+      "status": "passed"
+    },
+    {
+      "name": "Invalid email verification token rejected",
+      "status": "passed"
+    }
+  ]
+}

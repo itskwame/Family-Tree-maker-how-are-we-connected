@@ -1,0 +1,14 @@
+import {mkdirSync,cpSync,writeFileSync,existsSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {sql} from './phase6-local.mjs';
+const dest='output/phase6b/private/checkpoint';
+if(existsSync(`${dest}/manifest.json`))throw Error('Original checkpoint already exists; refusing to overwrite it.');
+mkdirSync(dest,{recursive:true});
+for(const path of ['src','scripts','local/phase6/supabase/migrations','local/phase6/supabase/config.toml','package.json','package-lock.json','LAUNCH-READINESS.md','PHASE-6-REPORT.html'])cpSync(path,`${dest}/${path}`,{recursive:true});
+const dump=execFileSync('docker',['exec','supabase_db_familyconnect-phase6-isolated','pg_dump','-U','postgres','-d','postgres','--format=custom'],{maxBuffer:100*1024*1024});
+writeFileSync(`${dest}/local-fictional.dump`,dump);
+writeFileSync(`${dest}/manifest.json`,JSON.stringify({commit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),created:new Date().toISOString(),databaseSha256:createHash('sha256').update(dump).digest('hex'),scope:'Local fictional database only. Sensitive local Auth backup; never publish.'},null,2));
+const nina=sql("select jsonb_build_object('people', (select count(*) from familyconnect.people where first_name='Nina'), 'distinct_full_names',(select count(distinct(first_name,last_name)) from familyconnect.people where first_name='Nina'),'equivalent_pending_groups',(select count(*) from (select network_id,subject_id,relative_id,relation,kind from familyconnect.proposals where status='pending' group by 1,2,3,4,5 having count(*)>1) d));");
+mkdirSync('output/phase6b',{recursive:true});writeFileSync('output/phase6b/duplicate-investigation.json',nina);
+console.log('Source and local database checkpoint preserved; count-only duplicate investigation saved.');

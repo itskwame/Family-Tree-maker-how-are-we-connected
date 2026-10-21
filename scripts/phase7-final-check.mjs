@@ -1,0 +1,7 @@
+import {chromium,expect} from '@playwright/test';
+import {readFileSync,existsSync,writeFileSync} from 'node:fs';
+import assert from 'node:assert/strict';
+const html=readFileSync('PHASE-7-REPORT.html','utf8');
+for(const match of html.matchAll(/(?:href|src)="([^"]+)"/g)){const path=match[1];if(!path.startsWith('http')&&!path.startsWith('#'))assert(existsSync(path),`Missing report reference: ${path}`)}
+const browser=await chromium.launch({channel:'chrome',headless:true});
+try{const page=await browser.newPage({viewport:{width:1440,height:1050}});await page.goto('http://127.0.0.1:5176/PHASE-7-REPORT.html');await page.locator('img').evaluateAll(images=>images.forEach(i=>i.loading='eager'));await expect(page.locator('img')).toHaveCount(14);await expect.poll(()=>page.locator('img').evaluateAll(images=>images.every(i=>i.complete&&i.naturalWidth>0))).toBeTruthy();await page.screenshot({path:'output/phase7/report-preview.png'});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));writeFileSync('output/phase7/report-check.json',JSON.stringify({at:new Date().toISOString(),localReferencesExist:true,screenshotImagesLoaded:14,reportHorizontalOverflow:false,visualInspection:'Actual desktop/mobile evidence inspected; mobile wrapping, message shrinkage and unread badge defects corrected.'},null,2));console.log('Report references, 14 screenshot images and layout verified.');}finally{await browser.close()}

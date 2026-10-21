@@ -1,0 +1,119 @@
+{
+  "at": "2026-10-21T14:27:06.562Z",
+  "results": [
+    {
+      "name": "desktop: Personal approved portrait invitation; authentication hidden",
+      "status": "passed"
+    },
+    {
+      "name": "desktop: verified email → claim → confirmed reveal",
+      "status": "passed",
+      "totalMs": 7540.339599967003,
+      "emailWaitMs": 160.47100001573563,
+      "note": "Automation includes screenshot overhead; not human usability time."
+    },
+    {
+      "name": "desktop: Discovery uses confirmed grandparent path",
+      "status": "passed"
+    },
+    {
+      "name": "desktop: Skip builder, reload, return with saved name and step",
+      "status": "passed"
+    },
+    {
+      "name": "desktop: Parent addition remains visibly pending",
+      "status": "passed"
+    },
+    {
+      "name": "desktop: Voluntary link creation, clipboard, share URI handlers; no sending",
+      "status": "passed"
+    },
+    {
+      "name": "desktop: Sibling half relationship; double click creates one person",
+      "status": "passed"
+    },
+    {
+      "name": "desktop: Authorized match and equivalent pending assertion reuse",
+      "status": "passed"
+    },
+    {
+      "name": "desktop: Child remains protected, no invitation or automatic guardian grant",
+      "status": "passed"
+    },
+    {
+      "name": "desktop: Other relative category saved without invented ancestry",
+      "status": "passed"
+    },
+    {
+      "name": "desktop: Plain-language branch consent",
+      "status": "passed"
+    },
+    {
+      "name": "desktop: Responsive overflow, reduced-height keyboard navigation, exit controls",
+      "status": "passed"
+    },
+    {
+      "name": "desktop: No browser runtime errors",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: Personal approved portrait invitation; authentication hidden",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: verified email → claim → confirmed reveal",
+      "status": "passed",
+      "totalMs": 4206.487299978733,
+      "emailWaitMs": 51.97890001535416,
+      "note": "Automation includes screenshot overhead; not human usability time."
+    },
+    {
+      "name": "mobile: Focused person visible within mobile tree",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: Discovery uses confirmed grandparent path",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: Skip builder, reload, return with saved name and step",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: Parent addition remains visibly pending",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: Voluntary link creation, clipboard, share URI handlers; no sending",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: Sibling half relationship; double click creates one person",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: Authorized match and equivalent pending assertion reuse",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: Child remains protected, no invitation or automatic guardian grant",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: Other relative category saved without invented ancestry",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: Plain-language branch consent",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: Responsive overflow, reduced-height keyboard navigation, exit controls",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: No browser runtime errors",
+      "status": "passed"
+    }
+  ]
+}

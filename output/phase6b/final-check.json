@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "checks": [
+    "Report screenshots all load",
+    "Return login retains guided draft",
+    "Existing template entry renders",
+    "No runtime errors"
+  ]
+}

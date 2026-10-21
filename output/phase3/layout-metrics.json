@@ -17,55 +17,55 @@
   "unrelatedTouches": [],
   "measurements": [
     {
-      "wallMs": 2264.584100008011,
-      "layoutMs": 2263.8170000314713,
+      "wallMs": 2018.5207999944687,
+      "layoutMs": 2018.0418000221252,
       "before": {
-        "rss": 90857472,
+        "rss": 91127808,
         "heapTotal": 58073088,
-        "heapUsed": 38816256,
+        "heapUsed": 34875208,
         "external": 939971,
         "arrayBuffers": 10618
       },
       "after": {
-        "rss": 101400576,
-        "heapTotal": 63201280,
-        "heapUsed": 36489416,
+        "rss": 106893312,
+        "heapTotal": 63463424,
+        "heapUsed": 36461920,
         "external": 7495234,
         "arrayBuffers": 10626
       }
     },
     {
-      "wallMs": 1243.2168000340462,
-      "layoutMs": 1243.104000031948,
+      "wallMs": 1139.8834999799728,
+      "layoutMs": 1139.6978999972343,
       "before": {
-        "rss": 101400576,
-        "heapTotal": 63201280,
-        "heapUsed": 36489792,
+        "rss": 106893312,
+        "heapTotal": 63463424,
+        "heapUsed": 36462296,
         "external": 7495234,
         "arrayBuffers": 10626
       },
       "after": {
-        "rss": 122929152,
+        "rss": 122707968,
         "heapTotal": 81551360,
-        "heapUsed": 56053352,
+        "heapUsed": 55778368,
         "external": 7495234,
         "arrayBuffers": 10626
       }
     },
     {
-      "wallMs": 1049.5755999684334,
-      "layoutMs": 1049.3587999939919,
+      "wallMs": 793.6369000077248,
+      "layoutMs": 793.4530000090599,
       "before": {
-        "rss": 122994688,
+        "rss": 122732544,
         "heapTotal": 81551360,
-        "heapUsed": 56137328,
+        "heapUsed": 55844600,
         "external": 7495234,
         "arrayBuffers": 10626
       },
       "after": {
-        "rss": 144887808,
+        "rss": 140140544,
         "heapTotal": 101474304,
-        "heapUsed": 70684288,
+        "heapUsed": 71036904,
         "external": 7495234,
         "arrayBuffers": 10626
       }
