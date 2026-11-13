@@ -41,3 +41,11 @@ Fresh additive rehearsal: 10 passing checks; synthetic restore failed. Fresh rel
 - [Exact SQL candidate directory](migration-review/hosted-beta/README.md)
 
 Hosted access was limited to read-only SQL and GET configuration endpoints. No hosted roles, records, grants, settings or schema changed. No deployment or real invitation occurred. Existing development fixtures were preserved.
+
+## Local passwordless authentication review — 2026-11-13
+
+Local email authentication passed on desktop and mobile using fictional `@example.test` accounts. Both new-account registration and returning-user sign-in reached local Supabase Auth (`POST /auth/v1/otp`, HTTP 200). Mailpit captured the messages at http://127.0.0.1:55324; verification links authenticated the user and returned to `/phase6.html`. Invitations survived same-tab verification and second-tab verification with continuation in the original invitation tab. Profile claiming still required explicit confirmation. Consumed and invalid tokens were rejected. Seven journey/security checks passed; eight release-boundary checks and the phase6 build passed. Screenshots and results are in `output/passwordless/`.
+
+The first run's returning-user test reloaded before asynchronous sign-out finished; the test now waits for the signed-out screen before reloading. The rerun passed. Docker was stopped at initial inspection and was started for this review. Local emails are captured, never delivered to real inboxes. The passwordless screen now explains this and links to Mailpit. Keep the invitation tab open and use the same browser; cross-browser/device invitation continuation was not tested.
+
+A fresh read-only GET of hosted Auth settings confirmed custom SMTP is absent, `site_url` is `http://localhost:3000`, the redirect allowlist is empty, and the email rate limit is 2/hour. See `output/passwordless/hosted-email-config.json`. Before private beta, configure an approved email provider/sender and domain authentication, set the beta HTTPS site URL and exact callback allowlist, choose suitable sending limits, and test approved-recipient delivery plus registration/sign-in/invitation continuation on the hosted candidate. No hosted settings or accounts were modified and no real-user emails were sent. Existing recovery/security and deployment approval gates remain unresolved.

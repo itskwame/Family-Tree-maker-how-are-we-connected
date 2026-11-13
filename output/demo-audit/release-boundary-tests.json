@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-21T17:40:32.783Z",
+  "date": "2026-11-13T22:41:25.082Z",
   "checks": [
     {
       "name": "Unconfigured release cannot reuse development or legacy .env credentials",

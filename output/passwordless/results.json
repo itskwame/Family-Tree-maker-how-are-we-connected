@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-21T14:27:31.331Z",
+  "at": "2026-11-13T22:57:18.368Z",
   "results": [
     {
       "name": "desktop: email-only new account, cooldown, verified session, invitation continuation, explicit claim and confirmed reveal",
@@ -11,12 +11,20 @@
       "status": "passed"
     },
     {
+      "name": "desktop: returning-user OTP request HTTP 200, fresh Mailpit email, redirect and authenticated session",
+      "status": "passed"
+    },
+    {
       "name": "mobile: email-only new account, cooldown, verified session, invitation continuation, explicit claim and confirmed reveal",
       "status": "passed",
       "continuation": "Same-tab email verification"
     },
     {
       "name": "mobile: consumed email verification token cannot be replayed",
+      "status": "passed"
+    },
+    {
+      "name": "mobile: returning-user OTP request HTTP 200, fresh Mailpit email, redirect and authenticated session",
       "status": "passed"
     },
     {

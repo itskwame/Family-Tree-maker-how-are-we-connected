@@ -4,9 +4,10 @@ import {demoEnabled} from './runtime.mjs';
 import './social.css';
 const act=(action,payload={})=>rpc('fc_social',{action,payload});
 export function PrivatePhoto({path,alt='',className=''}){
- const [url,setUrl]=useState('');
- useEffect(()=>{let live=true,object='';setUrl('');if(path)db.storage.from('family-private').download(path).then(({data,error})=>{if(live&&!error){object=URL.createObjectURL(data);setUrl(object)}});return()=>{live=false;if(object)URL.revokeObjectURL(object)}},[path]);
- return url?<img className={className} src={url} alt={alt}/>:<span className={`photo-fallback ${className}`} aria-label={alt||'Photograph unavailable'}>{alt?.trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('')||'○'}</span>;
+ const [url,setUrl]=useState(''),[visible,setVisible]=useState(false),element=useRef();
+ useEffect(()=>{if(!globalThis.IntersectionObserver){setVisible(true);return}const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){setVisible(true);observer.disconnect()}},{rootMargin:'250px'});if(element.current)observer.observe(element.current);return()=>observer.disconnect()},[path]);
+ useEffect(()=>{let live=true,object='';setUrl('');if(path&&visible)db.storage.from('family-private').download(path).then(({data,error})=>{if(live&&!error){object=URL.createObjectURL(data);setUrl(object)}});return()=>{live=false;if(object)URL.revokeObjectURL(object)}},[path,visible]);
+ return url?<img ref={element} className={className} src={url} alt={alt} decoding="async"/>:<span ref={element} className={`photo-fallback ${className}`} aria-label={alt||'Photograph unavailable'}>{alt?.trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('')||'○'}</span>;
 }
 async function upload(file,target){
  if(file.size>8*1024*1024)throw Error('Choose a photograph under 8 MB.');

@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-11-13T22:39:50.288580+00:00",
+  "method": "GET config/auth only",
+  "custom_smtp_configured": false,
+  "site_url": "http://localhost:3000",
+  "uri_allow_list": "",
+  "smtp_port": null,
+  "mailer_autoconfirm": false,
+  "rate_limit_email_sent": 2
+}

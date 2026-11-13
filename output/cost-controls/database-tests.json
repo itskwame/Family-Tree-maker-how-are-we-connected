@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-13T22:55:08.321Z",
+  "checks": [
+    {
+      "name": "Authenticated clients cannot bypass quota triggers or write storage",
+      "passed": true
+    },
+    {
+      "name": "Combined social/business upload daily limit survives deletion",
+      "passed": true
+    },
+    {
+      "name": "Completion rejects over-budget image; accepts compliant image",
+      "passed": true
+    },
+    {
+      "name": "Account storage quota rejects reservations without deleting existing photos",
+      "passed": true
+    },
+    {
+      "name": "Global storage cap includes stored objects and fails closed",
+      "passed": true
+    },
+    {
+      "name": "Concurrent messages cannot exceed daily cap; history remains readable",
+      "passed": true
+    }
+  ]
+}
