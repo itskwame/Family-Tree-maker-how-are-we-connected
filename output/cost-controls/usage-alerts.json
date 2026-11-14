@@ -1,0 +1,72 @@
+{
+  "checkedAt": "2026-11-13T22:58:56.349Z",
+  "scope": "isolated local database only; provider usage unknown",
+  "alerts": [
+    {
+      "metric": "databaseBytes",
+      "value": 16583827,
+      "limit": 500000000,
+      "status": "OK"
+    },
+    {
+      "metric": "storageBytes",
+      "value": 2248378,
+      "limit": 1000000000,
+      "status": "OK"
+    },
+    {
+      "metric": "uncachedEgressBytes",
+      "value": null,
+      "limit": 5000000000,
+      "status": "UNKNOWN"
+    },
+    {
+      "metric": "cachedEgressBytes",
+      "value": null,
+      "limit": 5000000000,
+      "status": "UNKNOWN"
+    },
+    {
+      "metric": "monthlyActiveUsers",
+      "value": null,
+      "limit": 50000,
+      "status": "UNKNOWN"
+    },
+    {
+      "metric": "realtimeMessages",
+      "value": null,
+      "limit": 2000000,
+      "status": "UNKNOWN"
+    },
+    {
+      "metric": "realtimePeakConnections",
+      "value": null,
+      "limit": 200,
+      "status": "UNKNOWN"
+    },
+    {
+      "metric": "edgeFunctionInvocations",
+      "value": null,
+      "limit": 500000,
+      "status": "UNKNOWN"
+    },
+    {
+      "metric": "authEmailsToday",
+      "value": null,
+      "limit": 100,
+      "status": "UNKNOWN"
+    },
+    {
+      "metric": "authEmailsMonth",
+      "value": null,
+      "limit": 3000,
+      "status": "UNKNOWN"
+    },
+    {
+      "metric": "netlifyCredits",
+      "value": null,
+      "limit": 300,
+      "status": "UNKNOWN"
+    }
+  ]
+}

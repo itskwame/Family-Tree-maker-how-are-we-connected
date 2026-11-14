@@ -20,3 +20,7 @@ DRAFT ONLY. Do not execute against hosted Supabase. Read [migration plan](../../
 | 13 | [20261021001300_media_finalize_and_message_deletion.sql](20261021001300_media_finalize_and_message_deletion.sql) | `fd9f51aab9d319aec7632d5534fb34fe060e3b2ce7344a12996a36c2cef9e691` |
 | 14 | [20261021001400_family_businesses.sql](20261021001400_family_businesses.sql) | `18c4aff74c5803db25c7b0f4678cc65397dcdc8c06920361954db0da6d2d7509` |
 | 15 | [20261021001500_business_private_projection.sql](20261021001500_business_private_projection.sql) | `288fac7f19b80ae2e564f229d163dabfff13756d71c08271fa3a4dd1507e3138` |
+
+| 16 | [20261113000100_cost_controls.sql](20261113000100_cost_controls.sql) | `314afc0c9d70938c137d867270fd482adddb54448e56940ff998240a8791e012` |
+
+2026-11-13: Cost-control candidate tested only on the isolated local stack. This extends the previous 16-file candidate; the old manifest and rehearsal do not certify this new 17-file set. Rehearse and regenerate the complete manifest before any hosted approval.

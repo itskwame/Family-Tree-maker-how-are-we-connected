@@ -1,0 +1,37 @@
+{
+  "reviewedOn": "2026-11-13",
+  "approvalRequiredForPaidServices": true,
+  "warningFraction": 0.7,
+  "criticalFraction": 0.9,
+  "maxSnapshotAgeHours": 48,
+  "limits": {
+    "databaseBytes": 500000000,
+    "storageBytes": 1000000000,
+    "uncachedEgressBytes": 5000000000,
+    "cachedEgressBytes": 5000000000,
+    "monthlyActiveUsers": 50000,
+    "realtimeMessages": 2000000,
+    "realtimePeakConnections": 200,
+    "edgeFunctionInvocations": 500000,
+    "authEmailsToday": 100,
+    "authEmailsMonth": 3000,
+    "netlifyCredits": 300
+  },
+  "application": {
+    "globalMediaReservationBytes": 800000000,
+    "accountMediaBytes": 50000000,
+    "processedPhotoAndThumbnailBytes": 500000,
+    "uploadsPerRollingDay": 20,
+    "messagesPerRollingDay": 1000,
+    "postsPerRollingDay": 50,
+    "commentsPerRollingDay": 200,
+    "chatsOrBusinessesPerRollingDayEach": 20,
+    "emailResendSeconds": 60
+  },
+  "providerConfiguration": {
+    "supabasePlanAndSpendCap": "unverified: billing dashboard access required",
+    "netlifyPlanAndRecharge": "unverified: billing dashboard access required",
+    "emailProvider": "not configured",
+    "automatedRemoteAlerts": "not connected; CLI alerts only"
+  }
+}
