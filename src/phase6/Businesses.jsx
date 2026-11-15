@@ -1,3 +1,4 @@
+import {preparePhoto} from './prepare-photo.mjs';
 import React,{useEffect,useRef,useState} from 'react';
 import {db,rpc,mediaEndpoint} from './client';
 import {PrivatePhoto} from './Social';
@@ -14,7 +15,7 @@ export function Businesses({network,onRelationship}){
  const mutate=(kind,payload={})=>run(async()=>{await action(kind,{id:listing,...payload});await load();setNotice('Saved.');});
  const open=id=>{setListing(id);setEdit(null);setCreating(false);setError('');window.scrollTo({top:0})};
  const d=data?.detail;
- async function upload(file,kind){if(!file)return;if(file.size>8*1024*1024)throw Error('Choose an image smaller than 8 MB.');const {data:s}=await db.auth.getSession();if(!mediaEndpoint)throw Error('Image uploads are not configured yet. A listing can use initials.');const r=await fetch(`${mediaEndpoint}/upload?business=${listing}&kind=${kind}`,{method:'POST',headers:{Authorization:`Bearer ${s.session.access_token}`,'Content-Type':file.type},body:file});const result=await r.json();if(!r.ok)throw Error(result.error);await load();setNotice('Image optimized and saved. Independent review is required before publication.');}
+ async function upload(file,kind){if(!file)return;if(file.size>8*1024*1024)throw Error('Choose an image smaller than 8 MB.');const {data:s}=await db.auth.getSession();if(!mediaEndpoint)throw Error('Image uploads are not configured yet. A listing can use initials.');const prepared=await preparePhoto(file);const r=await fetch(`${mediaEndpoint}/upload?business=${listing}&kind=${kind}`,{method:'POST',headers:{Authorization:`Bearer ${s.session.access_token}`,'Content-Type':prepared.type},body:prepared});const result=await r.json();if(!r.ok)throw Error(result.error);await load();setNotice('Image optimized and saved. Independent review is required before publication.');}
  if(!network)return <section className="card empty"><h2>Discover businesses in your family</h2><p>Accept a verified family invitation to explore this private directory. Listing a business is optional.</p></section>;
  return <section className={`businesses ${listing?'business-reading':''}`} aria-label="Family businesses">
  <div className="business-heading"><div><p className="eyebrow">MADE BY FAMILY</p><h1>Good people. Great businesses.</h1><p>Discover the skills, services, and small businesses in your family.</p></div>{!!data?.my_people.length&&<button className="primary" onClick={()=>{setCreating(true);setListing(null);setEdit(null)}}>Add a business</button>}</div>

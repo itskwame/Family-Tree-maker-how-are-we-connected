@@ -1,0 +1,50 @@
+{
+  "at": "2026-11-14T15:57:27.834Z",
+  "environment": "Netlify handler executed locally against isolated Supabase; not deployed",
+  "checks": [
+    {
+      "name": "Hosted endpoint disabled by default; wrong project and invalid origin rejected",
+      "passed": true
+    },
+    {
+      "name": "Bearer authentication required independently of CORS",
+      "passed": true
+    },
+    {
+      "name": "Hosted handler compresses and privately finalizes valid authenticated image",
+      "passed": true
+    },
+    {
+      "name": "Cross-family download and direct raw uploads remain denied",
+      "passed": true
+    },
+    {
+      "name": "Forged MIME, malformed data, oversize streaming body and unauthorized destination rejected",
+      "passed": true
+    },
+    {
+      "name": "Deleting pending media cannot free in-flight quota",
+      "passed": true
+    },
+    {
+      "name": "800 MB exhaustion rejects new uploads while existing private photos stay readable",
+      "passed": true
+    },
+    {
+      "name": "Uploads recover after capacity is freed",
+      "passed": true
+    },
+    {
+      "name": "Partial storage failure removes newly written objects",
+      "passed": true
+    },
+    {
+      "name": "Concurrent cross-account reservations cannot take the last slot twice",
+      "passed": true
+    },
+    {
+      "name": "Unknown object size fails closed",
+      "passed": true
+    }
+  ]
+}

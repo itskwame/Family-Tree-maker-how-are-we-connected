@@ -1,0 +1,63 @@
+import {createClient} from '@supabase/supabase-js';
+import {optimizePhoto} from '../scripts/image-policy.mjs';
+export const transportLimit=4_000_000;
+const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+export function hostedMediaConfig(env){
+ if(env.FC_MEDIA_ENABLED!=='true')throw Error('Media service is disabled');
+ const url=env.FC_SUPABASE_URL,origin=env.FC_APP_ORIGIN,key=env.FC_SUPABASE_ANON_KEY,secret=env.FC_SUPABASE_SERVICE_KEY;
+ if(url!=='https://jmsntxwkaneluqgnzzim.supabase.co')throw Error('Unexpected project');
+ const app=new URL(origin);if(app.protocol!=='https:'||app.origin!==origin||['localhost','127.0.0.1'].includes(app.hostname))throw Error('Exact HTTPS app origin required');
+ function role(k){try{return JSON.parse(Buffer.from(k.split('.')[1],'base64url')).role}catch{return ''}}
+ if(!(key?.startsWith('sb_publishable_')||role(key)==='anon')||!(secret?.startsWith('sb_secret_')||role(secret)==='service_role'))throw Error('Server credentials required');
+ return {url,origin,key,secret};
+}
+
+// The caller supplies explicit configuration. No fixture imports or local fallback.
+export function createMediaHandler(config){
+ const admin=createClient(config.url,config.secret,{global:{fetch:config.fetch},auth:{persistSession:false,autoRefreshToken:false}});
+ let active=0;
+ return async request=>{
+  const headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Vary':'Origin'};
+  const reply=(status,error)=>new Response(JSON.stringify(error),{status,headers:{...headers,'Content-Type':'application/json'}});
+  if(request.headers.get('origin')!==config.origin)return reply(403,{error:'Application origin required'});
+  headers['Access-Control-Allow-Origin']=config.origin;
+  if(request.method==='OPTIONS')return new Response(null,{status:204,headers:{...headers,'Access-Control-Allow-Headers':'authorization, content-type','Access-Control-Allow-Methods':'POST'}});
+  if(request.method!=='POST')return reply(405,{error:'POST required'});
+  if(active>=2)return reply(429,{error:'Uploads are busy. Please retry shortly.'});
+  active++;
+  let asset,user,business;
+  try{
+   const token=request.headers.get('authorization')?.match(/^Bearer (\S+)$/)?.[1];
+   if(!token)return reply(401,{error:'Sign in required'});
+   user=createClient(config.url,config.key,{global:{fetch:config.fetch,headers:{Authorization:`Bearer ${token}`}},auth:{persistSession:false,autoRefreshToken:false}});
+   const auth=await user.auth.getUser(token);if(auth.error||!auth.data.user)return reply(401,{error:'Sign in required'});
+   const type=request.headers.get('content-type');if(!['image/jpeg','image/png','image/webp'].includes(type))return reply(415,{error:'Use a still JPEG, PNG or WebP photograph'});
+   if(Number(request.headers.get('content-length'))>transportLimit)return reply(413,{error:'Prepared photo exceeds the 4 MB upload limit'});
+   const query=new URL(request.url).searchParams,targets=['business','post','person'].filter(k=>query.has(k));
+   if(targets.length!==1||!uuid.test(query.get(targets[0])))return reply(400,{error:'One valid upload destination is required'});
+   business=targets[0]==='business';const kind=query.get('kind')||'photo';
+   if(business&&!['logo','photo'].includes(kind))return reply(400,{error:'Invalid photograph kind'});
+   const payload=business?{id:query.get('business'),kind}:{[targets[0]]:query.get(targets[0])};
+   const reserved=await user.rpc(business?'fc_business':'fc_social',{action:'reserve_media',payload});
+   if(reserved.error){const message=reserved.error.message;if(/limit|storage|slow down|uploads are paused/i.test(message))return reply(429,{error:message});return reply(403,{error:'Upload destination is not authorized'});}
+   asset=reserved.data.id;
+   const reader=request.body?.getReader();if(!reader)throw Error('Invalid image');
+   const chunks=[];let size=0;
+   while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>transportLimit){await reader.cancel();throw Error('Prepared photo exceeds the 4 MB upload limit')}chunks.push(value)}
+   const image=await optimizePhoto(Buffer.concat(chunks));
+   for(const [name,data] of [['image',image.image],['thumbnail',image.thumbnail]]){
+    const result=await admin.storage.from('family-private').upload(`${asset}/${name}.webp`,data,{contentType:'image/webp',cacheControl:'0',upsert:false});if(result.error)throw Error('Storage write failed');
+   }
+   const complete=await admin.rpc(business?'fc_business_media_complete':'fc_media_complete',{asset,w:image.width,h:image.height,size_bytes:image.bytes});if(complete.error)throw Error('Final authorization failed');
+   return reply(200,{id:asset,width:image.width,height:image.height,bytes:image.bytes});
+  }catch(error){
+   if(asset){
+    // Never free a reservation while a failed storage deletion may leave bytes behind.
+    const removed=await admin.storage.from('family-private').remove([`${asset}/image.webp`,`${asset}/thumbnail.webp`]);
+    if(!removed.error)await user.rpc(business?'fc_business':'fc_social',{action:'delete_media',payload:business?{id:new URL(request.url).searchParams.get('business'),asset}:{id:asset}});
+   }
+   return reply(error.message.includes('4 MB')?413:400,{error:error.message.includes('4 MB')?error.message:'Photo could not be saved. Use a smaller still image or retry.'});
+  }finally{active--}
+ };
+}

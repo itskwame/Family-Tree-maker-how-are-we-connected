@@ -1,3 +1,4 @@
+import {preparePhoto} from './prepare-photo.mjs';
 import React,{useEffect,useRef,useState} from 'react';
 import {db,rpc,mediaEndpoint} from './client';
 import {demoEnabled} from './runtime.mjs';
@@ -13,7 +14,8 @@ async function upload(file,target){
  if(file.size>8*1024*1024)throw Error('Choose a photograph under 8 MB.');
  const {data}=await db.auth.getSession();
  if(!mediaEndpoint)throw Error('Photo uploads are not configured yet. Your profile can use initials.');
- const r=await fetch(`${mediaEndpoint}/upload?${new URLSearchParams(target)}`,{method:'POST',headers:{Authorization:`Bearer ${data.session.access_token}`,'Content-Type':file.type},body:file});const result=await r.json();if(!r.ok)throw Error(result.error);return result;
+ const prepared=await preparePhoto(file);
+ const r=await fetch(`${mediaEndpoint}/upload?${new URLSearchParams(target)}`,{method:'POST',headers:{Authorization:`Bearer ${data.session.access_token}`,'Content-Type':prepared.type},body:prepared});const result=await r.json();if(!r.ok)throw Error(result.error);return result;
 }
 export function Social({screen,network,session,onTree,onBuild,onBranches,onProfile,onMessages}){
  const [data,setData]=useState(),[error,setError]=useState(''),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false),[person,setPerson]=useState(null),[chat,setChat]=useState(null),[profileEdit,setProfileEdit]=useState(false),[composer,setComposer]=useState(false),[body,setBody]=useState(''),[files,setFiles]=useState([]),[draftId,setDraftId]=useState(null),[edit,setEdit]=useState(null),[editText,setEditText]=useState(''),[chatKind,setChatKind]=useState('direct'),[createChat,setCreateChat]=useState(false),[showList,setShowList]=useState(true),[realtime,setRealtime]=useState('Connecting…');

@@ -1,0 +1,73 @@
+{
+  "at": "2026-11-14T14:36:32.858Z",
+  "scope": "8 local fixture portraits and local database; not representative production traffic or serverless CPU",
+  "samples": [
+    {
+      "bytes": 88104,
+      "thumbnailBytes": 8296,
+      "milliseconds": 358
+    },
+    {
+      "bytes": 152370,
+      "thumbnailBytes": 20960,
+      "milliseconds": 282
+    },
+    {
+      "bytes": 42428,
+      "thumbnailBytes": 3334,
+      "milliseconds": 192
+    },
+    {
+      "bytes": 14534,
+      "thumbnailBytes": 3424,
+      "milliseconds": 123
+    },
+    {
+      "bytes": 14162,
+      "thumbnailBytes": 2728,
+      "milliseconds": 102
+    },
+    {
+      "bytes": 16872,
+      "thumbnailBytes": 3842,
+      "milliseconds": 96
+    },
+    {
+      "bytes": 19588,
+      "thumbnailBytes": 2364,
+      "milliseconds": 207
+    },
+    {
+      "bytes": 42208,
+      "thumbnailBytes": 6638,
+      "milliseconds": 225
+    }
+  ],
+  "tables": {
+    "people": {
+      "rows": 592,
+      "physicalBytes": 212992,
+      "averageRowBytes": 90
+    },
+    "posts": {
+      "rows": 171,
+      "physicalBytes": 131072,
+      "averageRowBytes": 133
+    },
+    "messages": {
+      "rows": 261,
+      "physicalBytes": 139264,
+      "averageRowBytes": 110
+    },
+    "comments": {
+      "rows": 26,
+      "physicalBytes": 49152,
+      "averageRowBytes": 128
+    },
+    "notifications": {
+      "rows": 123,
+      "physicalBytes": 90112,
+      "averageRowBytes": 81
+    }
+  }
+}

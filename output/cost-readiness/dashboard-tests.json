@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-14T15:58:32.214Z",
+  "checks": [
+    "Unknown actuals, zero invoices, full-quota warning, forecast recalculation and local save passed",
+    "Review JSON export passed",
+    "Desktop/mobile layouts without overflow or runtime errors"
+  ],
+  "passed": true
+}

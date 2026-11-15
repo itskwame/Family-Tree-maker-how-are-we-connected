@@ -24,3 +24,5 @@ DRAFT ONLY. Do not execute against hosted Supabase. Read [migration plan](../../
 | 16 | [20261113000100_cost_controls.sql](20261113000100_cost_controls.sql) | `314afc0c9d70938c137d867270fd482adddb54448e56940ff998240a8791e012` |
 
 2026-11-13: Cost-control candidate tested only on the isolated local stack. This extends the previous 16-file candidate; the old manifest and rehearsal do not certify this new 17-file set. Rehearse and regenerate the complete manifest before any hosted approval.
+
+2026-11-14 additional candidate: [20261114000100_durable_media_reservations.sql](20261114000100_durable_media_reservations.sql), SHA-256 `e18fd2341f7626fbf3f75cfc594b89dab760deb585168f4fe773135f50eea8c1`. The 18-file set requires a new full rehearsal and manifest; no hosted migration was applied.

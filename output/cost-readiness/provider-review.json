@@ -1,0 +1,36 @@
+{
+  "checkedOn": "2026-11-14",
+  "hostedMutations": false,
+  "providerBilling": {
+    "Supabase": {
+      "plan": "unverified",
+      "spendCap": "unverified",
+      "alerts": "unverified"
+    },
+    "Resend": {
+      "plan": "unverified",
+      "transactionalOverages": "unverified",
+      "alerts": "unverified"
+    },
+    "Netlify": {
+      "plan": "unverified",
+      "autoRecharge": "unverified",
+      "alerts": "unverified"
+    }
+  },
+  "accessEvidence": [
+    "Browser host unavailable; no authenticated billing dashboards",
+    "No connected Netlify or Resend provider tool",
+    "No NETLIFY/RESEND environment credentials or linked .netlify/state.json found"
+  ],
+  "supabaseAuthReadOnly": {
+    "checkedAt": "2026-11-14T15:41:57.324435+00:00",
+    "method": "GET config/auth only",
+    "custom_smtp_configured": false,
+    "site_url": "http://localhost:3000",
+    "uri_allow_list": "",
+    "smtp_port": null,
+    "mailer_autoconfirm": false,
+    "rate_limit_email_sent": 2
+  }
+}
