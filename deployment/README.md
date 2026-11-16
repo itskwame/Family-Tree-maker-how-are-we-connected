@@ -12,3 +12,6 @@ After a separately approved migration/release:
 - Failed/canceled reservations remain conservatively held for up to 24 hours. On new reservations, old ledger entries expire; actual orphan object bytes still count until the authorized maintenance worker removes them. No scheduled maintenance function has been enabled.
 
 Local checks: `node scripts/test-hosted-media.mjs`, `node scripts/test-hosted-transport.mjs`. They use fictional local accounts; they do not call the hosted project.
+
+
+2026-11-16: An inactive hourly `maintenance.mjs` candidate now calls the service-only retention RPC and removes its bounded orphan manifest via Storage. It requires `FC_MAINTENANCE_ENABLED=true` plus the existing enabled media configuration. Neither function is deployed. Local helper checks passed; hosted runtime, scheduler and failure-alert checks remain required. See [ordered backend actions](../HOSTED-BACKEND-NEXT-ACTIONS.md).

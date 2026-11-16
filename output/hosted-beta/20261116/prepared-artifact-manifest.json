@@ -1,0 +1,30 @@
+[
+  {
+    "file": "scripts/hosted-migration-sql.mjs",
+    "sha256": "da1aa9b9e3272a741802df0a3d9c961e171d359e6631b3e6d843b32b9fb30abc"
+  },
+  {
+    "file": "scripts/rehearse-hosted-beta-20261116.mjs",
+    "sha256": "9ddc5215c4c8f08f139eaeff401b45c4faae351b804b29793416122676841a15"
+  },
+  {
+    "file": "server/media-maintenance.mjs",
+    "sha256": "e7999428a9c677538c315183c219b20f02441f1a9e859ddb1f3e044ac879df63"
+  },
+  {
+    "file": "deployment/netlify/functions/maintenance.mjs",
+    "sha256": "7678b0d024f7ea5eb98a1db24fbf864cc5baaf5f3aca183b6f69271b24ea6db9"
+  },
+  {
+    "file": "deployment/netlify/functions/upload.mjs",
+    "sha256": "6596b7d848e970b44cdb429aa4b1972b71ca54288e9f22ae332a0a5491b892b2"
+  },
+  {
+    "file": "deployment/netlify/netlify.toml",
+    "sha256": "0be9c26a34009cd64b2525bde29494aee720a162e46f16bee2d6de9ae788013d"
+  },
+  {
+    "file": "output/hosted-beta/20261116/reviewed-transaction.sql",
+    "sha256": "5ffc70b2f2a5b34fda66591ac21cf4074cdddcfa9cffad29c7c023fbc7d37802"
+  }
+]

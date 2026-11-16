@@ -26,3 +26,8 @@ DRAFT ONLY. Do not execute against hosted Supabase. Read [migration plan](../../
 2026-11-13: Cost-control candidate tested only on the isolated local stack. This extends the previous 16-file candidate; the old manifest and rehearsal do not certify this new 17-file set. Rehearse and regenerate the complete manifest before any hosted approval.
 
 2026-11-14 additional candidate: [20261114000100_durable_media_reservations.sql](20261114000100_durable_media_reservations.sql), SHA-256 `e18fd2341f7626fbf3f75cfc594b89dab760deb585168f4fe773135f50eea8c1`. The 18-file set requires a new full rehearsal and manifest; no hosted migration was applied.
+
+
+## 2026-11-16 backend preparation update
+
+See [current ordered actions and manual settings](../../HOSTED-BACKEND-NEXT-ACTIONS.md). The complete 18-file set passed 12 isolated rehearsal checks, including actual durable-ledger resume and failure rollback. The two November migrations contain transaction wrappers: use the reviewed transaction generator, never concatenate raw files. Independent restore still fails on managed Auth ownership; hosted changes remain unapproved. A disabled maintenance-function candidate is prepared; no hosted service or active deployment configuration changed.

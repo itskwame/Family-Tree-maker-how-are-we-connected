@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {maintainPrivateMedia} from '../server/media-maintenance.mjs';
+const calls=[];
+const client=(data,error=null,storageError=null)=>({rpc:async name=>{assert.equal(name,'fc_social_maintenance');return {data,error}},storage:{from:bucket=>{assert.equal(bucket,'family-private');return {remove:async paths=>{calls.push(paths);return {error:storageError}}}}}});
+assert.deepEqual(await maintainPrivateMedia(client([])),{removed:0});
+assert.equal(calls.length,0);
+assert.deepEqual(await maintainPrivateMedia(client(['asset/image.webp'])),{removed:1});
+assert.deepEqual(calls,[['asset/image.webp']]);
+await assert.rejects(()=>maintainPrivateMedia(client(null,'denied')));
+await assert.rejects(()=>maintainPrivateMedia(client(['../wrong'])));
+await assert.rejects(()=>maintainPrivateMedia(client(['asset/image.webp'],null,'unavailable')));
+console.log('PASS cleanup is bounded, private-bucket-only, fail-closed and reports Storage failures');

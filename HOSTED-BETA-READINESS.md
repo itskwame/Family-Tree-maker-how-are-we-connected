@@ -65,3 +65,8 @@ Local usage alerts are configured at 70%/90% with explicit UNKNOWN/STALE states.
 Provider billing settings remain unverified: no authenticated billing dashboard, linked Netlify site or Resend connection was available. A fresh read-only hosted Auth GET confirms SMTP is still absent and localhost redirect settings remain. The selected Netlify baseline at 10,000 registrations / 2,000 MAU is now $54/month; $45 requires the separate Cloudflare-static alternative. All costs remain conditional on workload, compute, recovery and provider verification.
 
 The function bundle, app build, 11 handler-security scenarios, six quota scenarios, image/transport tests, release-boundary checks, dashboard interaction/layout checks and desktop/mobile social journeys passed locally. Hosted Linux Sharp packaging, runtime limits, cleanup scheduling, billing settings/alerts, load testing and existing security/recovery gates still block deployment. The full 18-file migration set needs a new manifest/rehearsal before approval. Dashboard numbers are manual inputs and forecasts, not observed hosted invoices.
+
+
+## 2026-11-16 backend preparation update
+
+See [current ordered actions and manual settings](HOSTED-BACKEND-NEXT-ACTIONS.md). The complete 18-file set passed 12 isolated rehearsal checks, including actual durable-ledger resume and failure rollback. The two November migrations contain transaction wrappers: use the reviewed transaction generator, never concatenate raw files. Independent restore still fails on managed Auth ownership; hosted changes remain unapproved. A disabled maintenance-function candidate is prepared; no hosted service or active deployment configuration changed.

@@ -21,3 +21,11 @@ dist-cleancheck/
 
 output/hosted-beta/private/
 local/hosted-rehearsal/
+
+local/hosted-rehearsal-20261116/
+output/hosted-beta/20261116/private/
+local/hosted-rehearsal-20261116-b/
+
+local/beta-final/
+local/beta-restore/
+output/hosted-beta/final/private/

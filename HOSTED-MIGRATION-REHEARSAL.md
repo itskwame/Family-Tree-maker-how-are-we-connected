@@ -34,3 +34,8 @@ This does **not** establish recoverability. Even successful same-cluster restora
 `scripts/prepare-hosted-rehearsal.py` prepares metadata DDL and candidate copies. `scripts/rehearse-hosted-beta.mjs` is hard-guarded to this local project/API and requires empty Auth. It refuses replay against the populated stack. For another full rehearsal, prepare a new isolated project/ports and review guard changes; never reset existing fixtures. Logs and the synthetic dump remain ignored in output/hosted-beta/private.
 
 No external consumer discovery, exact managed-platform clone, hosted account sign-in, durable ledger recovery, full candidate security matrix or successful restoration is claimed. No hosted migration or rollback was attempted.
+
+
+## 2026-11-16 backend preparation update
+
+See [current ordered actions and manual settings](HOSTED-BACKEND-NEXT-ACTIONS.md). The complete 18-file set passed 12 isolated rehearsal checks, including actual durable-ledger resume and failure rollback. The two November migrations contain transaction wrappers: use the reviewed transaction generator, never concatenate raw files. Independent restore still fails on managed Auth ownership; hosted changes remain unapproved. A disabled maintenance-function candidate is prepared; no hosted service or active deployment configuration changed.

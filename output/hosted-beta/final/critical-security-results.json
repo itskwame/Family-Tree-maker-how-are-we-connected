@@ -1,0 +1,50 @@
+{
+  "at": "2026-11-16T20:46:23.617Z",
+  "checks": [
+    {
+      "name": "Migration approves no existing account; unapproved users cannot found, self-admit, self-promote or mutate",
+      "passed": true
+    },
+    {
+      "name": "Approval does not verify email; confirmed approved founder must explicitly consent and can bootstrap only once",
+      "passed": true
+    },
+    {
+      "name": "Explicit independent reviewer appointment grants no person ownership",
+      "passed": true
+    },
+    {
+      "name": "Even a valid independently reviewed invitation cannot admit an unapproved account; approved acceptance is single-use",
+      "passed": true
+    },
+    {
+      "name": "Authorized history works; outsider RPC and raw database retrieval fail",
+      "passed": true
+    },
+    {
+      "name": "Realtime positive control delivers authorized notifications",
+      "passed": true
+    },
+    {
+      "name": "Block denies both sides direct/group history, pagination, chat list/counts, sends and database RLS; unrelated group member retains history",
+      "passed": true
+    },
+    {
+      "name": "Existing Realtime subscription denies blocked conversations while unaffected control still delivers",
+      "passed": true
+    },
+    {
+      "name": "Unblock restores accepted access; removed conversation member loses old history and live notifications",
+      "passed": true
+    },
+    {
+      "name": "Family membership removal denies old-token RPC, RLS notifications and Realtime without reconnecting",
+      "passed": true
+    },
+    {
+      "name": "Admission revocation denies existing sessions and rejoining without deleting accounts or family data",
+      "passed": true
+    }
+  ],
+  "scope": "Guarded local stack only; no hosted users or data"
+}

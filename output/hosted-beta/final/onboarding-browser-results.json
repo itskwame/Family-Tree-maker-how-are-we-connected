@@ -1,0 +1,12 @@
+{
+  "checks": [
+    {
+      "name": "1280px: fail-closed approval gate and explicit founder confirmation complete",
+      "passed": true
+    },
+    {
+      "name": "390px: fail-closed approval gate and explicit founder confirmation complete",
+      "passed": true
+    }
+  ]
+}

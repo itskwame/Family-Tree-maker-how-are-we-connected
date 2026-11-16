@@ -50,3 +50,8 @@ Confirm ownership through owner-driven verification; initial network administrat
 8. Admit real participants only after separate approval. Never automatically publish businesses or assign identities.
 
 See [security audit](HOSTED-SECURITY-AUDIT.md), [rollback](HOSTED-ROLLBACK-PLAN.md) and [readiness](HOSTED-BETA-READINESS.md).
+
+
+## 2026-11-16 backend preparation update
+
+See [current ordered actions and manual settings](HOSTED-BACKEND-NEXT-ACTIONS.md). The complete 18-file set passed 12 isolated rehearsal checks, including actual durable-ledger resume and failure rollback. The two November migrations contain transaction wrappers: use the reviewed transaction generator, never concatenate raw files. Independent restore still fails on managed Auth ownership; hosted changes remain unapproved. A disabled maintenance-function candidate is prepared; no hosted service or active deployment configuration changed.

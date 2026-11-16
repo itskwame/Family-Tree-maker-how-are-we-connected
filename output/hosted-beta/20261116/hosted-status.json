@@ -1,0 +1,97 @@
+{
+  "capturedAt": "2026-11-16T20:13:40.043039+00:00",
+  "accounts": 2,
+  "confirmed_accounts": 0,
+  "services": {
+    "backups": {
+      "status": 200,
+      "data": {
+        "region": "us-east-1",
+        "pitr_enabled": false,
+        "backups": []
+      }
+    },
+    "postgrest": {
+      "status": 200,
+      "data": {
+        "db_schema": "public,graphql_public",
+        "max_rows": 1000,
+        "db_extra_search_path": "public, extensions",
+        "db_pool": null
+      }
+    },
+    "auth": {
+      "status": 200,
+      "data": {
+        "disable_signup": false,
+        "mailer_autoconfirm": false,
+        "rate_limit_anonymous_users": 30,
+        "rate_limit_email_sent": 2,
+        "security_captcha_enabled": false,
+        "site_url": "http://localhost:3000",
+        "smtp_max_frequency": 60,
+        "smtp_port": null,
+        "uri_allow_list": "",
+        "custom_smtp_configured": false
+      }
+    }
+  },
+  "counts": {
+    "public.families": {
+      "status": 201,
+      "result": [
+        {
+          "record_count": 0
+        }
+      ]
+    },
+    "public.family_memberships": {
+      "status": 201,
+      "result": [
+        {
+          "record_count": 0
+        }
+      ]
+    },
+    "public.invites": {
+      "status": 201,
+      "result": [
+        {
+          "record_count": 0
+        }
+      ]
+    },
+    "auth.users": {
+      "status": 201,
+      "result": [
+        {
+          "record_count": 2
+        }
+      ]
+    },
+    "auth.identities": {
+      "status": 201,
+      "result": [
+        {
+          "record_count": 2
+        }
+      ]
+    },
+    "storage.buckets": {
+      "status": 201,
+      "result": [
+        {
+          "record_count": 0
+        }
+      ]
+    },
+    "storage.objects": {
+      "status": 201,
+      "result": [
+        {
+          "record_count": 0
+        }
+      ]
+    }
+  }
+}
