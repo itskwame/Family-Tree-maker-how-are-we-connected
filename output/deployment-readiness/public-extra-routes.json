@@ -1,0 +1,110 @@
+[
+  {
+    "path": "/business/",
+    "status": 200,
+    "type": "text/html; charset=UTF-8",
+    "bytes": 13730,
+    "homeFallback": false,
+    "supabaseRefs": [
+      "fvfviudlxyumnskakftp"
+    ],
+    "secretPattern": false,
+    "scriptSources": []
+  },
+  {
+    "path": "/family/invites",
+    "status": 200,
+    "type": "text/html; charset=UTF-8",
+    "bytes": 17631,
+    "homeFallback": false,
+    "supabaseRefs": [
+      "fvfviudlxyumnskakftp"
+    ],
+    "secretPattern": false,
+    "scriptSources": []
+  },
+  {
+    "path": "/family/manage",
+    "status": 200,
+    "type": "text/html; charset=UTF-8",
+    "bytes": 19173,
+    "homeFallback": false,
+    "supabaseRefs": [
+      "fvfviudlxyumnskakftp"
+    ],
+    "secretPattern": false,
+    "scriptSources": []
+  },
+  {
+    "path": "/feed/",
+    "status": 200,
+    "type": "text/html; charset=UTF-8",
+    "bytes": 22834,
+    "homeFallback": false,
+    "supabaseRefs": [
+      "fvfviudlxyumnskakftp"
+    ],
+    "secretPattern": false,
+    "scriptSources": []
+  },
+  {
+    "path": "/map/",
+    "status": 200,
+    "type": "text/html; charset=UTF-8",
+    "bytes": 12985,
+    "homeFallback": false,
+    "supabaseRefs": [
+      "fvfviudlxyumnskakftp"
+    ],
+    "secretPattern": false,
+    "scriptSources": [
+      "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    ]
+  },
+  {
+    "path": "/profile/view",
+    "status": 200,
+    "type": "text/html; charset=UTF-8",
+    "bytes": 12211,
+    "homeFallback": false,
+    "supabaseRefs": [
+      "fvfviudlxyumnskakftp"
+    ],
+    "secretPattern": false,
+    "scriptSources": []
+  },
+  {
+    "path": "/tree/builder",
+    "status": 200,
+    "type": "text/html; charset=UTF-8",
+    "bytes": 33341,
+    "homeFallback": false,
+    "supabaseRefs": [
+      "fvfviudlxyumnskakftp"
+    ],
+    "secretPattern": false,
+    "scriptSources": []
+  },
+  {
+    "path": "/netlify.toml",
+    "status": 404,
+    "type": null,
+    "bytes": 0,
+    "homeFallback": false,
+    "supabaseRefs": [],
+    "secretPattern": false,
+    "scriptSources": []
+  },
+  {
+    "path": "/next.config.js",
+    "status": 200,
+    "type": "text/html; charset=UTF-8",
+    "bytes": 39744,
+    "homeFallback": true,
+    "supabaseRefs": [],
+    "secretPattern": false,
+    "scriptSources": [
+      "js/main.js"
+    ]
+  }
+]

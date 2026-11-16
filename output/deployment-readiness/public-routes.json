@@ -1,0 +1,123 @@
+[
+  {
+    "path": "/dashboard/index.html",
+    "status": 200,
+    "url": "https://howareweconnected.com/dashboard/index.html",
+    "type": "text/html; charset=UTF-8",
+    "server": "Netlify",
+    "bytes": 6781,
+    "sameAsHome": false,
+    "scripts": [],
+    "supabaseUrls": [
+      "https://fvfviudlxyumnskakftp.supabase.co"
+    ],
+    "links": [
+      "#",
+      "/business/",
+      "/dashboard/",
+      "/family/invites",
+      "/family/manage",
+      "/feed/",
+      "/map/",
+      "/profile/view",
+      "/tree/builder",
+      "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+      "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+    ],
+    "sensitivePattern": false
+  },
+  {
+    "path": "/onboarding/welcome.html",
+    "status": 200,
+    "url": "https://howareweconnected.com/onboarding/welcome.html",
+    "type": "text/html; charset=UTF-8",
+    "server": "Netlify",
+    "bytes": 14122,
+    "sameAsHome": false,
+    "scripts": [],
+    "supabaseUrls": [
+      "https://fvfviudlxyumnskakftp.supabase.co"
+    ],
+    "links": [
+      "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+      "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+    ],
+    "sensitivePattern": false
+  },
+  {
+    "path": "/auth/login",
+    "status": 200,
+    "url": "https://howareweconnected.com/auth/login",
+    "type": "text/html; charset=UTF-8",
+    "server": "Netlify",
+    "bytes": 3745,
+    "sameAsHome": false,
+    "scripts": [],
+    "supabaseUrls": [
+      "https://fvfviudlxyumnskakftp.supabase.co"
+    ],
+    "links": [
+      "../css/style.css",
+      "/",
+      "/auth/signup"
+    ],
+    "sensitivePattern": false
+  },
+  {
+    "path": "/auth/signup",
+    "status": 200,
+    "url": "https://howareweconnected.com/auth/signup",
+    "type": "text/html; charset=UTF-8",
+    "server": "Netlify",
+    "bytes": 3898,
+    "sameAsHome": false,
+    "scripts": [],
+    "supabaseUrls": [
+      "https://fvfviudlxyumnskakftp.supabase.co"
+    ],
+    "links": [
+      "../css/style.css",
+      "/auth/login"
+    ],
+    "sensitivePattern": false
+  },
+  {
+    "path": "/package.json",
+    "status": 200,
+    "url": "https://howareweconnected.com/package.json",
+    "type": "application/json",
+    "server": "Netlify",
+    "bytes": 584,
+    "sameAsHome": false,
+    "scripts": [],
+    "supabaseUrls": [],
+    "links": [],
+    "sensitivePattern": false
+  },
+  {
+    "path": "/src/main.jsx",
+    "status": 200,
+    "url": "https://howareweconnected.com/src/main.jsx",
+    "type": "text/html; charset=UTF-8",
+    "server": "Netlify",
+    "bytes": 39744,
+    "sameAsHome": true,
+    "scripts": [
+      "js/main.js"
+    ],
+    "supabaseUrls": [],
+    "links": [
+      "#",
+      "#faq",
+      "#features",
+      "#how-it-works",
+      "#pricing",
+      "auth/login.html",
+      "auth/signup.html",
+      "css/style.css",
+      "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css",
+      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+    ],
+    "sensitivePattern": false
+  }
+]

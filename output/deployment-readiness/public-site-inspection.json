@@ -1,0 +1,123 @@
+{
+  "home": {
+    "path": "/",
+    "status": 200,
+    "url": "https://howareweconnected.com/",
+    "type": "text/html; charset=UTF-8",
+    "server": "Netlify"
+  },
+  "nextjs": false,
+  "assets": [
+    "css/style.css",
+    "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css",
+    "js/main.js"
+  ],
+  "supabaseUrls": [],
+  "jwtMetadata": [],
+  "secretPatternDetected": false,
+  "sourceMapReferences": [],
+  "linkedRoutes": [
+    "#",
+    "#faq",
+    "#features",
+    "#how-it-works",
+    "#pricing",
+    "auth/login.html",
+    "auth/signup.html",
+    "css/style.css",
+    "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css",
+    "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+  ],
+  "responses": [
+    {
+      "path": "css/style.css",
+      "status": 200,
+      "url": "https://howareweconnected.com/css/style.css",
+      "type": "text/css; charset=UTF-8",
+      "server": "Netlify",
+      "bytes": 21206,
+      "sameAsHome": false
+    },
+    {
+      "path": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css",
+      "status": 200,
+      "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css",
+      "type": "text/css; charset=utf-8",
+      "server": null,
+      "bytes": 102025,
+      "sameAsHome": false
+    },
+    {
+      "path": "js/main.js",
+      "status": 200,
+      "url": "https://howareweconnected.com/js/main.js",
+      "type": "application/javascript; charset=UTF-8",
+      "server": "Netlify",
+      "bytes": 11350,
+      "sameAsHome": false
+    },
+    {
+      "path": "/.env",
+      "status": 200,
+      "url": "https://howareweconnected.com/.env",
+      "type": "text/html; charset=UTF-8",
+      "server": "Netlify",
+      "bytes": 39744,
+      "sameAsHome": true
+    },
+    {
+      "path": "/.git/config",
+      "status": 200,
+      "url": "https://howareweconnected.com/.git/config",
+      "type": "text/html; charset=UTF-8",
+      "server": "Netlify",
+      "bytes": 39744,
+      "sameAsHome": true
+    },
+    {
+      "path": "/release-manifest.json",
+      "status": 200,
+      "url": "https://howareweconnected.com/release-manifest.json",
+      "type": "text/html; charset=UTF-8",
+      "server": "Netlify",
+      "bytes": 39744,
+      "sameAsHome": true
+    },
+    {
+      "path": "/phase6.html",
+      "status": 200,
+      "url": "https://howareweconnected.com/phase6.html",
+      "type": "text/html; charset=UTF-8",
+      "server": "Netlify",
+      "bytes": 39744,
+      "sameAsHome": true
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "url": "https://howareweconnected.com/robots.txt",
+      "type": "text/html; charset=UTF-8",
+      "server": "Netlify",
+      "bytes": 39744,
+      "sameAsHome": true
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "url": "https://howareweconnected.com/sitemap.xml",
+      "type": "text/html; charset=UTF-8",
+      "server": "Netlify",
+      "bytes": 39744,
+      "sameAsHome": true
+    },
+    {
+      "path": "https://howareweconnected.netlify.app/",
+      "status": 200,
+      "url": "https://howareweconnected.netlify.app/",
+      "type": "text/html; charset=UTF-8",
+      "server": "Netlify",
+      "bytes": 39744,
+      "sameAsHome": true
+    }
+  ]
+}

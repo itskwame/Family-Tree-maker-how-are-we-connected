@@ -1,0 +1,43 @@
+{
+  "projectListStatus": 200,
+  "legacyInAuthorizedProjectList": false,
+  "fvfviudlxyumnskakftp": {
+    "managementStatus": 403,
+    "project": null
+  },
+  "jmsntxwkaneluqgnzzim": {
+    "managementStatus": 200,
+    "project": {
+      "id": "jmsntxwkaneluqgnzzim",
+      "name": "Family Connect",
+      "status": "ACTIVE_HEALTHY"
+    }
+  },
+  "keyListStatus": 200,
+  "localKeyLength": 46,
+  "localKeyContainsWhitespace": false,
+  "publicKeyChecks": [
+    {
+      "type": "legacy",
+      "name": "anon",
+      "matchesLocal": false,
+      "authStatus": 200,
+      "valueAvailable": true
+    },
+    {
+      "type": "publishable",
+      "name": "default",
+      "matchesLocal": false,
+      "authStatus": 200,
+      "valueAvailable": true
+    },
+    {
+      "type": "publishable",
+      "name": "round3",
+      "matchesLocal": false,
+      "authStatus": 200,
+      "valueAvailable": true
+    }
+  ],
+  "localKeyAuthStatus": 401
+}

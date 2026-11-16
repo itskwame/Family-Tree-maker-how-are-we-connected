@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-11-16T01:40:41.546Z",
+  "commit": "25a226c6230bf066f99eca4e714c6c0dd52a8a40",
+  "scope": "Local production-mode build using local hosted public configuration (key validity reported separately), NOT a read of Netlify environment variables",
+  "publicAuthStatus": 401,
+  "publicKeyAccepted": false,
+  "publicKeyProjectMatches": false,
+  "mediaConfigured": false,
+  "manifest": {
+    "environment": "private-beta",
+    "demonstrations": false,
+    "publicAssetsCopied": false,
+    "deployable": true
+  },
+  "fileCount": 8,
+  "files": [
+    "dist-release\\assets\\elk-worker.min-CA_rswGg.js",
+    "dist-release\\assets\\elk.bundled-rAhhgNZn.js",
+    "dist-release\\assets\\layout.worker-D-i2Hz87.js",
+    "dist-release\\assets\\phase6-CZpRoHqV.css",
+    "dist-release\\assets\\phase6-DbFXRfI4.js",
+    "dist-release\\index.html",
+    "dist-release\\phase6.html",
+    "dist-release\\release-manifest.json"
+  ],
+  "forbiddenFiles": [],
+  "forbiddenStringHits": [],
+  "localKeyFound": false,
+  "containsCorrectProject": true
+}
