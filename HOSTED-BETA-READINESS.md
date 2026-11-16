@@ -1,5 +1,7 @@
 # Hosted beta readiness
 
+Latest critical-blocker work: [20-migration security review](HOSTED-CRITICAL-BETA-REVIEW.md) and [operator recovery runbook](HOSTED-RECOVERY-RUNBOOK.md). Historical findings below are retained; use the linked review for current local test status. Hosted changes remain unapproved.
+
 2026-10-21. **NO-GO for hosted migration and private beta.** Preparation is ready for review; deployment prerequisites are not satisfied.
 
 | Gate | Status | Evidence / next action |

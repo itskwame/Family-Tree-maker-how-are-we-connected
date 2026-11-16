@@ -1,5 +1,7 @@
 # FamilyConnect private beta backend — 2026-11-16
 
+Latest critical-blocker work: [20-migration security review](HOSTED-CRITICAL-BETA-REVIEW.md) and [operator recovery runbook](HOSTED-RECOVERY-RUNBOOK.md). Historical findings below are retained; use the linked review for current local test status. Hosted changes remain unapproved.
+
 Target: `jmsntxwkaneluqgnzzim`. Preparation only; no hosted changes or deployment authorized or performed. Keep Netlify publishing locked. This update supersedes the old 16-file rehearsal status, not the recovery/security gates.
 
 Fresh read-only inventory: two Auth users, two identities, neither email confirmed; all three legacy tables empty; zero buckets/objects. Custom SMTP absent; Site URL `http://localhost:3000`; redirect allowlist empty; email limit 2/hour; resend interval 60 seconds; CAPTCHA off; signup on. Backup API lists no backups and PITR is off. This does not rule out externally held backups. See [fresh evidence](output/hosted-beta/20261116/hosted-status.json).

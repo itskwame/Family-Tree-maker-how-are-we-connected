@@ -1,5 +1,7 @@
 # Backup, rollback and disaster recovery
 
+Latest critical-blocker work: [20-migration security review](HOSTED-CRITICAL-BETA-REVIEW.md) and [operator recovery runbook](HOSTED-RECOVERY-RUNBOOK.md). Historical findings below are retained; use the linked review for current local test status. Hosted changes remain unapproved.
+
 2026-10-21. **Blocked: no verified hosted recovery path.** The read-only backup API lists no backups and PITR is disabled. External backups might exist, but none has been supplied/tested. Synthetic restoration failed on managed schema ownership.
 
 ## Before hosted approval

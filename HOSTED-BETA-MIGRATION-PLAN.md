@@ -1,5 +1,7 @@
 # Hosted private beta migration plan
 
+Latest critical-blocker work: [20-migration security review](HOSTED-CRITICAL-BETA-REVIEW.md) and [operator recovery runbook](HOSTED-RECOVERY-RUNBOOK.md). Historical findings below are retained; use the linked review for current local test status. Hosted changes remain unapproved.
+
 2026-10-21. **Planning and isolated rehearsal only. Not approved for hosted execution.** Target: `jmsntxwkaneluqgnzzim`.
 
 Use additive installation of `familyconnect`, its public RPCs, private Storage policies and Realtime notification publication. Preserve `public.families`, `public.family_memberships`, `public.invites`, all Auth users and identities. Never reset, replace, merge accounts or import development records. Fresh hosted counts: two users, two identities, no legacy rows or Storage objects. Neither user currently has an email-confirmation timestamp. Recheck immediately before any eventual migration.

@@ -31,3 +31,8 @@ DRAFT ONLY. Do not execute against hosted Supabase. Read [migration plan](../../
 ## 2026-11-16 backend preparation update
 
 See [current ordered actions and manual settings](../../HOSTED-BACKEND-NEXT-ACTIONS.md). The complete 18-file set passed 12 isolated rehearsal checks, including actual durable-ledger resume and failure rollback. The two November migrations contain transaction wrappers: use the reviewed transaction generator, never concatenate raw files. Independent restore still fails on managed Auth ownership; hosted changes remain unapproved. A disabled maintenance-function candidate is prepared; no hosted service or active deployment configuration changed.
+
+
+## Final critical-readiness candidate
+
+The candidate now contains 20 files. The additions fix message revocation and add explicit private-beta admission/founder controls. See [current review](../../HOSTED-CRITICAL-BETA-REVIEW.md), [exact SHA-256 hashes](../../output/hosted-beta/final/SHA256SUMS.txt), and [manifest](../../output/hosted-beta/final/review-manifest.json). No data seeds or account grants are included. Hosted recovery remains a gate.
