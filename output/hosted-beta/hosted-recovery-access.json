@@ -1,0 +1,45 @@
+{
+  "at": "2026-11-16T22:43:45.186651+00:00",
+  "project": "jmsntxwkaneluqgnzzim",
+  "read_api_status": 201,
+  "inventory": [
+    {
+      "inventory": {
+        "server_version": "17.6",
+        "read_role": "supabase_read_only_user",
+        "auth_users": 2,
+        "auth_identities": 2,
+        "confirmed_users": 0,
+        "legacy_families": 0,
+        "legacy_memberships": 0,
+        "legacy_invites": 0,
+        "storage_buckets": 0,
+        "storage_objects": 0,
+        "schemas": [
+          "auth",
+          "extensions",
+          "graphql",
+          "graphql_public",
+          "public",
+          "realtime",
+          "storage",
+          "vault"
+        ]
+      }
+    }
+  ],
+  "backup_api_status": 200,
+  "listed_backup_count": 0,
+  "pitr_enabled": false,
+  "auth_config_status": 200,
+  "auth_configuration": {
+    "site_url": "http://localhost:3000",
+    "uri_allow_list": "",
+    "disable_signup": false,
+    "mailer_autoconfirm": false
+  },
+  "pooler_api_status": 404,
+  "database_password_found": false,
+  "recovery_proven": false,
+  "blocker": "No existing PostgreSQL password/connection credential found; Management API access is not a tested pg_dump connection."
+}
